@@ -58,7 +58,7 @@ const Navigation: FC<Props> = () => {
   return (
     <Wrapper>
       {data.map((cat, idx) => (
-        <Category>
+        <Category key={idx}>
           <div
             className="title"
             onClick={() => setCurrent(idx === current ? null : idx)}
@@ -73,7 +73,7 @@ const Navigation: FC<Props> = () => {
           <div className={current === idx ? "show" : "hide"}>
             {cat.subcategory &&
               cat.subcategory.map((sub, idx) => (
-                <Sub>
+                <Sub key={idx}>
                   <Link to={sub.link}>
                     <div>{sub.name}</div>
                   </Link>

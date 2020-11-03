@@ -4,7 +4,7 @@ import React, { FC } from "react";
 import Layout from "../../components/Layout";
 
 //import styles and assets
-import styled from "styled-components";
+// import styled from "styled-components";
 
 interface Props {}
 
