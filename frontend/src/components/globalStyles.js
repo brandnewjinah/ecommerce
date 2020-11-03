@@ -12,9 +12,8 @@ const GlobalStyle = createGlobalStyle`
     }
     body {
         width: 100%;
-        max-width: 1360px;
         height: 100%;
-        margin: 0 auto;
+        margin: 0;
         padding: 0;
         background-color: white;
         font-size: 1.05rem;

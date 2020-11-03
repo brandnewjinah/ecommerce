@@ -1,14 +1,12 @@
 import React, { FC } from "react";
 
-//import componnets
-
 //import styles and assets
 import styled from "styled-components";
 
 interface Props {}
 
-const Home: FC<Props> = () => {
-  return <Wrapper>home</Wrapper>;
+const Category3: FC<Props> = () => {
+  return <Wrapper>Category 3</Wrapper>;
 };
 
 const Wrapper = styled.div`
@@ -17,4 +15,4 @@ const Wrapper = styled.div`
   margin: 0 auto;
 `;
 
-export default Home;
+export default Category3;
