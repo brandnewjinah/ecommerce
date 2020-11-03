@@ -2,39 +2,32 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 //import components
-import Header from "./components/Header";
-import Navigation from "./components/Navigation";
-import Footer from "./components/Footer";
+import Layout from "./components/Layout";
 
 //import pages
 import Home from "./pages/Home";
-import Category1 from "./pages/Category1";
-import Category2 from "./pages/Category2";
-import Category3 from "./pages/Category3";
 
-//import styles and assets
-import styled from "styled-components";
+//products
+import ProductList from "./pages/products/ProductList";
+import AddProduct from "./pages/products/AddProduct";
+
+import Orders from "./pages/Orders";
+import UserList from "./pages/UserList";
 
 const Routes = () => {
   return (
     <Router>
-      <Header />
-      <Wrapper>
-        <Navigation />
+      <Layout>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/1" component={Category1} />
-          <Route exact path="/2" component={Category2} />
-          <Route exact path="/3" component={Category3} />
+          <Route exact path="/products" component={ProductList} />
+          <Route exact path="/addproduct" component={AddProduct} />
+          <Route exact path="/orders" component={Orders} />
+          <Route exact path="/users" component={UserList} />
         </Switch>
-      </Wrapper>
-      <Footer />
+      </Layout>
     </Router>
   );
 };
-
-const Wrapper = styled.div`
-  display: flex;
-`;
 
 export default Routes;
