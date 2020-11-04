@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
         background-color: white;
-        font-size: 1.05rem;
+        font-size: 1rem;
         line-height: 1.875rem;
         font-weight: 400;
     }

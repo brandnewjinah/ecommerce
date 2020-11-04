@@ -7,13 +7,14 @@ import Button from "../../components/Button";
 
 //import styles and assets
 import styled from "styled-components";
-import { getPositionOfLineAndCharacter } from "typescript";
 
 const AddProduct = () => {
   const [data, setData] = useState({
     name: "",
     price: "",
     category: "",
+    brand: "",
+    code: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -35,6 +36,12 @@ const AddProduct = () => {
     if (data.category === "") {
       errors.category = "Category is required";
     }
+    // if (data.brand === "") {
+    //   errors.brand = "Brand is required";
+    // }
+    if (data.code === "") {
+      errors.code = "Code is required";
+    }
     return Object.keys(errors).length === 0 ? null : errors;
   };
 
@@ -53,6 +60,7 @@ const AddProduct = () => {
         name: data.name,
         price: data.price,
         category: data.category,
+        code: data.code,
       };
       console.log(product);
       const productProduct = await axios.post(
@@ -86,6 +94,18 @@ const AddProduct = () => {
           label="Category"
           name="category"
           error={errors.category}
+          handleChange={handleChange}
+        />
+        <Input
+          label="Brand"
+          name="brand"
+          error={errors.brand}
+          handleChange={handleChange}
+        />
+        <Input
+          label="Code"
+          name="code"
+          error={errors.code}
           handleChange={handleChange}
         />
         <Button label="Post" />

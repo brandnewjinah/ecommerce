@@ -23,29 +23,54 @@ const ProductList: FC<Props> = () => {
   return (
     <Wrapper>
       <h4>Inventory</h4>
-      {data.map((p, idx) => (
-        <div
-          className={idx % 2 === 0 ? "container" : "container odd"}
-          key={idx}
-        >
-          <div>{p.name}</div>
-          <div>{p.price}</div>
-          <div>{p.category}</div>
-        </div>
-      ))}
+      <p>{data.length} products total</p>
+      <Container>
+        {data.map((p, idx) => (
+          <div
+            className={idx % 2 === 0 ? "container" : "container odd"}
+            key={idx}
+          >
+            <div className="code">{p.code}</div>
+            <div className="name">{p.name}</div>
+            <div className="price">{p.price}</div>
+            <div className="cat">{p.category}</div>
+          </div>
+        ))}
+      </Container>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
   .container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    display: flex;
+
+    padding: 1em;
   }
 
   .odd {
-    background-color: #e4e4e4;
+    background-color: #fafafa;
   }
+
+  .code {
+    width: 10%;
+  }
+  .name {
+    width: 40%;
+  }
+  .price {
+    width: 20%;
+  }
+  .cat {
+    width: 30%;
+  }
+`;
+
+const Container = styled.div`
+  background-color: #fff;
+  border: 1px solid #f4f4f4;
+  border-radius: 0.5em;
 `;
 
 export default ProductList;

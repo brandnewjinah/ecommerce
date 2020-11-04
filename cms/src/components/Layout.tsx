@@ -18,7 +18,7 @@ const Layout: FC<Props> = ({ children }) => {
       <Header />
       <Container>
         <Navigation />
-        <div>{children}</div>
+        <div className="main">{children}</div>
       </Container>
       <Footer />
     </Wrapper>
@@ -29,6 +29,12 @@ const Wrapper = styled.div``;
 
 const Container = styled.div`
   display: flex;
+
+  .main {
+    flex: 1;
+    background-color: #fcfcfc;
+    padding: 1em;
+  }
 `;
 
 export default Layout;
