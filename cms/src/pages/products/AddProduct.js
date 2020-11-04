@@ -92,11 +92,11 @@ const AddProduct = () => {
         brand: data.brand,
         code: data.code,
       };
-      console.log(product);
-      // const productProduct = await axios.post(
-      //   "http://localhost:5000/product",
-      //   product
-      // );
+      // console.log(product);
+      const productProduct = await axios.post(
+        "http://localhost:5000/product",
+        product
+      );
     } catch (ex) {
       if (ex.response && ex.presponse.status === 400) {
         alert("error");

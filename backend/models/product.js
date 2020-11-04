@@ -13,7 +13,10 @@ const productSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  category: {
+  category1: {
+    type: String,
+  },
+  category2: {
     type: String,
   },
   brand: {
