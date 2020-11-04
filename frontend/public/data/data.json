@@ -1,0 +1,59 @@
+{
+  "products": [
+    {
+      "id": "5fa1bfde7530a27250fb73fc",
+      "name": "Denim Jacket",
+      "price": "189.50",
+      "category": "Jackets & Coats",
+      "code": "101",
+      "request": {
+        "type": "GET",
+        "url": "http://localhost:5000/product/5fa1bfde7530a27250fb73fc"
+      }
+    },
+    {
+      "id": "5fa1c9210344f0770986c012",
+      "name": "Cable Cardigan Sweather",
+      "price": "110.00",
+      "category": "Sweater",
+      "code": "201",
+      "request": {
+        "type": "GET",
+        "url": "http://localhost:5000/product/5fa1c9210344f0770986c012"
+      }
+    },
+    {
+      "id": "5fa1ebf4b6927d8593610788",
+      "name": "Colorblock Pullover",
+      "price": "65.00",
+      "category": "Sweater",
+      "code": "202",
+      "request": {
+        "type": "GET",
+        "url": "http://localhost:5000/product/5fa1ebf4b6927d8593610788"
+      }
+    },
+    {
+      "id": "5fa222d5a396889352be41d3",
+      "name": "Whisper Cotton Tee",
+      "price": "29.50",
+      "category": "Tee",
+      "code": "301",
+      "request": {
+        "type": "GET",
+        "url": "http://localhost:5000/product/5fa222d5a396889352be41d3"
+      }
+    },
+    {
+      "id": "5fa2234aa396889352be41d4",
+      "name": "Ribbed Polo Shirt",
+      "price": "55.00",
+      "category": "Shirts",
+      "code": "401",
+      "request": {
+        "type": "GET",
+        "url": "http://localhost:5000/product/5fa2234aa396889352be41d4"
+      }
+    }
+  ]
+}

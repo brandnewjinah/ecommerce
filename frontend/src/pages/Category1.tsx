@@ -1,8 +1,10 @@
 import React, { FC, useState, useEffect } from "react";
+import config from "../config.json";
 import axios from "axios";
 
 //import components
 import ProductCard from "../components/ProductCard";
+import Filter from "../components/Filter";
 
 //import styles and assets
 import styled from "styled-components";
@@ -17,13 +19,15 @@ const Category1: FC<Props> = () => {
   }, []);
 
   const getData = async () => {
-    const { data } = await axios.get("http://localhost:5000/product");
+    //   const { data } = await axios.get(`${config.API}/product`);
+    const { data } = await axios.get("./data/data.json");
     setData(data.products);
   };
 
   return (
     <Wrapper>
       <h2>Products</h2>
+      <Filter />
       <Container>
         {data.map((product, idx) => (
           <div key={idx} className="col">

@@ -18,23 +18,30 @@ const Layout: FC<Props> = ({ children }) => {
       <Header />
       <Container>
         <Navigation />
-        <div className="main">{children}</div>
+        <Main>
+          <Content>{children}</Content>
+          <Footer />
+        </Main>
       </Container>
-      <Footer />
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div``;
 
-const Container = styled.div`
+const Container = styled.main`
   display: flex;
+`;
 
-  .main {
-    flex: 1;
-    background-color: #fcfcfc;
-    padding: 1em;
-  }
+const Main = styled.section`
+  flex: 1;
+  background-color: #fcfcfc;
+  margin-left: 250px;
+  margin-top: 70px;
+`;
+
+const Content = styled.div`
+  padding: 2em;
 `;
 
 export default Layout;

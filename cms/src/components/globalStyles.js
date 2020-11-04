@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
         background-color: white;
-        font-size: 1rem;
+        font-size: 0.9rem;
         line-height: 1.875rem;
         font-weight: 400;
     }
@@ -55,12 +55,11 @@ const GlobalStyle = createGlobalStyle`
 
     ul {
         list-style-position: inside;
-        text-indent:-20px;
+        list-style: none;
     }
 
     li {
-        margin-left: 20px;
-        margin-right: 20px;
+
     }
 
     a {

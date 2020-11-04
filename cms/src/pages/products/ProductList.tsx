@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 //import components
@@ -16,7 +17,8 @@ const ProductList: FC<Props> = () => {
   }, []);
 
   const getData = async () => {
-    const { data } = await axios.get("http://localhost:5000/product");
+    //   const { data } = await axios.get(`${config.API}/product`);
+    const { data } = await axios.get("./data/data.json");
     setData(data.products);
   };
 
@@ -30,10 +32,14 @@ const ProductList: FC<Props> = () => {
             className={idx % 2 === 0 ? "container" : "container odd"}
             key={idx}
           >
-            <div className="code">{p.code}</div>
-            <div className="name">{p.name}</div>
-            <div className="price">{p.price}</div>
-            <div className="cat">{p.category}</div>
+            <Link to={`/products/${p.id}`}>
+              <div className="code">{p.code}</div>
+              <div className="name">{p.name}</div>
+              <div className="price">
+                {p.price.currency === "USD" && `$${p.price.current_price}`}
+              </div>
+              <div className="cat">{p.category}</div>
+            </Link>
           </div>
         ))}
       </Container>
@@ -45,8 +51,12 @@ const Wrapper = styled.div`
   .container {
     width: 100%;
     display: flex;
-
     padding: 1em;
+  }
+
+  a {
+    width: 100%;
+    display: flex;
   }
 
   .odd {

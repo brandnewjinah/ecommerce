@@ -10,7 +10,14 @@ const Header: FC<Props> = () => {
 };
 
 const Wrapper = styled.div`
-  background-color: aliceblue;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background-color: #fff;
+  height: 70px;
+  box-shadow: 0 0 1em 0.75em rgba(18, 38, 63, 0.02);
 `;
 
 export default Header;

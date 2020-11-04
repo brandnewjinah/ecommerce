@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 //import styles and assets
 import styled from "styled-components";
+import { ChevronDown } from "../assets/Icons";
+import { MenuIcon } from "../assets/MenuIcon";
 
 const data = [
   {
@@ -53,67 +55,133 @@ const data = [
 interface Props {}
 
 const Navigation: FC<Props> = () => {
-  const [current, setCurrent] = useState<any>(null);
+  const [open, setOpen] = useState<any>(null);
+  const [active, setActive] = useState<any>(null);
+
+  const handleCurrent = (idx: any, name: any) => {
+    setOpen(idx === open ? null : idx);
+    setActive(name);
+  };
 
   return (
     <Wrapper>
-      {data.map((cat, idx) => (
-        <Category key={idx}>
-          <div
-            className="title"
-            onClick={() => setCurrent(idx === current ? null : idx)}
-          >
-            {cat.link ? (
-              <Link to={cat.link}>{cat.name}</Link>
+      <ul>
+        {data.map((cat, idx) => (
+          <>
+            {!cat.subcategory ? (
+              <li
+                className={cat.name === active ? "title active" : "title"}
+                onClick={() => handleCurrent(idx, cat.name)}
+              >
+                <Link to={cat.link}>
+                  <MenuIcon
+                    name={cat.name}
+                    width="14"
+                    height="14"
+                    color={idx === open ? "#46a8d4" : "#444"}
+                    stroke="2"
+                  />
+                  <div style={{ marginLeft: `10px` }}>{cat.name}</div>
+                </Link>
+              </li>
             ) : (
-              <div>{cat.name}</div>
+              <li>
+                <div
+                  className="title flexspace"
+                  onClick={() => setOpen(idx === open ? null : idx)}
+                >
+                  <div className="flex">
+                    <MenuIcon
+                      name={cat.name}
+                      width="14"
+                      height="14"
+                      color={idx === open ? "#46a8d4" : "#444"}
+                      stroke="2"
+                    />
+                    <div style={{ marginLeft: `10px` }}>{cat.name}</div>
+                  </div>
+                  <IconContainer
+                    style={
+                      idx === open
+                        ? { transform: `rotate(180deg)` }
+                        : { transform: `rotate(0deg)` }
+                    }
+                  >
+                    <ChevronDown
+                      width="14"
+                      height="14"
+                      color="#000"
+                      stroke="2"
+                    />
+                  </IconContainer>
+                </div>
+                <ul className={idx === open ? "" : "hide"}>
+                  {cat.subcategory.map((sub) => (
+                    <li
+                      className={sub.name === active ? "title active" : "title"}
+                      onClick={() => setActive(sub.name)}
+                    >
+                      <Link to={sub.link}>
+                        <div style={{ paddingLeft: `1.75em` }}>{sub.name}</div>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </li>
             )}
-          </div>
-
-          <div className={current === idx ? "show" : "hide"}>
-            {cat.subcategory &&
-              cat.subcategory.map((sub, idx) => (
-                <Sub key={idx}>
-                  <Link to={sub.link}>
-                    <div>{sub.name}</div>
-                  </Link>
-                </Sub>
-              ))}
-          </div>
-        </Category>
-      ))}
+          </>
+        ))}
+      </ul>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div`
-  background-color: aliceblue;
-  display: flex;
-  flex-direction: column;
-`;
+const Wrapper = styled.section`
+  background-color: #fff;
+  position: fixed;
+  height: calc(100vh - 70px);
+  width: 250px;
+  margin-top: 70px;
+  padding-top: 2em;
+  z-index: 10;
+  box-shadow: 1em 0 1em -1em rgba(18, 38, 63, 0.03);
 
-const Category = styled.div`
-  margin: 0 2em;
-
-  .title {
-    background-color: mistyrose;
+  li {
+    cursor: pointer;
   }
 
-  .show {
-    max-height: 100%;
-    transition: all 0.3s ease;
+  a {
+    display: flex;
+  }
+
+  .title {
+    padding: 0.75em 1.5em;
+  }
+
+  .flex {
+    display: flex;
+    align-items: center;
+  }
+
+  .flexspace {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .hide {
     height: 0;
     overflow: hidden;
-    transition: all 0.3s ease;
+  }
+
+  .active {
+    background-color: #f4f4f4;
   }
 `;
 
-const Sub = styled.div`
-  display: flex;
-  flex-direction: column;
+const IconContainer = styled.div`
+  transform-origin: center;
+  transition: all 0.3s;
 `;
 
 export default Navigation;
