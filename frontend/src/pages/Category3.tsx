@@ -9,10 +9,6 @@ const Category3: FC<Props> = () => {
   return <Wrapper>Category 3</Wrapper>;
 };
 
-const Wrapper = styled.div`
-  width: 100%;
-  max-width: 1360px;
-  margin: 0 auto;
-`;
+const Wrapper = styled.div``;
 
 export default Category3;

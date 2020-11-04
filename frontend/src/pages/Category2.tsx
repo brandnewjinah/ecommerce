@@ -9,10 +9,12 @@ const Category2: FC<Props> = () => {
   return <Wrapper>Category 2</Wrapper>;
 };
 
-const Wrapper = styled.div`
-  width: 100%;
-  max-width: 1360px;
-  margin: 0 auto;
+const Wrapper = styled.div``;
+
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
 `;
 
 export default Category2;
