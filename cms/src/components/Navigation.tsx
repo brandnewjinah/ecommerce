@@ -14,7 +14,7 @@ const data = [
     subcategory: [
       {
         name: "Inventory",
-        link: "",
+        link: "/products",
       },
       {
         name: "Add a Product",
