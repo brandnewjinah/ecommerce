@@ -7,8 +7,9 @@ interface Props {
   error?: string;
   label?: string;
   type?: string;
-  value?: string;
+  value?: any;
   name?: string;
+  prefix?: string;
   handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -18,18 +19,22 @@ const Input: FC<Props> = ({
   type,
   value,
   name,
+  prefix,
   handleChange,
 }) => {
   return (
     <Wrapper>
       <label htmlFor="">{label}</label>
-      <input
-        className={error ? "input error" : "input"}
-        type={type}
-        value={value}
-        name={name}
-        onChange={handleChange}
-      />
+      <InputContainer>
+        {prefix && <div>{prefix}</div>}
+        <input
+          className={error ? "input error" : "input"}
+          type={type}
+          value={value}
+          name={name}
+          onChange={handleChange}
+        />
+      </InputContainer>
       {/* {error && <Error>{error}</Error>} */}
       <Error>{error}</Error>
     </Wrapper>
@@ -37,16 +42,23 @@ const Input: FC<Props> = ({
 };
 
 const Wrapper = styled.div`
-  .input {
-    width: 100%;
-    border: 1px solid #e4e4e4;
-    border-radius: 0.25em;
-    padding: 0.75em;
-    margin: 0.5em 0;
-  }
-
   .error {
     border: 1px solid red;
+  }
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  align-items: center;
+  border: 1px solid #e4e4e4;
+  border-radius: 0.25em;
+  padding: 0 1em;
+
+  .input {
+    width: 100%;
+    border: transparent;
+    padding: 0.75em;
+    margin: 0.5em 0;
   }
 `;
 

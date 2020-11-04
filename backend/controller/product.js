@@ -52,7 +52,7 @@ exports.product_get_all = (req, res) => {
             price: product.price,
             category: product.category,
             brand: product.brand,
-            code: product.code,
+            // code: product.code,
             request: {
               type: "GET",
               url: "http://localhost:5000/product/" + product._id,

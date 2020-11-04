@@ -4,15 +4,36 @@ import axios from "axios";
 //import components
 import Input from "../../components/Input";
 import Button from "../../components/Button";
+import Dropdown from "../../components/Dropdown";
 
 //import styles and assets
 import styled from "styled-components";
+
+const catData = [
+  {
+    name: "Beverages",
+    subcategory: [{ name: "Coffee" }, { name: "Tea" }, { name: "Other" }],
+  },
+  {
+    name: "Snacks",
+    subcategory: [{ name: "Chips" }, { name: "Candy" }, { name: "Cookies" }],
+  },
+  {
+    name: "Health",
+    subcategory: [
+      { name: "Vitamins" },
+      { name: "Supplements" },
+      { name: "Baby" },
+    ],
+  },
+];
 
 const AddProduct = () => {
   const [data, setData] = useState({
     name: "",
     price: "",
-    category: "",
+    category1: "",
+    category2: "",
     brand: "",
     code: "",
   });
@@ -25,6 +46,16 @@ const AddProduct = () => {
     setData(userInput);
   };
 
+  const handleCategory = (item) => {
+    let newData = { ...data, category1: item };
+    setData(newData);
+  };
+
+  const handleOptions = (item) => {
+    let newData = { ...data, category2: item };
+    setData(newData);
+  };
+
   const validate = () => {
     const errors = {};
     if (data.name === "") {
@@ -32,9 +63,6 @@ const AddProduct = () => {
     }
     if (data.price === "") {
       errors.price = "Price is required";
-    }
-    if (data.category === "") {
-      errors.category = "Category is required";
     }
     // if (data.brand === "") {
     //   errors.brand = "Brand is required";
@@ -59,14 +87,16 @@ const AddProduct = () => {
       const product = {
         name: data.name,
         price: data.price,
-        category: data.category,
+        category1: data.category1,
+        category2: data.category2,
+        brand: data.brand,
         code: data.code,
       };
       console.log(product);
-      const productProduct = await axios.post(
-        "http://localhost:5000/product",
-        product
-      );
+      // const productProduct = await axios.post(
+      //   "http://localhost:5000/product",
+      //   product
+      // );
     } catch (ex) {
       if (ex.response && ex.presponse.status === 400) {
         alert("error");
@@ -85,23 +115,35 @@ const AddProduct = () => {
           handleChange={handleChange}
         />
         <Input
-          label="Price"
-          name="price"
-          error={errors.price}
-          handleChange={handleChange}
-        />
-        <Input
-          label="Category"
-          name="category"
-          error={errors.category}
-          handleChange={handleChange}
-        />
-        <Input
           label="Brand"
           name="brand"
           error={errors.brand}
           handleChange={handleChange}
         />
+        <Input
+          label="Price"
+          name="price"
+          prefix="$"
+          value={data.price}
+          error={errors.price}
+          handleChange={handleChange}
+        />
+        <div style={{ margin: `1em 0`, width: `40%` }}>
+          <Dropdown
+            data={catData}
+            handleSelection={(item) => handleCategory(item)}
+          />
+        </div>
+        <div style={{ margin: `1em 0`, width: `40%` }}>
+          {data.category1 !== "" && (
+            <Dropdown
+              data={
+                catData.filter((f) => f.name === data.category1)[0].subcategory
+              }
+              handleSelection={(item) => handleOptions(item)}
+            />
+          )}
+        </div>
         <Input
           label="Code"
           name="code"
