@@ -4,20 +4,27 @@ import { Link } from "react-router-dom";
 //import styles and assets
 import styled from "styled-components";
 
-interface Props {}
+interface Props {
+  user?: any;
+}
 
-const Header: FC<Props> = () => {
+const Header: FC<Props> = (props) => {
   return (
     <Wrapper>
       <Container>
         <Left>left</Left>
         <Right className="flex">
-          <Link to="/signup">
-            <div>Signup</div>
-          </Link>
-          <Link to="/login">
-            <div>Login</div>
-          </Link>
+          {!props.user && (
+            <>
+              <Link to="/signup">
+                <div>Signup</div>
+              </Link>
+              <Link to="/login">
+                <div>Login</div>
+              </Link>
+            </>
+          )}
+          {props.user && <div>Hi, {props.user.name}</div>}
         </Right>
       </Container>
     </Wrapper>

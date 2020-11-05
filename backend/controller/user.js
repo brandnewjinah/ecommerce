@@ -73,7 +73,7 @@ exports.user_login = (req, res) => {
             });
           } else {
             const token = jwt.sign(
-              { userId: user._id, email: user.email },
+              { userId: user._id, email: user.email, name: user.name },
               "secret",
               { expiresIn: "1d" }
             );

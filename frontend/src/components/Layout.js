@@ -1,4 +1,5 @@
-import React, { FC } from "react";
+import React, { useEffect, useState } from "react";
+import jwtDecode from "jwt-decode";
 
 //import components
 import Navigation from "./Navigation";
@@ -8,14 +9,23 @@ import Footer from "./Footer";
 import styled from "styled-components";
 import Header from "./Header";
 
-interface Props {
-  children?: any;
-}
+const Layout = ({ children }) => {
+  const [user, setUser] = useState();
 
-const Layout: FC<Props> = ({ children }) => {
+  useEffect(() => {
+    try {
+      const token = localStorage.getItem("token");
+      const user = jwtDecode(token);
+      setUser(user);
+      console.log(user);
+    } catch (ex) {
+      setUser(null);
+    }
+  }, []);
+
   return (
     <Wrapper>
-      <Header />
+      <Header user={user} />
       <Navigation />
       <Container>
         <div>{children}</div>

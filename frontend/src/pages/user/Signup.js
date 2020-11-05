@@ -9,7 +9,7 @@ import { Button } from "../../components/Button";
 
 import Input from "../../components/Input";
 
-const Signup = () => {
+const Signup = (props) => {
   const [data, setData] = useState({
     email: "",
     name: "",
@@ -67,6 +67,7 @@ const Signup = () => {
       .post("http://localhost:5000/user/signup", user)
       .then((res) => {
         if (res.status === 200) {
+          props.history.push("/login");
           alert("User Registered successfully");
         }
       })

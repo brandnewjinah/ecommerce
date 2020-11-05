@@ -55,7 +55,7 @@ const Login = (props) => {
         if (res.status === 200) {
           const token = res.data.token;
           localStorage.setItem("token", token);
-          props.history.push("/");
+          window.location = "/";
           alert("Logged in successfully");
         }
       })
