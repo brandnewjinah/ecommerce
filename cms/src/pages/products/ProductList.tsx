@@ -1,15 +1,17 @@
 import React, { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import config from "../../config.json";
 import axios from "axios";
 
 //import components
+import { BtnText } from "../../components/Button";
 
 //import styles and assetss
 import styled from "styled-components";
 
 interface Props {}
 
-const ProductList: FC<Props> = () => {
+const ProductList: FC<Props> = (props) => {
   const [data, setData] = useState<any[]>([]);
 
   useEffect(() => {
@@ -17,15 +19,30 @@ const ProductList: FC<Props> = () => {
   }, []);
 
   const getData = async () => {
-    //   const { data } = await axios.get(`${config.API}/product`);
-    const { data } = await axios.get("./data/data.json");
+    const { data } = await axios.get(`${config.API}/product`);
+    // const { data } = await axios.get("./data/data.json");
     setData(data.products);
+  };
+
+  const handleDelete = async () => {
+    await axios
+      .delete(`${config.API}/product/`)
+      .then((res) => {
+        if (res.status === 200) {
+          alert("All Products Deleted");
+          window.location.reload();
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
 
   return (
     <Wrapper>
       <h4>Inventory</h4>
       <p>{data.length} products total</p>
+      <BtnText label="Delete All" handleClick={handleDelete} />
       <Container>
         {data.map((p, idx) => (
           <div

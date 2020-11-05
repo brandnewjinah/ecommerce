@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import config from "../../config.json";
 
 //import components
 import Input from "../../components/Input";
-import Button from "../../components/Button";
+import { Button, BtnText } from "../../components/Button";
 
 //import styles and assets
 import styled from "styled-components";
@@ -30,10 +31,16 @@ const ProductDetail = (props) => {
   }, []);
 
   const getData = async () => {
-    const { data } = await axios.get(
-      `../data/product/${props.match.params.id}.json`
-    );
-    setData(data.productInfo);
+    await axios
+
+      .get(`${config.API}/product/${props.match.params.id}`)
+      .then((res) => {
+        const { productInfo } = res.data;
+        setData(productInfo);
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
 
   const validate = () => {
@@ -66,24 +73,37 @@ const ProductDetail = (props) => {
   };
 
   const updateData = async () => {
-    try {
-      const product = {
-        name: data.name,
-        price: data.price,
-        category: data.category,
-        brand: data.brand,
-        code: data.code,
-      };
-      console.log(product);
-      const productProduct = await axios.put(
-        `http://localhost:5000/product/${props.match.params.id}`,
-        product
-      );
-    } catch (ex) {
-      if (ex.response && ex.presponse.status === 400) {
-        alert("error");
-      }
-    }
+    const product = {
+      name: data.name,
+      price: data.price,
+      category: data.category,
+      brand: data.brand,
+      code: data.code,
+    };
+    await axios
+      .put(`${config.API}/product/${props.match.params.id}`, product)
+      .then((res) => {
+        if (res.status === 200) {
+          alert("Product saved");
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+
+  const handleDelete = async () => {
+    await axios
+      .delete(`${config.API}/product/${props.match.params.id}`)
+      .then((res) => {
+        if (res.status === 200) {
+          alert("Product deleted");
+          props.history.push("/products");
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
 
   return (
@@ -127,6 +147,9 @@ const ProductDetail = (props) => {
         />
         <Button label="Update" />
       </form>
+      <div style={{ margin: `1em 0` }}>
+        <BtnText label="Delete Product" handleClick={handleDelete} />
+      </div>
     </Wrapper>
   );
 };

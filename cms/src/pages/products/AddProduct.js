@@ -3,7 +3,7 @@ import axios from "axios";
 
 //import components
 import Input from "../../components/Input";
-import Button from "../../components/Button";
+import { Button } from "../../components/Button";
 import Dropdown from "../../components/Dropdown";
 
 //import styles and assets
@@ -83,25 +83,29 @@ const AddProduct = () => {
   };
 
   const postData = async () => {
-    try {
-      const product = {
-        name: data.name,
-        price: data.price,
-        category1: data.category1,
-        category2: data.category2,
-        brand: data.brand,
-        code: data.code,
-      };
-      // console.log(product);
-      const productProduct = await axios.post(
-        "http://localhost:5000/product",
-        product
-      );
-    } catch (ex) {
-      if (ex.response && ex.presponse.status === 400) {
-        alert("error");
-      }
-    }
+    const product = {
+      name: data.name,
+      price: data.price,
+      category1: data.category1,
+      category2: data.category2,
+      brand: data.brand,
+      code: data.code,
+    };
+    await axios
+      .post("http://localhost:5000/product", product)
+      .then((res) => {
+        if (res.status === 200) {
+          alert("Product saved");
+        }
+      })
+      .catch((err) => {
+        // if (
+        //   err.response &&
+        //   err.response.status >= 400 &&
+        //   err.response.status < 500
+        // )
+        alert(err);
+      });
   };
 
   return (
