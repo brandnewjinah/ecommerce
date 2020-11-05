@@ -6,6 +6,7 @@ import Footer from "./Footer";
 
 //import styles and assets
 import styled from "styled-components";
+import Header from "./Header";
 
 interface Props {
   children?: any;
@@ -14,6 +15,7 @@ interface Props {
 const Layout: FC<Props> = ({ children }) => {
   return (
     <Wrapper>
+      <Header />
       <Navigation />
       <Container>
         <div>{children}</div>
