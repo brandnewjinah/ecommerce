@@ -39,7 +39,10 @@ const Signup = () => {
     if (!data.password.match(/.{8}/)) {
       errors.password = "Password must be at least 8 characters long";
     }
-    if (data.password !== data.confirmpw) {
+    if (data.password === "") {
+      errors.password = "Password is required";
+    }
+    if (data.password !== data.confirmpw || data.confirmpw === "") {
       errors.confirmpw = "Password does not match";
     }
     return errors;
