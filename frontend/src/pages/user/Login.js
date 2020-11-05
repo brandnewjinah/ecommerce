@@ -9,12 +9,10 @@ import { Button } from "../../components/Button";
 
 import Input from "../../components/Input";
 
-const Signup = () => {
+const Login = (props) => {
   const [data, setData] = useState({
     email: "",
-    name: "",
     password: "",
-    confirmpw: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -27,24 +25,13 @@ const Signup = () => {
 
   const validate = () => {
     const errors = {};
-    if (data.name === "") {
-      errors.name = "Name is required";
-    }
-    if (!data.email.match(/@/)) {
-      errors.email = "Not a valid email address";
-    }
     if (data.email === "") {
       errors.email = "Email address is required";
-    }
-    if (!data.password.match(/.{8}/)) {
-      errors.password = "Password must be at least 8 characters long";
     }
     if (data.password === "") {
       errors.password = "Password is required";
     }
-    if (data.password !== data.confirmpw || data.confirmpw === "") {
-      errors.confirmpw = "Password does not match";
-    }
+
     return Object.keys(errors).length === 0 ? null : errors;
   };
 
@@ -58,16 +45,18 @@ const Signup = () => {
 
   const postData = async () => {
     const user = {
-      name: data.name,
       email: data.email,
       password: data.password,
     };
 
     await axios
-      .post("http://localhost:5000/user/signup", user)
+      .post("http://localhost:5000/user/login", user)
       .then((res) => {
         if (res.status === 200) {
-          alert("User Registered successfully");
+          const token = res.data.token;
+          localStorage.setItem("token", token);
+          props.history.push("/");
+          alert("Logged in successfully");
         }
       })
       .catch((err) => {
@@ -76,23 +65,15 @@ const Signup = () => {
         //   err.response.status >= 400 &&
         //   err.response.status < 500
         // )
-        alert(err);
+        alert("Wrong email or password");
       });
   };
 
   return (
     <Wrapper>
       <Container>
-        <h4>Signup</h4>
+        <h4>Login</h4>
         <form onSubmit={handleSubmit}>
-          <Input
-            label="Name"
-            type="text"
-            name="name"
-            value={data.name}
-            error={errors.name}
-            handleChange={handleChange}
-          />
           <Input
             label="Email"
             type="text"
@@ -109,15 +90,7 @@ const Signup = () => {
             error={errors.password}
             handleChange={handleChange}
           />
-          <Input
-            label="Confirm Password"
-            type="password"
-            name="confirmpw"
-            value={data.confirmpw}
-            error={errors.confirmpw}
-            handleChange={handleChange}
-          />
-          <Button label="Signup" />
+          <Button label="Login" />
         </form>
       </Container>
     </Wrapper>
@@ -134,4 +107,4 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
-export default Signup;
+export default Login;
