@@ -91,8 +91,17 @@ const AddProduct = () => {
       brand: data.brand,
       code: data.code,
     };
+
+    const token = localStorage.getItem("token");
+
+    const options = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
     await axios
-      .post("http://localhost:5000/product", product)
+      .post("http://localhost:5000/product", product, options)
       .then((res) => {
         if (res.status === 200) {
           alert("Product saved");

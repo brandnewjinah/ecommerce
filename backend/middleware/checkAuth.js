@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-module.exports = () => {
+module.exports = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     const decoded = jwt.verify(token, "secret");
@@ -8,7 +8,7 @@ module.exports = () => {
     console.log(req);
     next();
   } catch (error) {
-    return res.status(401).json({
+    return res.status(400).json({
       message: "Authentication failed",
     });
   }

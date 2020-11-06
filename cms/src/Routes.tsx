@@ -6,6 +6,7 @@ import Layout from "./components/Layout";
 
 //import pages
 import Home from "./pages/Home";
+import Login from "./pages/Login";
 
 //products
 import ProductList from "./pages/products/ProductList";
@@ -19,8 +20,9 @@ import UserDetail from "./pages/users/UserDetail";
 const Routes = () => {
   return (
     <Router>
-      <Layout>
-        <Switch>
+      <Switch>
+        <Route exact path="/login" component={Login} />
+        <Layout>
           <Route exact path="/" component={Home} />
           <Route exact path="/products" component={ProductList} />
           <Route exact path="/products/:id" component={ProductDetail} />
@@ -28,8 +30,8 @@ const Routes = () => {
           <Route exact path="/orders" component={Orders} />
           <Route exact path="/users" component={UserList} />
           <Route exact path="/users/:id" component={UserDetail} />
-        </Switch>
-      </Layout>
+        </Layout>
+      </Switch>
     </Router>
   );
 };
