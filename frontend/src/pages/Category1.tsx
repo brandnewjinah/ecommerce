@@ -1,4 +1,5 @@
 import React, { FC, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import config from "../config.json";
 import axios from "axios";
 
@@ -19,8 +20,8 @@ const Category1: FC<Props> = () => {
   }, []);
 
   const getData = async () => {
-    //   const { data } = await axios.get(`${config.API}/product`);
-    const { data } = await axios.get("./data/data.json");
+    const { data } = await axios.get(`${config.API}/product`);
+    // const { data } = await axios.get("./data/data.json");
     setData(data.products);
   };
 
@@ -30,13 +31,15 @@ const Category1: FC<Props> = () => {
       <Filter />
       <Container>
         {data.map((product, idx) => (
-          <div key={idx} className="col">
-            <ProductCard
-              name={product.name}
-              price={product.price}
-              img={product.img}
-            />
-          </div>
+          <Link key={idx} to={`/1/${product.id}`}>
+            <div className="col">
+              <ProductCard
+                name={product.name}
+                price={product.price}
+                img={product.img}
+              />
+            </div>
+          </Link>
         ))}
       </Container>
     </Wrapper>

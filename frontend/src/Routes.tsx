@@ -11,6 +11,7 @@ import Category2 from "./pages/Category2";
 import Category3 from "./pages/Category3";
 import Signup from "./pages/user/Signup";
 import Login from "./pages/user/Login";
+import Detail from "./pages/products/Detail";
 
 const Routes = () => {
   return (
@@ -23,6 +24,7 @@ const Routes = () => {
           <Route exact path="/3" component={Category3} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/1/:id" component={Detail} />
         </Switch>
       </Layout>
     </Router>
