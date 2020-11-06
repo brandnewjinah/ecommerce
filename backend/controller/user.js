@@ -91,3 +91,85 @@ exports.user_login = (req, res) => {
       });
     });
 };
+
+//get all user list
+exports.user_all = (req, res) => {
+  userModel
+    .find()
+    .then((users) => {
+      res.json({
+        message: "All users",
+        count: users.length,
+        users: users.map((user) => {
+          return {
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            request: {
+              type: "GET",
+              url: "http://localhost:5000/user/" + user._id,
+            },
+          };
+        }),
+      });
+    })
+    .catch((err) => {
+      res.json({
+        message: err.message,
+      });
+    });
+};
+
+//get user detail
+exports.user_each = (req, res) => {
+  const id = req.params.userId;
+  userModel
+    .findById(id)
+    .then((user) => {
+      if (user) {
+        res.status(200).json({
+          message: "User info for the provided ID",
+          userInfo: {
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            request: {
+              type: "GET",
+              url: "http://localhost:5000/user/",
+            },
+          },
+        });
+      } else {
+        res.status(404).json({
+          message: "User not found with the provided ID",
+        });
+      }
+    })
+    .catch((err) => {
+      res.json({
+        message: err.message,
+      });
+    });
+};
+
+//update user
+exports.user_update = (req, res) => {
+  const id = req.params.userId;
+
+  userModel
+    .findByIdAndUpdate(id, { $set: req.body })
+    .then((result) => {
+      res.json({
+        message: "User updated",
+        request: {
+          type: "GET",
+          url: "http://localhost:5000/user/" + id,
+        },
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: err,
+      });
+    });
+};

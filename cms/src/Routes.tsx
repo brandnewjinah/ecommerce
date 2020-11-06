@@ -13,7 +13,8 @@ import AddProduct from "./pages/products/AddProduct";
 import ProductDetail from "./pages/products/ProductDetail";
 
 import Orders from "./pages/Orders";
-import UserList from "./pages/UserList";
+import UserList from "./pages/users/UserList";
+import UserDetail from "./pages/users/UserDetail";
 
 const Routes = () => {
   return (
@@ -26,6 +27,7 @@ const Routes = () => {
           <Route exact path="/addproduct" component={AddProduct} />
           <Route exact path="/orders" component={Orders} />
           <Route exact path="/users" component={UserList} />
+          <Route exact path="/users/:id" component={UserDetail} />
         </Switch>
       </Layout>
     </Router>

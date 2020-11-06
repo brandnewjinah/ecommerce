@@ -11,7 +11,7 @@ import styled from "styled-components";
 
 interface Props {}
 
-const ProductList: FC<Props> = (props) => {
+const UserList: FC<Props> = (props) => {
   const [data, setData] = useState<any[]>([]);
 
   useEffect(() => {
@@ -19,9 +19,9 @@ const ProductList: FC<Props> = (props) => {
   }, []);
 
   const getData = async () => {
-    const { data } = await axios.get(`${config.API}/product`);
+    const { data } = await axios.get(`${config.API}/user`);
     // const { data } = await axios.get("./data/data.json");
-    setData(data.products);
+    setData(data.users);
   };
 
   const handleDelete = async () => {
@@ -40,20 +40,18 @@ const ProductList: FC<Props> = (props) => {
 
   return (
     <Wrapper>
-      <h4>Inventory</h4>
-      <p>{data.length} products total</p>
+      <h4>Users</h4>
+      <p>{data.length} users total</p>
       <BtnText label="Delete All" handleClick={handleDelete} />
       <Container>
-        {data.map((p, idx) => (
+        {data.map((u, idx) => (
           <div
             className={idx % 2 === 0 ? "container" : "container odd"}
             key={idx}
           >
-            <Link to={`/products/${p.id}`}>
-              <div className="code">{p.code}</div>
-              <div className="name">{p.name}</div>
-              <div className="price">{p.price}</div>
-              <div className="cat">{p.category1}</div>
+            <Link to={`/users/${u.id}`}>
+              <div className="name">{u.name}</div>
+              <div className="email">{u.email}</div>
             </Link>
           </div>
         ))}
@@ -78,17 +76,11 @@ const Wrapper = styled.div`
     background-color: #fafafa;
   }
 
-  .code {
-    width: 10%;
-  }
   .name {
     width: 40%;
   }
-  .price {
+  .email {
     width: 20%;
-  }
-  .cat {
-    width: 30%;
   }
 `;
 
@@ -98,4 +90,4 @@ const Container = styled.div`
   border-radius: 0.5em;
 `;
 
-export default ProductList;
+export default UserList;

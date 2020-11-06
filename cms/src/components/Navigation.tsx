@@ -42,11 +42,11 @@ const data = [
     subcategory: [
       {
         name: "New",
-        link: "",
+        link: "/users",
       },
       {
         name: "All",
-        link: "",
+        link: "/users",
       },
     ],
   },
