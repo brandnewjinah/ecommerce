@@ -17,7 +17,6 @@ const Layout = ({ children }) => {
       const token = localStorage.getItem("token");
       const user = jwtDecode(token);
       setUser(user);
-      console.log(user);
     } catch (ex) {
       setUser(null);
     }

@@ -26,26 +26,10 @@ const Detail = (props) => {
       });
   };
 
-  const handleAdd = async () => {
-    const product = {
-      product: data,
-    };
-    console.log(product);
-    await axios
-      .post("http://localhost:5000/cart", product)
-      .then((res) => {
-        if (res.status === 200) {
-          alert("Product saved");
-        }
-      })
-      .catch((err) => {
-        alert(err);
-      });
-  };
-
   return (
     <Wrapper>
       <Main>
+        <h1>Cart</h1>
         <Img>
           <Image width="20" height="20" color="#000" stroke="2" />
         </Img>
@@ -59,7 +43,7 @@ const Detail = (props) => {
           <h6>{data.brand}</h6>
           <h5>{data.price}</h5>
           <div>Counter - 1 +</div>
-          <Button label="Add to Cart" handleClick={handleAdd} />
+          <Button label="Add to Cart" />
           <div>descriptions</div>
         </Desc>
       </Main>

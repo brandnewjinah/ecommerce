@@ -17,9 +17,9 @@ export const Button: FC<Props> = ({
   type,
   value,
   name,
-  handleChange,
+  handleClick,
 }) => {
-  return <Wrapper>{label}</Wrapper>;
+  return <Wrapper onClick={handleClick}>{label}</Wrapper>;
 };
 
 export const BtnText: FC<Props> = ({ label, handleClick }) => {

@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const checkAuth = require("../middleware/checkAuth");
 
 const {
   product_post_product,
@@ -10,20 +11,18 @@ const {
   product_delete_product,
 } = require("../controller/product");
 
-//import controller
-
 //create
-router.post("/", product_post_product);
+router.post("/", checkAuth, product_post_product);
 
 //get
 router.get("/", product_get_all);
 router.get("/:productId", product_get_product);
 
 //update
-router.put("/:productId", product_update_product);
+router.put("/:productId", checkAuth, product_update_product);
 
 //delete
-router.delete("/", product_delete_all);
-router.delete("/:productId", product_delete_product);
+router.delete("/", checkAuth, product_delete_all);
+router.delete("/:productId", checkAuth, product_delete_product);
 
 module.exports = router;
