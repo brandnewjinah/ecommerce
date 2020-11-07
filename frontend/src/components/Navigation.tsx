@@ -26,9 +26,10 @@ const Navigation: FC<Props> = () => {
 };
 
 const Wrapper = styled.div`
-  background-color: aliceblue;
+  background-color: #f9f9f9;
   display: flex;
   justify-content: center;
+  padding: 0.5em 0;
 `;
 
 const Category = styled.div`

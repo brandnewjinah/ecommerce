@@ -22,8 +22,8 @@ const ProductCard: FC<Props> = ({ category, name, price, img }) => {
         )}
       </Top>
       <Bottom>
-        <h4 className="primary">{name}</h4>
-        <h4 className="secondary">{price}</h4>
+        <h6 className="primary">{name}</h6>
+        <h6 className="secondary">{price}</h6>
         <h4 className="tertiary">{category}</h4>
       </Bottom>
     </Wrapper>
@@ -32,7 +32,6 @@ const ProductCard: FC<Props> = ({ category, name, price, img }) => {
 
 const Wrapper = styled.div`
   width: 100%;
-  background-color: #f7f5f4;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -40,10 +39,12 @@ const Wrapper = styled.div`
 `;
 
 const Top = styled.div`
-  height: 385px;
+  width: 100%;
+  padding: 50% 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #f7f5f4;
 `;
 
 const Bottom = styled.div`
@@ -51,13 +52,14 @@ const Bottom = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 1em;
 
-  h4.primary {
+  h6.primary {
     text-transform: none;
     font-weight: 400;
     letter-spacing: 0;
   }
-  h4.secondary {
+  h6.secondary {
     text-transform: none;
     letter-spacing: 0;
   }

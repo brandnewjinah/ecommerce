@@ -27,13 +27,15 @@ const Header: FC<Props> = (props) => {
           {props.user && <div>Hi, {props.user.name}</div>}
         </Right>
       </Container>
+      <Logo>Logo</Logo>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
   width: 100%;
-  background-color: #d6edbf;
+  display: flex;
+  flex-direction: column;
 
   .flex {
     display: flex;
@@ -46,6 +48,8 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 0.875rem;
+  padding: 0 2em;
   margin: 0 auto;
 `;
 
@@ -57,4 +61,11 @@ const Right = styled.div`
   }
 `;
 
+const Logo = styled.div`
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  padding: 1em 0 2em 0;
+  margin: 0 auto;
+`;
 export default Header;

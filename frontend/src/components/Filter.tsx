@@ -11,6 +11,8 @@ const Filter: FC<Props> = () => {
   return <Wrapper>Filter</Wrapper>;
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  padding: 1em 0;
+`;
 
 export default Filter;

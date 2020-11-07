@@ -11,6 +11,7 @@ const Footer: FC<Props> = () => {
 
 const Wrapper = styled.div`
   background-color: aliceblue;
+  padding: 0 2em;
 `;
 
 export default Footer;

@@ -5,26 +5,40 @@ import config from "../../config.json";
 //import components
 import Input from "../../components/Input";
 import { Button, BtnText } from "../../components/Button";
+import Dropdown from "../../components/Dropdown";
 
 //import styles and assets
 import styled from "styled-components";
+
+const catData = [
+  {
+    name: "Beverages",
+    subcategory: [{ name: "Coffee" }, { name: "Tea" }, { name: "Other" }],
+  },
+  {
+    name: "Snacks",
+    subcategory: [{ name: "Chips" }, { name: "Candy" }, { name: "Cookies" }],
+  },
+  {
+    name: "Health",
+    subcategory: [
+      { name: "Vitamins" },
+      { name: "Supplements" },
+      { name: "Baby" },
+    ],
+  },
+];
 
 const ProductDetail = (props) => {
   const [data, setData] = useState({
     name: "",
     price: "",
-    category: "",
+    category1: "",
+    category2: "",
     brand: "",
+    image: "",
     code: "",
   });
-
-  const [errors, setErrors] = useState({});
-
-  const handleChange = ({ currentTarget: input }) => {
-    const userInput = { ...data };
-    userInput[input.name] = input.value;
-    setData(userInput);
-  };
 
   useEffect(() => {
     getData();
@@ -32,7 +46,6 @@ const ProductDetail = (props) => {
 
   const getData = async () => {
     await axios
-
       .get(`${config.API}/product/${props.match.params.id}`)
       .then((res) => {
         const { productInfo } = res.data;
@@ -43,6 +56,24 @@ const ProductDetail = (props) => {
       });
   };
 
+  const [errors, setErrors] = useState({});
+
+  const handleChange = ({ currentTarget: input }) => {
+    const userInput = { ...data };
+    userInput[input.name] = input.value;
+    setData(userInput);
+  };
+
+  const handleCategory = (item) => {
+    let newData = { ...data, category1: item, category2: "" };
+    setData(newData);
+  };
+
+  const handleOptions = (item) => {
+    let newData = { ...data, category2: item };
+    setData(newData);
+  };
+
   const validate = () => {
     const errors = {};
     if (data.name === "") {
@@ -50,9 +81,6 @@ const ProductDetail = (props) => {
     }
     if (data.price === "") {
       errors.price = "Price is required";
-    }
-    if (data.category === "") {
-      errors.category = "Category is required";
     }
     // if (data.brand === "") {
     //   errors.brand = "Brand is required";
@@ -76,12 +104,23 @@ const ProductDetail = (props) => {
     const product = {
       name: data.name,
       price: data.price,
-      category: data.category,
+      category1: data.category1,
+      category2: data.category2,
       brand: data.brand,
+      image: data.image,
       code: data.code,
     };
+
+    const token = localStorage.getItem("token");
+
+    const options = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
     await axios
-      .put(`${config.API}/product/${props.match.params.id}`, product)
+      .put(`${config.API}/product/${props.match.params.id}`, product, options)
       .then((res) => {
         if (res.status === 200) {
           alert("Product saved");
@@ -93,8 +132,15 @@ const ProductDetail = (props) => {
   };
 
   const handleDelete = async () => {
+    const token = localStorage.getItem("token");
+
+    const options = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
     await axios
-      .delete(`${config.API}/product/${props.match.params.id}`)
+      .delete(`${config.API}/product/${props.match.params.id}`, options)
       .then((res) => {
         if (res.status === 200) {
           alert("Product deleted");
@@ -124,18 +170,45 @@ const ProductDetail = (props) => {
           error={errors.price}
           handleChange={handleChange}
         />
-        <Input
-          label="Category"
-          name="category"
-          value={data.category}
-          error={errors.category}
-          handleChange={handleChange}
-        />
+        {/* <div style={{ margin: `1em 0`, width: `40%` }}>
+          {data.category1 !== "" && (
+            <Dropdown
+              data={catData}
+              select={data.category1}
+              handleSelection={(item) => handleCategory(item)}
+            />
+          )}
+        </div> */}
+        <div style={{ margin: `1em 0`, width: `40%` }}>
+          <Dropdown
+            data={catData}
+            select={data.category1}
+            handleSelection={(item) => handleCategory(item)}
+          />
+        </div>
+        <div style={{ margin: `1em 0`, width: `40%` }}>
+          {data.category1 !== "" && (
+            <Dropdown
+              data={
+                catData.filter((f) => f.name === data.category1)[0].subcategory
+              }
+              select={data.category2}
+              handleSelection={(item) => handleOptions(item)}
+            />
+          )}
+        </div>
         <Input
           label="Brand"
           name="brand"
           value={data.brand}
           error={errors.brand}
+          handleChange={handleChange}
+        />
+        <Input
+          label="Image"
+          name="image"
+          value={data.image}
+          error={errors.image}
           handleChange={handleChange}
         />
         <Input

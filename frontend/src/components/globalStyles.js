@@ -49,7 +49,7 @@ const GlobalStyle = createGlobalStyle`
 
     h6 {
         font-weight: 400;
-        font-size: 1.25rem;
+        font-size: 1.05rem;
         line-height: 2rem;
     }
 

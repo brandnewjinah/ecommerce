@@ -35,6 +35,7 @@ const AddProduct = () => {
     category1: "",
     category2: "",
     brand: "",
+    image: "",
     code: "",
   });
 
@@ -76,7 +77,6 @@ const AddProduct = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const errors = validate();
-    console.log(errors);
     setErrors(errors || {});
     if (errors) return;
     postData();
@@ -89,6 +89,7 @@ const AddProduct = () => {
       category1: data.category1,
       category2: data.category2,
       brand: data.brand,
+      image: data.image,
       code: data.code,
     };
 
@@ -104,6 +105,7 @@ const AddProduct = () => {
       .post("http://localhost:5000/product", product, options)
       .then((res) => {
         if (res.status === 200) {
+          console.log(product);
           alert("Product saved");
         }
       })
@@ -157,6 +159,13 @@ const AddProduct = () => {
             />
           )}
         </div>
+        <Input
+          label="Image"
+          name="image"
+          value={data.image}
+          error={errors.image}
+          handleChange={handleChange}
+        />
         <Input
           label="Code"
           name="code"

@@ -27,7 +27,7 @@ const Category1: FC<Props> = () => {
 
   return (
     <Wrapper>
-      <h2>Products</h2>
+      <h2>Category</h2>
       <Filter />
       <Container>
         {data.map((product, idx) => (
@@ -46,7 +46,14 @@ const Category1: FC<Props> = () => {
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  /* background-color: firebrick; */
+  padding: 2em 0;
+
+  h2 {
+    font-size: 1.5rem;
+  }
+`;
 
 const Container = styled.div`
   display: grid;

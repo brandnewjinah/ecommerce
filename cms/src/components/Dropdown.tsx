@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 //import styles and assets
 import styled from "styled-components";
@@ -11,12 +11,17 @@ interface Category {
 
 interface Props {
   data: Category[];
+  select?: string;
   handleSelection: (item: string) => void;
 }
 
-const Dropdown: FC<Props> = ({ data, handleSelection }) => {
+const Dropdown: FC<Props> = ({ data, select, handleSelection }) => {
   const [visible, setVisible] = useState(false);
-  const [selected, setSelected] = useState("Select Category");
+  const [selected, setSelected] = useState<string | undefined>(select);
+
+  useEffect(() => {
+    setSelected(select);
+  }, [select]);
 
   const handleSelect = (item: string) => {
     setSelected(item);

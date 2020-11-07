@@ -2,7 +2,7 @@ const productModel = require("../models/product");
 
 //create product
 exports.product_post_product = (req, res) => {
-  const { name, price, category1, category2, brand, code } = req.body;
+  const { name, price, category1, category2, brand, code, image } = req.body;
   const newProduct = new productModel({
     name,
     price,
@@ -10,6 +10,7 @@ exports.product_post_product = (req, res) => {
     category2,
     brand,
     code,
+    image,
   });
 
   newProduct
@@ -25,6 +26,7 @@ exports.product_post_product = (req, res) => {
           category2: product.category2,
           brand: product.brand,
           code: product.code,
+          image: product.image,
           request: {
             type: "GET",
             url: "http://localhost:5000/product/" + product._id,
@@ -55,7 +57,8 @@ exports.product_get_all = (req, res) => {
             category1: product.category1,
             category2: product.category2,
             brand: product.brand,
-            // code: product.code,
+            image: product.image,
+            code: product.code,
             request: {
               type: "GET",
               url: "http://localhost:5000/product/" + product._id,
@@ -88,6 +91,7 @@ exports.product_get_product = (req, res) => {
             category2: product.category2,
             brand: product.brand,
             code: product.code,
+            image: product.image,
           },
           request: {
             type: "GET",
@@ -152,6 +156,7 @@ exports.product_delete_product = (req, res) => {
             category2: "String",
             brand: "String",
             code: "String",
+            image: "String",
           },
         },
       });
