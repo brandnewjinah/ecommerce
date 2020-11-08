@@ -59,7 +59,7 @@ const Detail = (props) => {
       </Category>
       <Main>
         <Img>
-          <Image width="20" height="20" color="#000" stroke="2" />
+          <img src={data.image} alt="" />
         </Img>
         <Desc>
           <h4>{data.name}</h4>
@@ -102,11 +102,16 @@ const Main = styled.main`
 
 const Img = styled.div`
   width: 430px;
-  height: 385px;
+  /* height: 385px; */
   background-color: #eee;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  img {
+    width: 100%;
+    object-fit: cover;
+  }
 `;
 
 const Desc = styled.div`

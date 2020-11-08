@@ -3,7 +3,6 @@ import React, { FC } from "react";
 //import styles and assets
 import styled from "styled-components";
 import { Image } from "../assets/Icons";
-import Placeholder from "../assets/placeholder.jpg";
 
 interface Props {
   category?: string;
@@ -19,7 +18,7 @@ const ProductCard: FC<Props> = ({ category, name, price, imgsrc }) => {
         {imgsrc ? (
           <img src={imgsrc} alt="" />
         ) : (
-          <img src={Placeholder} alt="placeholder" />
+          <Image width="20" height="20" color="#000" stroke="2" />
         )}
       </Top>
       <Bottom>
@@ -40,15 +39,20 @@ const Wrapper = styled.div`
 `;
 
 const Top = styled.div`
-  background-color: red;
+  position: relative;
+  padding-top: 100%;
+  overflow: hidden;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  background-color: #f7f5f4;
 
   img {
-    width: 100%;
-    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: auto;
+    height: 100%;
   }
 `;
 

@@ -31,15 +31,15 @@ const Category1: FC<Props> = () => {
       <Filter />
       <Container>
         {data.map((product, idx) => (
-          <Link key={idx} to={`/1/${product.id}`}>
-            <div className="col">
+          <div className="col" key={idx}>
+            <Link to={`/1/${product.id}`}>
               <ProductCard
                 name={product.name}
                 price={product.price}
-                img={product.img}
+                imgsrc={product.image}
               />
-            </div>
-          </Link>
+            </Link>
+          </div>
         ))}
       </Container>
     </Wrapper>
@@ -56,15 +56,20 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 
   .col {
-    margin: 0.25em;
+    width: 32%;
+    padding-right: 2%;
   }
 
-  @media (max-width: 1040px) {
-    grid-template-columns: repeat(2, 1fr);
+  @media (max-width: 840px) {
+    .col {
+      width: 48%;
+      padding: 0 2%;
+    }
   }
 `;
 

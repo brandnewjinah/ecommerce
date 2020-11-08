@@ -16,15 +16,16 @@ const catData = [
   },
   {
     name: "Snacks",
-    subcategory: [{ name: "Chips" }, { name: "Candy" }, { name: "Cookies" }],
+    subcategory: [
+      { name: "Chips" },
+      { name: "Candy" },
+      { name: "Cookies" },
+      { name: "Meal Kits" },
+    ],
   },
   {
-    name: "Health",
-    subcategory: [
-      { name: "Vitamins" },
-      { name: "Supplements" },
-      { name: "Baby" },
-    ],
+    name: "Bakery",
+    subcategory: [{ name: "Cakes" }, { name: "Bread" }],
   },
 ];
 
