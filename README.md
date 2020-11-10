@@ -1,7 +1,7 @@
 # Full Stack E-commerce Project
 
 This is my attempt to create a full stack e-commerce platform.<br><br>
-With my background in UX/UI design, I hope to build highly customizable UI components that are easy to implement and elegantly designed.<br><br>
+I started this project because I've always been very interested in e-commerce and I wanted to understand the full cycle. Hopefully this can demonstrate my understanding.<br><br>
 
 ## Backend
 
