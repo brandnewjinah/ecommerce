@@ -38,19 +38,16 @@ const GlobalStyle = createGlobalStyle`
     h4 {
         font-weight: 500;
         font-size: 1.5rem;
-        line-height: 3rem;
     }
 
     h5 {
         font-weight: 500;
         font-size: 1.35rem;
-        line-height: 1.5rem;
     }
 
     h6 {
         font-weight: 400;
         font-size: 1.05rem;
-        line-height: 2rem;
     }
 
     ul {

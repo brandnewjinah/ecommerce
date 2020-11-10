@@ -68,10 +68,10 @@ const Detail = (props) => {
               <h6>{data.brand}</h6>
             </Link>
           </div>
-          <h5>{data.price}</h5>
-          <div>Counter - 1 +</div>
-          <Button label="Add to Cart" handleClick={handleAdd} />
-          <div>descriptions</div>
+          <h5>${data.price}</h5>
+          <div className="btn">
+            <Button label="Add to Cart" imp="primary" handleClick={handleAdd} />
+          </div>
         </Desc>
       </Main>
       <Details>details</Details>
@@ -98,6 +98,10 @@ const Category = styled.div`
 
 const Main = styled.main`
   display: flex;
+
+  @media (max-width: 840px) {
+    flex-direction: column;
+  }
 `;
 
 const Img = styled.div`
@@ -112,10 +116,22 @@ const Img = styled.div`
     width: 100%;
     object-fit: cover;
   }
+
+  @media (max-width: 840px) {
+    margin: 0 auto;
+  }
 `;
 
 const Desc = styled.div`
   padding-left: 3em;
+
+  h5 {
+    margin: 0.75em 0;
+  }
+
+  .btn {
+    margin: 2em 0;
+  }
 `;
 
 const Details = styled.div``;

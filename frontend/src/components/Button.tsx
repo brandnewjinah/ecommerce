@@ -8,6 +8,7 @@ interface Props {
   type?: string;
   value?: string;
   name?: string;
+  imp?: string;
   handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   handleClick?: () => void;
 }
@@ -17,9 +18,17 @@ export const Button: FC<Props> = ({
   type,
   value,
   name,
+  imp,
   handleClick,
 }) => {
-  return <Wrapper onClick={handleClick}>{label}</Wrapper>;
+  return (
+    <Wrapper
+      style={{ backgroundColor: imp === "primary" ? "#f2665c" : "#f2665c" }}
+      onClick={handleClick}
+    >
+      {label}
+    </Wrapper>
+  );
 };
 
 export const BtnText: FC<Props> = ({ label, handleClick }) => {
@@ -30,9 +39,10 @@ const Wrapper = styled.button`
   outline: transparent;
   border: transparent;
   border-radius: 0.25em;
-  background-color: blue;
   color: white;
-  padding: 0.75em 2em;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 1em 2.5em;
   cursor: pointer;
 `;
 
