@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 
 //import components
-import Navigation from "./Navigation";
 import Footer from "./Footer";
+import Header from "./Header";
 
 //import styles and assets
 import styled from "styled-components";
-import Header from "./Header";
 
 const Layout = ({ children }) => {
   const [user, setUser] = useState();
@@ -25,7 +24,6 @@ const Layout = ({ children }) => {
   return (
     <Wrapper>
       <Header user={user} />
-      <Navigation />
       <Container>
         <div>{children}</div>
       </Container>
@@ -38,7 +36,7 @@ const Wrapper = styled.div``;
 
 const Container = styled.main`
   width: 100%;
-  max-width: 1040px;
+  max-width: 1024px;
   padding: 0 2em;
   margin: 0 auto;
 `;

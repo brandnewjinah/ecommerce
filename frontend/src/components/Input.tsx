@@ -58,7 +58,10 @@ const Input: FC<Props> = ({
 };
 
 const Wrapper = styled.div`
+  margin-bottom: 1em;
+
   label {
+    font-weight: 400;
   }
 
   .error {
@@ -70,15 +73,20 @@ const InputContainer = styled.div`
   display: flex;
   align-items: center;
   border: 1px solid #e4e4e4;
+  background-color: #fff;
   border-radius: 0.25em;
-  padding: 0 1em;
+  padding: 0 0.75em;
 
   .input {
     width: 100%;
     flex: 1;
     border: transparent;
-    padding: 0.75em;
+    padding: 0.5em;
     margin: 0.5em 0;
+
+    &:focus {
+      outline: transparent;
+    }
   }
 `;
 

@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
         background-color: white;
-        font-size: 1.05rem;
+        font-size: 0.9rem;
         line-height: 1.875rem;
         font-weight: 400;
     }
@@ -38,30 +38,32 @@ const GlobalStyle = createGlobalStyle`
     h4 {
         font-weight: 500;
         font-size: 1.5rem;
+        line-height: 3rem;
     }
 
     h5 {
         font-weight: 500;
         font-size: 1.35rem;
+        line-height: 1.5rem;
     }
 
     h6 {
-        font-weight: 400;
-        font-size: 1.05rem;
+        font-weight: 500;
+        font-size: 1.125rem;
+        line-height: 2rem;
     }
 
     ul {
         list-style-position: inside;
-        text-indent:-20px;
+        list-style: none;
     }
 
     li {
-        margin-left: 20px;
-        margin-right: 20px;
+
     }
 
     a {
-        /* display: inline-block; */
+        display: inline-block;
         text-decoration: none;
         text-decoration-skip-ink: auto;
         color: inherit;
