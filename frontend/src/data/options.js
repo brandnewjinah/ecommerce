@@ -31,6 +31,34 @@ export const sizeData = [
   },
 ];
 
+export const colorData = [
+  {
+    id: 201,
+    value: "White",
+    label: "White",
+  },
+  {
+    id: 202,
+    value: "Black",
+    label: "Black",
+  },
+  {
+    id: 203,
+    value: "Gray",
+    label: "Gray",
+  },
+  {
+    id: 204,
+    value: "Off-White",
+    label: "Off-White",
+  },
+  {
+    id: 205,
+    value: "Nude",
+    label: "Nude",
+  },
+];
+
 export const currencyData = [
   {
     id: 501,

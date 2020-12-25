@@ -1,8 +1,8 @@
-export const catData = [
+export const occasionData = [
   {
     id: 100,
-    value: "accessories",
-    label: "Accessories",
+    value: "lounge",
+    label: "Lounge",
     subcategory: [
       {
         id: 1100,

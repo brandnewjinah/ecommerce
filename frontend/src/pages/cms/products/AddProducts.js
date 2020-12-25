@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Select from "react-select";
-import AsyncSelect from "react-select/async";
 
 //import components
 import Input from "../../../components/Input";
 import { Button } from "../../../components/Button";
-import Dropdown from "../../../components/Dropdown";
 
 //import styles and assets
 import styled from "styled-components";
@@ -14,24 +12,29 @@ import colors from "../../../components/Colors";
 
 //import data
 import { catData } from "../../../data/category";
-import { sizeData, currencyData } from "../../../data/options";
+import { colorData, sizeData, currencyData } from "../../../data/options";
 
-const AddProduct = () => {
+//redux
+import { connect } from "react-redux";
+import { addItem } from "../../../reducers/fashionReducer";
+
+const AddProduct = (props) => {
   const [data, setData] = useState({
     name: "",
+    brand: "",
+    sku: "",
     currency: {},
     price: "",
     category1: {},
     category2: {},
     category3: {},
-    brand: "",
     image: "",
-    code: "",
+    store: "",
+    link: "",
     color: [],
     size: [],
   });
 
-  const [variant, setVariant] = useState(false);
   const [errors, setErrors] = useState({});
 
   const handleChange = ({ currentTarget: input }) => {
@@ -45,10 +48,28 @@ const AddProduct = () => {
     setData(newData);
   };
 
-  const handleVariant = ({ currentTarget: input }) => {
+  const handleColor = ({ currentTarget: input }) => {
     let newData = { ...data };
     let newColor = [...newData.color];
-    console.log(input);
+    let thisColor = newColor.find((c) => c.label === input.name);
+    thisColor = { ...thisColor, sku: input.value };
+
+    let index = newColor.findIndex((item) => item.id === thisColor.id);
+    newColor[index] = thisColor;
+    newData = { ...newData, color: newColor };
+    setData(newData);
+  };
+
+  const handleSize = ({ currentTarget: input }) => {
+    let newData = { ...data };
+    let newSize = [...newData.size];
+    let thisSize = newSize.find((c) => c.label === input.name);
+    thisSize = { ...thisSize, sku: input.value };
+
+    let index = newSize.findIndex((item) => item.id === thisSize.id);
+    newSize[index] = thisSize;
+    newData = { ...newData, size: newSize };
+    setData(newData);
   };
 
   const validate = () => {
@@ -59,12 +80,9 @@ const AddProduct = () => {
     if (data.price === "") {
       errors.price = "Price is required";
     }
-    // if (data.brand === "") {
-    //   errors.brand = "Brand is required";
+    // if (data.SKU === "") {
+    //   errors.SKU = "SKU is required";
     // }
-    if (data.code === "") {
-      errors.code = "Code is required";
-    }
     return Object.keys(errors).length === 0 ? null : errors;
   };
 
@@ -73,7 +91,9 @@ const AddProduct = () => {
     const errors = validate();
     setErrors(errors || {});
     if (errors) return;
-    postData();
+
+    props.addItem(data);
+    // postData();
   };
 
   const postData = async () => {
@@ -125,12 +145,25 @@ const AddProduct = () => {
             error={errors.name}
             handleChange={handleChange}
           />
-          <Input
-            label="Brand"
-            name="brand"
-            error={errors.brand}
-            handleChange={handleChange}
-          />
+          <Flex>
+            <div className="eight">
+              <Input
+                label="Brand"
+                name="brand"
+                error={errors.brand}
+                handleChange={handleChange}
+              />
+            </div>
+            <div className="two">
+              <Input
+                label="SKU"
+                name="sku"
+                error={errors.sku}
+                handleChange={handleChange}
+              />
+            </div>
+          </Flex>
+
           <Currency>
             <p>Price</p>
             <Flex>
@@ -208,9 +241,9 @@ const AddProduct = () => {
           />
           <Input
             label="Store Link"
-            name="storeLink"
-            value={data.storeLink}
-            error={errors.store}
+            name="link"
+            value={data.link}
+            error={errors.link}
             handleChange={handleChange}
           />
         </Container>
@@ -227,13 +260,13 @@ const AddProduct = () => {
             {data.size &&
               data.size.length > 0 &&
               data.size.map((s, idx) => (
-                <Flex>
+                <Flex key={idx}>
                   <div className="left">{s.label}</div>
                   <div className="right">
                     <Input
                       name={s.label}
                       placeholder="SKU"
-                      handleChange={handleVariant}
+                      handleChange={handleSize}
                     />
                   </div>
                 </Flex>
@@ -242,45 +275,28 @@ const AddProduct = () => {
         </Container>
         <Container>
           <Currency>
-            <div>
-              <span>Has variants?</span>
-              <span style={{ display: `inline-block`, marginLeft: `.5em` }}>
-                <input
-                  type="checkbox"
-                  name="essential"
-                  style={{ verticalAlign: `middle` }}
-                  checked={variant}
-                  onChange={() => setVariant(!variant)}
-                />
-              </span>
-            </div>
-            {variant && (
-              <>
-                <p>Price</p>
-                <div className="flex">
-                  <div className="symbol">
-                    <Select
-                      name="currency"
-                      defaultValue={currencyData[0]}
-                      options={currencyData}
-                      onChange={handleCategory("currency")}
-                      components={{
-                        DropdownIndicator: () => null,
-                        IndicatorSeparator: () => null,
-                      }}
-                    />
-                  </div>
-                  <div className="value">
+            <p>Color</p>
+            <Select
+              isMulti
+              name="color"
+              placeholder="Select color"
+              options={colorData}
+              onChange={handleCategory("color")}
+            />
+            {data.color &&
+              data.color.length > 0 &&
+              data.color.map((c, idx) => (
+                <Flex key={idx}>
+                  <div className="left">{c.label}</div>
+                  <div className="right">
                     <Input
-                      name="price"
-                      value={data.price}
-                      error={errors.price}
-                      handleChange={handleChange}
+                      name={c.label}
+                      placeholder="SKU"
+                      handleChange={handleColor}
                     />
                   </div>
-                </div>
-              </>
-            )}
+                </Flex>
+              ))}
           </Currency>
         </Container>
         <Button label="Post" />
@@ -322,11 +338,20 @@ const Flex = styled.div`
   align-items: center;
   margin: 1em 0;
 
-  .left {
+  .one {
     flex: 1 1 10%;
   }
 
-  .right {
+  .two {
+    flex: 1 1 20%;
+  }
+
+  .eight {
+    flex: 1 1 78%;
+    margin-right: 2%;
+  }
+
+  .nine {
     flex: 1 1 90%;
   }
 `;
@@ -334,4 +359,11 @@ const Flex = styled.div`
 const Category = styled.div`
   margin: 1em 0;
 `;
-export default AddProduct;
+
+const mapStateToProps = (state) => {
+  return {
+    fashion: state.fashion.products,
+  };
+};
+
+export default connect(mapStateToProps, { addItem })(AddProduct);

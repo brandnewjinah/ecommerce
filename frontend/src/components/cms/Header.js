@@ -100,18 +100,6 @@ const Links = styled.div`
   }
 `;
 
-const Center = styled.div`
-  display: flex;
-
-  @media (max-width: 980px) {
-    flex-direction: column;
-  }
-`;
-
-const Category = styled.div`
-  margin: 0 2em;
-`;
-
 const Right = styled.div`
   display: flex;
   margin-left: auto;

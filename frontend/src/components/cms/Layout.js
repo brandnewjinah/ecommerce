@@ -39,7 +39,7 @@ const Container = styled.main`
 const Main = styled.section`
   flex: 1;
   min-height: 100vh;
-  background-color: ${colors.faintgray};
+  background-color: ${colors.lightergray};
   margin-left: 250px;
 
   @media (max-width: 780px) {

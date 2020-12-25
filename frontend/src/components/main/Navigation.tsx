@@ -12,13 +12,13 @@ const Navigation: FC<Props> = () => {
       <Link to="/">
         <Category>Home</Category>
       </Link>
-      <Link to="/1">
+      <Link to="/products">
         <Category>Category</Category>
       </Link>
-      <Link to="/2">
+      <Link to="/products">
         <Category>Category</Category>
       </Link>
-      <Link to="/3">
+      <Link to="/products">
         <Category>Category</Category>
       </Link>
     </Wrapper>

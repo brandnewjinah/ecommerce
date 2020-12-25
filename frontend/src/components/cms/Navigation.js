@@ -65,7 +65,7 @@ const Navigation = () => {
     <Wrapper>
       <ul>
         {data.map((cat, idx) => (
-          <>
+          <div key={idx}>
             {!cat.subcategory ? (
               <li
                 className={cat.name === active ? "title active" : "title"}
@@ -114,8 +114,9 @@ const Navigation = () => {
                   </IconContainer>
                 </div>
                 <ul className={idx === open ? "" : "hide"}>
-                  {cat.subcategory.map((sub) => (
+                  {cat.subcategory.map((sub, idx) => (
                     <li
+                      key={idx}
                       className={sub.name === active ? "title active" : "title"}
                       onClick={() => setActive(sub.name)}
                     >
@@ -127,7 +128,7 @@ const Navigation = () => {
                 </ul>
               </li>
             )}
-          </>
+          </div>
         ))}
       </ul>
     </Wrapper>

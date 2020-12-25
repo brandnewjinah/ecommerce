@@ -13,13 +13,13 @@ const Header = (props) => {
         <Left>MYSHOP</Left>
         <Links open={open}>
           <Center>
-            <Link to="/1">
+            <Link to="/collection">
+              <Category>Collection</Category>
+            </Link>
+            <Link to="/products">
               <Category>Category</Category>
             </Link>
-            <Link to="/2">
-              <Category>Category</Category>
-            </Link>
-            <Link to="/3">
+            <Link to="/products">
               <Category>Category</Category>
             </Link>
           </Center>

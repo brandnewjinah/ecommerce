@@ -1,10 +1,9 @@
 import React, { FC, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import config from "../config.json";
+
 import axios from "axios";
 
 //import components
-import ProductCard from "../components/ProductCard";
+
 import Filter from "../components/Filter";
 
 //import styles and assets

@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import config from "../../config.json";
 
 //import styles and assets
+import Layout from "../../components/main/Layout";
 import styled from "styled-components";
 import { Image } from "../../assets/Icons";
 import { Button } from "../../components/Button";
+import colors from "../../components/Colors";
+
+//import redux
+import { connect } from "react-redux";
+import { domainToASCII } from "url";
 
 const Detail = (props) => {
+  let { id } = useParams();
+
   const [data, setData] = useState({});
 
   useEffect(() => {
@@ -16,15 +25,17 @@ const Detail = (props) => {
   }, []);
 
   const getData = async () => {
-    await axios
-      .get(`${config.API}/product/${props.match.params.id}`)
-      .then((res) => {
-        const { productInfo } = res.data;
-        setData(productInfo);
-      })
-      .catch((err) => {
-        alert(err);
-      });
+    const currentItem = props.fashion.find((c) => c.sku === id);
+    setData(currentItem);
+    // await axios
+    //   .get(`${config.API}/product/${props.match.params.id}`)
+    //   .then((res) => {
+    //     const { productInfo } = res.data;
+    //     setData(productInfo);
+    //   })
+    //   .catch((err) => {
+    //     alert(err);
+    //   });
   };
 
   const handleAdd = async () => {
@@ -43,39 +54,62 @@ const Detail = (props) => {
         alert(err);
       });
   };
-
+  console.log(data);
   return (
-    <Wrapper>
-      <Category>
-        <div className="flex link">
-          <Link to="/">
-            <div>{data.category1}</div>
-          </Link>
-          <div style={{ margin: `0 .5em`, color: `#8a8a8a` }}> / </div>
-          <Link to="/">
-            <div>{data.category2}</div>
-          </Link>
-        </div>
-      </Category>
-      <Main>
-        <Img>
-          <img src={data.image} alt="" />
-        </Img>
-        <Desc>
-          <h4>{data.name}</h4>
-          <div className="link">
+    <Layout>
+      <Wrapper>
+        <Category>
+          <div className="flex link">
             <Link to="/">
-              <h6>{data.brand}</h6>
+              <div>{data.category1 && data.category1.label}</div>
             </Link>
+            <div style={{ margin: `0 .5em`, color: `#8a8a8a` }}> / </div>
+            <Link to="/">{data.category2 && data.category2.label}</Link>
+            <div style={{ margin: `0 .5em`, color: `#8a8a8a` }}> / </div>
+            <Link to="/">{data.category3 && data.category3.label}</Link>
           </div>
-          <h5>${data.price}</h5>
-          <div className="btn">
-            <Button label="Add to Cart" imp="primary" handleClick={handleAdd} />
-          </div>
-        </Desc>
-      </Main>
-      <Details>details</Details>
-    </Wrapper>
+        </Category>
+        <Main>
+          <Img>
+            <img src={data.image} alt="" />
+          </Img>
+          <Desc>
+            <Section>
+              <Link to="/">
+                <p className="overline">{data.brand}</p>
+              </Link>
+              <p className="title">{data.name}</p>
+              <p className="price">
+                {data.currency && data.currency.label}
+                {data.price}
+              </p>
+            </Section>
+            <Section>
+              <p className="overline">From</p>
+              <Link to={data.link} target="_blank">
+                <p>{data.store}</p>
+              </Link>
+            </Section>
+            <Section>
+              <p className="overline">Color</p>
+              {data.color && data.color.map((c, idx) => <span>{c.label}</span>)}
+            </Section>
+            <Section>
+              <p className="overline">Size</p>
+              {data.size && data.size.map((s, idx) => <span>{s.label}</span>)}
+            </Section>
+            <div className="btn">
+              <Button
+                label="Add to Cart"
+                imp="primary"
+                handleClick={handleAdd}
+              />
+            </div>
+          </Desc>
+        </Main>
+        <Details>details</Details>
+      </Wrapper>
+    </Layout>
   );
 };
 
@@ -105,10 +139,11 @@ const Main = styled.main`
 `;
 
 const Img = styled.div`
-  width: 430px;
+  min-width: 430px;
   /* height: 385px; */
   background-color: #eee;
   display: flex;
+  flex: 1 1 50%;
   justify-content: center;
   align-items: center;
 
@@ -123,10 +158,15 @@ const Img = styled.div`
 `;
 
 const Desc = styled.div`
+  flex: 1 1 50%;
   padding-left: 3em;
 
   h5 {
     margin: 0.75em 0;
+  }
+
+  h6 {
+    font-weight: 400;
   }
 
   .btn {
@@ -134,6 +174,39 @@ const Desc = styled.div`
   }
 `;
 
+const Section = styled.div`
+  padding: 0.75em 0;
+
+  p {
+    line-height: 1.5rem;
+  }
+
+  .overline {
+    font-size: 0.75rem;
+    color: ${colors.gray};
+  }
+
+  .title {
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin-bottom: 0.75em;
+  }
+
+  .price {
+    font-size: 1rem;
+    font-weight: 400;
+    color: ${colors.darkestgray};
+  }
+
+  border-bottom: 1px solid ${colors.lightgray};
+`;
+
 const Details = styled.div``;
 
-export default Detail;
+const mapStateToProps = (state) => {
+  return {
+    fashion: state.fashion.products,
+  };
+};
+
+export default connect(mapStateToProps, null)(Detail);

@@ -54,7 +54,7 @@ export const Plus = ({ width, height, stroke, color }) => {
   );
 };
 
-export const Image = ({ width, height, stroke, color }) => {
+export const ImageIcon = ({ width, height, stroke, color }) => {
   return (
     <svg
       width={width}

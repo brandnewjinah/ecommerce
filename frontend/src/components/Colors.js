@@ -3,9 +3,9 @@ const Colors = {
   darkestgray: "#525252",
   darkergray: "#616161",
   darkgray: "#707070",
-  gray: "#898989",
-  lightgray: "#9e9e9e",
-  lightergray: "#afafaf",
+  gray: "#919191",
+  lightgray: "#ebebeb",
+  lightergray: "#f8f8f8",
   faintgray: "#fafafa",
 };
 
