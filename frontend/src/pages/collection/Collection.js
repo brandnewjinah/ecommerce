@@ -24,27 +24,21 @@ const Products = (props) => {
   }, []);
 
   const getData = async () => {
-    const { data } = await axios.get(`${config.API}/product`);
-    // const { data } = await axios.get("./data/data.json");
-    setData(data.products);
+    // const { data } = await axios.get(`${config.API}/product`);
+    // setData(data.products);
   };
 
   return (
     <Layout>
       <Wrapper>
         <h2>Collection</h2>
-        <Link to="/addcollection">Add</Link>
+        <Link to="/collection/add">Add</Link>
         <Container>
           <Section>
-            {props.fashion.map((p, idx) => (
-              <Card
-                id={p.sku}
-                store={p.store}
-                name={p.name}
-                currency={p.currency && p.currency.label}
-                price={p.price}
-                imageUrl={p.image}
-              />
+            {props.collection.map((p, idx) => (
+              <Link to={`collection/${p.id}`}>
+                <Card id={p.id} name={p.name} imageUrl={p.imgs[0].src} />
+              </Link>
             ))}
           </Section>
         </Container>
@@ -82,7 +76,7 @@ const Container = styled.div`
 
 const mapStateToProps = (state) => {
   return {
-    fashion: state.fashion.products,
+    collection: state.collection.collection,
   };
 };
 

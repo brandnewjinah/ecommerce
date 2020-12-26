@@ -2,6 +2,8 @@ import React, { ChangeEvent, FC } from "react";
 
 //import styles and assets
 import styled from "styled-components";
+import { Close } from "../assets/Icons";
+import colors from "./Colors";
 
 interface Props {
   label?: string;
@@ -35,6 +37,26 @@ export const BtnText: FC<Props> = ({ label, handleClick }) => {
   return <Text onClick={handleClick}>{label}</Text>;
 };
 
+export const BtnClose: FC<Props> = ({ label, handleClick }) => {
+  return (
+    <CircleSmall
+      onClick={handleClick}
+      style={{ backgroundColor: colors.lightgray }}
+    >
+      <Close width="14" height="14" color={colors.darkergray} stroke="2" />
+    </CircleSmall>
+  );
+};
+
+const Flex = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    opacity: 0.6;
+  }
+`;
+
 const Wrapper = styled.button`
   outline: transparent;
   border: transparent;
@@ -56,4 +78,22 @@ const Text = styled.button`
   &:hover {
     opacity: 0.5;
   }
+`;
+
+const Circle = styled.button`
+  display: flex;
+  padding: 1em;
+  border-radius: 50%;
+  background-color: #d46f4a;
+  border: none;
+  outline: transparent;
+  cursor: pointer;
+`;
+
+const CircleSmall = styled(Flex)`
+  padding: 3px;
+  border-radius: 50%;
+  border: none;
+  outline: transparent;
+  cursor: pointer;
 `;

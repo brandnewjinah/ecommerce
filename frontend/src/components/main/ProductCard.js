@@ -16,32 +16,30 @@ export const Card = ({ imageUrl, store, name, price, id, currency }) => {
   };
 
   return (
-    <Link to={`/products/${id}`}>
-      <CardWrapper>
-        <ImageContainer>
-          {imgErr ? (
-            <ErrImg>
-              <ImageIcon width="20" height="20" color="#8F8F8F" stroke="2" />
-            </ErrImg>
-          ) : (
-            <Image
-              onError={handleDefaultImg}
-              src={imageUrl ? imageUrl : setImgErr(true)}
-            />
-          )}
-        </ImageContainer>
-        <Details>
-          <div className="sub">{store}</div>
-          <div className="main">
-            {name.length > 16 ? `${name.substring(0, 14)}...` : name}
-          </div>
-          <div className="caption">
-            {currency}
-            {price}
-          </div>
-        </Details>
-      </CardWrapper>
-    </Link>
+    <CardWrapper>
+      <ImageContainer>
+        {imgErr ? (
+          <ErrImg>
+            <ImageIcon width="20" height="20" color="#8F8F8F" stroke="2" />
+          </ErrImg>
+        ) : (
+          <Image
+            onError={handleDefaultImg}
+            src={imageUrl ? imageUrl : setImgErr(true)}
+          />
+        )}
+      </ImageContainer>
+      <Details>
+        <div className="sub">{store}</div>
+        <div className="main">
+          {name.length > 16 ? `${name.substring(0, 14)}...` : name}
+        </div>
+        <div className="caption">
+          {currency}
+          {price}
+        </div>
+      </Details>
+    </CardWrapper>
   );
 };
 

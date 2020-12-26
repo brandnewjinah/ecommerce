@@ -20,8 +20,8 @@ export const occasionData = [
   },
   {
     id: 101,
-    value: "clothing",
-    label: "Clothing",
+    value: "outing",
+    label: "Outing",
     subcategory: [
       { value: "Chips", label: "Chips" },
       { value: "Candy", label: "Candy" },

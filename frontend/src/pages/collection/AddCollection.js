@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Select from "react-select";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 
 //import components
 import Layout from "../../components/main/Layout";
 import Input from "../../components/Input";
-import { Button } from "../../components/Button";
+import { Button, BtnText, BtnClose } from "../../components/Button";
 
 //import styles and assets
 import styled from "styled-components";
@@ -13,28 +14,38 @@ import colors from "../../components/Colors";
 
 //import data
 import { occasionData } from "../../data/collection";
-import { colorData, sizeData, currencyData } from "../../data/options";
 
 //redux
 import { connect } from "react-redux";
-import { addItem } from "../../reducers/collectionReducer";
+import { addItem, editItem, deleteAll } from "../../reducers/collectionReducer";
 
 const AddCollection = (props) => {
   const [data, setData] = useState({
-    image: "",
     name: "",
-    brand: "",
-    sku: "",
-    currency: {},
-    price: "",
+    description: "",
+    imgs: [
+      {
+        id: 1,
+        src: "",
+      },
+    ],
     category1: {},
     category2: {},
     category3: {},
-    store: "",
-    link: "",
-    color: [],
-    size: [],
   });
+  const history = useHistory();
+  let location = useLocation();
+  let { id } = useParams();
+
+  const getData = async () => {
+    if (location.pathname.includes("/edit")) {
+      //from redux store
+      const currentItem = await props.collection.find(
+        (c) => c.id === parseInt(id)
+      );
+      setData(currentItem);
+    }
+  };
 
   const [errors, setErrors] = useState({});
 
@@ -44,32 +55,14 @@ const AddCollection = (props) => {
     setData(userInput);
   };
 
+  const handleImgChange = (e, idx) => {
+    const userInput = { ...data };
+    userInput[e.target.name][idx].src = e.target.value;
+    setData(userInput);
+  };
+
   const handleCategory = (name) => (value) => {
     let newData = { ...data, [name]: value };
-    setData(newData);
-  };
-
-  const handleColor = ({ currentTarget: input }) => {
-    let newData = { ...data };
-    let newColor = [...newData.color];
-    let thisColor = newColor.find((c) => c.label === input.name);
-    thisColor = { ...thisColor, sku: input.value };
-
-    let index = newColor.findIndex((item) => item.id === thisColor.id);
-    newColor[index] = thisColor;
-    newData = { ...newData, color: newColor };
-    setData(newData);
-  };
-
-  const handleSize = ({ currentTarget: input }) => {
-    let newData = { ...data };
-    let newSize = [...newData.size];
-    let thisSize = newSize.find((c) => c.label === input.name);
-    thisSize = { ...thisSize, sku: input.value };
-
-    let index = newSize.findIndex((item) => item.id === thisSize.id);
-    newSize[index] = thisSize;
-    newData = { ...newData, size: newSize };
     setData(newData);
   };
 
@@ -87,74 +80,96 @@ const AddCollection = (props) => {
     setErrors(errors || {});
     if (errors) return;
 
-    props.addItem(data);
+    let id =
+      props.collection.length === 0
+        ? 1
+        : props.collection[props.collection.length - 1].id + 1;
+
+    let newData = { ...data, id: id };
+    props.addItem(newData);
     // postData();
   };
 
-  const postData = async () => {
-    const product = {
-      name: data.name,
-      price: data.price,
-      category1: data.category1,
-      category2: data.category2,
-      brand: data.brand,
-      image: data.image,
-      code: data.code,
-    };
+  const handleEdit = () => {
+    const errors = validate();
+    setErrors(errors || {});
+    if (errors) return;
 
-    const token = localStorage.getItem("token");
-
-    const options = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    await axios
-      .post("http://localhost:5000/product", product, options)
-      .then((res) => {
-        if (res.status === 200) {
-          console.log(product);
-          alert("Product saved");
-        }
-      })
-      .catch((err) => {
-        // if (
-        //   err.response &&
-        //   err.response.status >= 400 &&
-        //   err.response.status < 500
-        // )
-        alert(err);
-      });
+    props.editItem(data); //add to redux
+    alert("Updated");
+    history.push(`/collection/${id}`);
   };
-  console.log(data);
+
+  let newImgs = [...data.imgs];
+  const handleImgAdd = () => {
+    let id = newImgs[newImgs.length - 1].id + 1;
+    newImgs = [...newImgs, { id: id, src: "" }];
+    setData({ ...data, imgs: newImgs });
+  };
+
+  const handleIngDelete = (id) => {
+    newImgs = newImgs.filter((i) => i.id !== id);
+    setData({ ...data, imgs: newImgs });
+  };
+
+  useEffect(() => {
+    getData();
+  }, [id]);
 
   return (
     <Layout>
       <Wrapper>
-        <h6>Add to Collection</h6>
+        <h6>Add Collection</h6>
 
         <form onSubmit={handleSubmit}>
           <Container>
-            <ImageContainer>
-              <img src={data.image} alt="" />
-              {/* <Image imgurl={data.image} /> */}
-            </ImageContainer>
             <Input
-              label="Image URL"
-              name="image"
-              value={data.image}
-              error={errors.image}
+              label=" Name"
+              placeholder={`like "Home Lounging" or "Outdoor Workout"`}
+              name="name"
+              value={data.name}
+              error={errors.name}
+              handleChange={handleChange}
+            />
+            <Input
+              label="Description"
+              name="description"
+              value={data.description}
+              error={errors.description}
               handleChange={handleChange}
             />
           </Container>
           <Container>
-            <Input
-              label="Product Name"
-              name="name"
-              error={errors.name}
-              handleChange={handleChange}
-            />
+            <p>Collection Images</p>
+            <ImageContainer>
+              {data.imgs.map((img, idx) => (
+                <img src={img.src} alt="" />
+              ))}
+            </ImageContainer>
+            {data.imgs.map((img, idx) => (
+              <InputWrapper>
+                <div className="left">
+                  <Input
+                    label="Image URL"
+                    name="imgs"
+                    value={img.src}
+                    error={errors.image}
+                    handleChange={(e) => handleImgChange(e, idx)}
+                  />
+                </div>
+                {idx === 0 ? (
+                  <div className="right"></div>
+                ) : (
+                  <div className="right">
+                    <BtnClose handleClick={() => handleIngDelete(img.id)} />
+                  </div>
+                )}
+              </InputWrapper>
+            ))}
+            <BtnText label="More" handleClick={handleImgAdd} />
+          </Container>
+
+          <Container>
             <Category>
               <p>Select Main Occasion</p>
               <Select
@@ -163,7 +178,6 @@ const AddCollection = (props) => {
                 onChange={handleCategory("category1")}
               />
             </Category>
-
             {Object.keys(data.category1).length !== 0 &&
               data.category1.subcategory && (
                 <Category>
@@ -188,123 +202,14 @@ const AddCollection = (props) => {
                 </Category>
               )}
           </Container>
-
-          <Container>
-            <Flex>
-              <div className="eight">
-                <Input
-                  label="Brand"
-                  name="brand"
-                  error={errors.brand}
-                  handleChange={handleChange}
-                />
-              </div>
-              <div className="two">
-                <Input
-                  label="SKU"
-                  name="sku"
-                  error={errors.sku}
-                  handleChange={handleChange}
-                />
-              </div>
-            </Flex>
-
-            <Currency>
-              <p>Price</p>
-              <Flex>
-                <div className="symbol">
-                  <Select
-                    name="currency"
-                    defaultValue={currencyData[0]}
-                    options={currencyData}
-                    onChange={handleCategory("currency")}
-                    components={{
-                      DropdownIndicator: () => null,
-                      IndicatorSeparator: () => null,
-                    }}
-                  />
-                </div>
-                <div className="value">
-                  <Input
-                    name="price"
-                    value={data.price}
-                    error={errors.price}
-                    handleChange={handleChange}
-                  />
-                </div>
-              </Flex>
-            </Currency>
-          </Container>
-
-          <Container>
-            <Input
-              label="Store Name"
-              name="store"
-              value={data.store}
-              error={errors.store}
-              handleChange={handleChange}
-            />
-            <Input
-              label="Store Link"
-              name="link"
-              value={data.link}
-              error={errors.link}
-              handleChange={handleChange}
-            />
-          </Container>
-          <Container>
-            <Currency>
-              <p>Size</p>
-              <Select
-                isMulti
-                name="size"
-                placeholder="Select size"
-                options={sizeData}
-                onChange={handleCategory("size")}
-              />
-              {data.size &&
-                data.size.length > 0 &&
-                data.size.map((s, idx) => (
-                  <Flex key={idx}>
-                    <div className="left">{s.label}</div>
-                    <div className="right">
-                      <Input
-                        name={s.label}
-                        placeholder="SKU"
-                        handleChange={handleSize}
-                      />
-                    </div>
-                  </Flex>
-                ))}
-            </Currency>
-          </Container>
-          <Container>
-            <Currency>
-              <p>Color</p>
-              <Select
-                isMulti
-                name="color"
-                placeholder="Select color"
-                options={colorData}
-                onChange={handleCategory("color")}
-              />
-              {data.color &&
-                data.color.length > 0 &&
-                data.color.map((c, idx) => (
-                  <Flex key={idx}>
-                    <div className="left">{c.label}</div>
-                    <div className="right">
-                      <Input
-                        name={c.label}
-                        placeholder="SKU"
-                        handleChange={handleColor}
-                      />
-                    </div>
-                  </Flex>
-                ))}
-            </Currency>
-          </Container>
-          <Button label="Post" />
+          {location.pathname.includes("/edit") ? (
+            <>
+              <Button label="Edit" handleClick={handleEdit} />
+              {/* <BtnText label="Delete" handleClick={handleDelete} /> */}
+            </>
+          ) : (
+            <Button label="Add" handleClick={handleSubmit} />
+          )}
         </form>
       </Wrapper>
     </Layout>
@@ -325,46 +230,29 @@ const Container = styled.div`
 `;
 
 const ImageContainer = styled.div`
-  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 2em;
   border: 1px solid ${colors.lightgray};
   padding: 1em;
-`;
 
-const Currency = styled.div`
-  width: 100%;
-
-  .symbol {
-    flex: 1 1 8%;
-    margin-right: 1%;
-  }
-
-  .value {
-    flex: 1 1 91%;
+  img {
+    width: 100%;
   }
 `;
 
-const Flex = styled.div`
+const InputWrapper = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin: 1em 0;
+  justify-content: space-between;
 
-  .one {
-    flex: 1 1 10%;
+  .left {
+    width: 96%;
   }
 
-  .two {
-    flex: 1 1 20%;
-  }
-
-  .eight {
-    flex: 1 1 78%;
-    margin-right: 2%;
-  }
-
-  .nine {
-    flex: 1 1 90%;
+  .right {
+    width: 2%;
   }
 `;
 
@@ -374,8 +262,10 @@ const Category = styled.div`
 
 const mapStateToProps = (state) => {
   return {
-    fashion: state.fashion.products,
+    collection: state.collection.collection,
   };
 };
 
-export default connect(mapStateToProps, { addItem })(AddCollection);
+export default connect(mapStateToProps, { addItem, editItem, deleteAll })(
+  AddCollection
+);

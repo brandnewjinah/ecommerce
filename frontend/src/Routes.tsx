@@ -12,6 +12,8 @@ import Category3 from "./pages/Category3";
 import Signup from "./pages/user/Signup";
 import Login from "./pages/user/Login";
 import Detail from "./pages/products/Detail";
+import CollectionDetail from "./pages/collection/Detail";
+import AddCollectionProduct from "./pages/collection/AddProduct";
 
 //import cms pages
 import CmsLayout from "./components/cms/Layout";
@@ -26,7 +28,14 @@ const Routes = () => {
         <Route exact path="/" component={Home} />
         <Route exact path="/products" component={Category1} />
         <Route exact path="/collection" component={Collection} />
-        <Route exact path="/addcollection" component={AddCollection} />
+        <Route exact path="/collection/add" component={AddCollection} />
+        <Route exact path="/collection/:id" component={CollectionDetail} />
+        <Route exact path="/collection/:id/edit" component={AddCollection} />
+        <Route
+          exact
+          path="/collection/:id/add"
+          component={AddCollectionProduct}
+        />
         <Route exact path="/2" component={Category2} />
         <Route exact path="/3" component={Category3} />
         <Route exact path="/signup" component={Signup} />
