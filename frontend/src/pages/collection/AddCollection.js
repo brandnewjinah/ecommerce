@@ -107,7 +107,7 @@ const AddCollection = (props) => {
     setData({ ...data, imgs: newImgs });
   };
 
-  const handleIngDelete = (id) => {
+  const handleImgDelete = (id) => {
     newImgs = newImgs.filter((i) => i.id !== id);
     setData({ ...data, imgs: newImgs });
   };
@@ -161,7 +161,7 @@ const AddCollection = (props) => {
                   <div className="right"></div>
                 ) : (
                   <div className="right">
-                    <BtnClose handleClick={() => handleIngDelete(img.id)} />
+                    <BtnClose handleClick={() => handleImgDelete(img.id)} />
                   </div>
                 )}
               </InputWrapper>

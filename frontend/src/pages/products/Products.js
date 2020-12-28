@@ -42,7 +42,7 @@ const Products = (props) => {
                 name={p.name}
                 currency={p.currency && p.currency.label}
                 price={p.price}
-                imageUrl={p.image}
+                imageUrl={p.imgs[0].src}
               />
             ))}
           </Section>

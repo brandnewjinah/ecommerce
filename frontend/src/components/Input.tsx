@@ -58,8 +58,6 @@ const Input: FC<Props> = ({
 };
 
 const Wrapper = styled.div`
-  margin-bottom: 1em;
-
   label {
     font-weight: 400;
   }

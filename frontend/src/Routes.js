@@ -44,8 +44,9 @@ const Routes = () => {
 
         <CmsLayout>
           <Route exact path="/cms" component={CmsHome} />
-          <Route exact path="/cms/addproduct" component={AddProduct} />
           <Route exact path="/cms/products" component={Products} />
+          <Route exact path="/cms/products/add" component={AddProduct} />
+          <Route exact path="/cms/products/edit/:sku" component={AddProduct} />
         </CmsLayout>
       </Switch>
     </Router>

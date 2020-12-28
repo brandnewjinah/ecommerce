@@ -20,7 +20,7 @@ const data = [
       },
       {
         name: "Add a Product",
-        link: "/addproduct",
+        link: "/products/add",
       },
     ],
   },

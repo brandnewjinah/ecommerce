@@ -54,10 +54,9 @@ export const Close = ({ width, height, stroke, color }) => {
   );
 };
 
-export const Plus = ({ width, height, stroke, color }) => {
+export const Eye = ({ width, height, stroke, color }) => {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
       width={width}
       height={height}
       viewBox="0 0 24 24"
@@ -67,7 +66,43 @@ export const Plus = ({ width, height, stroke, color }) => {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d="M12 5v14M5 12h14" />
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+      <circle cx={12} cy={12} r={3} />
+    </svg>
+  );
+};
+
+export const EyeOff = ({ width, height, stroke, color }) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24M1 1l22 22" />
+    </svg>
+  );
+};
+
+export const Heart = ({ width, height, stroke, color, fill }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill={fill}
+      stroke={color}
+      strokeWidth={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
     </svg>
   );
 };
@@ -109,20 +144,20 @@ export const Minus = ({ width, height, stroke, color }) => {
   );
 };
 
-export const Heart = ({ width, height, stroke, color, fill }) => {
+export const Plus = ({ width, height, stroke, color }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={width}
       height={height}
       viewBox="0 0 24 24"
-      fill={fill}
+      fill="none"
       stroke={color}
       strokeWidth={stroke}
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+      <path d="M12 5v14M5 12h14" />
     </svg>
   );
 };
@@ -146,9 +181,10 @@ export const Store = ({ width, height, stroke, color, fill }) => {
   );
 };
 
-export const Eye = ({ width, height, stroke, color }) => {
+export const Trash = ({ width, height, stroke, color, fill }) => {
   return (
     <svg
+      xmlns="http://www.w3.org/2000/svg"
       width={width}
       height={height}
       viewBox="0 0 24 24"
@@ -158,25 +194,7 @@ export const Eye = ({ width, height, stroke, color }) => {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-      <circle cx={12} cy={12} r={3} />
-    </svg>
-  );
-};
-
-export const EyeOff = ({ width, height, stroke, color }) => {
-  return (
-    <svg
-      width={width}
-      height={height}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke={color}
-      strokeWidth={stroke}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24M1 1l22 22" />
+      <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6" />
     </svg>
   );
 };

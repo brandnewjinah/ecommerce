@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Select from "react-select";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 
 //import components
 import Input from "../../../components/Input";
-import { Button } from "../../../components/Button";
+import { Button, BtnClose, BtnText } from "../../../components/Button";
 
 //import styles and assets
 import styled from "styled-components";
-import colors from "../../../components/Colors";
 
 //import data
 import { catData } from "../../../data/category";
@@ -19,6 +19,9 @@ import { connect } from "react-redux";
 import { addItem } from "../../../reducers/fashionReducer";
 
 const AddProduct = (props) => {
+  let location = useLocation();
+  let { sku } = useParams();
+
   const [data, setData] = useState({
     name: "",
     brand: "",
@@ -28,7 +31,12 @@ const AddProduct = (props) => {
     category1: {},
     category2: {},
     category3: {},
-    image: "",
+    imgs: [
+      {
+        id: 1,
+        src: "",
+      },
+    ],
     store: "",
     link: "",
     color: [],
@@ -72,6 +80,24 @@ const AddProduct = (props) => {
     setData(newData);
   };
 
+  let newImgs = [...data.imgs];
+  const handleImgAdd = () => {
+    let id = newImgs[newImgs.length - 1].id + 1;
+    newImgs = [...newImgs, { id: id, src: "" }];
+    setData({ ...data, imgs: newImgs });
+  };
+
+  const handleImgChange = (e, idx) => {
+    const userInput = { ...data };
+    userInput[e.target.name][idx].src = e.target.value;
+    setData(userInput);
+  };
+
+  const handleImgDelete = (id) => {
+    newImgs = newImgs.filter((i) => i.id !== id);
+    setData({ ...data, imgs: newImgs });
+  };
+
   const validate = () => {
     const errors = {};
     if (data.name === "") {
@@ -86,8 +112,8 @@ const AddProduct = (props) => {
     return Object.keys(errors).length === 0 ? null : errors;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
+    // e.preventDefault();
     const errors = validate();
     setErrors(errors || {});
     if (errors) return;
@@ -96,211 +122,242 @@ const AddProduct = (props) => {
     // postData();
   };
 
-  const postData = async () => {
-    const product = {
-      name: data.name,
-      price: data.price,
-      category1: data.category1,
-      category2: data.category2,
-      brand: data.brand,
-      image: data.image,
-      code: data.code,
-    };
+  // const postData = async () => {
+  //   const product = {
+  //     name: data.name,
+  //     price: data.price,
+  //     category1: data.category1,
+  //     category2: data.category2,
+  //     brand: data.brand,
+  //     image: data.image,
+  //     code: data.code,
+  //   };
 
-    const token = localStorage.getItem("token");
+  //   const token = localStorage.getItem("token");
 
-    const options = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+  //   const options = {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   };
 
-    await axios
-      .post("http://localhost:5000/product", product, options)
-      .then((res) => {
-        if (res.status === 200) {
-          console.log(product);
-          alert("Product saved");
-        }
-      })
-      .catch((err) => {
-        // if (
-        //   err.response &&
-        //   err.response.status >= 400 &&
-        //   err.response.status < 500
-        // )
-        alert(err);
-      });
+  //   await axios
+  //     .post("http://localhost:5000/product", product, options)
+  //     .then((res) => {
+  //       if (res.status === 200) {
+  //         console.log(product);
+  //         alert("Product saved");
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       // if (
+  //       //   err.response &&
+  //       //   err.response.status >= 400 &&
+  //       //   err.response.status < 500
+  //       // )
+  //       alert(err);
+  //     });
+  // };
+
+  const getData = async () => {
+    if (location.pathname.includes("/edit")) {
+      //from redux store
+      const currentItem = await props.fashion.find((c) => c.sku === sku);
+      setData(currentItem);
+    }
   };
+
+  useEffect(() => {
+    getData();
+  }, [sku]);
 
   return (
     <Wrapper>
       <h6>Add Product</h6>
-
-      <form onSubmit={handleSubmit}>
-        <Container>
-          <Input
-            label="Product Name"
-            name="name"
-            error={errors.name}
-            handleChange={handleChange}
-          />
+      <Container>
+        <Input
+          label="Product Name"
+          name="name"
+          value={data.name}
+          error={errors.name}
+          handleChange={handleChange}
+        />
+        <Flex>
+          <div className="eight">
+            <Input
+              label="Brand"
+              name="brand"
+              value={data.brand}
+              error={errors.brand}
+              handleChange={handleChange}
+            />
+          </div>
+          <div className="two">
+            <Input
+              label="SKU"
+              name="sku"
+              value={data.sku}
+              error={errors.sku}
+              handleChange={handleChange}
+            />
+          </div>
+        </Flex>
+        <Currency>
+          <p>Price</p>
           <Flex>
-            <div className="eight">
-              <Input
-                label="Brand"
-                name="brand"
-                error={errors.brand}
-                handleChange={handleChange}
+            <div className="one">
+              <Select
+                name="currency"
+                value={data.currency}
+                defaultValue={currencyData[0]}
+                options={currencyData}
+                onChange={handleCategory("currency")}
+                components={{
+                  DropdownIndicator: () => null,
+                  IndicatorSeparator: () => null,
+                }}
               />
             </div>
-            <div className="two">
+            <div className="nine">
               <Input
-                label="SKU"
-                name="sku"
-                error={errors.sku}
+                name="price"
+                value={data.price}
+                error={errors.price}
                 handleChange={handleChange}
               />
             </div>
           </Flex>
+        </Currency>
+      </Container>
+      <Container>
+        <Category>
+          <p>Select Main Category</p>
+          <Select
+            name="category1"
+            value={data.category1}
+            options={catData}
+            onChange={handleCategory("category1")}
+          />
+        </Category>
 
-          <Currency>
-            <p>Price</p>
-            <Flex>
-              <div className="symbol">
-                <Select
-                  name="currency"
-                  defaultValue={currencyData[0]}
-                  options={currencyData}
-                  onChange={handleCategory("currency")}
-                  components={{
-                    DropdownIndicator: () => null,
-                    IndicatorSeparator: () => null,
-                  }}
-                />
+        {Object.keys(data.category1).length !== 0 &&
+          data.category1.subcategory && (
+            <Category>
+              <p>Select Subcategory</p>
+              <Select
+                name="category2"
+                value={data.category2}
+                options={data.category1.subcategory}
+                onChange={handleCategory("category2")}
+              />
+            </Category>
+          )}
+
+        {Object.keys(data.category2).length !== 0 &&
+          data.category2.subcategory && (
+            <Category>
+              <p>A litte more detail</p>
+              <Select
+                name="category3"
+                value={data.category3}
+                options={data.category2.subcategory}
+                onChange={handleCategory("category3")}
+              />
+            </Category>
+          )}
+      </Container>
+      <Container>
+        {data.imgs.map((img, idx) => (
+          <InputWrapper>
+            <div className="left">
+              <Input
+                label="Image URL"
+                name="imgs"
+                value={img.src}
+                error={errors.image}
+                handleChange={(e) => handleImgChange(e, idx)}
+              />
+            </div>
+            {idx === 0 ? (
+              <div className="right"></div>
+            ) : (
+              <div className="right">
+                <BtnClose handleClick={() => handleImgDelete(img.id)} />
               </div>
-              <div className="value">
+            )}
+          </InputWrapper>
+        ))}
+        <BtnText label="More" handleClick={handleImgAdd} />
+      </Container>
+      <Container>
+        <Input
+          label="Store Name"
+          name="store"
+          value={data.store}
+          error={errors.store}
+          handleChange={handleChange}
+        />
+        <Input
+          label="Store Link"
+          name="link"
+          value={data.link}
+          error={errors.link}
+          handleChange={handleChange}
+        />
+      </Container>
+      <Container>
+        <p>Size</p>
+        <Select
+          isMulti
+          name="size"
+          placeholder="Select size"
+          value={data.size}
+          options={sizeData}
+          onChange={handleCategory("size")}
+        />
+        {data.size &&
+          data.size.length > 0 &&
+          data.size.map((s, idx) => (
+            <Flex key={idx}>
+              <div className="left">{s.label}</div>
+              <div className="right">
                 <Input
-                  name="price"
-                  value={data.price}
-                  error={errors.price}
-                  handleChange={handleChange}
+                  name={s.label}
+                  value={s.sku}
+                  placeholder="SKU"
+                  handleChange={handleSize}
                 />
               </div>
             </Flex>
-          </Currency>
-        </Container>
-        <Container>
-          <Category>
-            <p>Select Main Category</p>
-            <Select
-              name="category1"
-              options={catData}
-              onChange={handleCategory("category1")}
-            />
-          </Category>
-
-          {Object.keys(data.category1).length !== 0 &&
-            data.category1.subcategory && (
-              <Category>
-                <p>Select Subcategory</p>
-                <Select
-                  name="category2"
-                  options={data.category1.subcategory}
-                  onChange={handleCategory("category2")}
+          ))}
+      </Container>
+      <Container>
+        <p>Color</p>
+        <Select
+          isMulti
+          name="color"
+          placeholder="Select color"
+          value={data.color}
+          options={colorData}
+          onChange={handleCategory("color")}
+        />
+        {data.color &&
+          data.color.length > 0 &&
+          data.color.map((c, idx) => (
+            <Flex key={idx}>
+              <div className="left">{c.label}</div>
+              <div className="right">
+                <Input
+                  name={c.label}
+                  value={c.sku}
+                  placeholder="SKU"
+                  handleChange={handleColor}
                 />
-              </Category>
-            )}
-
-          {Object.keys(data.category2).length !== 0 &&
-            data.category2.subcategory && (
-              <Category>
-                <p>A litte more detail</p>
-                <Select
-                  name="category3"
-                  options={data.category2.subcategory}
-                  onChange={handleCategory("category3")}
-                />
-              </Category>
-            )}
-        </Container>
-        <Container>
-          <Input
-            label="Image URL"
-            name="image"
-            value={data.image}
-            error={errors.image}
-            handleChange={handleChange}
-          />
-          <Input
-            label="Store Name"
-            name="store"
-            value={data.store}
-            error={errors.store}
-            handleChange={handleChange}
-          />
-          <Input
-            label="Store Link"
-            name="link"
-            value={data.link}
-            error={errors.link}
-            handleChange={handleChange}
-          />
-        </Container>
-        <Container>
-          <Currency>
-            <p>Size</p>
-            <Select
-              isMulti
-              name="size"
-              placeholder="Select size"
-              options={sizeData}
-              onChange={handleCategory("size")}
-            />
-            {data.size &&
-              data.size.length > 0 &&
-              data.size.map((s, idx) => (
-                <Flex key={idx}>
-                  <div className="left">{s.label}</div>
-                  <div className="right">
-                    <Input
-                      name={s.label}
-                      placeholder="SKU"
-                      handleChange={handleSize}
-                    />
-                  </div>
-                </Flex>
-              ))}
-          </Currency>
-        </Container>
-        <Container>
-          <Currency>
-            <p>Color</p>
-            <Select
-              isMulti
-              name="color"
-              placeholder="Select color"
-              options={colorData}
-              onChange={handleCategory("color")}
-            />
-            {data.color &&
-              data.color.length > 0 &&
-              data.color.map((c, idx) => (
-                <Flex key={idx}>
-                  <div className="left">{c.label}</div>
-                  <div className="right">
-                    <Input
-                      name={c.label}
-                      placeholder="SKU"
-                      handleChange={handleColor}
-                    />
-                  </div>
-                </Flex>
-              ))}
-          </Currency>
-        </Container>
-        <Button label="Post" />
-      </form>
+              </div>
+            </Flex>
+          ))}
+      </Container>
+      <Button label="Add" handleClick={handleSubmit} />
     </Wrapper>
   );
 };
@@ -313,22 +370,10 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   background-color: #fff;
+  box-shadow: 0 0 30px 0 rgba(63, 76, 105, 0.05);
   border-radius: 0.25em;
   padding: 2em;
   margin: 1em 0;
-`;
-
-const Currency = styled.div`
-  width: 100%;
-
-  .symbol {
-    flex: 1 1 8%;
-    margin-right: 1%;
-  }
-
-  .value {
-    flex: 1 1 91%;
-  }
 `;
 
 const Flex = styled.div`
@@ -339,25 +384,41 @@ const Flex = styled.div`
   margin: 1em 0;
 
   .one {
-    flex: 1 1 10%;
+    flex: 0 1 9%;
   }
 
   .two {
-    flex: 1 1 20%;
+    flex: 0 1 20%;
   }
 
   .eight {
-    flex: 1 1 78%;
-    margin-right: 2%;
+    flex: 0 1 79%;
   }
 
   .nine {
-    flex: 1 1 90%;
+    flex: 0 1 90%;
   }
 `;
 
+const Currency = styled.div``;
+
 const Category = styled.div`
   margin: 1em 0;
+`;
+
+const InputWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .left {
+    width: 96%;
+  }
+
+  .right {
+    width: 2%;
+  }
 `;
 
 const mapStateToProps = (state) => {

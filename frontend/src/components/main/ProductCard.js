@@ -32,7 +32,7 @@ export const Card = ({ imageUrl, store, name, price, id, currency }) => {
       <Details>
         <div className="sub">{store}</div>
         <div className="main">
-          {name.length > 16 ? `${name.substring(0, 14)}...` : name}
+          {name.length > 30 ? `${name.substring(0, 28)}...` : name}
         </div>
         <div className="caption">
           {currency}
