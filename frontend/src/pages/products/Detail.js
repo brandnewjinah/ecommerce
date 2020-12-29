@@ -13,7 +13,6 @@ import colors from "../../components/Colors";
 
 //import redux
 import { connect } from "react-redux";
-import { domainToASCII } from "url";
 
 const Detail = (props) => {
   let { id } = useParams();
@@ -71,11 +70,11 @@ const Detail = (props) => {
         </Category>
         <Main>
           <Img>
-            <img src={data.image} alt="" />
+            <img src={data.imgs && data.imgs[0].src} alt="" />
           </Img>
           <Desc>
             <Section>
-              <Link to="/">
+              <Link to={{ pathname: data.link }} target="_blank">
                 <p className="overline">{data.brand}</p>
               </Link>
               <p className="title">{data.name}</p>
@@ -92,6 +91,7 @@ const Detail = (props) => {
             </Section>
             <Section>
               <p className="overline">Color</p>
+              {/* {data.color && data.color.map((c, idx) => <span>{c.label}</span>)} */}
               {data.color && data.color.map((c, idx) => <span>{c.label}</span>)}
             </Section>
             <Section>

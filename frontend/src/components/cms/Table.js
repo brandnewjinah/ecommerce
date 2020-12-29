@@ -55,10 +55,13 @@ const Table = (props) => {
 };
 
 const Wrapper = styled.div`
+  padding: 2em;
+
   table {
     width: 100%;
     border-collapse: collapse;
   }
+
   th {
     text-align: left;
     font-size: 0.75rem;
@@ -68,11 +71,16 @@ const Wrapper = styled.div`
     color: ${colors.gray};
     padding: 0.75em 0;
   }
+
   td {
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     color: #3e3a41;
-    padding: 1em 0.25em;
+    padding: 1em 0;
     border-top: 1px solid ${colors.lightgray};
+
+    &:last-child {
+      text-align: center;
+    }
   }
   input {
     width: 100%;
@@ -99,14 +107,18 @@ const Wrapper = styled.div`
       margin: 0 0 1rem 0;
     }
     tr:nth-child(even) {
-      background: ${colors.faintgray};
+      background: #f0f3f7;
     }
     td {
-      /* Behave  like a "row" */
       border: none;
-      border-bottom: 1px solid #eee;
+      border-top: 1px solid #eee;
       position: relative;
       padding-left: 40%;
+
+      &:first-child {
+        border-top: none;
+      }
+
       &:last-child {
         text-align: left;
       }
@@ -115,23 +127,26 @@ const Wrapper = styled.div`
         top: 25%;
         left: 6px;
         width: 30%;
-        padding-right: 10px;
+        padding-left: 1em;
         white-space: nowrap;
       }
     }
     td:nth-of-type(1):before {
-      content: "Brand";
+      content: "Name";
     }
     td:nth-of-type(2):before {
-      content: "Category1";
+      content: "Brand";
     }
     td:nth-of-type(3):before {
-      content: "Category2";
+      content: "Category";
     }
     td:nth-of-type(4):before {
-      content: "Store";
+      content: "Category 2";
     }
     td:nth-of-type(5):before {
+      content: "Store";
+    }
+    td:nth-of-type(6):before {
       content: "Action";
     }
   }

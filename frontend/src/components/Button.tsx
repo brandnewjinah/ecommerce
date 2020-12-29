@@ -11,6 +11,7 @@ interface Props {
   value?: string;
   name?: string;
   imp?: string;
+  color?: string;
   handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   handleClick?: () => void;
 }
@@ -25,7 +26,7 @@ export const Button: FC<Props> = ({
 }) => {
   return (
     <Wrapper
-      style={{ backgroundColor: imp === "primary" ? "#f2665c" : "#f2665c" }}
+      style={{ backgroundColor: imp === "primary" ? "#3d5178" : "#3d5178" }}
       onClick={handleClick}
     >
       {label}
@@ -33,15 +34,23 @@ export const Button: FC<Props> = ({
   );
 };
 
-export const BtnText: FC<Props> = ({ label, handleClick }) => {
-  return <Text onClick={handleClick}>{label}</Text>;
+export const BtnText: FC<Props> = ({ label, color, handleClick }) => {
+  return (
+    <Text onClick={handleClick}>
+      <span style={{ color: color, borderBottom: `1px solid ${color}` }}>
+        {label}
+      </span>
+    </Text>
+  );
 };
 
 export const BtnClose: FC<Props> = ({ label, handleClick }) => {
   return (
     <CircleSmall
       onClick={handleClick}
-      style={{ backgroundColor: colors.lightgray }}
+      style={{
+        backgroundColor: colors.lightgray,
+      }}
     >
       <Close width="14" height="14" color={colors.darkergray} stroke="2" />
     </CircleSmall>
@@ -60,11 +69,11 @@ const Flex = styled.button`
 const Wrapper = styled.button`
   outline: transparent;
   border: transparent;
-  border-radius: 0.25em;
+  border-radius: 0.35em;
   color: white;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 600;
-  padding: 1em 2.5em;
+  padding: 0.75em 1.5em;
   cursor: pointer;
 `;
 
@@ -72,22 +81,11 @@ const Text = styled.button`
   outline: transparent;
   border: transparent;
   background-color: transparent;
-  border-bottom: 1px solid #444;
   cursor: pointer;
 
   &:hover {
     opacity: 0.5;
   }
-`;
-
-const Circle = styled.button`
-  display: flex;
-  padding: 1em;
-  border-radius: 50%;
-  background-color: #d46f4a;
-  border: none;
-  outline: transparent;
-  cursor: pointer;
 `;
 
 const CircleSmall = styled(Flex)`

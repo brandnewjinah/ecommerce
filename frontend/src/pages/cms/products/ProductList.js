@@ -90,8 +90,7 @@ const Container = styled.div`
   background-color: #fff;
   border: 1px solid #f4f4f4;
   border-radius: 0.5em;
-  box-shadow: 0 0 30px 0 rgba(63, 76, 105, 0.05);
-  padding: 2em;
+  box-shadow: 0 0 2em 0 rgba(113, 113, 113, 0.05);
 `;
 
 const mapStateToProps = (state) => {

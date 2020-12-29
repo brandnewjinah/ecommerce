@@ -9,6 +9,7 @@ import { Button, BtnClose, BtnText } from "../../../components/Button";
 
 //import styles and assets
 import styled from "styled-components";
+import colors from "../../../components/Colors";
 
 //import data
 import { catData } from "../../../data/category";
@@ -19,6 +20,7 @@ import { connect } from "react-redux";
 import { addItem } from "../../../reducers/fashionReducer";
 
 const AddProduct = (props) => {
+  const history = useHistory();
   let location = useLocation();
   let { sku } = useParams();
 
@@ -119,6 +121,7 @@ const AddProduct = (props) => {
     if (errors) return;
 
     props.addItem(data);
+    history.push("/cms/products");
     // postData();
   };
 
@@ -173,15 +176,32 @@ const AddProduct = (props) => {
 
   return (
     <Wrapper>
-      <h6>Add Product</h6>
+      <Flex>
+        <div>
+          {location.pathname.includes("/edit/") ? (
+            <h6>Edit Product</h6>
+          ) : (
+            <h6>Add Product</h6>
+          )}
+        </div>
+        <div>
+          {location.pathname.includes("/edit/") ? (
+            <Button label="Save Changes" handleClick={handleSubmit} />
+          ) : (
+            <Button label="Add" handleClick={handleSubmit} />
+          )}
+        </div>
+      </Flex>
       <Container>
-        <Input
-          label="Product Name"
-          name="name"
-          value={data.name}
-          error={errors.name}
-          handleChange={handleChange}
-        />
+        <div className="item">
+          <Input
+            label="Product Name"
+            name="name"
+            value={data.name}
+            error={errors.name}
+            handleChange={handleChange}
+          />
+        </div>
         <Flex>
           <div className="eight">
             <Input
@@ -202,12 +222,13 @@ const AddProduct = (props) => {
             />
           </div>
         </Flex>
-        <Currency>
-          <p>Price</p>
+        <div className="item">
+          <p className="label">Price</p>
           <Flex>
             <div className="one">
               <Select
                 name="currency"
+                styles={customStyles}
                 value={data.currency}
                 defaultValue={currencyData[0]}
                 options={currencyData}
@@ -227,43 +248,46 @@ const AddProduct = (props) => {
               />
             </div>
           </Flex>
-        </Currency>
+        </div>
       </Container>
       <Container>
-        <Category>
-          <p>Select Main Category</p>
+        <div className="item">
+          <p className="label">Select Main Category</p>
           <Select
             name="category1"
+            styles={customStyles}
             value={data.category1}
             options={catData}
             onChange={handleCategory("category1")}
           />
-        </Category>
+        </div>
 
         {Object.keys(data.category1).length !== 0 &&
           data.category1.subcategory && (
-            <Category>
-              <p>Select Subcategory</p>
+            <div className="item">
+              <p className="label">Select Subcategory</p>
               <Select
                 name="category2"
+                styles={customStyles}
                 value={data.category2}
                 options={data.category1.subcategory}
                 onChange={handleCategory("category2")}
               />
-            </Category>
+            </div>
           )}
 
         {Object.keys(data.category2).length !== 0 &&
           data.category2.subcategory && (
-            <Category>
-              <p>A litte more detail</p>
+            <div className="item">
+              <p className="label">A litte more detail</p>
               <Select
                 name="category3"
+                styles={customStyles}
                 value={data.category3}
                 options={data.category2.subcategory}
                 onChange={handleCategory("category3")}
               />
-            </Category>
+            </div>
           )}
       </Container>
       <Container>
@@ -287,40 +311,53 @@ const AddProduct = (props) => {
             )}
           </InputWrapper>
         ))}
-        <BtnText label="More" handleClick={handleImgAdd} />
+        <div className="center">
+          <BtnText
+            label="More"
+            color={colors.gray}
+            handleClick={handleImgAdd}
+          />
+        </div>
       </Container>
       <Container>
-        <Input
-          label="Store Name"
-          name="store"
-          value={data.store}
-          error={errors.store}
-          handleChange={handleChange}
-        />
-        <Input
-          label="Store Link"
-          name="link"
-          value={data.link}
-          error={errors.link}
-          handleChange={handleChange}
-        />
+        <div className="item">
+          <Input
+            label="Store Name"
+            name="store"
+            value={data.store}
+            error={errors.store}
+            handleChange={handleChange}
+          />
+        </div>
+        <div className="item">
+          <Input
+            label="Store Link"
+            name="link"
+            value={data.link}
+            error={errors.link}
+            handleChange={handleChange}
+          />
+        </div>
       </Container>
       <Container>
-        <p>Size</p>
-        <Select
-          isMulti
-          name="size"
-          placeholder="Select size"
-          value={data.size}
-          options={sizeData}
-          onChange={handleCategory("size")}
-        />
+        <div className="item">
+          <p className="label">Size</p>
+          <Select
+            isMulti
+            name="size"
+            styles={customStyles}
+            placeholder="Select size"
+            value={data.size}
+            options={sizeData}
+            onChange={handleCategory("size")}
+          />
+        </div>
         {data.size &&
           data.size.length > 0 &&
           data.size.map((s, idx) => (
             <Flex key={idx}>
-              <div className="left">{s.label}</div>
-              <div className="right">
+              <div className="one">{s.label}</div>
+              <div className="nine">
                 <Input
                   name={s.label}
                   value={s.sku}
@@ -332,21 +369,24 @@ const AddProduct = (props) => {
           ))}
       </Container>
       <Container>
-        <p>Color</p>
-        <Select
-          isMulti
-          name="color"
-          placeholder="Select color"
-          value={data.color}
-          options={colorData}
-          onChange={handleCategory("color")}
-        />
+        <div className="item">
+          <p className="label">Color</p>
+          <Select
+            isMulti
+            name="color"
+            styles={customStyles}
+            placeholder="Select color"
+            value={data.color}
+            options={colorData}
+            onChange={handleCategory("color")}
+          />
+        </div>
         {data.color &&
           data.color.length > 0 &&
           data.color.map((c, idx) => (
             <Flex key={idx}>
-              <div className="left">{c.label}</div>
-              <div className="right">
+              <div className="one">{c.label}</div>
+              <div className="nine">
                 <Input
                   name={c.label}
                   value={c.sku}
@@ -357,14 +397,39 @@ const AddProduct = (props) => {
             </Flex>
           ))}
       </Container>
-      <Button label="Add" handleClick={handleSubmit} />
+      <div className="right">
+        {location.pathname.includes("/edit/") ? (
+          <Button label="Save Changes" handleClick={handleSubmit} />
+        ) : (
+          <Button label="Add" handleClick={handleSubmit} />
+        )}
+      </div>
     </Wrapper>
   );
+};
+
+const customStyles = {
+  control: (styles) => ({
+    ...styles,
+    borderRadius: `0.25em`,
+    border: `1px solid #e4e4e4`,
+  }),
+  multiValue: (styles) => ({
+    ...styles,
+    backgroundColor: colors.lightergray,
+    padding: `0 0.5em`,
+  }),
 };
 
 const Wrapper = styled.div`
   h6 {
     text-transform: uppercase;
+  }
+
+  .right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
   }
 `;
 
@@ -373,7 +438,22 @@ const Container = styled.div`
   box-shadow: 0 0 30px 0 rgba(63, 76, 105, 0.05);
   border-radius: 0.25em;
   padding: 2em;
-  margin: 1em 0;
+  margin-bottom: 1em;
+
+  .item {
+    margin-bottom: 1em;
+  }
+
+  .label {
+    font-weight: 400;
+    color: ${colors.darkergray};
+  }
+
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const Flex = styled.div`
@@ -381,7 +461,7 @@ const Flex = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 1em 0;
+  margin-bottom: 1em;
 
   .one {
     flex: 0 1 9%;
@@ -398,12 +478,24 @@ const Flex = styled.div`
   .nine {
     flex: 0 1 90%;
   }
-`;
 
-const Currency = styled.div``;
+  @media (max-width: 780px) {
+    .eight {
+      flex: 0 1 49.5%;
+    }
 
-const Category = styled.div`
-  margin: 1em 0;
+    .two {
+      flex: 0 1 49.5%;
+    }
+
+    .one {
+      flex: 0 1 49.5%;
+    }
+
+    .nine {
+      flex: 0 1 49.5%;
+    }
+  }
 `;
 
 const InputWrapper = styled.div`
@@ -411,6 +503,7 @@ const InputWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 1em;
 
   .left {
     width: 96%;
@@ -418,6 +511,7 @@ const InputWrapper = styled.div`
 
   .right {
     width: 2%;
+    padding-top: 2.25em;
   }
 `;
 

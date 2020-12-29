@@ -3,6 +3,7 @@ import React, { ChangeEvent, FC, useState } from "react";
 //import styles and assets
 import styled from "styled-components";
 import { Eye, EyeOff } from "../assets/Icons";
+import colors from "./Colors";
 
 interface Props {
   error?: string;
@@ -29,7 +30,7 @@ const Input: FC<Props> = ({
 
   return (
     <Wrapper>
-      <label htmlFor="">{label}</label>
+      {label && <label htmlFor="">{label}</label>}
       <InputContainer>
         {prefix && <div>{prefix}</div>}
         <input
@@ -59,7 +60,10 @@ const Input: FC<Props> = ({
 
 const Wrapper = styled.div`
   label {
+    display: inline-block;
     font-weight: 400;
+    color: ${colors.darkergray};
+    margin-bottom: 0.5em;
   }
 
   .error {

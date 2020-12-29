@@ -16,30 +16,32 @@ export const Card = ({ imageUrl, store, name, price, id, currency }) => {
   };
 
   return (
-    <CardWrapper>
-      <ImageContainer>
-        {imgErr ? (
-          <ErrImg>
-            <ImageIcon width="20" height="20" color="#8F8F8F" stroke="2" />
-          </ErrImg>
-        ) : (
-          <Image
-            onError={handleDefaultImg}
-            src={imageUrl ? imageUrl : setImgErr(true)}
-          />
-        )}
-      </ImageContainer>
-      <Details>
-        <div className="sub">{store}</div>
-        <div className="main">
-          {name.length > 30 ? `${name.substring(0, 28)}...` : name}
-        </div>
-        <div className="caption">
-          {currency}
-          {price}
-        </div>
-      </Details>
-    </CardWrapper>
+    <Link to={`/products/${id}`}>
+      <CardWrapper>
+        <ImageContainer>
+          {imgErr ? (
+            <ErrImg>
+              <ImageIcon width="20" height="20" color="#8F8F8F" stroke="2" />
+            </ErrImg>
+          ) : (
+            <Image
+              onError={handleDefaultImg}
+              src={imageUrl ? imageUrl : setImgErr(true)}
+            />
+          )}
+        </ImageContainer>
+        <Details>
+          <div className="sub">{store}</div>
+          <div className="main">
+            {name.length > 30 ? `${name.substring(0, 28)}...` : name}
+          </div>
+          <div className="caption">
+            {currency}
+            {price}
+          </div>
+        </Details>
+      </CardWrapper>
+    </Link>
   );
 };
 
@@ -57,7 +59,7 @@ const CardWrapper = styled(Flex)`
 const Image = styled.img`
   width: 100%;
   height: auto;
-  height: 170px;
+  max-height: 220px;
   object-fit: cover;
   transition: opacity 0.1s linear;
   /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.1); */
@@ -70,8 +72,8 @@ const ErrImg = styled(Flex)`
 
 const ImageContainer = styled.div`
   position: relative;
-  border: 1px solid ${colors.lightgray};
-  padding: 1em;
+  /* border: 1px solid ${colors.lightgray}; */
+  /* padding: 1em; */
 
   &:hover {
     ${Image} {
