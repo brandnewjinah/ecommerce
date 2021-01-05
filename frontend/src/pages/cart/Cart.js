@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 //import components
 import Layout from "../../components/main/Layout";
 import CartItem from "./CartItem";
-import { Button } from "../../components/Button";
+import CartSummary from "./CartSummary";
 
 //import styles and assets
 import styled from "styled-components";
@@ -40,38 +40,7 @@ const Cart = (props) => {
               props.cart.map((item, idx) => <CartItem data={item} />)}
           </Items>
           <Summary>
-            <Section>
-              <Link to={{ pathname: data.link }} target="_blank">
-                <p className="overline">{data.brand}</p>
-              </Link>
-              <p className="title">{data.name}</p>
-              <p className="price">
-                {data.currency && data.currency.label}
-                {data.price}
-              </p>
-            </Section>
-            <Section>
-              <p className="overline">From</p>
-              <Link to={data.link} target="_blank">
-                <p>{data.store}</p>
-              </Link>
-            </Section>
-            {data.color && data.color.length > 0 && (
-              <Section>
-                <p className="overline">Color</p>
-                {data.color &&
-                  data.color.map((c, idx) => <span>{c.label}</span>)}
-              </Section>
-            )}
-            <Section>
-              <p className="overline">Size</p>
-              <p>{data.size}</p>
-            </Section>
-            <div className="btn">
-              <div className="six">
-                <Button label="Add to Cart" type="fill" color="#002C66" />
-              </div>
-            </div>
+            <CartSummary />
           </Summary>
         </Main>
         <Details>details</Details>
@@ -114,9 +83,7 @@ const Items = styled.div`
 `;
 
 const Summary = styled.div`
-  background-color: yellow;
   flex: 0 1 29%;
-  padding-left: 3em;
 
   h5 {
     margin: 0.75em 0;
@@ -140,33 +107,6 @@ const Summary = styled.div`
   .six {
     flex: 0 1 59%;
   }
-`;
-
-const Section = styled.div`
-  padding: 0.75em 0;
-
-  p {
-    line-height: 1.5rem;
-  }
-
-  .overline {
-    font-size: 0.75rem;
-    color: ${colors.gray};
-  }
-
-  .title {
-    font-size: 1.25rem;
-    font-weight: 400;
-    margin-bottom: 0.75em;
-  }
-
-  .price {
-    font-size: 1rem;
-    font-weight: 400;
-    color: ${colors.darkestgray};
-  }
-
-  border-bottom: 1px solid ${colors.lightgray};
 `;
 
 const Details = styled.div``;
