@@ -12,7 +12,7 @@ import styled from "styled-components";
 
 //redux
 import { connect } from "react-redux";
-import { deleteAll } from "../../../reducers/fashionReducer";
+import { deleteAll } from "../../../reducers/productReducer";
 
 const ProductList = (props) => {
   const [data, setData] = useState([]);
@@ -65,7 +65,7 @@ const ProductList = (props) => {
           col3="Category1"
           col4="Category2"
           col5="Store"
-          data={props.fashion}
+          data={props.product}
         />
       </Container>
       <BtnText label="Delete All" handleClick={handleDelete} />
@@ -95,7 +95,7 @@ const Container = styled.div`
 
 const mapStateToProps = (state) => {
   return {
-    fashion: state.fashion.products,
+    product: state.products.products,
   };
 };
 

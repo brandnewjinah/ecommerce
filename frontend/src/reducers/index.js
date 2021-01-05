@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
 import collectionReducer from "./collectionReducer";
-import fashionReducer from "./fashionReducer";
+import productReducer from "./productReducer";
+import cartReducer from "./cartReducer";
 
 export default combineReducers({
-  fashion: fashionReducer,
   collection: collectionReducer,
+  products: productReducer,
+  cart: cartReducer,
 });

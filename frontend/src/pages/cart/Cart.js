@@ -1,70 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import config from "../../config.json";
 
 //import components
 import Layout from "../../components/main/Layout";
-import Counter from "../../components/Counter";
+import CartItem from "./CartItem";
 import { Button } from "../../components/Button";
 
 //import styles and assets
 import styled from "styled-components";
-import { Image } from "../../assets/Icons";
 import colors from "../../components/Colors";
 
 //import redux
 import { connect } from "react-redux";
 import { addCart } from "../../reducers/cartReducer";
 
-const Detail = (props) => {
+const Cart = (props) => {
   let { id } = useParams();
 
   const [data, setData] = useState({});
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const getData = async () => {
-    const currentItem = props.product.find((c) => c.sku === id);
-    setData({ ...currentItem, qty: 1 });
-    // setData(currentItem);
-    // await axios
-    //   .get(`${config.API}/product/${props.match.params.id}`)
-    //   .then((res) => {
-    //     const { productInfo } = res.data;
-    //     setData(productInfo);
-    //   })
-    //   .catch((err) => {
-    //     alert(err);
-    //   });
-  };
-
-  const handleAdd = async () => {
-    const product = {
-      brand: data.brand,
-      name: data.name,
-      currency: data.currency,
-      price: data.price,
-      sku: data.sku,
-      img: data.imgs[0],
-      qty: data.qty,
-    };
-
-    props.addCart(product);
-    // await axios
-    //   .post("http://localhost:5000/cart", product)
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       alert("Product saved");
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     alert(err);
-    //   });
-  };
 
   const handleDecrease = () => {
     if (data.qty > 1) {
@@ -79,22 +33,13 @@ const Detail = (props) => {
   return (
     <Layout>
       <Wrapper>
-        <Category>
-          <div className="flex link">
-            <Link to="/">
-              <div>{data.category1 && data.category1.label}</div>
-            </Link>
-            <div style={{ margin: `0 .5em`, color: `#8a8a8a` }}> / </div>
-            <Link to="/">{data.category2 && data.category2.label}</Link>
-            <div style={{ margin: `0 .5em`, color: `#8a8a8a` }}> / </div>
-            <Link to="/">{data.category3 && data.category3.label}</Link>
-          </div>
-        </Category>
         <Main>
-          <Img>
-            <img src={data.imgs && data.imgs[0].src} alt="" />
-          </Img>
-          <Desc>
+          <Items>
+            {props.cart &&
+              props.cart.length > 0 &&
+              props.cart.map((item, idx) => <CartItem data={item} />)}
+          </Items>
+          <Summary>
             <Section>
               <Link to={{ pathname: data.link }} target="_blank">
                 <p className="overline">{data.brand}</p>
@@ -122,33 +67,12 @@ const Detail = (props) => {
               <p className="overline">Size</p>
               <p>{data.size}</p>
             </Section>
-            <Section>
-              <p className="overline">Quantity</p>
-              <Counter
-                qty={data.qty}
-                handleDecrease={() => handleDecrease()}
-                handleIncrease={() => handleIncrease()}
-              />
-            </Section>
             <div className="btn">
               <div className="six">
-                <Button
-                  label="Add to Cart"
-                  type="fill"
-                  color="#002C66"
-                  handleClick={handleAdd}
-                />
-              </div>
-              <div className="four">
-                <Button
-                  label="Wishlist"
-                  type="outline"
-                  color="#002C66"
-                  handleClick={handleAdd}
-                />
+                <Button label="Add to Cart" type="fill" color="#002C66" />
               </div>
             </div>
-          </Desc>
+          </Summary>
         </Main>
         <Details>details</Details>
       </Wrapper>
@@ -169,39 +93,29 @@ const Wrapper = styled.div`
   }
 `;
 
-const Category = styled.div`
-  padding: 2em 0 1em 0;
-`;
-
 const Main = styled.main`
+  width: 100%;
   display: flex;
+  justify-content: space-between;
 
   @media (max-width: 840px) {
     flex-direction: column;
   }
 `;
 
-const Img = styled.div`
-  min-width: 430px;
-  /* height: 385px; */
-  background-color: #eee;
-  display: flex;
-  flex: 1 1 50%;
+const Items = styled.div`
+  flex: 0 1 69%;
   justify-content: center;
   align-items: center;
-
-  img {
-    width: 100%;
-    object-fit: cover;
-  }
 
   @media (max-width: 840px) {
     margin: 0 auto;
   }
 `;
 
-const Desc = styled.div`
-  flex: 1 1 50%;
+const Summary = styled.div`
+  background-color: yellow;
+  flex: 0 1 29%;
   padding-left: 3em;
 
   h5 {
@@ -259,8 +173,8 @@ const Details = styled.div``;
 
 const mapStateToProps = (state) => {
   return {
-    product: state.products.products,
+    cart: state.cart.cart,
   };
 };
 
-export default connect(mapStateToProps, { addCart })(Detail);
+export default connect(mapStateToProps, { addCart })(Cart);

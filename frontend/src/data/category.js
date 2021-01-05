@@ -1,41 +1,33 @@
 export const catData = [
   {
     id: 100,
-    value: "accessories",
-    label: "Accessories",
+    value: "bakery",
+    label: "Bakery",
     subcategory: [
       {
-        id: 1100,
-        value: "hats",
-        label: "Hats",
-        subcategory: [
-          { id: 1101, value: "Boy Hat", label: "Boy Hat" },
-          { id: 1102, value: "Bucket Hat", label: "Bucket Hat" },
-          { id: 1103, value: "Caps", label: "Caps" },
-        ],
+        id: 101,
+        value: "bread",
+        label: "Bread",
       },
-      { id: 1110, value: "Hair Accessories", label: "Hair Accessories" },
-      { id: 1120, value: "Tech", label: "Tech" },
+      { id: 102, value: "desserts", label: "Desserts" },
     ],
   },
   {
-    id: 101,
-    value: "clothing",
-    label: "Clothing",
+    id: 200,
+    value: "beverage",
+    label: "Beverage",
     subcategory: [
-      { value: "Chips", label: "Chips" },
-      { value: "Candy", label: "Candy" },
-      { value: "Cookies", label: "Cookies" },
-      { value: "Meal Kits", label: "Meal Kits" },
+      { id: 201, value: "coffee, tea", label: "Coffee, Tea" },
+      { id: 202, value: "juice", label: "Juice" },
     ],
   },
   {
-    id: 102,
-    value: "shoes",
-    label: "Shoes",
+    id: 300,
+    value: "snacks",
+    label: "Snacks",
     subcategory: [
-      { value: "Cakes", label: "Cakes" },
-      { value: "Bread", label: "Bread" },
+      { id: 301, value: "chips, cookies", label: "Chips, Cookies" },
+      { id: 302, value: "korean", label: "Korean" },
     ],
   },
 ];

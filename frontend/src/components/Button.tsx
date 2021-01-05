@@ -7,7 +7,7 @@ import colors from "./Colors";
 
 interface Props {
   label?: string;
-  type?: string;
+  type?: "fill" | "outline";
   value?: string;
   name?: string;
   imp?: string;
@@ -19,6 +19,7 @@ interface Props {
 export const Button: FC<Props> = ({
   label,
   type,
+  color,
   value,
   name,
   imp,
@@ -26,7 +27,14 @@ export const Button: FC<Props> = ({
 }) => {
   return (
     <Wrapper
-      style={{ backgroundColor: imp === "primary" ? "#3d5178" : "#3d5178" }}
+      style={{
+        ...(type === "fill" && { backgroundColor: color }),
+        ...(type === "outline" && {
+          border: `1px solid ${color}`,
+          color: color,
+          backgroundColor: `transparent`,
+        }),
+      }}
       onClick={handleClick}
     >
       {label}
@@ -67,13 +75,14 @@ const Flex = styled.button`
 `;
 
 const Wrapper = styled.button`
+  width: 100%;
   outline: transparent;
   border: transparent;
-  border-radius: 0.35em;
+  border-radius: 0.25em;
   color: white;
   font-size: 0.875rem;
   font-weight: 600;
-  padding: 0.75em 1.5em;
+  padding: 1.25em 2.5em;
   cursor: pointer;
 `;
 

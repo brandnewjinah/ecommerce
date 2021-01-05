@@ -68,13 +68,13 @@ const GlobalStyle = createGlobalStyle`
         text-decoration-skip-ink: auto;
         color: inherit;
         cursor: pointer;
-        transition: opacity 0.2s ease-in-out;
+        /* transition: opacity 0.2s ease-in-out;
  
         &:hover,
         &:focus {
           outline: 0;
           opacity: 0.5;
-        }
+        } */
     }
     code {
         font-size: 1.125rem;

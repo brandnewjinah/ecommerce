@@ -35,7 +35,7 @@ const Products = (props) => {
         <Filter />
         <Container>
           <Section>
-            {props.fashion.map((p, idx) => (
+            {props.product.map((p, idx) => (
               <Card
                 id={p.sku}
                 store={p.store}
@@ -81,7 +81,7 @@ const Container = styled.div`
 
 const mapStateToProps = (state) => {
   return {
-    fashion: state.fashion.products,
+    product: state.products.products,
   };
 };
 

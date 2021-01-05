@@ -17,7 +17,7 @@ import { colorData, sizeData, currencyData } from "../../../data/options";
 
 //redux
 import { connect } from "react-redux";
-import { addItem } from "../../../reducers/fashionReducer";
+import { addItem } from "../../../reducers/productReducer";
 
 const AddProduct = (props) => {
   const history = useHistory();
@@ -42,7 +42,7 @@ const AddProduct = (props) => {
     store: "",
     link: "",
     color: [],
-    size: [],
+    size: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -165,7 +165,7 @@ const AddProduct = (props) => {
   const getData = async () => {
     if (location.pathname.includes("/edit")) {
       //from redux store
-      const currentItem = await props.fashion.find((c) => c.sku === sku);
+      const currentItem = await props.product.find((c) => c.sku === sku);
       setData(currentItem);
     }
   };
@@ -341,6 +341,17 @@ const AddProduct = (props) => {
       </Container>
       <Container>
         <div className="item">
+          <Input
+            label="Size"
+            name="size"
+            value={data.size}
+            error={errors.size}
+            handleChange={handleChange}
+          />
+        </div>
+      </Container>
+      {/* <Container>
+        <div className="item">
           <p className="label">Size</p>
           <Select
             isMulti
@@ -367,7 +378,7 @@ const AddProduct = (props) => {
               </div>
             </Flex>
           ))}
-      </Container>
+      </Container> */}
       <Container>
         <div className="item">
           <p className="label">Color</p>
@@ -517,7 +528,7 @@ const InputWrapper = styled.div`
 
 const mapStateToProps = (state) => {
   return {
-    fashion: state.fashion.products,
+    product: state.products.products,
   };
 };
 

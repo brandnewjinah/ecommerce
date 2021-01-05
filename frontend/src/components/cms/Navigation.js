@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ChevronDown } from "../../assets/Icons";
 import { MenuIcon } from "../../assets/MenuIcon";
+import colors from "../Colors";
 
 const data = [
   {
@@ -15,7 +16,7 @@ const data = [
     name: "Products",
     subcategory: [
       {
-        name: "Inventory",
+        name: "Products",
         link: "/products",
       },
       {
@@ -76,16 +77,20 @@ const Navigation = () => {
                     name={cat.name}
                     width="14"
                     height="14"
-                    color={idx === open ? "#46a8d4" : "#444"}
+                    color={idx === open ? "#fff" : colors.darkgray}
                     stroke="2"
                   />
-                  <div style={{ marginLeft: `10px` }}>{cat.name}</div>
+                  <div className="label">{cat.name}</div>
                 </Link>
               </li>
             ) : (
               <li>
                 <div
-                  className="title flexspace"
+                  className={
+                    cat.name === active
+                      ? `title flexspace activeTitle`
+                      : `title flexspace`
+                  }
                   onClick={() => setOpen(idx === open ? null : idx)}
                 >
                   <div className="flex">
@@ -93,10 +98,15 @@ const Navigation = () => {
                       name={cat.name}
                       width="14"
                       height="14"
-                      color={idx === open ? "#46a8d4" : "#444"}
+                      color={idx === open ? "#fff" : colors.darkgray}
                       stroke="2"
                     />
-                    <div style={{ marginLeft: `10px` }}>{cat.name}</div>
+                    <div
+                      className="label"
+                      style={{ color: idx === open ? "#fff" : colors.darkgray }}
+                    >
+                      {cat.name}
+                    </div>
                   </div>
                   <IconContainer
                     style={
@@ -136,13 +146,16 @@ const Navigation = () => {
 };
 
 const Wrapper = styled.section`
-  background-color: #fff;
   position: fixed;
-  height: calc(100vh - 70px);
   width: 250px;
-  padding-top: 2em;
-  z-index: 10;
+  min-height: 100vh;
+  color: ${colors.darkgray};
+  font-size: 0.875rem;
+  font-weight: 500;
+  background-color: #030f25;
   box-shadow: 1em 0 1em -1em rgba(18, 38, 63, 0.03);
+  z-index: 10;
+  padding-top: 5em;
 
   li {
     cursor: pointer;
@@ -150,10 +163,19 @@ const Wrapper = styled.section`
 
   a {
     display: flex;
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+      color: ${colors.lightergray};
+    }
   }
 
   .title {
     padding: 0.75em 1.5em;
+  }
+
+  .label {
+    margin-left: 10px;
   }
 
   .flex {
@@ -172,8 +194,13 @@ const Wrapper = styled.section`
     overflow: hidden;
   }
 
+  .activeTitle {
+    color: ${colors.faintgray};
+  }
+
   .active {
-    background-color: #f4f4f4;
+    background-color: #06193b;
+    color: ${colors.faintgray};
   }
 `;
 

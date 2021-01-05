@@ -17,7 +17,11 @@ import { occasionData } from "../../data/collection";
 
 //redux
 import { connect } from "react-redux";
-import { addItem, editItem, deleteAll } from "../../reducers/collectionReducer";
+import {
+  addCollection,
+  editItem,
+  deleteAll,
+} from "../../reducers/collectionReducer";
 
 const AddCollection = (props) => {
   const [data, setData] = useState({
@@ -86,7 +90,7 @@ const AddCollection = (props) => {
         : props.collection[props.collection.length - 1].id + 1;
 
     let newData = { ...data, id: id };
-    props.addItem(newData);
+    props.addCollection(newData);
     // postData();
   };
 
@@ -266,6 +270,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addItem, editItem, deleteAll })(
+export default connect(mapStateToProps, { addCollection, editItem, deleteAll })(
   AddCollection
 );

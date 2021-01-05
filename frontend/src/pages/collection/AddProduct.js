@@ -17,7 +17,7 @@ import { colorData, sizeData, currencyData } from "../../data/options";
 
 //redux
 import { connect } from "react-redux";
-import { addItem } from "../../reducers/collectionReducer";
+import { addCollection } from "../../reducers/collectionReducer";
 
 const AddCollection = (props) => {
   const [data, setData] = useState({
@@ -87,7 +87,7 @@ const AddCollection = (props) => {
     setErrors(errors || {});
     if (errors) return;
 
-    props.addItem(data);
+    props.addCollection(data);
     // postData();
   };
 
@@ -378,4 +378,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addItem })(AddCollection);
+export default connect(mapStateToProps, { addCollection })(AddCollection);

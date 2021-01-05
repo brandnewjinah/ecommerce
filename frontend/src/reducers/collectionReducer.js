@@ -1,14 +1,14 @@
 // Action types
-const ADD_ITEM = "ADD_ITEM";
+const ADD_COLLECTION = "ADD_COLLECTION";
 const EDIT_ITEM = "EDIT_ITEM";
 const DELETE_ITEM = "DELETE_ITEM";
 const DELETE_ALL = "DELETE_ALL";
 
 // Action creators
-export const addItem = (item) => {
+export const addCollection = (item) => {
   return (dispatch) => {
     dispatch({
-      type: ADD_ITEM,
+      type: ADD_COLLECTION,
       payload: {
         item,
       },
@@ -56,7 +56,7 @@ const initialState = {
 
 // Reducer
 const reducer = (state = initialState, action) => {
-  if (action.type === ADD_ITEM) {
+  if (action.type === ADD_COLLECTION) {
     let added = action.payload.item;
     let newCollection = [...state.collection];
 

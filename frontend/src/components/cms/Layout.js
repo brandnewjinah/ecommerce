@@ -48,7 +48,7 @@ const Main = styled.section`
 `;
 
 const Content = styled.div`
-  padding: 2em;
+  padding: 6em 2em 2em;
 `;
 
 export default Layout;

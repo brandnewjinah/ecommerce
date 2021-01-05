@@ -41,10 +41,13 @@ const Header = (props) => {
 const Wrapper = styled.div`
   width: 100%;
   height: 3.5em;
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ open }) => (open ? "#fff" : null)};
+  z-index: 12;
+  /* background-color: ${({ open }) => (open ? "#fff" : `yellow`)}; */
+  background-color: #fff;
   border-bottom: 1px solid ${colors.lightergray};
 
   @media (max-width: 780px) {
