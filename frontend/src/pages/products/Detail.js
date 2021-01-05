@@ -47,7 +47,7 @@ const Detail = (props) => {
       brand: data.brand,
       name: data.name,
       currency: data.currency,
-      price: data.price,
+      price: parseFloat(data.price),
       sku: data.sku,
       img: data.imgs[0],
       qty: data.qty,

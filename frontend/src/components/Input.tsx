@@ -89,6 +89,11 @@ const InputContainer = styled.div`
     &:focus {
       outline: transparent;
     }
+
+    &::placeholder {
+      color: ${colors.gray};
+      letter-spacing: 0.025rem;
+    }
   }
 `;
 

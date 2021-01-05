@@ -10,7 +10,7 @@ import colors from "../../components/Colors";
 
 //import redux
 import { connect } from "react-redux";
-import { deleteItem } from "../../reducers/collectionReducer";
+import { deleteCollection } from "../../reducers/collectionReducer";
 
 const Detail = (props) => {
   let { id } = useParams();
@@ -33,7 +33,7 @@ const Detail = (props) => {
   };
 
   const handleDelete = () => {
-    props.deleteItem(data);
+    props.deleteCollection(data);
   };
 
   return (
@@ -226,4 +226,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { deleteItem })(Detail);
+export default connect(mapStateToProps, { deleteCollection })(Detail);

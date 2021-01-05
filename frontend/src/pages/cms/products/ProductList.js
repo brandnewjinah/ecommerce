@@ -12,7 +12,7 @@ import styled from "styled-components";
 
 //redux
 import { connect } from "react-redux";
-import { deleteAll } from "../../../reducers/productReducer";
+import { deleteAll, deleteItem } from "../../../reducers/productReducer";
 
 const ProductList = (props) => {
   const [data, setData] = useState([]);
@@ -26,7 +26,7 @@ const ProductList = (props) => {
     // setData(data.products);
   };
 
-  const handleDelete = async () => {
+  const handleDeleteAll = async () => {
     props.deleteAll();
     // await axios
     //   .delete(`${config.API}/product/`)
@@ -53,6 +53,10 @@ const ProductList = (props) => {
   //             </Link>
   //           </div>
 
+  const handleDelete = (t) => {
+    props.deleteItem(t);
+  };
+
   return (
     <Wrapper>
       <h4>Inventory</h4>
@@ -66,9 +70,10 @@ const ProductList = (props) => {
           col4="Category2"
           col5="Store"
           data={props.product}
+          handleDelete={(t) => handleDelete(t)}
         />
       </Container>
-      <BtnText label="Delete All" handleClick={handleDelete} />
+      <BtnText label="Delete All" handleClick={handleDeleteAll} />
     </Wrapper>
   );
 };
@@ -99,4 +104,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { deleteAll })(ProductList);
+export default connect(mapStateToProps, { deleteAll, deleteItem })(ProductList);

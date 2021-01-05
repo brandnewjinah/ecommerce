@@ -15,6 +15,7 @@ import Detail from "./pages/products/Detail";
 import CollectionDetail from "./pages/collection/Detail";
 import AddCollectionProduct from "./pages/collection/AddProduct";
 import Cart from "./pages/cart/Cart";
+import Checkout from "./pages/checkout/Checkout";
 
 //import cms pages
 import CmsLayout from "./components/cms/Layout";
@@ -43,7 +44,7 @@ const Routes = () => {
         <Route exact path="/login" component={Login} />
         <Route exact path="/products/:id" component={Detail} />
         <Route exact path="/cart" component={Cart} />
-
+        <Route exact path="/checkout" component={Checkout} />
         <CmsLayout>
           <Route exact path="/cms" component={CmsHome} />
           <Route exact path="/cms/products" component={Products} />

@@ -15,7 +15,7 @@ const CartSummary = (props) => {
 
   const calcSubTotal = () => {
     props.cart.reduce((total, item) => {
-      setSubtotal(total + parseInt(item.price) * item.qty);
+      setSubtotal(total + item.price * item.qty);
     }, 0);
   };
 

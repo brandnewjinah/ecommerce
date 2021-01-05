@@ -9,10 +9,6 @@ import { Trash } from "../../assets/Icons";
 import colors from "../Colors";
 
 const Table = (props) => {
-  const handleDelete = (t) => {
-    props.deleteNote(t);
-  };
-
   return (
     <Wrapper>
       <table>
@@ -39,7 +35,7 @@ const Table = (props) => {
                 <td>{t.store}</td>
 
                 <td
-                  onClick={() => handleDelete(t)}
+                  onClick={() => props.handleDelete(t)}
                   style={{
                     cursor: `pointer`,
                   }}

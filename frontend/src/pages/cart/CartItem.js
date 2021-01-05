@@ -30,7 +30,10 @@ const CartItem = (props) => {
         <div className="image">
           <img src={props.data.img && props.data.img.src} alt="" />
         </div>
-        <div className="detail">{props.data.name}</div>
+        <div className="detail">
+          <p>{props.data.name}</p>
+          <p>{`${props.data.currency.label}${props.data.price}`}</p>
+        </div>
       </Detail>
       <Calc>
         <Counter
@@ -38,7 +41,9 @@ const CartItem = (props) => {
           handleIncrease={() => handleIncrease()}
           handleDecrease={() => handleDecrease()}
         />
-        <div>{parseInt(props.data.price) * props.data.qty}</div>
+        <div>{`${props.data.currency.label}${
+          props.data.price * props.data.qty
+        }`}</div>
         <Flex onClick={handleDelete}>
           <Close width="18" height="18" color="#000" stroke="1" />
         </Flex>
