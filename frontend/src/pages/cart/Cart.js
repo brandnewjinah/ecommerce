@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import React from "react";
 
 //import components
 import Layout from "../../components/main/Layout";
@@ -9,27 +7,12 @@ import CartSummary from "./CartSummary";
 
 //import styles and assets
 import styled from "styled-components";
-import colors from "../../components/Colors";
 
 //import redux
 import { connect } from "react-redux";
 import { addCart } from "../../reducers/cartReducer";
 
 const Cart = (props) => {
-  let { id } = useParams();
-
-  const [data, setData] = useState({});
-
-  const handleDecrease = () => {
-    if (data.qty > 1) {
-      setData({ ...data, qty: data.qty - 1 });
-    }
-  };
-
-  const handleIncrease = () => {
-    setData({ ...data, qty: data.qty + 1 });
-  };
-
   return (
     <Layout>
       <Wrapper>

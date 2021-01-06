@@ -5,7 +5,6 @@ import { Link, useParams } from "react-router-dom";
 import Layout from "../../components/main/Layout";
 import styled from "styled-components";
 
-import { Button } from "../../components/Button";
 import colors from "../../components/Colors";
 
 //import redux
@@ -18,19 +17,18 @@ const Detail = (props) => {
   const [data, setData] = useState({});
 
   useEffect(() => {
-    getData();
-  }, []);
-
-  const getData = async () => {
-    const currentItem = props.collection.find((c) => c.id === parseInt(id));
-    setData(currentItem);
-  };
-
-  const handleAdd = async () => {
-    const product = {
-      product: data,
+    const getData = async () => {
+      const currentItem = props.collection.find((c) => c.id === parseInt(id));
+      setData(currentItem);
     };
-  };
+    getData();
+  }, [id, props.collection]);
+
+  // const handleAdd = async () => {
+  //   const product = {
+  //     product: data,
+  //   };
+  // };
 
   const handleDelete = () => {
     props.deleteCollection(data);
@@ -154,71 +152,6 @@ const ImageContainer = styled.div`
 //     width: 100%;
 //   }
 // `;
-
-const Img = styled.div`
-  min-width: 430px;
-  /* height: 385px; */
-  background-color: #eee;
-  display: flex;
-  flex: 1 1 50%;
-  justify-content: center;
-  align-items: center;
-
-  img {
-    width: 100%;
-    object-fit: cover;
-  }
-
-  @media (max-width: 840px) {
-    margin: 0 auto;
-  }
-`;
-
-const Desc = styled.div`
-  flex: 1 1 50%;
-  padding-left: 3em;
-
-  h5 {
-    margin: 0.75em 0;
-  }
-
-  h6 {
-    font-weight: 400;
-  }
-
-  .btn {
-    margin: 2em 0;
-  }
-`;
-
-const Section = styled.div`
-  padding: 0.75em 0;
-
-  p {
-    line-height: 1.5rem;
-  }
-
-  .overline {
-    font-size: 0.75rem;
-    color: ${colors.gray};
-  }
-
-  .title {
-    font-size: 1.25rem;
-    font-weight: 400;
-    margin-bottom: 0.75em;
-  }
-
-  .price {
-    font-size: 1rem;
-    font-weight: 400;
-    color: ${colors.darkestgray};
-  }
-
-  border-bottom: 1px solid ${colors.lightgray};
-`;
-
-const Details = styled.div``;
 
 const mapStateToProps = (state) => {
   return {

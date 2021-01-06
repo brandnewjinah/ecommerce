@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import Select from "react-select";
 
 //import components
@@ -91,43 +90,42 @@ const AddCollection = (props) => {
     // postData();
   };
 
-  const postData = async () => {
-    const product = {
-      name: data.name,
-      price: data.price,
-      category1: data.category1,
-      category2: data.category2,
-      brand: data.brand,
-      image: data.image,
-      code: data.code,
-    };
+  // const postData = async () => {
+  //   const product = {
+  //     name: data.name,
+  //     price: data.price,
+  //     category1: data.category1,
+  //     category2: data.category2,
+  //     brand: data.brand,
+  //     image: data.image,
+  //     code: data.code,
+  //   };
 
-    const token = localStorage.getItem("token");
+  //   const token = localStorage.getItem("token");
 
-    const options = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+  //   const options = {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   };
 
-    await axios
-      .post("http://localhost:5000/product", product, options)
-      .then((res) => {
-        if (res.status === 200) {
-          console.log(product);
-          alert("Product saved");
-        }
-      })
-      .catch((err) => {
-        // if (
-        //   err.response &&
-        //   err.response.status >= 400 &&
-        //   err.response.status < 500
-        // )
-        alert(err);
-      });
-  };
-  console.log(data);
+  //   await axios
+  //     .post("http://localhost:5000/product", product, options)
+  //     .then((res) => {
+  //       if (res.status === 200) {
+  //         console.log(product);
+  //         alert("Product saved");
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       // if (
+  //       //   err.response &&
+  //       //   err.response.status >= 400 &&
+  //       //   err.response.status < 500
+  //       // )
+  //       alert(err);
+  //     });
+  // };
 
   return (
     <Layout>

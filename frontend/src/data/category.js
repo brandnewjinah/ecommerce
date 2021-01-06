@@ -19,6 +19,7 @@ export const catData = [
     subcategory: [
       { id: 201, value: "coffee, tea", label: "Coffee, Tea" },
       { id: 202, value: "juice", label: "Juice" },
+      { id: 203, value: "milk", label: "Milk" },
     ],
   },
   {
@@ -27,7 +28,7 @@ export const catData = [
     label: "Snacks",
     subcategory: [
       { id: 301, value: "chips, cookies", label: "Chips, Cookies" },
-      { id: 302, value: "korean", label: "Korean" },
+      { id: 302, value: "chocolate, candy", label: "Chocolate, Candy" },
     ],
   },
 ];

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+
 import Select from "react-select";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 
@@ -13,11 +13,11 @@ import colors from "../../../components/Colors";
 
 //import data
 import { catData } from "../../../data/category";
-import { colorData, sizeData, currencyData } from "../../../data/options";
+import { colorData, currencyData } from "../../../data/options";
 
 //redux
 import { connect } from "react-redux";
-import { addItem } from "../../../reducers/productReducer";
+import { addItem, editItem } from "../../../reducers/productReducer";
 
 const AddProduct = (props) => {
   const history = useHistory();
@@ -70,17 +70,17 @@ const AddProduct = (props) => {
     setData(newData);
   };
 
-  const handleSize = ({ currentTarget: input }) => {
-    let newData = { ...data };
-    let newSize = [...newData.size];
-    let thisSize = newSize.find((c) => c.label === input.name);
-    thisSize = { ...thisSize, sku: input.value };
+  // const handleSize = ({ currentTarget: input }) => {
+  //   let newData = { ...data };
+  //   let newSize = [...newData.size];
+  //   let thisSize = newSize.find((c) => c.label === input.name);
+  //   thisSize = { ...thisSize, sku: input.value };
 
-    let index = newSize.findIndex((item) => item.id === thisSize.id);
-    newSize[index] = thisSize;
-    newData = { ...newData, size: newSize };
-    setData(newData);
-  };
+  //   let index = newSize.findIndex((item) => item.id === thisSize.id);
+  //   newSize[index] = thisSize;
+  //   newData = { ...newData, size: newSize };
+  //   setData(newData);
+  // };
 
   let newImgs = [...data.imgs];
   const handleImgAdd = () => {
@@ -125,6 +125,16 @@ const AddProduct = (props) => {
     // postData();
   };
 
+  const handleEdit = () => {
+    const errors = validate();
+    setErrors(errors || {});
+    if (errors) return;
+
+    props.editItem(data);
+    history.push("/cms/products");
+    // postData();
+  };
+
   // const postData = async () => {
   //   const product = {
   //     name: data.name,
@@ -162,17 +172,16 @@ const AddProduct = (props) => {
   //     });
   // };
 
-  const getData = async () => {
-    if (location.pathname.includes("/edit")) {
-      //from redux store
-      const currentItem = await props.product.find((c) => c.sku === sku);
-      setData(currentItem);
-    }
-  };
-
   useEffect(() => {
+    const getData = async () => {
+      if (location.pathname.includes("/edit")) {
+        //from redux store
+        const currentItem = await props.product.find((c) => c.sku === sku);
+        setData(currentItem);
+      }
+    };
     getData();
-  }, [sku]);
+  }, [location.pathname, props.product, sku]);
 
   return (
     <Wrapper>
@@ -229,9 +238,9 @@ const AddProduct = (props) => {
               <Select
                 name="currency"
                 styles={customStyles}
-                value={data.currency}
-                defaultValue={currencyData[0]}
                 options={currencyData}
+                defaultValue={currencyData[0]}
+                value={data.currency}
                 onChange={handleCategory("currency")}
                 components={{
                   DropdownIndicator: () => null,
@@ -410,7 +419,7 @@ const AddProduct = (props) => {
       </Container>
       <div className="right">
         {location.pathname.includes("/edit/") ? (
-          <Button label="Save Changes" handleClick={handleSubmit} />
+          <Button label="Save Changes" handleClick={handleEdit} />
         ) : (
           <Button label="Add" handleClick={handleSubmit} />
         )}
@@ -532,4 +541,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addItem })(AddProduct);
+export default connect(mapStateToProps, { addItem, editItem })(AddProduct);

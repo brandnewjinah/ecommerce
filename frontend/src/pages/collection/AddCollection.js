@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Select from "react-select";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 
@@ -19,7 +18,7 @@ import { occasionData } from "../../data/collection";
 import { connect } from "react-redux";
 import {
   addCollection,
-  editItem,
+  editCollection,
   deleteAll,
 } from "../../reducers/collectionReducer";
 
@@ -40,16 +39,6 @@ const AddCollection = (props) => {
   const history = useHistory();
   let location = useLocation();
   let { id } = useParams();
-
-  const getData = async () => {
-    if (location.pathname.includes("/edit")) {
-      //from redux store
-      const currentItem = await props.collection.find(
-        (c) => c.id === parseInt(id)
-      );
-      setData(currentItem);
-    }
-  };
 
   const [errors, setErrors] = useState({});
 
@@ -99,7 +88,7 @@ const AddCollection = (props) => {
     setErrors(errors || {});
     if (errors) return;
 
-    props.editItem(data); //add to redux
+    props.editCollection(data); //add to redux
     alert("Updated");
     history.push(`/collection/${id}`);
   };
@@ -117,8 +106,17 @@ const AddCollection = (props) => {
   };
 
   useEffect(() => {
+    const getData = async () => {
+      if (location.pathname.includes("/edit")) {
+        //from redux store
+        const currentItem = await props.collection.find(
+          (c) => c.id === parseInt(id)
+        );
+        setData(currentItem);
+      }
+    };
     getData();
-  }, [id]);
+  }, [id, location.pathname, props.collection]);
 
   return (
     <Layout>
@@ -270,6 +268,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addCollection, editItem, deleteAll })(
-  AddCollection
-);
+export default connect(mapStateToProps, {
+  addCollection,
+  editCollection,
+  deleteAll,
+})(AddCollection);

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import config from "../../config.json";
 
 //import components
 import Layout from "../../components/main/Layout";
@@ -11,7 +9,7 @@ import { Button } from "../../components/Button";
 
 //import styles and assets
 import styled from "styled-components";
-import { Image } from "../../assets/Icons";
+
 import colors from "../../components/Colors";
 
 //import redux
@@ -24,23 +22,22 @@ const Detail = (props) => {
   const [data, setData] = useState({});
 
   useEffect(() => {
+    const getData = async () => {
+      const currentItem = props.product.find((c) => c.sku === id);
+      setData({ ...currentItem, qty: 1 });
+      // setData(currentItem);
+      // await axios
+      //   .get(`${config.API}/product/${props.match.params.id}`)
+      //   .then((res) => {
+      //     const { productInfo } = res.data;
+      //     setData(productInfo);
+      //   })
+      //   .catch((err) => {
+      //     alert(err);
+      //   });
+    };
     getData();
-  }, []);
-
-  const getData = async () => {
-    const currentItem = props.product.find((c) => c.sku === id);
-    setData({ ...currentItem, qty: 1 });
-    // setData(currentItem);
-    // await axios
-    //   .get(`${config.API}/product/${props.match.params.id}`)
-    //   .then((res) => {
-    //     const { productInfo } = res.data;
-    //     setData(productInfo);
-    //   })
-    //   .catch((err) => {
-    //     alert(err);
-    //   });
-  };
+  }, [id, props.product]);
 
   const handleAdd = async () => {
     const product = {
@@ -86,8 +83,6 @@ const Detail = (props) => {
             </Link>
             <div style={{ margin: `0 .5em`, color: `#8a8a8a` }}> / </div>
             <Link to="/">{data.category2 && data.category2.label}</Link>
-            <div style={{ margin: `0 .5em`, color: `#8a8a8a` }}> / </div>
-            <Link to="/">{data.category3 && data.category3.label}</Link>
           </div>
         </Category>
         <Main>

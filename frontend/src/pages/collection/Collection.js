@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import config from "../../config.json";
-import axios from "axios";
 
 //import components
 import Layout from "../../components/main/Layout";
 import Section from "../../components/main/Section";
-import { BtnText } from "../../components/Button";
 import { Card } from "../../components/main/ProductCard";
-import Filter from "../../components/Filter";
 
 //import styles and assets
 import styled from "styled-components";
@@ -17,16 +13,16 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 
 const Products = (props) => {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
-  const getData = async () => {
-    // const { data } = await axios.get(`${config.API}/product`);
-    // setData(data.products);
-  };
+  // const getData = async () => {
+  //   const { data } = await axios.get(`${config.API}/product`);
+  //   setData(data.products);
+  // };
 
   return (
     <Layout>

@@ -4,23 +4,26 @@ import { Link } from "react-router-dom";
 //import styles and assets
 import styled from "styled-components";
 import colors from "../Colors";
+import { Cart } from "../../assets/Icons";
 
 const Header = (props) => {
   const [open, setOpen] = useState(false);
   return (
     <Wrapper open={open}>
       <Container>
-        <Left>MYSHOP</Left>
+        <Left>
+          <Link to="/">MYSHOP</Link>
+        </Left>
         <Links open={open}>
           <Center>
-            <Link to="/collection">
-              <Category>Collection</Category>
+            <Link to="/products/all">
+              <Category>All Products</Category>
             </Link>
-            <Link to="/products">
-              <Category>Category</Category>
+            <Link to="/products/new">
+              <Category>New</Category>
             </Link>
-            <Link to="/products">
-              <Category>Category</Category>
+            <Link to="/products/best">
+              <Category>Best</Category>
             </Link>
           </Center>
           <Right className="flex">
@@ -35,6 +38,10 @@ const Header = (props) => {
               </>
             )}
             {props.user && <div>Hi, {props.user.name}</div>}
+            <CartContainer>
+              <div className="qty">4</div>
+              <Cart width="18" height="18" color="#000" stroke="2" />
+            </CartContainer>
           </Right>
         </Links>
         <Mobile>
@@ -76,7 +83,7 @@ const Container = styled.div`
 `;
 
 const Left = styled.div`
-  flex: 1 1 33.33%;
+  flex: 1 1 40%;
   font-size: 1.125rem;
   font-weight: 600;
   color: ${colors.darkergray};
@@ -86,7 +93,7 @@ const Left = styled.div`
 
 const Links = styled.div`
   display: flex;
-  flex: 1 1 66.66%;
+  flex: 1 1 60%;
   /* background-color: darkseagreen; */
 
   @media (max-width: 980px) {
@@ -137,6 +144,31 @@ const Right = styled.div`
     div {
       margin-left: 0;
     }
+  }
+`;
+
+const CartContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .cartIcon {
+    background-color: red;
+  }
+
+  .qty {
+    position: absolute;
+    top: 2px;
+    left: -4px;
+    color: #fff;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    background-color: red;
   }
 `;
 

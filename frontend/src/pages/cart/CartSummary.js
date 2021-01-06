@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 //import components
 import { Button } from "../../components/Button";
@@ -11,15 +12,16 @@ import colors from "../../components/Colors";
 import { connect } from "react-redux";
 
 const CartSummary = (props) => {
+  let location = useLocation();
   const [subtotal, setSubtotal] = useState(0);
 
-  const calcSubTotal = () => {
-    props.cart.reduce((total, item) => {
-      setSubtotal(total + item.price * item.qty);
-    }, 0);
-  };
-
   useEffect(() => {
+    const calcSubTotal = () => {
+      props.cart.reduce((total, item) => {
+        return setSubtotal(total + item.price * item.qty);
+      }, 0);
+    };
+
     calcSubTotal();
   }, [props.cart]);
 
@@ -41,7 +43,12 @@ const CartSummary = (props) => {
         <p>Total</p>
         <p>hello</p>
       </Total>
-      <Button label="PROCEED TO CHECKOUT" type="fill" color="#002C66" />
+
+      {location.pathname.includes("/checkout") ? (
+        <Button label="PLACE ORDER" type="fill" color="#002C66" />
+      ) : (
+        <Button label="PROCEED TO CHECKOUT" type="fill" color="#002C66" />
+      )}
     </Wrapper>
   );
 };

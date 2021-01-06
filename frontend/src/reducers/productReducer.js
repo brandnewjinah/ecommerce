@@ -1,5 +1,6 @@
 // Action types
 const ADD_ITEM = "ADD_ITEM";
+const EDIT_ITEM = "EDIT_ITEM";
 const DELETE_ITEM = "DELETE_ITEM";
 const DELETE_ALL = "DELETE_ALL";
 
@@ -8,6 +9,17 @@ export const addItem = (item) => {
   return (dispatch) => {
     dispatch({
       type: ADD_ITEM,
+      payload: {
+        item,
+      },
+    });
+  };
+};
+
+export const editItem = (item) => {
+  return (dispatch) => {
+    dispatch({
+      type: EDIT_ITEM,
       payload: {
         item,
       },
@@ -56,6 +68,15 @@ const reducer = (state = initialState, action) => {
     } else {
       newProducts = [...newProducts, added];
     }
+    return { ...state, products: newProducts };
+  }
+
+  if (action.type === EDIT_ITEM) {
+    let updatedItem = action.payload.item;
+    let newProducts = [...state.products];
+    const index = newProducts.findIndex((item) => item.sku === updatedItem.sku);
+    newProducts[index] = updatedItem;
+
     return { ...state, products: newProducts };
   }
 

@@ -1,6 +1,6 @@
 // Action types
 const ADD_COLLECTION = "ADD_COLLECTION";
-const EDIT_ITEM = "EDIT_ITEM";
+const EDIT_COLLECTION = "EDIT_COLLECTION";
 const DELETE_COLLECTION = "DELETE_COLLECTION";
 const DELETE_ALL = "DELETE_ALL";
 
@@ -16,10 +16,10 @@ export const addCollection = (item) => {
   };
 };
 
-export const editItem = (item) => {
+export const editCollection = (item) => {
   return (dispatch) => {
     dispatch({
-      type: EDIT_ITEM,
+      type: EDIT_COLLECTION,
       payload: {
         item,
       },
@@ -70,7 +70,7 @@ const reducer = (state = initialState, action) => {
     }
     return { ...state, collection: newCollection };
   }
-  if (action.type === EDIT_ITEM) {
+  if (action.type === EDIT_COLLECTION) {
     let updatedCollection = action.payload.item;
     let newCollection = [...state.collection];
     const index = newCollection.findIndex(

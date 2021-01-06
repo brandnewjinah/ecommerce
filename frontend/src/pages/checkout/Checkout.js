@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 
 //import components
 import Layout from "../../components/main/Layout";
@@ -28,7 +26,7 @@ const Checkout = (props) => {
     shipping: "standard",
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors] = useState({});
 
   const handleChange = ({ currentTarget: input }) => {
     const userInput = { ...data };

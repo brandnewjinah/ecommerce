@@ -106,32 +106,3 @@ const Details = styled.div`
     color: ${colors.darkestgray};
   }
 `;
-
-const Text = styled.div`
-  .sub {
-    font-size: 0.8rem;
-    font-weight: 500;
-    line-height: 0.875rem;
-    color: ${colors.gray};
-  }
-  .title {
-    font-size: 1rem;
-    line-height: 1.5em;
-    font-weight: 500;
-    color: ${colors.gray};
-  }
-  .caption {
-    font-size: 0.75rem;
-    line-height: 1.5em;
-    color: ${colors.darkergray};
-    padding-top: 1em;
-  }
-  .delete {
-    font-size: 0.75rem;
-    padding-top: 1em;
-    cursor: pointer;
-    &:hover {
-      opacity: 0.6;
-    }
-  }
-`;

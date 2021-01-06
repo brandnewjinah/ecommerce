@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-
-import axios from "axios";
+import React from "react";
 
 //import components
 import { BtnText } from "../../../components/Button";
@@ -15,16 +12,16 @@ import { connect } from "react-redux";
 import { deleteAll, deleteItem } from "../../../reducers/productReducer";
 
 const ProductList = (props) => {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
 
   //   useEffect(() => {
   //     getData();
   //   }, []);
 
-  const getData = async () => {
-    // const { data } = await axios.get(`${config.API}/product`);
-    // setData(data.products);
-  };
+  // const getData = async () => {
+  //   const { data } = await axios.get(`${config.API}/product`);
+  //   setData(data.products);
+  // };
 
   const handleDeleteAll = async () => {
     props.deleteAll();

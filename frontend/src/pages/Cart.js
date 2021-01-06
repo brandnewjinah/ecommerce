@@ -11,20 +11,20 @@ const Detail = (props) => {
   const [data, setData] = useState({});
 
   useEffect(() => {
-    getData();
-  }, []);
+    const getData = async () => {
+      await axios
+        .get(`${config.API}/product/${props.match.params.id}`)
+        .then((res) => {
+          const { productInfo } = res.data;
+          setData(productInfo);
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    };
 
-  const getData = async () => {
-    await axios
-      .get(`${config.API}/product/${props.match.params.id}`)
-      .then((res) => {
-        const { productInfo } = res.data;
-        setData(productInfo);
-      })
-      .catch((err) => {
-        alert(err);
-      });
-  };
+    getData();
+  }, [props.match.params.id]);
 
   return (
     <Wrapper>
