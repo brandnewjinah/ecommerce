@@ -1,13 +1,11 @@
-import React, { FC } from "react";
+import React from "react";
 
 //import components
 
 //import styles and assets
 import styled from "styled-components";
 
-interface Props {}
-
-const Filter: FC<Props> = () => {
+const Filter = () => {
   return <Wrapper>Filter</Wrapper>;
 };
 

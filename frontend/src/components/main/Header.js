@@ -19,11 +19,14 @@ const Header = (props) => {
             <Link to="/products/all">
               <Category>All Products</Category>
             </Link>
-            <Link to="/products/new">
-              <Category>New</Category>
+            <Link to="/products/bakery">
+              <Category>Bakery</Category>
             </Link>
-            <Link to="/products/best">
-              <Category>Best</Category>
+            <Link to="/products/beverages">
+              <Category>Beverages</Category>
+            </Link>
+            <Link to="/products/snacks">
+              <Category>Snacks</Category>
             </Link>
           </Center>
           <Right className="flex">
@@ -83,7 +86,7 @@ const Container = styled.div`
 `;
 
 const Left = styled.div`
-  flex: 1 1 40%;
+  flex: 1 1 33.3%;
   font-size: 1.125rem;
   font-weight: 600;
   color: ${colors.darkergray};
@@ -93,7 +96,7 @@ const Left = styled.div`
 
 const Links = styled.div`
   display: flex;
-  flex: 1 1 60%;
+  flex: 1 1 66.6%;
   /* background-color: darkseagreen; */
 
   @media (max-width: 980px) {
