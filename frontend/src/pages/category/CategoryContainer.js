@@ -54,7 +54,7 @@ const CategoryContainer = (props) => {
         setProducts({ products: list, path: id });
       }
 
-      if (location.pathname.includes("/beverages")) {
+      if (location.pathname.includes("/beverage")) {
         const bevProducts =
           subcat > 200 && subcat < 300
             ? props.product.filter((p) => p.category2.id === subcat)

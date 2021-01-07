@@ -22,8 +22,8 @@ const Header = (props) => {
             <Link to="/products/bakery" onClick={() => setOpen(false)}>
               <p>Bakery</p>
             </Link>
-            <Link to="/products/beverages" onClick={() => setOpen(false)}>
-              <p>Beverages</p>
+            <Link to="/products/beverage" onClick={() => setOpen(false)}>
+              <p>Beverage</p>
             </Link>
             <Link to="/products/snacks" onClick={() => setOpen(false)}>
               <p>Snacks</p>

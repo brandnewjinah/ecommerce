@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Layout from "../../components/main/Layout";
 import Counter from "../../components/Counter";
 import { Button } from "../../components/Button";
+import { Card } from "../../components/main/ProductCard";
 
 //import styles and assets
 import styled from "styled-components";
@@ -20,11 +21,16 @@ const Detail = (props) => {
   let { id } = useParams();
 
   const [data, setData] = useState({});
+  const [similar, setSimilar] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
       const currentItem = props.product.find((c) => c.sku === id);
       setData({ ...currentItem, qty: 1 });
+      let similarItems = props.product.filter(
+        (p) => p.category2.id === currentItem.category2.id && p.sku !== id
+      );
+      setSimilar(similarItems);
       // setData(currentItem);
       // await axios
       //   .get(`${config.API}/product/${props.match.params.id}`)
@@ -78,11 +84,11 @@ const Detail = (props) => {
       <Wrapper>
         <Category>
           <div className="flex link">
-            <Link to="/">
+            <Link to={`/products/${data.category1 && data.category1.value}`}>
               <div>{data.category1 && data.category1.label}</div>
             </Link>
             <div style={{ margin: `0 .5em`, color: `#8a8a8a` }}> / </div>
-            <Link to="/">{data.category2 && data.category2.label}</Link>
+            {data.category2 && data.category2.label}
           </div>
         </Category>
         <Main>
@@ -91,10 +97,11 @@ const Detail = (props) => {
           </Img>
           <Desc>
             <Section>
-              <Link to={{ pathname: data.link }} target="_blank">
-                <p className="overline">{data.brand}</p>
-              </Link>
+              <p className="overline">{data.brand}</p>
               <p className="title">{data.name}</p>
+            </Section>
+            <Section>
+              <p className="overline">Price</p>
               <p className="price">
                 {data.currency && data.currency.label}
                 {data.price}
@@ -102,7 +109,7 @@ const Detail = (props) => {
             </Section>
             <Section>
               <p className="overline">From</p>
-              <Link to={data.link} target="_blank">
+              <Link to={{ pathname: data.link }} target="_blank">
                 <p>{data.store}</p>
               </Link>
             </Section>
@@ -119,11 +126,13 @@ const Detail = (props) => {
             </Section>
             <Section>
               <p className="overline">Quantity</p>
-              <Counter
-                qty={data.qty}
-                handleDecrease={() => handleDecrease()}
-                handleIncrease={() => handleIncrease()}
-              />
+              <div className="counter">
+                <Counter
+                  qty={data.qty}
+                  handleDecrease={() => handleDecrease()}
+                  handleIncrease={() => handleIncrease()}
+                />
+              </div>
             </Section>
             <div className="btn">
               <div className="six">
@@ -145,6 +154,23 @@ const Detail = (props) => {
             </div>
           </Desc>
         </Main>
+        <More>
+          <h6>You may also like</h6>
+          <Similar>
+            {similar &&
+              similar.map((p, idx) => (
+                <Card
+                  key={idx}
+                  id={p.sku}
+                  brand={p.brand}
+                  name={p.name}
+                  currency={p.currency && p.currency.label}
+                  price={p.price}
+                  imageUrl={p.imgs[0].src}
+                />
+              ))}
+          </Similar>
+        </More>
       </Wrapper>
     </Layout>
   );
@@ -164,6 +190,8 @@ const Wrapper = styled.div`
 `;
 
 const Category = styled.div`
+  font-size: 0.75rem;
+  color: ${colors.gray};
   padding: 2em 0 1em 0;
 `;
 
@@ -177,10 +205,9 @@ const Main = styled.main`
 
 const Img = styled.div`
   min-width: 430px;
-  /* height: 385px; */
   background-color: #eee;
   display: flex;
-  flex: 1 1 50%;
+  flex: 1 1 40%;
   justify-content: center;
   align-items: center;
 
@@ -195,7 +222,7 @@ const Img = styled.div`
 `;
 
 const Desc = styled.div`
-  flex: 1 1 50%;
+  flex: 1 1 60%;
   padding-left: 3em;
 
   h5 {
@@ -220,10 +247,17 @@ const Desc = styled.div`
   .six {
     flex: 0 1 59%;
   }
+
+  div {
+    &:nth-child(5) {
+      border: none;
+    }
+  }
 `;
 
 const Section = styled.div`
   padding: 0.75em 0;
+  border-bottom: 1px solid ${colors.lightgray};
 
   p {
     line-height: 1.5rem;
@@ -237,7 +271,7 @@ const Section = styled.div`
   .title {
     font-size: 1.25rem;
     font-weight: 400;
-    margin-bottom: 0.75em;
+    /* margin-bottom: 0.75em; */
   }
 
   .price {
@@ -246,7 +280,29 @@ const Section = styled.div`
     color: ${colors.darkestgray};
   }
 
-  border-bottom: 1px solid ${colors.lightgray};
+  .counter {
+    margin-top: 0.35em;
+  }
+`;
+
+const More = styled.div`
+  padding-top: 2em;
+
+  h6 {
+    font-weight: 400;
+    font-size: 1rem;
+    color: ${colors.darkestgray};
+  }
+`;
+
+const Similar = styled.div`
+  margin-top: 1em;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 1em;
+  @media (max-width: 980px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const mapStateToProps = (state) => {
