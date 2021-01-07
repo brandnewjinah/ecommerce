@@ -7,6 +7,9 @@ import { Card } from "../../components/main/ProductCard";
 import Filter from "../../components/Filter";
 import Pagination from "../../components/Pagination";
 
+//import data
+import { catData } from "../../data/category";
+
 //import styles and assets
 import styled from "styled-components";
 
@@ -15,7 +18,10 @@ const CategoryPresenter = (props) => {
     <Layout>
       <Wrapper>
         <h2>{props.path}</h2>
-        <Filter />
+        <Filter
+          category={catData.find((c) => c.value === props.path)}
+          handleCatChange={props.handleCatChange}
+        />
         <Container>
           <Section>
             {props.products &&
@@ -24,7 +30,7 @@ const CategoryPresenter = (props) => {
                 <Card
                   key={idx}
                   id={p.sku}
-                  store={p.store}
+                  brand={p.brand}
                   name={p.name}
                   currency={p.currency && p.currency.label}
                   price={p.price}

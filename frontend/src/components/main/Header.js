@@ -11,60 +11,67 @@ const Header = (props) => {
   return (
     <Wrapper open={open}>
       <Container>
-        <Left>
+        <Logo>
           <Link to="/">MYSHOP</Link>
-        </Left>
+        </Logo>
         <Links open={open}>
-          <Center>
-            <Link to="/products/all">
-              <Category>All Products</Category>
+          <Left>
+            <Link to="/products/all" onClick={() => setOpen(false)}>
+              <p>All Products</p>
             </Link>
-            <Link to="/products/bakery">
-              <Category>Bakery</Category>
+            <Link to="/products/bakery" onClick={() => setOpen(false)}>
+              <p>Bakery</p>
             </Link>
-            <Link to="/products/beverages">
-              <Category>Beverages</Category>
+            <Link to="/products/beverages" onClick={() => setOpen(false)}>
+              <p>Beverages</p>
             </Link>
-            <Link to="/products/snacks">
-              <Category>Snacks</Category>
+            <Link to="/products/snacks" onClick={() => setOpen(false)}>
+              <p>Snacks</p>
             </Link>
-          </Center>
-          <Right className="flex">
-            {!props.user && (
-              <>
-                <Link to="/signup">
-                  <div>Signup</div>
-                </Link>
-                <Link to="/login">
-                  <div>Login</div>
-                </Link>
-              </>
-            )}
-            {props.user && <div>Hi, {props.user.name}</div>}
-            <CartContainer>
-              <div className="qty">4</div>
-              <Cart width="18" height="18" color="#000" stroke="2" />
-            </CartContainer>
+          </Left>
+          <Right>
+            <User>
+              {!props.user && (
+                <>
+                  <Link to="/signup">
+                    <p>Signup</p>
+                  </Link>
+                  <Link to="/login">
+                    <p>Login</p>
+                  </Link>
+                </>
+              )}
+              {props.user && <div>Hi, {props.user.name}</div>}
+            </User>
+            <ShoppingCartWeb>
+              <Cart width="16" height="16" color="#000" stroke="1" />
+              <div className="qty">2</div>
+            </ShoppingCartWeb>
           </Right>
         </Links>
         <Mobile>
-          {open ? (
-            <div onClick={() => setOpen(!open)}>Close</div>
-          ) : (
-            <div onClick={() => setOpen(!open)}>Menu</div>
-          )}
+          <Flex>
+            <ShoppingCart>
+              <Cart width="16" height="16" color="#000" stroke="1" />
+              <div className="qty">2</div>
+            </ShoppingCart>
+            <Burger open={open} onClick={() => setOpen(!open)}>
+              <div />
+            </Burger>
+          </Flex>
         </Mobile>
       </Container>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div`
-  width: 100%;
-  height: 3.5em;
+const Flex = styled.div`
   display: flex;
+`;
+
+const Wrapper = styled(Flex)`
+  height: 3.5em;
   align-items: center;
-  justify-content: center;
   background-color: ${({ open }) => (open ? "#fff" : null)};
   border-bottom: 1px solid ${colors.lightergray};
 
@@ -73,105 +80,122 @@ const Wrapper = styled.div`
   }
 `;
 
-const Container = styled.div`
+const Container = styled(Flex)`
+  /* background-color: sandybrown; */
   width: 100%;
-  display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 0.75rem;
   letter-spacing: 0.025rem;
   color: ${colors.darkergray};
   padding: 0 4em;
-  /* background-color: azure; */
+
+  @media (max-width: 980px) {
+    padding: 0 2em;
+  }
 `;
 
-const Left = styled.div`
-  flex: 1 1 33.3%;
+const Logo = styled.div`
+  /* background-color: salmon; */
+  flex: 1 1 30%;
   font-size: 1.125rem;
   font-weight: 600;
   color: ${colors.darkergray};
   letter-spacing: 0.2rem;
-  /* background-color: red; */
 `;
 
-const Links = styled.div`
-  display: flex;
-  flex: 1 1 66.6%;
-  /* background-color: darkseagreen; */
+const Links = styled(Flex)`
+  /* background-color: powderblue; */
+  flex: 1 1 70%;
 
   @media (max-width: 980px) {
     height: 100vh;
-    background-color: #fff;
+    background-color: white;
     flex-direction: column;
     position: absolute;
-    top: 2em;
+    top: 3em;
     left: 0;
     right: 0;
     overflow: hidden;
-    padding: 1em;
+    padding: 0.5em;
     text-align: center;
-    font-size: 1.75rem;
+    font-size: 1rem;
     font-weight: 500;
     z-index: 2;
     transform: ${({ open }) => (open ? "scale(1)" : "scale(0)")};
+  }
+`;
 
-    a {
-      margin: 0.5em;
+const Left = styled(Flex)`
+  /* background-color: thistle; */
+  justify-content: space-between;
+  flex: 1 1 57.15%;
+
+  p {
+    margin: 0 1em;
+  }
+
+  @media (max-width: 980px) {
+    flex-direction: column;
+    flex: 0;
+
+    p {
+      line-height: 3rem;
     }
   }
 `;
 
-const Center = styled.div`
-  display: flex;
+const Right = styled(Flex)`
+  /* background-color: wheat; */
+  justify-content: flex-end;
+  flex: 1 1 42.85%;
 
-  @media (max-width: 980px) {
-    flex-direction: column;
-  }
-`;
-
-const Category = styled.div`
-  margin: 0 2em;
-`;
-
-const Right = styled.div`
-  display: flex;
-  margin-left: auto;
-
-  div {
-    margin-left: 1.5em;
+  p {
+    margin: 0 1em;
   }
 
   @media (max-width: 980px) {
     flex-direction: column;
+    flex: 0;
     margin-left: 0;
+
     div {
       margin-left: 0;
     }
   }
 `;
 
-const CartContainer = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
+const User = styled.div`
+  @media (max-width: 980px) {
+    display: flex;
+    flex-direction: column;
 
-  .cartIcon {
-    background-color: red;
+    p {
+      line-height: 3rem;
+    }
   }
+`;
+
+const ShoppingCart = styled(Flex)`
+  align-items: center;
+  border: 1px solid ${colors.lightgray};
+  border-radius: 1em;
+  padding: 0 1em;
+  margin-left: 0.875em;
 
   .qty {
-    position: absolute;
-    top: 2px;
-    left: -4px;
-    color: #fff;
-    font-weight: 500;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 18px;
-    height: 18px;
-    border-radius: 100%;
-    background-color: red;
+    line-height: 0.75rem;
+    margin-left: 0.5em;
+  }
+
+  @media (max-width: 980px) {
+    margin-right: 1.5em;
+  }
+`;
+
+const ShoppingCartWeb = styled(ShoppingCart)`
+  @media (max-width: 980px) {
+    display: none;
   }
 `;
 
@@ -182,6 +206,49 @@ const Mobile = styled.div`
 
   @media (max-width: 980px) {
     display: block;
+  }
+`;
+
+const Burger = styled.div`
+  width: 20px;
+  height: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  cursor: pointer;
+
+  div {
+    width: 100%;
+    height: 1px;
+    background-color: #000;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+    opacity: ${({ open }) => (open ? 0 : 1)};
+  }
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 1px;
+    background-color: #000;
+    transition: all 0.4s ease;
+  }
+  &:before {
+    opacity: 1;
+    transform: ${({ open }) =>
+      open ? "rotate(45deg)" : "rotate(0) translateY(-6px)"};
+  }
+
+  &:after {
+    opacity: 1;
+    transform: ${({ open }) =>
+      open ? "rotate(-45deg)" : "rotate(0) translateY(6px)"};
   }
 `;
 

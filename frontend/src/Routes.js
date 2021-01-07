@@ -29,6 +29,7 @@ const Routes = () => {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/products/:id" component={Category} />
+        <Route exact path="/detail/:id" component={Detail} />
         <Route exact path="/collection" component={Collection} />
         <Route exact path="/collection/add" component={AddCollection} />
         <Route exact path="/collection/:id" component={CollectionDetail} />
@@ -38,10 +39,9 @@ const Routes = () => {
           path="/collection/:id/add"
           component={AddCollectionProduct}
         />
-
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/products/:id" component={Detail} />
+
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/confirmation" component={Confirmation} />

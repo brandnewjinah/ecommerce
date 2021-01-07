@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { ImageIcon } from "../../assets/Icons";
 import colors from "../Colors";
 
-export const Card = ({ imageUrl, store, name, price, id, currency }) => {
+export const Card = ({ imageUrl, brand, name, price, id, currency }) => {
   const [imgErr, setImgErr] = useState(false);
 
   const handleDefaultImg = (e) => {
@@ -16,7 +16,7 @@ export const Card = ({ imageUrl, store, name, price, id, currency }) => {
   };
 
   return (
-    <Link to={`/products/${id}`}>
+    <Link to={`/detail/${id}`}>
       <CardWrapper>
         <ImageContainer>
           {imgErr ? (
@@ -31,7 +31,7 @@ export const Card = ({ imageUrl, store, name, price, id, currency }) => {
           )}
         </ImageContainer>
         <Details>
-          <div className="sub">{store}</div>
+          <div className="sub">{brand}</div>
           <div className="main">
             {name.length > 30 ? `${name.substring(0, 28)}...` : name}
           </div>
@@ -84,7 +84,7 @@ const ImageContainer = styled.div`
 
 const Details = styled.div`
   width: 100%;
-  padding-top: 2em;
+  padding-top: 1em;
 
   .sub {
     font-size: 0.75rem;
@@ -92,11 +92,11 @@ const Details = styled.div`
     text-transform: uppercase;
     letter-spacing: 0.075rem;
     line-height: 0.875rem;
-    color: ${colors.darkestgray};
+    color: ${colors.gray};
   }
   .main {
     font-size: 0.825rem;
-    color: ${colors.gray};
+    color: ${colors.darkestgray};
   }
   p {
     font-size: 0.75rem;

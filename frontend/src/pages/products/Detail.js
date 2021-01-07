@@ -145,7 +145,6 @@ const Detail = (props) => {
             </div>
           </Desc>
         </Main>
-        <Details>details</Details>
       </Wrapper>
     </Layout>
   );
@@ -249,8 +248,6 @@ const Section = styled.div`
 
   border-bottom: 1px solid ${colors.lightgray};
 `;
-
-const Details = styled.div``;
 
 const mapStateToProps = (state) => {
   return {

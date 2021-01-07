@@ -19,8 +19,15 @@ const CategoryContainer = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [count, setCount] = useState();
 
+  //subcategory
+  const [subcat, setSubCat] = useState();
+
   const handlePageChange = (page) => {
     setCurrentPage(page);
+  };
+
+  const handleCatChange = (id) => {
+    setSubCat(id);
   };
 
   useEffect(() => {
@@ -35,12 +42,22 @@ const CategoryContainer = (props) => {
       }
 
       if (location.pathname.includes("/bakery")) {
-        const bakeryProducts = props.product.filter(
-          (p) => p.category1.id === 100
-        );
-        setCount(bakeryProducts.length);
-        const list = _(bakeryProducts).slice(index).take(limit).value();
-        setProducts({ products: list, path: id });
+        if (subcat !== undefined && subcat > 100 && subcat < 200) {
+          const bakeryProducts = props.product.filter(
+            (p) => p.category1.id === 100 && p.category2.id === subcat
+          );
+          setCount(bakeryProducts.length);
+          const list = _(bakeryProducts).slice(index).take(limit).value();
+          setProducts({ products: list, path: id });
+        }
+        if (subcat === undefined || subcat === 100) {
+          const bakeryProducts = props.product.filter(
+            (p) => p.category1.id === 100
+          );
+          setCount(bakeryProducts.length);
+          const list = _(bakeryProducts).slice(index).take(limit).value();
+          setProducts({ products: list, path: id });
+        }
       }
 
       if (location.pathname.includes("/beverages")) {
@@ -62,8 +79,16 @@ const CategoryContainer = (props) => {
       }
     };
 
+    console.log(subcat);
     getData();
-  }, [currentPage, id, location.pathname, props.product, props.proudct]);
+  }, [
+    currentPage,
+    id,
+    location.pathname,
+    props.product,
+    props.proudct,
+    subcat,
+  ]);
 
   return (
     <CategoryPresenter
@@ -71,6 +96,7 @@ const CategoryContainer = (props) => {
       count={count}
       currentPage={currentPage}
       handlePageChange={handlePageChange}
+      handleCatChange={handleCatChange}
       limit={limit}
     />
   );
