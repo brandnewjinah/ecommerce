@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 //import styles and assets
 import styled from "styled-components";
@@ -7,7 +7,12 @@ import colors from "../Colors";
 import { Cart } from "../../assets/Icons";
 
 const Header = (props) => {
+  const history = useHistory();
   const [open, setOpen] = useState(false);
+  const goToCart = () => {
+    history.push("/cart");
+  };
+
   return (
     <Wrapper open={open}>
       <Container>
@@ -43,7 +48,7 @@ const Header = (props) => {
               )}
               {props.user && <div>Hi, {props.user.name}</div>}
             </User>
-            <ShoppingCartWeb>
+            <ShoppingCartWeb onClick={goToCart}>
               <Cart width="16" height="16" color="#000" stroke="1" />
               <div className="qty">2</div>
             </ShoppingCartWeb>
@@ -51,7 +56,7 @@ const Header = (props) => {
         </Links>
         <Mobile>
           <Flex>
-            <ShoppingCart>
+            <ShoppingCart onClick={goToCart}>
               <Cart width="16" height="16" color="#000" stroke="1" />
               <div className="qty">2</div>
             </ShoppingCart>
@@ -182,6 +187,7 @@ const ShoppingCart = styled(Flex)`
   border-radius: 1em;
   padding: 0 1em;
   margin-left: 0.875em;
+  cursor: pointer;
 
   .qty {
     line-height: 0.75rem;
