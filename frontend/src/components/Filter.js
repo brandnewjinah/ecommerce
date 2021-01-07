@@ -1,25 +1,45 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-//import components
+//import data
+import { catData } from "../data/category";
 
 //import styles and assets
 import styled from "styled-components";
 import colors from "./Colors";
 
 const Filter = ({ category, handleCatChange }) => {
+  const [result, setResult] = useState();
+
+  useEffect(() => {
+    const findCategory = () => {
+      const result = catData.find((c) => c.value === category);
+      setResult(result);
+    };
+
+    findCategory();
+  }, [category]);
+
   return (
     <Wrapper>
       <Container>
         <ul className="pagination">
-          <li onClick={() => handleCatChange(category.id)}>All</li>
-          {category &&
-            category.subcategory.map((s, idx) => (
-              <li key={idx}>
-                <div className="link" onClick={() => handleCatChange(s.id)}>
-                  {s.label}
-                </div>
-              </li>
-            ))}
+          <li onClick={() => handleCatChange()}>All</li>
+          {category === "all"
+            ? catData.map((c, idx) => (
+                <li key={idx}>
+                  <div className="link" onClick={() => handleCatChange(c.id)}>
+                    {c.label}
+                  </div>
+                </li>
+              ))
+            : result &&
+              result.subcategory.map((c, idx) => (
+                <li key={idx}>
+                  <div className="link" onClick={() => handleCatChange(c.id)}>
+                    {c.label}
+                  </div>
+                </li>
+              ))}
         </ul>
       </Container>
     </Wrapper>
@@ -36,6 +56,8 @@ const Container = styled.nav`
   }
 
   li {
+    font-size: 0.875rem;
+    color: ${colors.darkestgray};
     display: flex;
     justify-content: center;
     align-items: center;

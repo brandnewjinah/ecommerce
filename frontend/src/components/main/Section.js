@@ -21,7 +21,7 @@ Section.propTypes = {
 };
 
 const Wrapper = styled.div`
-  margin: 2em auto;
+  margin: 1em auto;
 `;
 
 const Grid = styled.div`

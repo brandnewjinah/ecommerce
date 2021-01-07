@@ -117,7 +117,7 @@ const Links = styled(Flex)`
     left: 0;
     right: 0;
     overflow: hidden;
-    padding: 0.5em;
+    padding: 1em;
     text-align: center;
     font-size: 1rem;
     font-weight: 500;

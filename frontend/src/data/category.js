@@ -14,8 +14,8 @@ export const catData = [
   },
   {
     id: 200,
-    value: "beverage",
-    label: "Beverage",
+    value: "beverages",
+    label: "Beverages",
     subcategory: [
       { id: 201, value: "coffee, tea", label: "Coffee, Tea" },
       { id: 202, value: "juice", label: "Juice" },

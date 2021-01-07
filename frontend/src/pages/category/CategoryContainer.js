@@ -35,51 +35,46 @@ const CategoryContainer = (props) => {
       const index = (currentPage - 1) * limit;
 
       if (location.pathname.includes("/all")) {
-        const allProducts = props.product;
-        setCount(allProducts.length);
-        const list = _(allProducts).slice(index).take(limit).value();
+        const products =
+          subcat === 100 || subcat === 200 || subcat === 300
+            ? props.product.filter((p) => p.category1.id === subcat)
+            : props.product;
+        setCount(products.length);
+        const list = _(products).slice(index).take(limit).value();
         setProducts({ products: list, path: id });
       }
 
       if (location.pathname.includes("/bakery")) {
-        if (subcat !== undefined && subcat > 100 && subcat < 200) {
-          const bakeryProducts = props.product.filter(
-            (p) => p.category1.id === 100 && p.category2.id === subcat
-          );
-          setCount(bakeryProducts.length);
-          const list = _(bakeryProducts).slice(index).take(limit).value();
-          setProducts({ products: list, path: id });
-        }
-        if (subcat === undefined || subcat === 100) {
-          const bakeryProducts = props.product.filter(
-            (p) => p.category1.id === 100
-          );
-          setCount(bakeryProducts.length);
-          const list = _(bakeryProducts).slice(index).take(limit).value();
-          setProducts({ products: list, path: id });
-        }
+        const bakeryProducts =
+          subcat > 100 && subcat < 200
+            ? props.product.filter((p) => p.category2.id === subcat)
+            : props.product.filter((p) => p.category1.id === 100);
+        setCount(bakeryProducts.length);
+        const list = _(bakeryProducts).slice(index).take(limit).value();
+        setProducts({ products: list, path: id });
       }
 
       if (location.pathname.includes("/beverages")) {
-        const beverageProducts = props.product.filter(
-          (p) => p.category1.id === 200
-        );
-        setCount(beverageProducts.length);
-        const list = _(beverageProducts).slice(index).take(limit).value();
+        const bevProducts =
+          subcat > 200 && subcat < 300
+            ? props.product.filter((p) => p.category2.id === subcat)
+            : props.product.filter((p) => p.category1.id === 200);
+        setCount(bevProducts.length);
+        const list = _(bevProducts).slice(index).take(limit).value();
         setProducts({ products: list, path: id });
       }
 
       if (location.pathname.includes("/snacks")) {
-        const snackProducts = props.product.filter(
-          (p) => p.category1.id === 300
-        );
+        const snackProducts =
+          subcat > 300 && subcat < 400
+            ? props.product.filter((p) => p.category2.id === subcat)
+            : props.product.filter((p) => p.category1.id === 300);
         setCount(snackProducts.length);
         const list = _(snackProducts).slice(index).take(limit).value();
         setProducts({ products: list, path: id });
       }
     };
 
-    console.log(subcat);
     getData();
   }, [
     currentPage,
