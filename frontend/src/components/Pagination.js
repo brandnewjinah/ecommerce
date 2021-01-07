@@ -14,10 +14,12 @@ const Pagination = ({ count, limit, currentPage, handlePageChange }) => {
       <Container>
         <ul className="pagination">
           {pages.map((page) => (
-            <li className={page === currentPage ? "active" : null} key={page}>
-              <div className="link" onClick={() => handlePageChange(page)}>
-                {page}
-              </div>
+            <li
+              className={page === currentPage ? "active" : null}
+              key={page}
+              onClick={() => handlePageChange(page)}
+            >
+              <div className="link">{page}</div>
             </li>
           ))}
         </ul>
