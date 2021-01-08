@@ -2,7 +2,7 @@ import React, { ChangeEvent, FC } from "react";
 
 //import styles and assets
 import styled from "styled-components";
-import { Close } from "../assets/Icons";
+import { Close, Google, Facebook } from "../assets/Icons";
 import colors from "./Colors";
 
 interface Props {
@@ -12,6 +12,8 @@ interface Props {
   name?: string;
   imp?: string;
   color?: string;
+  fontcolor?: string;
+  logo?: "google" | "facebook";
   handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   handleClick?: () => void;
 }
@@ -20,6 +22,8 @@ export const Button: FC<Props> = ({
   label,
   type,
   color,
+  fontcolor,
+  logo,
   value,
   name,
   imp,
@@ -37,7 +41,20 @@ export const Button: FC<Props> = ({
       }}
       onClick={handleClick}
     >
-      {label}
+      <Align>
+        {logo === "google" && (
+          <Google width="18" height="18" stroke="2" fill={colors.darkergray} />
+        )}
+        {logo === "facebook" && (
+          <Facebook
+            width="18"
+            height="18"
+            stroke="2"
+            fill={colors.darkergray}
+          />
+        )}
+        <p style={{ color: fontcolor }}>{label}</p>
+      </Align>
     </Wrapper>
   );
 };
@@ -71,6 +88,16 @@ const Flex = styled.button`
   justify-content: center;
   &:hover {
     opacity: 0.6;
+  }
+`;
+
+const Align = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    margin-right: 0.5em;
   }
 `;
 

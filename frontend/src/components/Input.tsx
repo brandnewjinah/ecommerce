@@ -52,7 +52,6 @@ const Input: FC<Props> = ({
         )}
       </InputContainer>
       {/* {error && <Error>{error}</Error>} */}
-
       <Error>{error}</Error>
     </Wrapper>
   );
@@ -103,6 +102,7 @@ const Error = styled.div`
 
 const Toggle = styled.div`
   right: 0.75em;
+  display: flex;
   margin-left: 1em;
 `;
 

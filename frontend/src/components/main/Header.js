@@ -1,19 +1,43 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
-//redix
+//import libraries
+import "react-responsive-modal/styles.css";
+import { Modal } from "react-responsive-modal";
+
+//import components
+import Login from "../../pages/user/Login";
+import Signup from "../../pages/user/Signup";
+
+//redux
 import { connect } from "react-redux";
 
 //import styles and assets
 import styled from "styled-components";
 import colors from "../Colors";
-import { Cart } from "../../assets/Icons";
+import { Cart, Close } from "../../assets/Icons";
 
 const Header = (props) => {
   const history = useHistory();
   const [open, setOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [signupOpen, setSignupOpen] = useState(false);
   const goToCart = () => {
     history.push("/cart");
+  };
+
+  const closeIcon = (
+    <Close width="20" height="20" color={colors.gray} stroke="2" />
+  );
+
+  const goToSignup = () => {
+    setLoginOpen(false);
+    setSignupOpen(true);
+  };
+
+  const goToSignin = () => {
+    setSignupOpen(false);
+    setLoginOpen(true);
   };
 
   return (
@@ -44,12 +68,12 @@ const Header = (props) => {
             <User>
               {!props.user && (
                 <>
-                  <Link to="/signup">
+                  <div onClick={() => setSignupOpen(true)}>
                     <p>Signup</p>
-                  </Link>
-                  <Link to="/login">
+                  </div>
+                  <div onClick={() => setLoginOpen(true)}>
                     <p>Login</p>
-                  </Link>
+                  </div>
                 </>
               )}
               {props.user && <div>Hi, {props.user.name}</div>}
@@ -71,6 +95,22 @@ const Header = (props) => {
             </Burger>
           </Flex>
         </Mobile>
+        <Modal
+          open={loginOpen}
+          onClose={() => setLoginOpen(false)}
+          center
+          closeIcon={closeIcon}
+        >
+          <Login goToSignup={goToSignup} />
+        </Modal>
+        <Modal
+          open={signupOpen}
+          onClose={() => setSignupOpen(false)}
+          center
+          closeIcon={closeIcon}
+        >
+          <Signup goToSignin={goToSignin} />
+        </Modal>
       </Container>
     </Wrapper>
   );
@@ -101,7 +141,7 @@ const Container = styled(Flex)`
   color: ${colors.darkergray};
   padding: 0 4em;
 
-  @media (max-width: 980px) {
+  @media (max-width: 1012px) {
     padding: 0 2em;
   }
 `;
@@ -119,7 +159,7 @@ const Links = styled(Flex)`
   /* background-color: powderblue; */
   flex: 1 1 70%;
 
-  @media (max-width: 980px) {
+  @media (max-width: 1012px) {
     height: 100vh;
     background-color: white;
     flex-direction: column;
@@ -146,7 +186,7 @@ const Left = styled(Flex)`
     margin: 0 1em;
   }
 
-  @media (max-width: 980px) {
+  @media (max-width: 1012px) {
     flex-direction: column;
     flex: 0;
 
@@ -165,7 +205,7 @@ const Right = styled(Flex)`
     margin: 0 1em;
   }
 
-  @media (max-width: 980px) {
+  @media (max-width: 1012px) {
     flex-direction: column;
     flex: 0;
     margin-left: 0;
@@ -176,8 +216,8 @@ const Right = styled(Flex)`
   }
 `;
 
-const User = styled.div`
-  @media (max-width: 980px) {
+const User = styled(Flex)`
+  @media (max-width: 1012px) {
     display: flex;
     flex-direction: column;
 
@@ -200,13 +240,13 @@ const ShoppingCart = styled(Flex)`
     margin-left: 0.5em;
   }
 
-  @media (max-width: 980px) {
+  @media (max-width: 1012px) {
     margin-right: 1.5em;
   }
 `;
 
 const ShoppingCartWeb = styled(ShoppingCart)`
-  @media (max-width: 980px) {
+  @media (max-width: 1012px) {
     display: none;
   }
 `;
@@ -216,7 +256,7 @@ const Mobile = styled.div`
   display: none;
   cursor: pointer;
 
-  @media (max-width: 980px) {
+  @media (max-width: 1012px) {
     display: block;
   }
 `;
