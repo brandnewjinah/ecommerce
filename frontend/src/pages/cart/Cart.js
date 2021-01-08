@@ -1,9 +1,11 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 //import components
 import Layout from "../../components/main/Layout";
 import CartItem from "./CartItem";
 import CartSummary from "./CartSummary";
+import { Button } from "../../components/Button";
 
 //import styles and assets
 import styled from "styled-components";
@@ -13,14 +15,27 @@ import { connect } from "react-redux";
 import { addCart } from "../../reducers/cartReducer";
 
 const Cart = (props) => {
+  const history = useHistory();
+  const handleShop = () => {
+    history.push("/products/all");
+  };
+
   return (
     <Layout>
       <Wrapper>
         <h2>Cart</h2>
         {props.qty === 0 ? (
-          <Main>
-            <p>Cart empty</p>
-          </Main>
+          <Message>
+            <p>You don't have any item in the cart.</p>
+            <div className="btn">
+              <Button
+                label="Start Shopping"
+                type="fill"
+                color="#98d2eb"
+                handleClick={handleShop}
+              />
+            </div>
+          </Message>
         ) : (
           <Main>
             <Items>
@@ -60,14 +75,27 @@ const Wrapper = styled.div`
   }
 `;
 
-const Main = styled.main`
+const Message = styled.main`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 2em;
 
   p {
     text-align: center;
   }
+
+  .btn {
+    width: 25%;
+    margin: 1em auto;
+  }
+`;
+
+const Main = styled.main`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 
   @media (max-width: 840px) {
     flex-direction: column;

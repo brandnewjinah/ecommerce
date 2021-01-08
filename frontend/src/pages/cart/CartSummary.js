@@ -17,9 +17,10 @@ const CartSummary = (props) => {
 
   useEffect(() => {
     const calcSubTotal = () => {
-      props.cart.reduce((total, item) => {
-        return setSubtotal(total + item.price * item.qty);
+      const result = props.cart.reduce((total, item) => {
+        return item.price * item.qty + total;
       }, 0);
+      setSubtotal(result);
     };
 
     calcSubTotal();
@@ -29,7 +30,7 @@ const CartSummary = (props) => {
     <Wrapper>
       <Section>
         <p>Subtotal</p>
-        <p>{subtotal}</p>
+        <p>{subtotal.toFixed(2)}</p>
       </Section>
       <Section>
         <p>Shipping</p>
@@ -41,7 +42,7 @@ const CartSummary = (props) => {
       </Section>
       <Total>
         <p>Total</p>
-        <p>hello</p>
+        <p>{subtotal.toFixed(2)}</p>
       </Total>
 
       {location.pathname.includes("/checkout") ? (
