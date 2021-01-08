@@ -23,23 +23,19 @@ const Filter = ({ category, handleCatChange }) => {
     <Wrapper>
       <Container>
         <ul className="pagination">
-          <li onClick={() => handleCatChange()}>All</li>
-          {category === "all"
-            ? catData.map((c, idx) => (
-                <li key={idx}>
-                  <div className="link" onClick={() => handleCatChange(c.id)}>
-                    {c.label}
-                  </div>
-                </li>
-              ))
-            : result &&
-              result.subcategory.map((c, idx) => (
-                <li key={idx}>
-                  <div className="link" onClick={() => handleCatChange(c.id)}>
-                    {c.label}
-                  </div>
-                </li>
-              ))}
+          {category === "all" ? null : (
+            <>
+              <li onClick={() => handleCatChange()}>All</li>
+              {result &&
+                result.subcategory.map((c, idx) => (
+                  <li key={idx}>
+                    <div className="link" onClick={() => handleCatChange(c.id)}>
+                      {c.label}
+                    </div>
+                  </li>
+                ))}
+            </>
+          )}
         </ul>
       </Container>
     </Wrapper>

@@ -6,6 +6,7 @@ import Counter from "../../components/Counter";
 //import styles and assets
 import styled from "styled-components";
 import { Close } from "../../assets/Icons";
+import colors from "../../components/Colors";
 
 //import redux
 import { connect } from "react-redux";
@@ -32,7 +33,7 @@ const CartItem = (props) => {
         </div>
         <div className="detail">
           <p>{props.data.name}</p>
-          <p>{`${props.data.currency.label}${props.data.price}`}</p>
+          <p className="price">{`${props.data.currency.label}${props.data.price}`}</p>
         </div>
       </Detail>
       <Calc>
@@ -60,8 +61,8 @@ const Flex = styled.div`
 
 const Wrapper = styled(Flex)`
   width: 100%;
-  border-top: 1px solid black;
-  padding-top: 1em;
+  border-top: 1px solid ${colors.lightgray};
+  padding: 1em 0;
 `;
 
 const Detail = styled.div`
@@ -77,6 +78,10 @@ const Detail = styled.div`
 
   .detail {
     margin-left: 2em;
+  }
+
+  .price {
+    color: ${colors.darkgray};
   }
 
   img {

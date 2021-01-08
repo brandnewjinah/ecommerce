@@ -73,6 +73,16 @@ const CategoryContainer = (props) => {
         const list = _(snackProducts).slice(index).take(limit).value();
         setProducts({ products: list, path: id });
       }
+
+      if (location.pathname.includes("/deli")) {
+        const deliProducts =
+          subcat > 400 && subcat < 500
+            ? props.product.filter((p) => p.category2.id === subcat)
+            : props.product.filter((p) => p.category1.id === 400);
+        setCount(deliProducts.length);
+        const list = _(deliProducts).slice(index).take(limit).value();
+        setProducts({ products: list, path: id });
+      }
     };
 
     getData();

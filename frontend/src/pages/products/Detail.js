@@ -155,21 +155,24 @@ const Detail = (props) => {
           </Desc>
         </Main>
         <More>
-          <h6>You may also like</h6>
-          <Similar>
-            {similar &&
-              similar.map((p, idx) => (
-                <Card
-                  key={idx}
-                  id={p.sku}
-                  brand={p.brand}
-                  name={p.name}
-                  currency={p.currency && p.currency.label}
-                  price={p.price}
-                  imageUrl={p.imgs[0].src}
-                />
-              ))}
-          </Similar>
+          {similar && similar.length > 0 && (
+            <>
+              <h6>You may also like</h6>
+              <Similar>
+                {similar.map((p, idx) => (
+                  <Card
+                    key={idx}
+                    id={p.sku}
+                    brand={p.brand}
+                    name={p.name}
+                    currency={p.currency && p.currency.label}
+                    price={p.price}
+                    imageUrl={p.imgs[0].src}
+                  />
+                ))}
+              </Similar>
+            </>
+          )}
         </More>
       </Wrapper>
     </Layout>

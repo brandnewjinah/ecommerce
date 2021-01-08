@@ -16,17 +16,23 @@ const Cart = (props) => {
   return (
     <Layout>
       <Wrapper>
-        <Main>
-          <Items>
-            {props.cart &&
-              props.cart.length > 0 &&
-              props.cart.map((item, idx) => <CartItem data={item} />)}
-          </Items>
-          <Summary>
-            <CartSummary />
-          </Summary>
-        </Main>
-        <Details>details</Details>
+        <h2>Cart</h2>
+        {props.qty === 0 ? (
+          <Main>
+            <p>Cart empty</p>
+          </Main>
+        ) : (
+          <Main>
+            <Items>
+              {props.cart &&
+                props.cart.length > 0 &&
+                props.cart.map((item, idx) => <CartItem data={item} />)}
+            </Items>
+            <Summary>
+              <CartSummary />
+            </Summary>
+          </Main>
+        )}
       </Wrapper>
     </Layout>
   );
@@ -35,6 +41,15 @@ const Cart = (props) => {
 const Wrapper = styled.div`
   max-width: 1040px;
   margin: 0 auto;
+  padding-top: 1em;
+
+  h2 {
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    text-align: center;
+    padding: 1em 0;
+  }
+
   .flex {
     display: flex;
   }
@@ -49,6 +64,10 @@ const Main = styled.main`
   width: 100%;
   display: flex;
   justify-content: space-between;
+
+  p {
+    text-align: center;
+  }
 
   @media (max-width: 840px) {
     flex-direction: column;
@@ -97,6 +116,7 @@ const Details = styled.div``;
 const mapStateToProps = (state) => {
   return {
     cart: state.cart.cart,
+    qty: state.cart.qty,
   };
 };
 

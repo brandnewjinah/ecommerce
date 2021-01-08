@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
+//redix
+import { connect } from "react-redux";
+
 //import styles and assets
 import styled from "styled-components";
 import colors from "../Colors";
@@ -33,6 +36,9 @@ const Header = (props) => {
             <Link to="/products/snacks" onClick={() => setOpen(false)}>
               <p>Snacks</p>
             </Link>
+            <Link to="/products/deli" onClick={() => setOpen(false)}>
+              <p>Deli</p>
+            </Link>
           </Left>
           <Right>
             <User>
@@ -50,7 +56,7 @@ const Header = (props) => {
             </User>
             <ShoppingCartWeb onClick={goToCart}>
               <Cart width="16" height="16" color="#000" stroke="1" />
-              <div className="qty">2</div>
+              <div className="qty">{props.cart}</div>
             </ShoppingCartWeb>
           </Right>
         </Links>
@@ -258,4 +264,10 @@ const Burger = styled.div`
   }
 `;
 
-export default Header;
+const mapStateToProps = (state) => {
+  return {
+    cart: state.cart.qty,
+  };
+};
+
+export default connect(mapStateToProps, null)(Header);

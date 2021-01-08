@@ -31,4 +31,14 @@ export const catData = [
       { id: 302, value: "chocolate, candy", label: "Chocolate, Candy" },
     ],
   },
+  {
+    id: 400,
+    value: "deli",
+    label: "Deli",
+    subcategory: [
+      { id: 401, value: "butters, spreads", label: "Butters, Spreads" },
+      { id: 402, value: "cheese", label: "Cheese" },
+      { id: 403, value: "meat", label: "Meat" },
+    ],
+  },
 ];
