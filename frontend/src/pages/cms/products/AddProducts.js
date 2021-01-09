@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from "react";
-
-import Select from "react-select";
 import { useHistory, useLocation, useParams } from "react-router-dom";
+
+//import libraries
+import Select from "react-select";
+import moment from "moment";
 
 //import components
 import Input from "../../../components/Input";
 import { Button, BtnClose, BtnText } from "../../../components/Button";
 
-//import styles and assets
-import styled from "styled-components";
-import colors from "../../../components/Colors";
-
 //import data
 import { catData } from "../../../data/category";
-import { colorData, currencyData } from "../../../data/options";
+import { currencyData } from "../../../data/options";
 
 //redux
 import { connect } from "react-redux";
 import { addItem, editItem } from "../../../reducers/productReducer";
+
+//import styles and assets
+import styled from "styled-components";
+import colors from "../../../components/Colors";
 
 const AddProduct = (props) => {
   const history = useHistory();
@@ -32,7 +34,6 @@ const AddProduct = (props) => {
     price: "",
     category1: {},
     category2: {},
-    category3: {},
     imgs: [
       {
         id: 1,
@@ -41,8 +42,8 @@ const AddProduct = (props) => {
     ],
     store: "",
     link: "",
-    color: [],
     size: "",
+    uploaded: moment().format(),
   });
 
   const [errors, setErrors] = useState({});
@@ -57,30 +58,6 @@ const AddProduct = (props) => {
     let newData = { ...data, [name]: value };
     setData(newData);
   };
-
-  const handleColor = ({ currentTarget: input }) => {
-    let newData = { ...data };
-    let newColor = [...newData.color];
-    let thisColor = newColor.find((c) => c.label === input.name);
-    thisColor = { ...thisColor, sku: input.value };
-
-    let index = newColor.findIndex((item) => item.id === thisColor.id);
-    newColor[index] = thisColor;
-    newData = { ...newData, color: newColor };
-    setData(newData);
-  };
-
-  // const handleSize = ({ currentTarget: input }) => {
-  //   let newData = { ...data };
-  //   let newSize = [...newData.size];
-  //   let thisSize = newSize.find((c) => c.label === input.name);
-  //   thisSize = { ...thisSize, sku: input.value };
-
-  //   let index = newSize.findIndex((item) => item.id === thisSize.id);
-  //   newSize[index] = thisSize;
-  //   newData = { ...newData, size: newSize };
-  //   setData(newData);
-  // };
 
   let newImgs = [...data.imgs];
   const handleImgAdd = () => {
@@ -108,14 +85,13 @@ const AddProduct = (props) => {
     if (data.price === "") {
       errors.price = "Price is required";
     }
-    // if (data.SKU === "") {
-    //   errors.SKU = "SKU is required";
-    // }
+    if (data.SKU === "") {
+      errors.SKU = "SKU is required";
+    }
     return Object.keys(errors).length === 0 ? null : errors;
   };
 
   const handleSubmit = () => {
-    // e.preventDefault();
     const errors = validate();
     setErrors(errors || {});
     if (errors) return;
@@ -130,7 +106,7 @@ const AddProduct = (props) => {
     setErrors(errors || {});
     if (errors) return;
 
-    props.editItem(data);
+    props.editItem({ ...data, uploaded: moment().toISOString() });
     history.push("/cms/products");
     // postData();
   };
@@ -195,9 +171,19 @@ const AddProduct = (props) => {
         </div>
         <div>
           {location.pathname.includes("/edit/") ? (
-            <Button label="Save Changes" handleClick={handleSubmit} />
+            <Button
+              label="Save Changes"
+              handleClick={handleEdit}
+              type="fill"
+              color="#06193b"
+            />
           ) : (
-            <Button label="Add" handleClick={handleSubmit} />
+            <Button
+              label="Add"
+              handleClick={handleSubmit}
+              type="fill"
+              color="#06193b"
+            />
           )}
         </div>
       </Flex>
@@ -301,7 +287,7 @@ const AddProduct = (props) => {
       </Container>
       <Container>
         {data.imgs.map((img, idx) => (
-          <InputWrapper>
+          <InputWrapper key={idx}>
             <div className="left">
               <Input
                 label="Image URL"
@@ -359,69 +345,22 @@ const AddProduct = (props) => {
           />
         </div>
       </Container>
-      {/* <Container>
-        <div className="item">
-          <p className="label">Size</p>
-          <Select
-            isMulti
-            name="size"
-            styles={customStyles}
-            placeholder="Select size"
-            value={data.size}
-            options={sizeData}
-            onChange={handleCategory("size")}
-          />
-        </div>
-        {data.size &&
-          data.size.length > 0 &&
-          data.size.map((s, idx) => (
-            <Flex key={idx}>
-              <div className="one">{s.label}</div>
-              <div className="nine">
-                <Input
-                  name={s.label}
-                  value={s.sku}
-                  placeholder="SKU"
-                  handleChange={handleSize}
-                />
-              </div>
-            </Flex>
-          ))}
-      </Container> */}
-      <Container>
-        <div className="item">
-          <p className="label">Color</p>
-          <Select
-            isMulti
-            name="color"
-            styles={customStyles}
-            placeholder="Select color"
-            value={data.color}
-            options={colorData}
-            onChange={handleCategory("color")}
-          />
-        </div>
-        {data.color &&
-          data.color.length > 0 &&
-          data.color.map((c, idx) => (
-            <Flex key={idx}>
-              <div className="one">{c.label}</div>
-              <div className="nine">
-                <Input
-                  name={c.label}
-                  value={c.sku}
-                  placeholder="SKU"
-                  handleChange={handleColor}
-                />
-              </div>
-            </Flex>
-          ))}
-      </Container>
+
       <div className="right">
         {location.pathname.includes("/edit/") ? (
-          <Button label="Save Changes" handleClick={handleEdit} />
+          <Button
+            label="Save Changes"
+            handleClick={handleEdit}
+            type="fill"
+            color="#06193b"
+          />
         ) : (
-          <Button label="Add" handleClick={handleSubmit} />
+          <Button
+            label="Add"
+            handleClick={handleSubmit}
+            type="fill"
+            color="#06193b"
+          />
         )}
       </div>
     </Wrapper>

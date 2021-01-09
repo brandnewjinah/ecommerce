@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 //import libraries
 import axios from "axios";
+import { GoogleLogin } from "react-google-login";
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
 //import components
 import Input from "../../components/Input";
@@ -71,6 +73,19 @@ const Login = (props) => {
       });
   };
 
+  const responseGoogle = (response) => {
+    console.log("TEST");
+    console.log("GOOGLE", response);
+
+    // sendGoogleToken(response.tokenId)
+  };
+
+  const responseFacebook = (response) => {
+    console.log(response);
+
+    // sendGoogleToken(response.tokenId)
+  };
+
   return (
     <Wrapper>
       <Container>
@@ -101,21 +116,40 @@ const Login = (props) => {
         <Section>
           <div className="btn">
             <div className="each">
-              <Button
-                label="Google"
-                type="fill"
-                color={colors.lightgray}
-                fontcolor={colors.darkgray}
-                logo="google"
+              <GoogleLogin
+                clientId={`958964886171-7i38qs8htg06ihrfaa2bj59ci5rmhgkd.apps.googleusercontent.com`}
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy={"single_host_origin"}
+                render={(renderProps) => (
+                  <Button
+                    label="Google"
+                    type="fill"
+                    color={colors.lightgray}
+                    fontcolor={colors.darkgray}
+                    logo="google"
+                    handleClick={renderProps.onClick}
+                    disabled={renderProps.disabled}
+                  />
+                )}
               />
             </div>
             <div className="each">
-              <Button
-                label="Facebook"
-                type="fill"
-                color={colors.lightgray}
-                fontcolor={colors.darkgray}
-                logo="facebook"
+              <FacebookLogin
+                // appId={`998004220722554`}
+                appId={"314353893113478"}
+                autoLoad={false}
+                callback={responseFacebook}
+                render={(renderProps) => (
+                  <Button
+                    label="Facebook"
+                    type="fill"
+                    color={colors.lightgray}
+                    fontcolor={colors.darkgray}
+                    logo="facebook"
+                    handleClick={renderProps.onClick}
+                  />
+                )}
               />
             </div>
           </div>

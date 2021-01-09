@@ -33,7 +33,7 @@ export const Card = ({ imageUrl, brand, name, price, id, currency }) => {
         <Details>
           <div className="sub">{brand}</div>
           <div className="main">
-            {name.length > 30 ? `${name.substring(0, 28)}...` : name}
+            {name.length > 26 ? `${name.substring(0, 24)}...` : name}
           </div>
           <div className="caption">
             {currency}
@@ -84,7 +84,7 @@ const ImageContainer = styled.div`
 
 const Details = styled.div`
   width: 100%;
-  padding-top: 1em;
+  padding-top: 0.5em;
 
   .sub {
     font-size: 0.75rem;

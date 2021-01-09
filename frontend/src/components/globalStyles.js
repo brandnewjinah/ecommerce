@@ -52,6 +52,7 @@ const GlobalStyle = createGlobalStyle`
         font-weight: 500;
         font-size: 1.105rem;
         line-height: 2rem;
+        letter-spacing: 0.05rem;
     }
 
     ul {
