@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-//import librarys
-import ItemsCarousel from "react-items-carousel";
-import AliceCarousel from "react-alice-carousel";
-import "react-alice-carousel/lib/alice-carousel.css";
+//import libraries
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation, Pagination } from "swiper";
+import "swiper/swiper.scss";
+import "swiper/components/navigation/navigation.scss";
 
 //import components
 import Layout from "../../components/main/LayoutFull";
@@ -16,6 +17,8 @@ import { ChevronLeft, ChevronRight } from "../../assets/Icons";
 //redux
 import { connect } from "react-redux";
 
+SwiperCore.use(Navigation, Pagination);
+
 const Home = (props) => {
   const [newProducts, setNewProducts] = useState();
 
@@ -24,45 +27,25 @@ const Home = (props) => {
     setNewProducts(newest);
   };
 
-  const responsive = {
-    0: {
-      items: 1,
-    },
-    600: {
-      items: 2,
-    },
-    1024: {
-      items: 5,
-    },
-  };
-
   useEffect(() => {
     loadProducts();
   }, []);
-
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const slidePrev = () => setActiveIndex(activeIndex - 1);
-  const slideNext = () => setActiveIndex(activeIndex + 1);
-  const onSlideChanged = ({ item }) => setActiveIndex(item);
 
   return (
     <Layout>
       <Wrapper>
         <Hero></Hero>
         <Main>
-          <Section>
-            <h6>New Products</h6>
-            <div className="b-refs-buttons">
-              <button onClick={slidePrev}>Prev</button>
-              <button onClick={slideNext}>Next</button>
-            </div>
-            <AliceCarousel
-              responsive={responsive}
-              disableDotsControls
-              disableButtonsControls
-              activeIndex={activeIndex}
-              onSlideChanged={onSlideChanged}
+          {/* <Section>
+            <ItemsCarousel
+              requestToChangeActive={setActiveItemIndex}
+              activeItemIndex={activeItemIndex}
+              numberOfCards={2}
+              gutter={20}
+              leftChevron={<button>{"<"}</button>}
+              rightChevron={<button>{">"}</button>}
+              outsideChevron
+              chevronWidth={chevronWidth}
             >
               {newProducts &&
                 newProducts.length > 0 &&
@@ -77,7 +60,50 @@ const Home = (props) => {
                     imageUrl={p.imgs[0].src}
                   />
                 ))}
-            </AliceCarousel>
+            </ItemsCarousel>
+          </Section> */}
+          <Section>
+            <h6>New Products</h6>
+            <Swiper
+              navigation
+              breakpoints={{
+                300: {
+                  slidesPerView: 2,
+                  spaceBetween: 10,
+                },
+                // when window width is >= 320px
+                600: {
+                  slidesPerView: 3,
+                  spaceBetween: 10,
+                },
+                // when window width is >= 480px
+                740: {
+                  slidesPerView: 4,
+                  spaceBetween: 10,
+                },
+                // when window width is >= 1012px
+                1012: {
+                  slidesPerView: 5,
+                  spaceBetween: 10,
+                },
+              }}
+            >
+              {newProducts &&
+                newProducts.length > 0 &&
+                newProducts.map((p, idx) => (
+                  <SwiperSlide>
+                    <Card
+                      key={idx}
+                      id={p.sku}
+                      brand={p.brand}
+                      name={p.name}
+                      currency={p.currency && p.currency.label}
+                      price={p.price}
+                      imageUrl={p.imgs[0].src}
+                    />
+                  </SwiperSlide>
+                ))}
+            </Swiper>
           </Section>
         </Main>
       </Wrapper>
