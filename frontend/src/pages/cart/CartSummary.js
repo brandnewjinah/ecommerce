@@ -30,7 +30,7 @@ const CartSummary = (props) => {
     <Wrapper>
       <Section>
         <p>Subtotal</p>
-        <p>{subtotal.toFixed(2)}</p>
+        <p>${subtotal.toFixed(2)}</p>
       </Section>
       <Section>
         <p>Shipping</p>
@@ -42,13 +42,22 @@ const CartSummary = (props) => {
       </Section>
       <Total>
         <p>Total</p>
-        <p>{subtotal.toFixed(2)}</p>
+        <p>${subtotal.toFixed(2)}</p>
       </Total>
-
       {location.pathname.includes("/checkout") ? (
-        <Button label="PLACE ORDER" type="fill" color="#002C66" />
+        <Button
+          label="PLACE ORDER"
+          type="fill"
+          color="#002C66"
+          handleClick={props.handleClick}
+        />
       ) : (
-        <Button label="PROCEED TO CHECKOUT" type="fill" color="#002C66" />
+        <Button
+          label="PROCEED TO CHECKOUT"
+          type="fill"
+          color="#002C66"
+          handleClick={props.handleClick}
+        />
       )}
     </Wrapper>
   );

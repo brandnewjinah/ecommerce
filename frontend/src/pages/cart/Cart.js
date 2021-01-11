@@ -20,6 +20,10 @@ const Cart = (props) => {
     history.push("/products/all");
   };
 
+  const handleClick = () => {
+    history.push("/checkout");
+  };
+
   return (
     <Layout>
       <Wrapper>
@@ -44,7 +48,7 @@ const Cart = (props) => {
                 props.cart.map((item, idx) => <CartItem data={item} />)}
             </Items>
             <Summary>
-              <CartSummary />
+              <CartSummary handleClick={handleClick} />
             </Summary>
           </Main>
         )}

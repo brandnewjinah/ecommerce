@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+
+//import libraries
+import moment from "moment";
 
 //import components
 import Layout from "../../components/main/Layout";
@@ -11,9 +15,11 @@ import colors from "../../components/Colors";
 
 //import redux
 import { connect } from "react-redux";
-import { addCart } from "../../reducers/cartReducer";
+import { placeOrder, deleteOrders } from "../../reducers/orderReducer";
 
 const Checkout = (props) => {
+  const history = useHistory();
+
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -24,6 +30,11 @@ const Checkout = (props) => {
     zip: "",
     phone: "",
     shipping: "standard",
+    billingFirstName: "",
+    billingLastName: "",
+    cardNumber: "",
+    expiration: "",
+    security: "",
   });
 
   const [errors] = useState({});
@@ -40,9 +51,39 @@ const Checkout = (props) => {
     setData(userInput);
   };
 
+  const handleClick = () => {
+    let id =
+      props.order.length === 0 ? 1 : props.order[props.order.length - 1].id + 1;
+
+    const order = {
+      date: moment().format(),
+      id: id,
+      shipping: {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        address1: data.address1,
+        address2: data.address2,
+        city: data.city,
+        state: data.state,
+        zip: data.zip,
+        phone: data.phone,
+        shipping: data.shipping,
+      },
+      billing: {
+        firstName: data.billingFirstName,
+        lastName: data.billingLastName,
+        cardNumber: data.cardNumber.slice(-4),
+      },
+      items: props.cart,
+    };
+
+    props.placeOrder(order);
+  };
+
   return (
     <Layout>
       <Wrapper>
+        <h2>Checkout</h2>
         <Main>
           <Form>
             <Container>
@@ -51,7 +92,7 @@ const Checkout = (props) => {
                 <div className="five">
                   <Input
                     label="First Name"
-                    name="brand"
+                    name="firstName"
                     value={data.firstName}
                     error={errors.firstName}
                     handleChange={handleChange}
@@ -60,7 +101,7 @@ const Checkout = (props) => {
                 <div className="five">
                   <Input
                     label="Last Name"
-                    name="sku"
+                    name="lastName"
                     value={data.lastName}
                     error={errors.lastName}
                     handleChange={handleChange}
@@ -162,18 +203,18 @@ const Checkout = (props) => {
                 <div className="five">
                   <Input
                     label="First Name"
-                    name="brand"
-                    value={data.firstName}
-                    error={errors.firstName}
+                    name="billingFirstName"
+                    value={data.billingFirstName}
+                    error={errors.billingFirstName}
                     handleChange={handleChange}
                   />
                 </div>
                 <div className="five">
                   <Input
                     label="Last Name"
-                    name="sku"
-                    value={data.lastName}
-                    error={errors.lastName}
+                    name="billingLastName"
+                    value={data.billingLastName}
+                    error={errors.billingLastName}
                     handleChange={handleChange}
                   />
                 </div>
@@ -212,7 +253,7 @@ const Checkout = (props) => {
             </Container>
           </Form>
           <Summary>
-            <CartSummary />
+            <CartSummary handleClick={handleClick} />
           </Summary>
         </Main>
       </Wrapper>
@@ -223,6 +264,15 @@ const Checkout = (props) => {
 const Wrapper = styled.div`
   max-width: 1040px;
   margin: 0 auto;
+  padding-top: 1em;
+
+  h2 {
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    text-align: center;
+    padding: 1em 0;
+  }
+
   .flex {
     display: flex;
   }
@@ -361,7 +411,8 @@ const Selector = styled.div`
 const mapStateToProps = (state) => {
   return {
     cart: state.cart.cart,
+    order: state.order.orders,
   };
 };
 
-export default connect(mapStateToProps, { addCart })(Checkout);
+export default connect(mapStateToProps, { placeOrder, deleteOrders })(Checkout);
