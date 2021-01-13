@@ -11,6 +11,7 @@ import Signup from "../../pages/user/Signup";
 
 //redux
 import { connect } from "react-redux";
+import { logoutUser } from "../../reducers/authReducer";
 
 //import styles and assets
 import styled from "styled-components";
@@ -20,6 +21,7 @@ import { Cart, Close } from "../../assets/Icons";
 const Header = (props) => {
   const history = useHistory();
   const [open, setOpen] = useState(false);
+  const [userOptions, setUserOptions] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
   const goToCart = () => {
@@ -38,6 +40,11 @@ const Header = (props) => {
   const goToSignin = () => {
     setSignupOpen(false);
     setLoginOpen(true);
+  };
+
+  const onLogoutClick = () => {
+    setUserOptions(false);
+    props.logoutUser();
   };
 
   return (
@@ -66,7 +73,21 @@ const Header = (props) => {
           </Left>
           <Right>
             <User>
-              {!props.user && (
+              {props.auth.isAuthenticated ? (
+                <div className="loggedin">
+                  <div
+                    onClick={() => setUserOptions(!userOptions)}
+                    className="username"
+                  >
+                    Hi, {props.auth.user.name}
+                  </div>
+                  {userOptions && (
+                    <div onClick={onLogoutClick} className="logout">
+                      Logout
+                    </div>
+                  )}
+                </div>
+              ) : (
                 <>
                   <div onClick={() => setSignupOpen(true)}>
                     <p>Signup</p>
@@ -76,7 +97,6 @@ const Header = (props) => {
                   </div>
                 </>
               )}
-              {props.user && <div>Hi, {props.user.name}</div>}
             </User>
             <ShoppingCartWeb onClick={goToCart}>
               <Cart width="16" height="16" color="#000" stroke="1" />
@@ -217,6 +237,21 @@ const Right = styled(Flex)`
 `;
 
 const User = styled(Flex)`
+  div {
+    cursor: pointer;
+  }
+
+  .loggedin {
+    flex-direction: column;
+    position: relative;
+  }
+
+  .logout {
+    position: absolute;
+    background-color: #fff;
+    padding: 0.5em 1em;
+  }
+
   @media (max-width: 1012px) {
     display: flex;
     flex-direction: column;
@@ -307,7 +342,8 @@ const Burger = styled.div`
 const mapStateToProps = (state) => {
   return {
     cart: state.cart.qty,
+    auth: state.auth,
   };
 };
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps, { logoutUser })(Header);

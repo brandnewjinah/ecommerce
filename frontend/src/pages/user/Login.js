@@ -13,6 +13,10 @@ import styled from "styled-components";
 import { Button } from "../../components/Button";
 import colors from "../../components/Colors";
 
+//redux
+import { connect } from "react-redux";
+import { loginUser } from "../../reducers/authReducer";
+
 const Login = (props) => {
   const [data, setData] = useState({
     email: "",
@@ -53,24 +57,25 @@ const Login = (props) => {
       password: data.password,
     };
 
-    await axios
-      .post("http://localhost:5000/user/login", user)
-      .then((res) => {
-        if (res.status === 200) {
-          const token = res.data.token;
-          localStorage.setItem("token", token);
-          window.location = "/";
-          alert("Logged in successfully");
-        }
-      })
-      .catch((err) => {
-        // if (
-        //   err.response &&
-        //   err.response.status >= 400 &&
-        //   err.response.status < 500
-        // )
-        alert("Wrong email or password");
-      });
+    props.loginUser(user);
+    // await axios
+    //   .post("http://localhost:5000/user/login", user)
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       const token = res.data.token;
+    //       localStorage.setItem("token", token);
+    //       window.location = "/";
+    //       alert("Logged in successfully");
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     // if (
+    //     //   err.response &&
+    //     //   err.response.status >= 400 &&
+    //     //   err.response.status < 500
+    //     // )
+    //     alert("Wrong email or password");
+    //   });
   };
 
   const responseGoogle = (response) => {
@@ -218,4 +223,8 @@ const Section = styled.div`
   }
 `;
 
-export default Login;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { loginUser })(Login);

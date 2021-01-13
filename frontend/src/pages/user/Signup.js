@@ -9,6 +9,10 @@ import Input from "../../components/Input";
 import styled from "styled-components";
 import colors from "../../components/Colors";
 
+//redux
+import { connect } from "react-redux";
+import { registerUser } from "../../reducers/authReducer";
+
 const Signup = (props) => {
   const [data, setData] = useState({
     email: "",
@@ -36,9 +40,9 @@ const Signup = (props) => {
     if (data.email === "") {
       errors.email = "Email address is required";
     }
-    if (!data.password.match(/.{8}/)) {
-      errors.password = "Password must be at least 8 characters long";
-    }
+    // if (!data.password.match(/.{8}/)) {
+    //   errors.password = "Password must be at least 8 characters long";
+    // }
     if (data.password === "") {
       errors.password = "Password is required";
     }
@@ -63,22 +67,7 @@ const Signup = (props) => {
       password: data.password,
     };
 
-    await axios
-      .post("http://localhost:5000/user/signup", user)
-      .then((res) => {
-        if (res.status === 200) {
-          props.history.push("/login");
-          alert("User Registered successfully");
-        }
-      })
-      .catch((err) => {
-        // if (
-        //   err.response &&
-        //   err.response.status >= 400 &&
-        //   err.response.status < 500
-        // )
-        alert(err);
-      });
+    props.registerUser(user);
   };
 
   return (
@@ -188,4 +177,4 @@ const Section = styled.div`
   }
 `;
 
-export default Signup;
+export default connect(null, { registerUser })(Signup);

@@ -1,6 +1,7 @@
 const userModel = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { OAuth2Client } = require("google-auth-library");
 
 //signup
 exports.user_signup = (req, res) => {
@@ -89,6 +90,56 @@ exports.user_login = (req, res) => {
       res.status(500).json({
         error: err,
       });
+    });
+};
+
+// googlelogin
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT);
+exports.user_googlelogin = (req, res) => {
+  const { idToken } = req.body;
+
+  client
+    .verifyIdToken({ idToken, audience: process.env.GOOGLE_CLIENT })
+    .then((res) => {
+      const { email_verified, name, email } = response.payload;
+
+      if (email_verified) {
+        userModel.findOne({ email }).exec((err, user) => {
+          if (user) {
+            const token = jwt.sign({ _id: user._id }, process.env.SECRET_KEY, {
+              expiresIn: "7d",
+            });
+
+            return res.json({
+              token,
+              user,
+            });
+          } else {
+            let password = email + process.env.SECRET_KEY;
+            user = new userModel({ name, email, password });
+            user.save((err, data) => {
+              if (err) {
+                return res.status(400).json({
+                  error: "user signup failed with gogole",
+                });
+              }
+              const token = jwt.sign(
+                { _id: data._id },
+                process.env.SECRET_KEY,
+                { expiresIn: "7d" }
+              );
+              return res.status(200).json({
+                token,
+                user: data,
+              });
+            });
+          }
+        });
+      } else {
+        return res.status(400).json({
+          error: "Google login failed. Try again",
+        });
+      }
     });
 };
 

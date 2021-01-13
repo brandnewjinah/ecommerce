@@ -4,6 +4,7 @@ const router = express.Router();
 const {
   user_signup,
   user_login,
+  user_googlelogin,
   user_all,
   user_each,
   user_update,
@@ -12,6 +13,7 @@ const {
 //create
 router.post("/signup", user_signup);
 router.post("/login", user_login);
+router.post("/googlelogin", user_googlelogin);
 
 //read
 router.get("/", user_all);

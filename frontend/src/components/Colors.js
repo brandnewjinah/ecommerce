@@ -8,6 +8,7 @@ const Colors = {
   lightergray: "#f6f6f6",
   faintgray: "#fafafa",
   red: "#a34100",
+  green: "#f5f8f1",
 };
 
 export default Colors;
