@@ -30,7 +30,7 @@ const data = [
     subcategory: [
       {
         name: "New",
-        link: "",
+        link: "/orders",
       },
       {
         name: "Completed",

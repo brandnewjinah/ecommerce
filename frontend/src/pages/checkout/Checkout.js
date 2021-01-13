@@ -16,6 +16,7 @@ import colors from "../../components/Colors";
 //import redux
 import { connect } from "react-redux";
 import { placeOrder, deleteOrders } from "../../reducers/orderReducer";
+import { clearCart } from "../../reducers/cartReducer";
 
 const Checkout = (props) => {
   const history = useHistory();
@@ -55,6 +56,10 @@ const Checkout = (props) => {
     let id =
       props.order.length === 0 ? 1 : props.order[props.order.length - 1].id + 1;
 
+    const total = props.cart.reduce((total, item) => {
+      return item.price * item.qty + total;
+    }, 0);
+
     const order = {
       date: moment().format(),
       id: id,
@@ -75,9 +80,14 @@ const Checkout = (props) => {
         cardNumber: data.cardNumber.slice(-4),
       },
       items: props.cart,
+      total: total,
+      status: "ordered",
     };
 
+    // props.deleteOrders();
     props.placeOrder(order);
+    props.clearCart();
+    history.push(`/confirmation/${id}`);
   };
 
   return (
@@ -415,4 +425,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { placeOrder, deleteOrders })(Checkout);
+export default connect(mapStateToProps, {
+  placeOrder,
+  deleteOrders,
+  clearCart,
+})(Checkout);

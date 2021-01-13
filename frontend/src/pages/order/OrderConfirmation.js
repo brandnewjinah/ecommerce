@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 //import components
 import Layout from "../../components/main/Layout";
+import OrderItem from "./OrderItem";
 
 //import styles and assets
 import styled from "styled-components";
+import colors from "../../components/Colors";
 
-const OrderConfirmation = () => {
+//import redux
+import { connect } from "react-redux";
+
+const OrderConfirmation = (props) => {
+  let { id } = useParams();
+
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    const getData = async () => {
+      const currentOrder = props.order.find((o) => o.id === parseInt(id));
+      setData(currentOrder);
+    };
+    getData();
+  }, [id, props.order]);
+  console.log(data);
   return (
     <Layout>
       <Wrapper>
@@ -18,24 +36,32 @@ const OrderConfirmation = () => {
           </p>
         </Header>
         <Details>
-          <h6>Order Details - #823583</h6>
+          <h6>Order Details - #{data.id}</h6>
           <div className="flex">
             <div className="three">
               <p>Shipping Address</p>
-              <p>26803 Basswood Ave.</p>
+              <p>{data && data.shipping && data.shipping.address1}</p>
+              <p>
+                {data && data.shipping && data.shipping.city},{" "}
+                {data && data.shipping && data.shipping.state}{" "}
+                {data && data.shipping && data.shipping.zip}
+              </p>
             </div>
             <div className="three">
               <p>Delivery Method</p>
-              <p>Standard Delivery</p>
+              <p>{data && data.shipping && data.shipping.shipping}</p>
             </div>
             <div className="three">
               <p>Payment Method</p>
-              <p>Visa ****1234</p>
+              <p>****{data && data.billing && data.billing.cardNumber}</p>
             </div>
           </div>
         </Details>
         <Summary>
           <h6>Summary</h6>
+          {data.items &&
+            data.items.length > 0 &&
+            data.items.map((item, idx) => <OrderItem data={item} />)}
         </Summary>
       </Wrapper>
     </Layout>
@@ -81,4 +107,10 @@ const Summary = styled.div`
   padding: 2em 0;
 `;
 
-export default OrderConfirmation;
+const mapStateToProps = (state) => {
+  return {
+    order: state.order.orders,
+  };
+};
+
+export default connect(mapStateToProps, null)(OrderConfirmation);

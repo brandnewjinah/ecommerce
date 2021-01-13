@@ -22,6 +22,8 @@ import CmsLayout from "./components/cms/Layout";
 import CmsHome from "./pages/cms/Home";
 import AddProduct from "./pages/cms/products/AddProducts";
 import Products from "./pages/cms/products/ProductList";
+import Orders from "./pages/cms/orders/OrderList";
+import OrderDetail from "./pages/cms/orders/OrderDetail";
 
 const Routes = () => {
   return (
@@ -44,13 +46,15 @@ const Routes = () => {
 
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/checkout" component={Checkout} />
-        <Route exact path="/confirmation" component={Confirmation} />
+        <Route exact path="/confirmation/:id" component={Confirmation} />
 
         <CmsLayout>
           <Route exact path="/cms" component={CmsHome} />
           <Route exact path="/cms/products" component={Products} />
           <Route exact path="/cms/products/add" component={AddProduct} />
           <Route exact path="/cms/products/edit/:sku" component={AddProduct} />
+          <Route exact path="/cms/orders" component={Orders} />
+          <Route exact path="/cms/orders/:id" component={OrderDetail} />
         </CmsLayout>
       </Switch>
     </Router>

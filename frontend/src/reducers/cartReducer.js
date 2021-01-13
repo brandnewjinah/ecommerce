@@ -3,7 +3,7 @@ const ADD_CART = "ADD_CART";
 const INCREASE = "INCREASE";
 const DECREASE = "DECREASE";
 const DELETE_CARTITEM = "DELETE_CARTITEM";
-const DELETE_ALL = "DELETE_ALL";
+const CLEAR_CART = "CLEAR_CART";
 
 // Action creators
 export const addCart = (item) => {
@@ -50,10 +50,10 @@ export const deleteCartItem = (item) => {
   };
 };
 
-export const deleteAll = (item) => {
+export const clearCart = (item) => {
   return (dispatch) => {
     dispatch({
-      type: DELETE_ALL,
+      type: CLEAR_CART,
       payload: {
         item,
       },
@@ -116,6 +116,10 @@ const reducer = (state = initialState, action) => {
     newCart = newCart.filter((c) => c.sku !== item.sku);
 
     return { ...state, cart: newCart, qty: totalqty - item.qty };
+  }
+
+  if (action.type === CLEAR_CART) {
+    return { cart: [], qty: 0 };
   }
 
   return state;
