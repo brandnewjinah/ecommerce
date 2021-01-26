@@ -1,7 +1,4 @@
 import React from "react";
-// import React, { useState, useEffect } from "react";
-// import config from "../../config.json";
-// import axios from "axios";
 
 //import components
 import Layout from "../../components/main/Layout";
@@ -16,18 +13,6 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 
 const Products = (props) => {
-  // const [data, setData] = useState([]);
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-
-  // const getData = async () => {
-  //   const { data } = await axios.get(`${config.API}/product`);
-  //   // const { data } = await axios.get("./data/data.json");
-  //   setData(data.products);
-  // };
-
   return (
     <Layout>
       <Wrapper>
@@ -53,7 +38,6 @@ const Products = (props) => {
 };
 
 const Wrapper = styled.div`
-  /* background-color: firebrick; */
   padding: 2em 0;
 
   h2 {

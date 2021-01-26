@@ -38,7 +38,7 @@ const Checkout = (props) => {
     security: "",
   });
 
-  const [errors] = useState({});
+  const [errors, setErrors] = useState({});
 
   const handleChange = ({ currentTarget: input }) => {
     const userInput = { ...data };
@@ -50,6 +50,33 @@ const Checkout = (props) => {
     const userInput = { ...data };
     userInput.shipping = select.value;
     setData(userInput);
+  };
+
+  const validate = () => {
+    const errors = {};
+    if (data.firstName === "") {
+      errors.firstName = "First name is required";
+    }
+    if (data.lastName === "") {
+      errors.lastName = "Last name is required";
+    }
+    if (data.address1 === "") {
+      errors.address1 = "Address is required";
+    }
+    if (data.zip === "") {
+      errors.zip = "Zip code is required";
+    }
+    if (data.billingFirstName === "") {
+      errors.billingFirstName = "First name is required";
+    }
+    if (data.billingLastName === "") {
+      errors.billingLastName = "Last name is required";
+    }
+    if (data.cardNumber === "") {
+      errors.cardNumber = "Card number is required";
+    }
+
+    return Object.keys(errors).length === 0 ? null : errors;
   };
 
   const handleClick = () => {
@@ -83,6 +110,11 @@ const Checkout = (props) => {
       total: total,
       status: "ordered",
     };
+
+    //check for errors
+    const errors = validate();
+    setErrors(errors || {});
+    if (errors) return;
 
     // props.deleteOrders();
     props.placeOrder(order);

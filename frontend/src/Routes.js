@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+import Redirect from "./pages/route/Route";
+
 //import main pages
 import Home from "./pages/main/Home";
 
@@ -29,6 +31,7 @@ const Routes = () => {
   return (
     <Router>
       <Switch>
+        <Route exact path="/route" component={Redirect} />
         <Route exact path="/" component={Home} />
         <Route exact path="/products/:id" component={Category} />
         <Route exact path="/detail/:id" component={Detail} />

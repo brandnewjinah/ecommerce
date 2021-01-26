@@ -5,6 +5,9 @@ import _ from "lodash";
 //import components
 import CategoryPresenter from "./CategoryPresenter";
 
+//damo data
+import { demoProducts } from "../../data/demo/demoProducts";
+
 //redux
 import { connect } from "react-redux";
 
@@ -33,12 +36,13 @@ const CategoryContainer = (props) => {
   useEffect(() => {
     const getData = async () => {
       const index = (currentPage - 1) * limit;
+      let allData = [...demoProducts, ...props.products];
 
       if (location.pathname.includes("/all")) {
         const products =
           subcat === 100 || subcat === 200 || subcat === 300
-            ? props.product.filter((p) => p.category1.id === subcat)
-            : props.product;
+            ? allData.filter((p) => p.category1.id === subcat)
+            : allData;
         setCount(products.length);
         const list = _(products).slice(index).take(limit).value();
         setProducts({ products: list, path: id });
@@ -47,8 +51,8 @@ const CategoryContainer = (props) => {
       if (location.pathname.includes("/bakery")) {
         const bakeryProducts =
           subcat > 100 && subcat < 200
-            ? props.product.filter((p) => p.category2.id === subcat)
-            : props.product.filter((p) => p.category1.id === 100);
+            ? allData.filter((p) => p.category2.id === subcat)
+            : allData.filter((p) => p.category1.id === 100);
         setCount(bakeryProducts.length);
         const list = _(bakeryProducts).slice(index).take(limit).value();
         setProducts({ products: list, path: id });
@@ -57,8 +61,8 @@ const CategoryContainer = (props) => {
       if (location.pathname.includes("/beverage")) {
         const bevProducts =
           subcat > 200 && subcat < 300
-            ? props.product.filter((p) => p.category2.id === subcat)
-            : props.product.filter((p) => p.category1.id === 200);
+            ? allData.filter((p) => p.category2.id === subcat)
+            : allData.filter((p) => p.category1.id === 200);
         setCount(bevProducts.length);
         const list = _(bevProducts).slice(index).take(limit).value();
         setProducts({ products: list, path: id });
@@ -67,8 +71,8 @@ const CategoryContainer = (props) => {
       if (location.pathname.includes("/snacks")) {
         const snackProducts =
           subcat > 300 && subcat < 400
-            ? props.product.filter((p) => p.category2.id === subcat)
-            : props.product.filter((p) => p.category1.id === 300);
+            ? allData.filter((p) => p.category2.id === subcat)
+            : allData.filter((p) => p.category1.id === 300);
         setCount(snackProducts.length);
         const list = _(snackProducts).slice(index).take(limit).value();
         setProducts({ products: list, path: id });
@@ -77,8 +81,8 @@ const CategoryContainer = (props) => {
       if (location.pathname.includes("/deli")) {
         const deliProducts =
           subcat > 400 && subcat < 500
-            ? props.product.filter((p) => p.category2.id === subcat)
-            : props.product.filter((p) => p.category1.id === 400);
+            ? allData.filter((p) => p.category2.id === subcat)
+            : allData.filter((p) => p.category1.id === 400);
         setCount(deliProducts.length);
         const list = _(deliProducts).slice(index).take(limit).value();
         setProducts({ products: list, path: id });
@@ -86,14 +90,7 @@ const CategoryContainer = (props) => {
     };
 
     getData();
-  }, [
-    currentPage,
-    id,
-    location.pathname,
-    props.product,
-    props.proudct,
-    subcat,
-  ]);
+  }, [currentPage, id, location.pathname, props.products, subcat]);
 
   return (
     <CategoryPresenter
@@ -109,7 +106,7 @@ const CategoryContainer = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    product: state.products.products,
+    products: state.products.products,
   };
 };
 

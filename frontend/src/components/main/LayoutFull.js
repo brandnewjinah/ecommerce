@@ -3,7 +3,7 @@ import jwtDecode from "jwt-decode";
 
 //import components
 import Footer from "./Footer";
-import Header from "./Header";
+import Header from "./Header2";
 
 //import styles and assets
 import styled from "styled-components";
@@ -32,7 +32,9 @@ const Layout = ({ children }) => {
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  background-color: #fafaf2;
+`;
 
 const Container = styled.main`
   width: 100%;

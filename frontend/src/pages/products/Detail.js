@@ -13,6 +13,9 @@ import styled from "styled-components";
 
 import colors from "../../components/Colors";
 
+//demo data
+import { demoProducts } from "../../data/demo/demoProducts";
+
 //import redux
 import { connect } from "react-redux";
 import { addCart } from "../../reducers/cartReducer";
@@ -25,22 +28,13 @@ const Detail = (props) => {
 
   useEffect(() => {
     const getData = async () => {
-      const currentItem = props.product.find((c) => c.sku === id);
+      const allData = [...demoProducts, ...props.product];
+      const currentItem = allData.find((c) => c.sku === id);
       setData({ ...currentItem, qty: 1 });
-      let similarItems = props.product.filter(
+      let similarItems = allData.filter(
         (p) => p.category2.id === currentItem.category2.id && p.sku !== id
       );
       setSimilar(similarItems);
-      // setData(currentItem);
-      // await axios
-      //   .get(`${config.API}/product/${props.match.params.id}`)
-      //   .then((res) => {
-      //     const { productInfo } = res.data;
-      //     setData(productInfo);
-      //   })
-      //   .catch((err) => {
-      //     alert(err);
-      //   });
     };
     getData();
   }, [id, props.product]);

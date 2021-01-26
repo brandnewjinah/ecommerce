@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import _ from "lodash";
 
 //import libraries
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -13,6 +14,9 @@ import { Card } from "../../components/main/ProductCard";
 //import styles and assets
 import styled from "styled-components";
 
+//demo data
+import { demoProducts } from "../../data/demo/demoProducts";
+
 //redux
 import { connect } from "react-redux";
 
@@ -22,12 +26,14 @@ const Home = (props) => {
   const [newProducts, setNewProducts] = useState();
 
   useEffect(() => {
-    const loadProducts = () => {
-      const newest = props.product.slice(-10);
+    const getData = () => {
+      let allData = [...demoProducts, ...props.product];
+      let newest = _.orderBy(allData, ["uploaded"], ["desc"]);
+      newest = newest.slice(0, 10);
       setNewProducts(newest);
     };
 
-    loadProducts();
+    getData();
   }, [props.product]);
 
   return (
@@ -39,18 +45,18 @@ const Home = (props) => {
               "https://images.unsplash.com/photo-1490731727228-d56f39758d0e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80"
             }
           > */}
-          <Image
+          {/* <Image
             bgUrl={
               "https://images.unsplash.com/photo-1465808029961-255e8fccc37d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80"
             }
-          >
-            <Cover>
-              <Content>
-                <h1>Sweet!</h1>
-                <h4>Shop for snacks that will make your breaktime flavorful</h4>
-              </Content>
-            </Cover>
-          </Image>
+          > */}
+          <Cover>
+            <Content>
+              <h1>treat yourself with something delicious</h1>
+              <h4>Snacks for your coffee time and wine o'clock</h4>
+            </Content>
+          </Cover>
+          {/* </Image> */}
         </Hero>
         <Main>
           <Section>
@@ -102,8 +108,9 @@ const Wrapper = styled.div``;
 
 const Hero = styled.div`
   width: 100%;
+  max-width: 960px;
   height: 50vh;
-  background-color: #e8fccf;
+  margin: 0 auto;
 `;
 
 const Image = styled.div`
@@ -118,24 +125,38 @@ const Image = styled.div`
 const Cover = styled.div`
   width: 100%;
   height: 100%;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3));
+  /* background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)); */
   display: flex;
   justify-content: center;
   align-items: center;
-
-  @media (max-width: 1012px) {
-    padding: 2em;
-  }
 `;
 
 const Content = styled.div`
-  color: #fff;
   text-align: center;
+  padding-top: 1.5em;
+
+  h1 {
+    font-family: "Playfair Display", serif;
+    font-size: 5rem;
+    letter-spacing: -0.15rem;
+    line-height: 5.25rem;
+    font-weight: 700;
+    color: #ee7868;
+  }
 
   h4 {
-    font-weight: 500;
+    font-size: 1.125rem;
     line-height: 2rem;
-    margin-top: 1em;
+    letter-spacing: 0.125rem;
+    color: #1b3456;
+    margin-top: 1.5em;
+  }
+
+  @media (max-width: 1012px) {
+    h1 {
+      font-size: 4rem;
+      line-height: 4.25rem;
+    }
   }
 `;
 

@@ -111,6 +111,11 @@ const Wrapper = styled.button`
   font-weight: 600;
   padding: 1.25em 2.5em;
   cursor: pointer;
+  transition: opacity 0.2s ease-in-out;
+
+  &:hover {
+    opacity: 0.85;
+  }
 `;
 
 const Text = styled.button`
