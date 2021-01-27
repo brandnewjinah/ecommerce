@@ -10,9 +10,8 @@ import Input from "../../../components/Input";
 import { Button } from "../../../components/Button";
 import OrderItem from "./OrderItem";
 
-//import data
-
-import { currencyData } from "../../../data/options";
+//demo dataㄴ
+import { demoOrders } from "../../../data/demo/demoOrders";
 
 //redux
 import { connect } from "react-redux";
@@ -28,8 +27,8 @@ const OrderDetail = (props) => {
   const [data, setData] = useState({});
   const [shipped, setShipped] = useState(false);
   useEffect(() => {
-    const getData = async () => {
-      const currentItem = await props.order.find((c) => c.id === parseInt(id));
+    const getData = () => {
+      const currentItem = demoOrders.find((c) => c.id === parseInt(id));
       setData(currentItem);
     };
 

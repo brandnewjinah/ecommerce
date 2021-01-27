@@ -26,6 +26,8 @@ import AddProduct from "./pages/cms/products/AddProducts";
 import Products from "./pages/cms/products/ProductList";
 import Orders from "./pages/cms/orders/OrderList";
 import OrderDetail from "./pages/cms/orders/OrderDetail";
+import Users from "./pages/cms/users/UserList";
+import UserDetail from "./pages/cms/users/Detail";
 
 const Routes = () => {
   return (
@@ -58,6 +60,8 @@ const Routes = () => {
           <Route exact path="/cms/products/edit/:sku" component={AddProduct} />
           <Route exact path="/cms/orders" component={Orders} />
           <Route exact path="/cms/orders/:id" component={OrderDetail} />
+          <Route exact path="/cms/customers" component={Users} />
+          <Route exact path="/cms/customers/:id" component={UserDetail} />
         </CmsLayout>
       </Switch>
     </Router>

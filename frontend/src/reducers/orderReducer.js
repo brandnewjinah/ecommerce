@@ -1,5 +1,6 @@
 // Action types
 const PLACE_ORDER = "PLACE_ORDER";
+
 const DELETE_ORDERS = "DELETE_ORDERS";
 
 // Action creators

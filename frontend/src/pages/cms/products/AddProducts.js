@@ -12,6 +12,7 @@ import { Button, BtnClose, BtnText } from "../../../components/Button";
 //import data
 import { catData } from "../../../data/category";
 import { currencyData } from "../../../data/options";
+import { demoProducts } from "../../../data/demo/demoProducts";
 
 //redux
 import { connect } from "react-redux";
@@ -149,10 +150,11 @@ const AddProduct = (props) => {
   // };
 
   useEffect(() => {
-    const getData = async () => {
+    const getData = () => {
+      let allData = [...demoProducts, ...props.product];
       if (location.pathname.includes("/edit")) {
         //from redux store
-        const currentItem = await props.product.find((c) => c.sku === sku);
+        const currentItem = allData.find((c) => c.sku === sku);
         setData(currentItem);
       }
     };

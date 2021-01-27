@@ -1,76 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 //import components
 import { BtnText } from "../../../components/Button";
-import Table from "../../../components/cms/Table";
+import Table from "./Table";
 
 //import styles and assetss
 import styled from "styled-components";
+
+//demo data
+import { demoProducts } from "../../../data/demo/demoProducts";
 
 //redux
 import { connect } from "react-redux";
 import { deleteAll, deleteItem } from "../../../reducers/productReducer";
 
 const ProductList = (props) => {
-  // const [data, setData] = useState([]);
-
-  //   useEffect(() => {
-  //     getData();
-  //   }, []);
-
-  // const getData = async () => {
-  //   const { data } = await axios.get(`${config.API}/product`);
-  //   setData(data.products);
-  // };
+  const [data, setData] = useState();
 
   const handleDeleteAll = async () => {
     props.deleteAll();
-    // await axios
-    //   .delete(`${config.API}/product/`)
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       alert("All Products Deleted");
-    //       window.location.reload();
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     alert(err);
-    //   });
   };
-
-  //   <div
-  //             className={idx % 2 === 0 ? "container" : "container odd"}
-  //             key={idx}
-  //           >
-  //             <Link to={`/products/${p.sku}`}>
-  //               <div className="code">{p.sku}</div>
-  //               <div className="name">{p.name}</div>
-  //               <div className="price">{p.price}</div>
-  //               <div className="cat">{p.category1}</div>
-  //             </Link>
-  //           </div>
 
   const handleDelete = (t) => {
     props.deleteItem(t);
   };
 
+  useEffect(() => {
+    const getData = () => {
+      let allData = [...demoProducts, ...props.product];
+      console.log(allData);
+      setData(allData);
+    };
+
+    getData();
+  }, [props.product]);
+
   return (
     <Wrapper>
       <h4>Inventory</h4>
-      {/* <p>{data.length} products total</p> */}
-
       <Container>
         <Table
-          col1="Name"
-          col2="Brand"
-          col3="Category1"
-          col4="Category2"
-          col5="Store"
-          data={props.product}
+          col1="SKU"
+          col2="Name"
+          col3="Price"
+          col4="Brand"
+          col5="Category1"
+          col6="Category2"
+          col7="Action"
+          data={data}
           handleDelete={(t) => handleDelete(t)}
         />
       </Container>
-      <BtnText label="Delete All" handleClick={handleDeleteAll} />
+      {/* <BtnText label="Delete All" handleClick={handleDeleteAll} /> */}
     </Wrapper>
   );
 };

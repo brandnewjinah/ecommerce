@@ -27,29 +27,11 @@ const data = [
   },
   {
     name: "Orders",
-    subcategory: [
-      {
-        name: "New",
-        link: "/orders",
-      },
-      {
-        name: "Completed",
-        link: "",
-      },
-    ],
+    link: "/orders",
   },
   {
-    name: "Users",
-    subcategory: [
-      {
-        name: "New",
-        link: "/users",
-      },
-      {
-        name: "All",
-        link: "/users",
-      },
-    ],
+    name: "Customers",
+    link: "/customers",
   },
 ];
 

@@ -4,9 +4,6 @@ import React from "react";
 import { BtnText } from "../../../components/Button";
 import Table from "./Table";
 
-//demo data
-import { demoOrders } from "../../../data/demo/demoOrders";
-
 //import styles and assetss
 import styled from "styled-components";
 
@@ -36,21 +33,19 @@ const OrderList = (props) => {
 
   return (
     <Wrapper>
-      <h4>Orders</h4>
+      <h4>Customers</h4>
       {/* <p>{data.length} products total</p> */}
 
       <Container>
         <Table
-          col1="Number"
-          col2="Ordered Date"
-          col3="Ship To"
-          col4="Total"
-          col5="Status"
-          data={demoOrders}
+          col1="Name"
+          col2="Email"
+          col3="Joined"
+          col4="Role"
+          data={props.order}
           handleDelete={(t) => handleDelete(t)}
         />
       </Container>
-      {/* <BtnText label="Delete All" handleClick={handleDeleteAll} /> */}
     </Wrapper>
   );
 };

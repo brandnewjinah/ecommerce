@@ -10,10 +10,12 @@ const Header = (props) => {
   return (
     <Wrapper open={open}>
       <Container>
-        <Left>MYSHOP</Left>
+        <Link to="/">
+          <Left>MYSHOP</Left>
+        </Link>
         <Links open={open}>
           <Right className="flex">
-            {!props.user && (
+            {/* {!props.user && (
               <>
                 <Link to="/signup">
                   <div>Signup</div>
@@ -23,7 +25,8 @@ const Header = (props) => {
                 </Link>
               </>
             )}
-            {props.user && <div>Hi, {props.user.name}</div>}
+            {props.user && <div>Hi, {props.user.name}</div>} */}
+            <div>Welcome, Admin</div>
           </Right>
         </Links>
         <Mobile>

@@ -25,7 +25,7 @@ const Layout = ({ children }) => {
 };
 
 const Wrapper = styled.div`
-  @media (max-width: 780px) {
+  @media (max-width: 1024px) {
     .nav {
       display: none;
     }
@@ -42,7 +42,7 @@ const Main = styled.section`
   background-color: ${colors.lightergray};
   margin-left: 250px;
 
-  @media (max-width: 780px) {
+  @media (max-width: 1024px) {
     margin-left: 0;
   }
 `;
