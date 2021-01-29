@@ -10,7 +10,7 @@ const Header = (props) => {
   return (
     <Wrapper open={open}>
       <Container>
-        <Link to="/">
+        <Link to="/home">
           <Left>MYSHOP</Left>
         </Link>
         <Links open={open}>

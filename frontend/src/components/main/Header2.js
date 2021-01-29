@@ -51,7 +51,7 @@ const Header = (props) => {
     <Wrapper open={open}>
       <Container>
         <Logo>
-          <Link to="/">MYSHOP</Link>
+          <Link to="/home">MYSHOP</Link>
         </Logo>
         <Links open={open}>
           <Left>

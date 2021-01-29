@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+//import libraries
+import Helmet from "react-helmet";
+
 //import components
 import { Button } from "../../components/Button";
 
@@ -10,11 +13,14 @@ import styled from "styled-components";
 const Route = (props) => {
   return (
     <Wrapper>
+      <Helmet>
+        <title>My Shop</title>
+      </Helmet>
       <Container>
         <h1>Which interface do you want to view?</h1>
         <BtnContainer>
           <div className="btn">
-            <Link to="/">
+            <Link to="/home">
               <Button label="Customer" type="fill" color="#F09273" />
             </Link>
           </div>

@@ -1,11 +1,15 @@
 const mongoose = require("mongoose");
 
 const productSchema = mongoose.Schema({
-  code: {
+  sku: {
     type: String,
     required: true,
   },
   name: {
+    type: String,
+    required: true,
+  },
+  brand: {
     type: String,
     required: true,
   },
@@ -20,9 +24,6 @@ const productSchema = mongoose.Schema({
     type: String,
   },
   image: {
-    type: String,
-  },
-  brand: {
     type: String,
   },
 });

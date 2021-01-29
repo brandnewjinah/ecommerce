@@ -33,8 +33,8 @@ const Routes = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/route" component={Redirect} />
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" component={Redirect} />
+        <Route exact path="/home" component={Home} />
         <Route exact path="/products/:id" component={Category} />
         <Route exact path="/detail/:id" component={Detail} />
         <Route exact path="/collection" component={Collection} />

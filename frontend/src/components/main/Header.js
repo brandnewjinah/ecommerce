@@ -51,7 +51,7 @@ const Header = (props) => {
     <Wrapper open={open}>
       <Container>
         <Logo>
-          <Link to="/">MYSHOP</Link>
+          <Link to="/home">MYSHOP</Link>
         </Logo>
         <Links open={open}>
           <Left>
@@ -208,7 +208,8 @@ const Left = styled(Flex)`
 
   @media (max-width: 1012px) {
     flex-direction: column;
-    flex: 0;
+    flex: 0 1 auto;
+    justify-content: flex-start;
 
     p {
       line-height: 3rem;
@@ -227,7 +228,9 @@ const Right = styled(Flex)`
 
   @media (max-width: 1012px) {
     flex-direction: column;
-    flex: 0;
+    flex: 0 1 auto;
+    justify-content: flex-start;
+
     margin-left: 0;
 
     div {
