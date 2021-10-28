@@ -1,4 +1,4 @@
-export const catData = [
+export const categoryList = [
   {
     id: 100,
     value: "bakery",

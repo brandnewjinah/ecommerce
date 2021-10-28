@@ -302,7 +302,7 @@ const AddCollection = (props) => {
                 ))}
             </Currency>
           </Container>
-          <Button label="Post" />
+          {/* <Button label="Post" /> */}
         </form>
       </Wrapper>
     </Layout>

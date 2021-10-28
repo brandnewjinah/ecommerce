@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import styled, { css } from "styled-components";
 
-//import styles and assets
-import styled from "styled-components";
+//coponents
 import { ImageIcon } from "../../assets/Icons";
-import colors from "../Colors";
+
+//token
+import { typeScale, neutral } from "../token";
 
 export const Card = ({ imageUrl, brand, name, price, id, currency }) => {
   const [imgErr, setImgErr] = useState(false);
@@ -17,7 +19,7 @@ export const Card = ({ imageUrl, brand, name, price, id, currency }) => {
 
   return (
     <Link to={`/detail/${id}`}>
-      <CardWrapper>
+      <Wrapper>
         <ImageContainer>
           {imgErr ? (
             <ErrImg>
@@ -31,49 +33,45 @@ export const Card = ({ imageUrl, brand, name, price, id, currency }) => {
           )}
         </ImageContainer>
         <Details>
-          <div className="sub">{brand}</div>
-          <div className="main">
+          <p className="sub">{brand}</p>
+          <p className="main">
             {name.length > 26 ? `${name.substring(0, 24)}...` : name}
-          </div>
-          <div className="caption">
-            {currency}
-            {price}
-          </div>
+          </p>
+          <p>
+            <span>{currency}</span>
+            <span>{price}</span>
+          </p>
         </Details>
-      </CardWrapper>
+      </Wrapper>
     </Link>
   );
 };
 
-const Flex = styled.div`
+const Flex = css`
   display: flex;
   align-items: center;
 `;
 
-const CardWrapper = styled(Flex)`
+const Wrapper = styled.div`
+  ${Flex}
   width: 100%;
   flex-direction: column;
   padding-bottom: 1em;
 `;
 
 const Image = styled.img`
+  display: block;
   width: 100%;
-  height: auto;
-  max-height: 220px;
+  max-width: 100%;
+  height: auto !important;
   object-fit: cover;
-  transition: opacity 0.1s linear;
-  /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.1); */
-`;
-
-const ErrImg = styled(Flex)`
-  justify-content: center;
-  min-height: 169px;
+  object-position: 0 -25px;
 `;
 
 const ImageContainer = styled.div`
   position: relative;
-  /* border: 1px solid ${colors.lightgray}; */
-  /* padding: 1em; */
+  max-height: 300px;
+  overflow: hidden;
 
   &:hover {
     ${Image} {
@@ -82,27 +80,28 @@ const ImageContainer = styled.div`
   }
 `;
 
+const ErrImg = styled.div`
+  ${Flex}
+  justify-content: center;
+  min-height: 169px;
+`;
+
 const Details = styled.div`
   width: 100%;
-  padding-top: 0.5em;
+  font-size: ${typeScale.body};
+  font-weight: 500;
+  color: ${neutral[600]};
+  padding-top: 1rem;
 
   .sub {
-    font-size: 0.75rem;
-    font-weight: 500;
+    font-size: ${typeScale.helper};
     text-transform: uppercase;
-    letter-spacing: 0.075rem;
-    line-height: 0.875rem;
-    color: ${colors.gray};
+    letter-spacing: 0.05rem;
+    color: ${neutral[400]};
   }
+
   .main {
-    font-size: 0.825rem;
-    color: ${colors.darkestgray};
-  }
-  p {
-    font-size: 0.75rem;
-  }
-  .caption {
-    font-size: 0.75rem;
-    color: ${colors.darkestgray};
+    padding: 0.25rem 0 0.35rem;
+    font-weight: 600;
   }
 `;

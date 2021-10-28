@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 //import components
 import Layout from "../../components/main/Layout";
-import Section from "../../components/main/Section";
+import Section from "../../components/main/Grid";
 import { Card } from "../../components/main/ProductCard";
 
 //import styles and assets

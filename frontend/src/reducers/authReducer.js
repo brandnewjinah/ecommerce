@@ -6,9 +6,7 @@ import isEmpty from "../util/isEmpty";
 // Action types
 const GET_ERRORS = "GET_ERRORS";
 const SET_CURRENT_USER = "SET_CURRENT_USER";
-const DECREASE = "DECREASE";
-const DELETE_CARTITEM = "DELETE_CARTITEM";
-const CLEAR_CART = "CLEAR_CART";
+
 
 // Action creators
 export const registerUser = (user) => {

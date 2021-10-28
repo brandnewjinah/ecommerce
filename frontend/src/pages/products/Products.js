@@ -2,7 +2,7 @@ import React from "react";
 
 //import components
 import Layout from "../../components/main/Layout";
-import Section from "../../components/main/Section";
+import Section from "../../components/main/Grid";
 import { Card } from "../../components/main/ProductCard";
 import Filter from "../../components/Filter";
 
@@ -10,30 +10,28 @@ import Filter from "../../components/Filter";
 import styled from "styled-components";
 
 //redux
-import { connect } from "react-redux";
+import { connect } from "../home/node_modules/react-redux";
 
 const Products = (props) => {
   return (
-    <Layout>
-      <Wrapper>
-        <h2>Category</h2>
-        <Filter />
-        <Container>
-          <Section>
-            {props.product.map((p, idx) => (
-              <Card
-                id={p.sku}
-                store={p.store}
-                name={p.name}
-                currency={p.currency && p.currency.label}
-                price={p.price}
-                imageUrl={p.imgs[0].src}
-              />
-            ))}
-          </Section>
-        </Container>
-      </Wrapper>
-    </Layout>
+    <Wrapper>
+      <h2>Category</h2>
+      <Filter />
+      <Container>
+        <Section>
+          {props.product.map((p, idx) => (
+            <Card
+              id={p.sku}
+              store={p.store}
+              name={p.name}
+              currency={p.currency && p.currency.label}
+              price={p.price}
+              imageUrl={p.imgs[0].src}
+            />
+          ))}
+        </Section>
+      </Container>
+    </Wrapper>
   );
 };
 

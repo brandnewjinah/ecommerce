@@ -19,7 +19,7 @@
     "axios": "^0.21.0",
     "joi": "^17.3.0",
     "jwt-decode": "^3.1.2",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
@@ -65,5 +65,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.176"
   }
 }

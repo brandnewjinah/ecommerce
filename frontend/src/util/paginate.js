@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _ from "../pages/home/node_modules/lodash";
 
 export const paginate = ({ items, currentPage, limit }) => {
   console.log(limit);

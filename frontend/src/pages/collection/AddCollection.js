@@ -163,12 +163,12 @@ const AddCollection = (props) => {
                   <div className="right"></div>
                 ) : (
                   <div className="right">
-                    <BtnClose handleClick={() => handleImgDelete(img.id)} />
+                    {/* <BtnClose handleClick={() => handleImgDelete(img.id)} /> */}
                   </div>
                 )}
               </InputWrapper>
             ))}
-            <BtnText label="More" handleClick={handleImgAdd} />
+            {/* <BtnText label="More" handleClick={handleImgAdd} /> */}
           </Container>
 
           <Container>
@@ -204,14 +204,14 @@ const AddCollection = (props) => {
                 </Category>
               )}
           </Container>
-          {location.pathname.includes("/edit") ? (
+          {/* {location.pathname.includes("/edit") ? (
             <>
               <Button label="Edit" handleClick={handleEdit} />
-              {/* <BtnText label="Delete" handleClick={handleDelete} /> */}
+              <BtnText label="Delete" handleClick={handleDelete} />
             </>
           ) : (
             <Button label="Add" handleClick={handleSubmit} />
-          )}
+          )} */}
         </form>
       </Wrapper>
     </Layout>

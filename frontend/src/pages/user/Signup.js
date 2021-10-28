@@ -115,7 +115,7 @@ const Signup = (props) => {
               handleChange={handleChange}
             />
           </div>
-          <Button label="Signup" type="fill" color="#266150" />
+          {/* <Button label="Signup" type="fill" color="#266150" /> */}
         </form>
         <Section>
           <div className="flex">

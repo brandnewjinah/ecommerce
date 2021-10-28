@@ -32,12 +32,12 @@ const Cart = (props) => {
           <Message>
             <p>You don't have any item in the cart.</p>
             <div className="btn">
-              <Button
+              {/* <Button
                 label="Start Shopping"
                 type="fill"
                 color="#98d2eb"
                 handleClick={handleShop}
-              />
+              /> */}
             </div>
           </Message>
         ) : (

@@ -44,7 +44,7 @@ const CartSummary = (props) => {
         <p>Total</p>
         <p>${subtotal.toFixed(2)}</p>
       </Total>
-      {location.pathname.includes("/checkout") ? (
+      {/* {location.pathname.includes("/checkout") ? (
         <Button
           label="PLACE ORDER"
           type="fill"
@@ -58,7 +58,7 @@ const CartSummary = (props) => {
           color="#002C66"
           handleClick={props.handleClick}
         />
-      )}
+      )} */}
     </Wrapper>
   );
 };
