@@ -8,7 +8,7 @@ import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
 
 //import components
-import { Card } from "../ProductCard";
+import Card from "../../ProductCard";
 
 SwiperCore.use([Navigation]);
 

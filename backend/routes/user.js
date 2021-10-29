@@ -1,25 +1,20 @@
-const express = require("express");
+import express from "express";
+import { signin, signup } from "../controllers/user.js";
+
 const router = express.Router();
 
-const {
-  user_signup,
-  user_login,
-  user_googlelogin,
-  user_all,
-  user_each,
-  user_update,
-} = require("../controller/user");
-
 //create
-router.post("/signup", user_signup);
-router.post("/login", user_login);
-router.post("/googlelogin", user_googlelogin);
+router.post("/login", signin);
+router.post("/signup", signup);
 
-//read
-router.get("/", user_all);
-router.get("/:userId", user_each);
+// //google
+// router.post("/googlelogin", user_googlelogin);
 
-//update
-router.put("/:userId", user_update);
+// //read
+// router.get("/", user_all);
+// router.get("/:userId", user_each);
 
-module.exports = router;
+// //update
+// router.put("/:userId", user_update);
+
+export default router;

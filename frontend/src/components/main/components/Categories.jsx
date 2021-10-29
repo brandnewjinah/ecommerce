@@ -7,8 +7,8 @@ import CategoryItem from "./CategoryItem";
 const Categories = () => {
   return (
     <Container>
-      {categories.map((item) => (
-        <CategoryItem item={item} />
+      {categories.map((item, idx) => (
+        <CategoryItem key={idx} item={item} />
       ))}
     </Container>
   );

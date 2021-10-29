@@ -5,67 +5,54 @@ import styled from "styled-components";
 import { categoryList } from "../data/category";
 
 //token
-import { neutral, primaryColor } from "./token";
+import { neutral, typeScale } from "./token";
 
-const Filter = ({ category, handleCatChange }) => {
-  const [currentCategory, setCurrentCategory] = useState();
+const Filter = ({ category, handleFilter }) => {
+  const [subCategories, setSubCategories] = useState();
   const [active, setActive] = useState();
 
   useEffect(() => {
     const findCategory = () => {
-      const result = categoryList.find((c) => c.value === category);
-      setCurrentCategory(result);
+      const result =
+        category !== "all" &&
+        categoryList.find((item) => item.value === category);
+      setSubCategories(result.subcategory);
     };
 
     findCategory();
   }, [category]);
 
   const handleSelect = (id) => {
-    handleCatChange(id);
+    handleFilter(id);
     setActive(id);
   };
 
   return (
-    <Wrapper>
-      <ul className="pagination">
-        {category === "all" ? null : (
-          <>
-            <li onClick={() => handleSelect("all")}>
-              <span className={active === "all" ? "active" : ""}>All</span>
-            </li>
-            {currentCategory &&
-              currentCategory.subcategory.map((c, idx) => (
-                <li key={idx}>
-                  <div className="link" onClick={() => handleSelect(c.id)}>
-                    <span className={c.id === active ? "active" : ""}>
-                      {c.label}
-                    </span>
-                  </div>
-                </li>
-              ))}
-          </>
-        )}
-      </ul>
-    </Wrapper>
+    <Container>
+      {category === "all" ? null : (
+        <>
+          <List onClick={() => handleSelect("all")}>
+            <span className={active === "all" ? "active" : ""}>All</span>
+          </List>
+          {subCategories &&
+            subCategories.map((item, idx) => (
+              <List key={idx}>
+                <Item className="link" onClick={() => handleSelect(item.value)}>
+                  <span className={item.id === active ? "active" : ""}>
+                    {item.label}
+                  </span>
+                </Item>
+              </List>
+            ))}
+        </>
+      )}
+    </Container>
   );
 };
 
-const Wrapper = styled.nav`
+const Container = styled.ul`
   padding: 1em 0;
-
-  ul {
-    display: flex;
-  }
-
-  li {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.875rem;
-    color: ${neutral[500]};
-    padding: 0.25rem 0.5rem;
-    cursor: pointer;
-  }
+  display: flex;
 
   .active {
     position: relative;
@@ -82,5 +69,17 @@ const Wrapper = styled.nav`
     }
   }
 `;
+
+const List = styled.li`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: ${typeScale.sbody};
+  color: ${neutral[500]};
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+`;
+
+const Item = styled.div``;
 
 export default Filter;

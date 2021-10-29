@@ -6,11 +6,11 @@ import Counter from "../../components/Counter";
 //import styles and assets
 import styled from "styled-components";
 import { Close } from "../../assets/Icons";
-import colors from "../../components/Colors";
 
 //import redux
 import { connect } from "react-redux";
 import { increase, decrease, deleteCartItem } from "../../reducers/cartReducer";
+import { neutral } from "../../components/token";
 
 const CartItem = (props) => {
   const handleIncrease = () => {
@@ -61,7 +61,7 @@ const Flex = styled.div`
 
 const Wrapper = styled(Flex)`
   width: 100%;
-  border-top: 1px solid ${colors.lightgray};
+  border-top: 1px solid ${neutral[300]};
   padding: 1em 0;
 `;
 
@@ -81,7 +81,7 @@ const Detail = styled.div`
   }
 
   .price {
-    color: ${colors.darkgray};
+    color: ${neutral[500]};
   }
 
   img {

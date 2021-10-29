@@ -4,17 +4,16 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 //import components
-import Breadcrumbs from "../../components/Breadcrumbs";
 import Counter from "../../components/Counter";
 import { Button } from "../../components/Button";
-import { Card } from "../../components/main/ProductCard";
+import { Card } from "../../components/ProductCard";
 
 //import styles and assets
 import { primaryColor } from "../../components/token";
 import colors from "../../components/Colors";
 
 //demo data
-import { demoProducts } from "../../data/demo/demoProducts";
+import { demoProducts } from "../../data/demoProducts";
 
 //import redux
 import { connect } from "react-redux";
@@ -75,7 +74,6 @@ const Detail = (props) => {
 
   return (
     <Container>
-      {/* <Breadcrumbs item1={data.category1} item2={data.category2} /> */}
       <Category>
         <div className="flex link">
           <Link to={`/products/${data.category1 && data.category1.value}`}>

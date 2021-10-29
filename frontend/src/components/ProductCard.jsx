@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 //coponents
-import { ImageIcon } from "../../assets/Icons";
+import { ImageIcon } from "../assets/Icons";
 
 //token
-import { typeScale, neutral } from "../token";
+import { typeScale, neutral } from "./token";
 
-export const Card = ({ imageUrl, brand, name, price, id, currency }) => {
+const ProductCard = ({ imageUrl, brand, name, price, id, currency }) => {
   const [imgErr, setImgErr] = useState(false);
 
   const handleDefaultImg = (e) => {
@@ -105,3 +105,5 @@ const Details = styled.div`
     font-weight: 600;
   }
 `;
+
+export default ProductCard;

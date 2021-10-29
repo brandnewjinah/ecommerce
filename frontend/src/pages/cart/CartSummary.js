@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import styled from "styled-components";
 
 //import components
 import { Button } from "../../components/Button";
 
-//import styles and assets
-import styled from "styled-components";
-import colors from "../../components/Colors";
+//token
+import { neutral, typeScale } from "../../components/token";
 
 //import redux
 import { connect } from "react-redux";
+
+const Article = ({ left, right }) => {
+  return (
+    <Item>
+      <p>{left}</p>
+      <p>{right}</p>
+    </Item>
+  );
+};
 
 const CartSummary = (props) => {
   let location = useLocation();
@@ -27,45 +36,34 @@ const CartSummary = (props) => {
   }, [props.cart]);
 
   return (
-    <Wrapper>
-      <Section>
-        <p>Subtotal</p>
-        <p>${subtotal.toFixed(2)}</p>
-      </Section>
-      <Section>
-        <p>Shipping</p>
-        <p>TBD</p>
-      </Section>
-      <Section>
-        <p>Estimated Tax</p>
-        <p>$0.00</p>
-      </Section>
+    <Container>
+      <Article left="Subtotal" right={`$${subtotal.toFixed(2)}`} />
+      <Article left="Shipping" right="TBD" />
+      <Article left="Estimated Tax" right="$0.00" />
       <Total>
         <p>Total</p>
         <p>${subtotal.toFixed(2)}</p>
       </Total>
-      {/* {location.pathname.includes("/checkout") ? (
+      {location.pathname.includes("/checkout") ? (
         <Button
           label="PLACE ORDER"
-          type="fill"
           color="#002C66"
           handleClick={props.handleClick}
         />
       ) : (
         <Button
           label="PROCEED TO CHECKOUT"
-          type="fill"
           color="#002C66"
           handleClick={props.handleClick}
         />
-      )} */}
-    </Wrapper>
+      )}
+    </Container>
   );
 };
 
-const Wrapper = styled.div`
+const Container = styled.section`
   width: 100%;
-  border: 1px solid ${colors.lightgray};
+  border: 1px solid ${neutral[100]};
   padding: 1.5em;
 `;
 
@@ -74,9 +72,9 @@ const Flex = styled.div`
   justify-content: space-between;
 `;
 
-const Section = styled(Flex)`
-  font-size: 0.8rem;
-  color: ${colors.darkgray};
+const Item = styled(Flex)`
+  font-size: ${typeScale.sbody};
+  color: ${neutral[300]};
   padding: 0.5em 0;
 
   p {
@@ -86,8 +84,8 @@ const Section = styled(Flex)`
 
 const Total = styled(Flex)`
   font-weight: 400;
-  color: ${colors.black};
-  border-top: 1px solid ${colors.lightgray};
+  color: ${neutral[500]};
+  border-top: 1px solid ${neutral[300]};
   padding: 0.75em 0;
 `;
 

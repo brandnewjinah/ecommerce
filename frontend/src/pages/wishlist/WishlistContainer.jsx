@@ -3,7 +3,7 @@ import { useParams, useLocation } from "react-router-dom";
 import _ from "lodash";
 
 //components
-import CategoryPresenter from "./CategoryPresenter";
+import WishlistPresenter from "./WishlistPresenter";
 
 //data
 import { demoProducts } from "../../data/demoProducts";
@@ -15,13 +15,14 @@ const CategoryContainer = (props) => {
   let { id } = useParams();
   let location = useLocation();
   const [products, setProducts] = useState({});
-  const [subcat, setSubCat] = useState();
-  const [sort, setSort] = useState("Newest");
 
   //pagination
   const limit = 12;
   const [currentPage, setCurrentPage] = useState(1);
   const [count, setCount] = useState();
+
+  //subcategory
+  const [subcat, setSubCat] = useState();
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -29,10 +30,6 @@ const CategoryContainer = (props) => {
 
   const handleCatChange = (id) => {
     setSubCat(id);
-  };
-
-  const handleSort = (e) => {
-    setSort(e.target.value);
   };
 
   useEffect(() => {
@@ -95,13 +92,12 @@ const CategoryContainer = (props) => {
   }, [currentPage, id, location.pathname, props.products, subcat]);
 
   return (
-    <CategoryPresenter
+    <WishlistPresenter
       {...products}
       count={count}
       currentPage={currentPage}
       handlePageChange={handlePageChange}
       handleCatChange={handleCatChange}
-      handleSort={handleSort}
       limit={limit}
     />
   );

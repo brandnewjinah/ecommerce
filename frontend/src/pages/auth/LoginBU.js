@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 //import libraries
-import axios from "axios";
 import { GoogleLogin } from "react-google-login";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
@@ -116,7 +115,7 @@ const Login = (props) => {
               handleChange={handleChange}
             />
           </div>
-          {/* <Button label="Login" type="fill" color="#266150" /> */}
+          <Button label="Login" color="#266150" />
         </form>
         <Section>
           <div className="btn">

@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 
 //layout components
-import { Article, Div } from "./layout/Container";
+import { Article } from "./layout/Container";
 import { spacing } from "./token";
 
 export interface Props {

@@ -10,6 +10,7 @@ export const Routing = {
   Confirmation: { path: "/confirmation" },
   Category: { path: "/products/:id" },
   Detail: { path: "/detail/:id" },
+  Wishlist: { path: "/wishlist" },
   Collection: { path: "/collection" },
   AddCollection: { path: "/collection/add" },
   CollectionDetail: { path: "/collection/:id" },

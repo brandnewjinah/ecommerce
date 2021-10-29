@@ -5,7 +5,7 @@ import { useHistory, useLocation, useParams } from "react-router-dom";
 //import components
 import Layout from "../../components/main/Layout";
 import Input from "../../components/Input";
-import { Button, BtnText, BtnClose } from "../../components/Button";
+import { Button } from "../../components/Button";
 
 //import styles and assets
 import styled from "styled-components";
@@ -163,12 +163,15 @@ const AddCollection = (props) => {
                   <div className="right"></div>
                 ) : (
                   <div className="right">
-                    {/* <BtnClose handleClick={() => handleImgDelete(img.id)} /> */}
+                    <Button
+                      lable="delete"
+                      handleClick={() => handleImgDelete(img.id)}
+                    />
                   </div>
                 )}
               </InputWrapper>
             ))}
-            {/* <BtnText label="More" handleClick={handleImgAdd} /> */}
+            <Button label="More" handleClick={handleImgAdd} />
           </Container>
 
           <Container>
@@ -204,14 +207,14 @@ const AddCollection = (props) => {
                 </Category>
               )}
           </Container>
-          {/* {location.pathname.includes("/edit") ? (
+          {location.pathname.includes("/edit") ? (
             <>
               <Button label="Edit" handleClick={handleEdit} />
-              <BtnText label="Delete" handleClick={handleDelete} />
+              {/* <Button label="Delete" handleClick={handleDelete} /> */}
             </>
           ) : (
             <Button label="Add" handleClick={handleSubmit} />
-          )} */}
+          )}
         </form>
       </Wrapper>
     </Layout>

@@ -7,7 +7,7 @@ import Hero from "../../components/main/components/Hero";
 import ProductSlider from "../../components/main/components/ProductSlider";
 
 //demo data
-import { demoProducts } from "../../data/demo/demoProducts";
+import { demoProducts } from "../../data/demoProducts";
 import Categories from "../../components/main/components/Categories";
 
 const Home = () => {
@@ -22,11 +22,6 @@ const Home = () => {
 
     getData();
   }, []);
-
-  const [open, setOpen] = useState(false);
-
-  const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
 
   return (
     <Container>

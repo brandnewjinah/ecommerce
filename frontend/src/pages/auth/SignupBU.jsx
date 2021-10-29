@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 
 //import components
 import { Button } from "../../components/Button";
@@ -115,7 +114,7 @@ const Signup = (props) => {
               handleChange={handleChange}
             />
           </div>
-          {/* <Button label="Signup" type="fill" color="#266150" /> */}
+          <Button label="Signup" color="#266150" />
         </form>
         <Section>
           <div className="flex">

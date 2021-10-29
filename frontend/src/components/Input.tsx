@@ -1,17 +1,22 @@
 import React, { ChangeEvent, FC, useState } from "react";
+import styled from "styled-components";
+
+//components
+import { Article } from "./layout/Container";
 
 //import styles and assets
-import styled from "styled-components";
 import { Eye, EyeOff } from "../assets/Icons";
-import colors from "./Colors";
+import { neutral, typeScale } from "./token";
+
+//token
 
 interface Props {
-  error?: string;
   label?: string;
+  name?: string;
+  error?: string;
   type?: string;
   value?: any;
-  name?: string;
-  prefix?: string;
+  required?: boolean;
   placeholder?: string;
   handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
@@ -21,48 +26,53 @@ const Input: FC<Props> = ({
   label,
   type,
   value,
+  required,
   name,
-  prefix,
   placeholder,
   handleChange,
 }) => {
   const [password, setPassword] = useState(true);
 
   return (
-    <Wrapper>
-      {label && <label htmlFor="">{label}</label>}
-      <InputContainer>
-        {prefix && <div>{prefix}</div>}
-        <input
-          className={error ? "input error" : "input"}
-          type={type === "password" && password ? "password" : "text"}
-          value={value}
-          name={name}
-          placeholder={placeholder}
-          onChange={handleChange}
-        />
-        {type === "password" && (
-          <Toggle onClick={() => setPassword(!password)}>
-            {password ? (
-              <Eye width="20" height="20" color="#000" stroke="1" />
-            ) : (
-              <EyeOff width="20" height="20" color="#000" stroke="1" />
-            )}
-          </Toggle>
+    <Article padding=".5rem 0">
+      <Container>
+        {label && (
+          <label htmlFor={name} aria-hidden="true">
+            {label}
+            {required && "*"}
+          </label>
         )}
-      </InputContainer>
-      {/* {error && <Error>{error}</Error>} */}
-      <Error>{error}</Error>
-    </Wrapper>
+        <Wrapper>
+          <input
+            name={name}
+            placeholder={placeholder}
+            value={value}
+            type={type === "password" && password ? "password" : "text"}
+            className={error ? "input error" : "input"}
+            onChange={handleChange}
+          />
+          {type === "password" && (
+            <Toggle onClick={() => setPassword(!password)}>
+              {password ? (
+                <Eye width="20" height="20" color="#000" stroke="1" />
+              ) : (
+                <EyeOff width="20" height="20" color="#000" stroke="1" />
+              )}
+            </Toggle>
+          )}
+        </Wrapper>
+        <Error>{error}</Error>
+      </Container>
+    </Article>
   );
 };
 
-const Wrapper = styled.div`
+const Container = styled.div`
   label {
+    font-size: ${typeScale.sbody};
     display: inline-block;
-    font-weight: 400;
-    color: ${colors.darkergray};
-    margin-bottom: 0.5em;
+    color: ${neutral[600]};
+    margin-bottom: 0.5rem;
   }
 
   .error {
@@ -70,40 +80,40 @@ const Wrapper = styled.div`
   }
 `;
 
-const InputContainer = styled.div`
-  display: flex;
-  align-items: center;
-  border: 1px solid #e4e4e4;
-  background-color: #fff;
-  border-radius: 0.25em;
-  padding: 0 0.75em;
+const Wrapper = styled.div`
+  position: relative;
 
-  .input {
+  input {
     width: 100%;
-    flex: 1;
-    border: transparent;
-    padding: 0.5em;
-    margin: 0.5em 0;
+    font-size: 1rem;
+    height: 3rem;
+    border: 1px solid ${neutral[200]};
+    border-radius: 0.25rem;
+    padding: 0 0.5rem;
+    appearance: none;
 
     &:focus {
-      outline: transparent;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 125, 250, 0.6);
     }
 
-    &::placeholder {
-      color: ${colors.gray};
-      letter-spacing: 0.025rem;
+    ::placeholder,
+    ::-webkit-input-placeholder {
+      font-size: ${typeScale.sbody};
+      color: ${neutral[300]};
     }
   }
 `;
 
-const Error = styled.div`
-  color: red;
+const Toggle = styled.div`
+  position: absolute;
+  top: 0.9rem;
+  right: 0.75rem;
+  cursor: pointer;
 `;
 
-const Toggle = styled.div`
-  right: 0.75em;
-  display: flex;
-  margin-left: 1em;
+const Error = styled.div`
+  color: red;
 `;
 
 export default Input;

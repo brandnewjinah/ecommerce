@@ -10,16 +10,18 @@ import Redirect from "../pages/redirect/Redirect";
 import CustomerLayout from "../components/main/Layout";
 import Home from "../pages/home/Home";
 import Category from "../pages/category";
+import Wishlist from "../pages/wishlist";
 import Collection from "../pages/collection/Collection";
 import AddCollection from "../pages/collection/AddCollection";
-import Signup from "../pages/user/Signup";
-import Login from "../pages/user/Login";
+import Signup from "../pages/auth/Signup";
+import Login from "../pages/auth/Login";
 import Detail from "../pages/products/Detail";
 import CollectionDetail from "../pages/collection/Detail";
 import AddCollectionProduct from "../pages/collection/AddProduct";
 import Cart from "../pages/cart/Cart";
 import Checkout from "../pages/checkout/Checkout";
 import Confirmation from "../pages/order/OrderConfirmation";
+import ProductList from "../pages/category/ProductList";
 
 //import cms pages
 import AdminLayout from "../components/admin/Layout";
@@ -72,7 +74,9 @@ const Routes = () => {
           component={UserDetail}
         />
         <Layout exact path={Routing.CustomerHome.path} component={Home} />
-        <Layout exact path={Routing.Category.path} component={Category} />
+        {/* <Layout exact path={Routing.Category.path} component={Category} /> */}
+        <Layout exact path={Routing.Category.path} component={ProductList} />
+        <Layout exact path={Routing.Category.path} component={Wishlist} />
         <Layout exact path={Routing.Detail.path} component={Detail} />
         <Layout exact path={Routing.Collection.path} component={Collection} />
         <Layout

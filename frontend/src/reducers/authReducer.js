@@ -1,97 +1,45 @@
-import axios from "axios";
-import jwt_decode from "jwt-decode";
-import setAuthToken from "../util/setAuthToken";
-import isEmpty from "../util/isEmpty";
+import * as api from "../api";
 
 // Action types
-const GET_ERRORS = "GET_ERRORS";
-const SET_CURRENT_USER = "SET_CURRENT_USER";
-
+const AUTH = "AUTH";
+const LOGOUT = "LOGOUT";
 
 // Action creators
-export const registerUser = (user) => {
-  return (dispatch) => {
-    axios
-      .post("http://localhost:5000/user/signup", user)
-      .then((res) => {
-        if (res.status === 200) {
-          alert("Registered successfully. Please login");
-          window.location.reload();
-        }
-      })
-      // .catch((err) => {
-      //   alert(err);
-      // });
-      .catch((err) =>
-        dispatch({
-          type: GET_ERRORS,
-          payload: err.response.data,
-        })
-      );
-  };
+export const signin = (values, history) => async (dispatch) => {
+  try {
+    const { data } = await api.signIn(values);
+    dispatch({ type: AUTH, data });
+    history.push("/home");
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export const loginUser = (user) => {
-  return (dispatch) => {
-    axios
-      .post("http://localhost:5000/user/login", user)
-      .then((res) => {
-        const { token } = res.data;
-
-        //set token to localstorage
-        localStorage.setItem("token", token);
-
-        //set token to auth header
-        setAuthToken(token);
-
-        //decode token to get user data
-        const decoded = jwt_decode(token);
-
-        //set current user
-        dispatch(setCurrentUser(decoded));
-
-        window.location.reload();
-      })
-      .catch((err) =>
-        dispatch({
-          type: GET_ERRORS,
-          payload: err.response.data,
-        })
-      );
-  };
-};
-
-export const setCurrentUser = (decoded) => {
-  return {
-    type: SET_CURRENT_USER,
-    payload: decoded,
-  };
-};
-
-export const logoutUser = () => {
-  return (dispatch) => {
-    localStorage.removeItem("token");
-    setAuthToken(false);
-    dispatch(setCurrentUser({}));
-  };
+export const signup = (values, history) => async (dispatch) => {
+  try {
+    const { data } = await api.signUp(values);
+    dispatch({ type: AUTH, data });
+    history.push("/home");
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // State
 const initialState = {
-  isAuthenticated: false,
-  user: {},
+  authData: null,
 };
 
 // Reducer
 const reducer = (state = initialState, action) => {
-  if (action.type === SET_CURRENT_USER) {
-    return {
-      ...state,
-      isAuthenticated: !isEmpty(action.payload),
-      user: action.payload,
-    };
+  if (action.type === AUTH) {
+    localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
+    return { ...state, authData: action?.data };
   }
-
+  if (action.type === LOGOUT) {
+    localStorage.clear();
+    return { ...state, authData: null };
+  }
   return state;
 };
 

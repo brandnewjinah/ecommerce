@@ -12,7 +12,7 @@ import { Button, BtnClose, BtnText } from "../../../components/Button";
 //import data
 import { categoryList } from "../../../data/category";
 import { currencyData } from "../../../data/options";
-import { demoProducts } from "../../../data/demo/demoProducts";
+import { demoProducts } from "../../../data/demoProducts";
 
 //redux
 import { connect } from "react-redux";

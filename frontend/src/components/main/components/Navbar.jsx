@@ -1,23 +1,35 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
+import { useDispatch } from "react-redux";
 import styled, { css } from "styled-components";
 
 //components
 import Hamburger from "./Hamburger";
-import Login from "../../../pages/user/Login";
-import Signup from "../../../pages/user/Signup";
+import Login from "../../../pages/auth/Login";
+import Signup from "../../../pages/auth/Signup";
+import Auth from "../../../pages/auth/Auth";
 
 //token
 import { neutral, primaryColor, breakpoint, typeScale } from "../../token";
-import { Cart, Close } from "../../../assets/Icon";
+import { Cart, Heart, Close, ChevronDown } from "../../../assets/Icon";
 
 const Navbar = () => {
+  const location = useLocation();
+  const history = useHistory();
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
-  const [modal, setModal] = useState(false);
+  const [clickLogout, setClickLogout] = useState(false);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+
+  useEffect(() => {
+    // const token = user?.token;
+    setUser(JSON.parse(localStorage.getItem("profile")));
+    setLoginOpen(false);
+  }, [location]);
 
   const goToSignup = () => {
     setLoginOpen(false);
@@ -29,8 +41,12 @@ const Navbar = () => {
     setLoginOpen(true);
   };
 
-  const onOpenModal = () => setModal(true);
-  const onCloseModal = () => setModal(false);
+  const logout = () => {
+    dispatch({ type: "LOGOUT" });
+    setClickLogout(!clickLogout);
+    history.push("/home");
+    setUser(null);
+  };
 
   return (
     <Container>
@@ -54,18 +70,33 @@ const Navbar = () => {
           <MobileLogin>Login</MobileLogin>
         </Center>
         <Right>
-          <Auth onClick={onOpenModal}>
-            <p>Login</p>
-          </Auth>
-          <div>
-            <Modal open={modal} onClose={onCloseModal} center>
-              <Login goToSignup={goToSignup} />
-            </Modal>
-          </div>
-          <CartWrapper>
-            <Cart width="16" height="16" color="#000" stroke="1" />
-            <span>2</span>
-          </CartWrapper>
+          {user ? (
+            <User>
+              <div onClick={() => setClickLogout(!clickLogout)}>
+                <span>Welcome, {user.result.name}</span>
+                <ChevronDown width={20} height={20} color="#000" stroke={2} />
+              </div>
+              <Logout clickLogout={clickLogout} onClick={logout}>
+                logout
+              </Logout>
+            </User>
+          ) : (
+            <Signin onClick={() => setLoginOpen(true)}>
+              <p>Login</p>
+            </Signin>
+          )}
+
+          <Link to="/wishlist">
+            <Wishlist>
+              <Heart width="16" height="16" color="#000" stroke="1" />
+            </Wishlist>
+          </Link>
+          <Link to="/cart">
+            <CartWrapper>
+              <Cart width="16" height="16" color="#000" stroke="1" />
+              <span>2</span>
+            </CartWrapper>
+          </Link>
         </Right>
         <MobileMenuWrapper>
           <CartWrapper>
@@ -82,7 +113,8 @@ const Navbar = () => {
             <Close width="20" height="20" color={neutral[400]} stroke="2" />
           }
         >
-          <Login goToSignup={goToSignup} />
+          {/* <Login goToSignup={goToSignup} /> */}
+          <Auth goToSignup={goToSignup} />
         </Modal>
         <Modal
           open={signupOpen}
@@ -169,6 +201,7 @@ const Right = styled.div`
   ${Flex}
   justify-content: flex-end;
   flex: 1;
+  position: relative;
 
   .login {
     margin-right: 1rem;
@@ -179,8 +212,29 @@ const Right = styled.div`
   }
 `;
 
-const Auth = styled.div`
+const Signin = styled.div`
   cursor: pointer;
+`;
+
+const User = styled.div`
+  position: relative;
+`;
+
+const Logout = styled.div`
+  display: ${(props) => (props.clickLogout ? "block" : "none")};
+  position: absolute;
+  top: 2rem;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem 0.5rem;
+  background-color: #fff;
+  z-index: 10;
+`;
+
+const Wishlist = styled.div`
+  ${Flex}
+  margin: 0 1rem;
 `;
 
 const MobileMenuWrapper = styled.div`

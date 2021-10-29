@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 //import components
 import Layout from "../../components/main/Layout";
-import Section from "../../components/main/Grid";
-import { Card } from "../../components/main/ProductCard";
+import Section from "../../components/Grid";
+import Card from "../../components/ProductCard";
 
 //import styles and assets
 import styled from "styled-components";

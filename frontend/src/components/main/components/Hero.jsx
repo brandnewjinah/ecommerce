@@ -14,10 +14,16 @@ const Hero = () => {
     <Container>
       <Swiper navigation={true} className="mySwiper">
         <SwiperSlide>
-          <img src="https://cdn.pixabay.com/photo/2021/01/18/12/49/ice-cream-5928048_1280.jpg" />
+          <img
+            src="https://cdn.pixabay.com/photo/2021/01/18/12/49/ice-cream-5928048_1280.jpg"
+            alt=""
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://cdn.pixabay.com/photo/2017/07/31/22/25/pastel-2561613_1280.jpg" />
+          <img
+            src="https://cdn.pixabay.com/photo/2017/07/31/22/25/pastel-2561613_1280.jpg"
+            alt=""
+          />
         </SwiperSlide>
       </Swiper>
     </Container>

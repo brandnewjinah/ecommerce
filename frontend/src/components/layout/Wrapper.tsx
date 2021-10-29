@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import colors from "../Colors";
 
 export interface Props {
   padding?: string;

@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 //import styles and assets
-import colors from "../Colors";
 import { Notifications, Settings } from "../../assets/Icon";
-import { breakpoint, blue, neutral } from "../token";
+import { breakpoint, neutral } from "../token";
 
 const Header = ({ handleOpen }) => {
   const [open, setOpen] = useState(false);

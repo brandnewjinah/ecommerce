@@ -6,7 +6,6 @@ import { Section } from "../../components/layout/Container";
 
 //components
 import Filter from "../../components/Filter";
-import Sort from "../../components/Sort";
 import Grid from "../../components/Grid";
 import Card from "../../components/ProductCard";
 import Pagination from "../../components/Pagination";
@@ -18,13 +17,16 @@ const CategoryPresenter = (props) => {
   return (
     <Container className="flexAignCenter">
       <h2>{props.path}</h2>
-      <FilterWrapper>
+      <FilterContainer>
         <Filter category={props.path} handleCatChange={props.handleCatChange} />
-        <Sort
-          options={["Newest", "Price: low to high", "Price: high to low"]}
-          handleSort={(e) => props.handleSort(e)}
-        />
-      </FilterWrapper>
+        <Sort>
+          <Select>
+            <Option selected>Newest</Option>
+            <Option>Price: low to high</Option>
+            <Option>Price: high to low</Option>
+          </Select>
+        </Sort>
+      </FilterContainer>
       <Section padding={`${spacing.l} 0`}>
         <Grid>
           {props.products &&
@@ -63,11 +65,20 @@ const Container = styled.div`
   }
 `;
 
-const FilterWrapper = styled.div`
+const FilterContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
+
+const Sort = styled.div``;
+
+const Select = styled.select`
+  padding: 10px;
+  margin-right: 20px;
+`;
+
+const Option = styled.option``;
 
 export default CategoryPresenter;

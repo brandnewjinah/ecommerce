@@ -1,34 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 //components
 import Breadcrumbs from "../../components/Breadcrumbs";
 import Counter from "../../components/Counter";
 import { Button } from "../../components/Button";
+import Card from "../../components/ProductCard";
 
 //token and imgs
-import {
-  breakpoint,
-  neutral,
-  primaryColor,
-  typeScale,
-} from "../../components/token";
+import { breakpoint, primaryColor } from "../../components/token";
 import { Heart } from "../../assets/Icon";
 
 //demo data
-import { demoProducts } from "../../data/demo/demoProducts";
+import { demoProducts } from "../../data/demoProducts";
+import InfoArticle from "./InfoArticle";
 
-const Detail = (props) => {
+const Detail = () => {
   let { id } = useParams();
 
   const [data, setData] = useState({});
+  const [similar, setSimilar] = useState([]);
 
   useEffect(() => {
     const getData = () => {
       const thisItem = demoProducts.find((product) => product.sku === id);
       setData({ ...thisItem, qty: 1 });
+      let similarItems = demoProducts.filter(
+        (product) =>
+          product.category2.id === thisItem.category2.id && product.sku !== id
+      );
+      setSimilar(similarItems);
     };
     getData();
   }, [id]);
@@ -49,36 +51,24 @@ const Detail = (props) => {
     <Container>
       <Breadcrumbs item1={data.category1} item2={data.category2} />
       <Main>
-        <ImageContainer>
+        <ImageWrapper>
           <img src={data.imgs && data.imgs[0].src} alt="" />
-        </ImageContainer>
-        <Info>
-          <Article>
-            <p className="helper">{data.brand}</p>
-            <p className="title">{data.name}</p>
-          </Article>
-          <Article>
-            <p className="helper">Price</p>
-            <p className="title">
-              {data.currency && data.currency.label}
-              {data.price}
-            </p>
-          </Article>
-          <Article>
-            <p className="helper">Size</p>
-            <p>{data.size}</p>
-          </Article>
-          <Article>
-            <p className="helper">Description</p>
-            <p className="body">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+        </ImageWrapper>
+        <InfoWrapper>
+          <InfoArticle helper={data.brand} title={data.name} />
+          <InfoArticle
+            helper="Price"
+            title={`${data.currency && data.currency.label}${data.price}`}
+          />
+          <InfoArticle helper="Size" title={data.size} />
+          <InfoArticle
+            helper="Description"
+            body="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
               dignissim maximus ullamcorper. Integer venenatis, dui quis
               eleifend blandit, velit sem vulputate eros, vitae cursus risus dui
-              tincidunt nisl.
-            </p>
-          </Article>
-          <Article>
-            <p className="helper">Quantity</p>
+              tincidunt nisl."
+          />
+          <InfoArticle helper="Quantity">
             <div className="counter">
               <Counter
                 qty={data.qty}
@@ -86,8 +76,8 @@ const Detail = (props) => {
                 handleIncrease={() => handleIncrease()}
               />
             </div>
-          </Article>
-          <ButtonContainer>
+          </InfoArticle>
+          <ButtonWrapper>
             <div className="cart">
               <Button
                 label="Add to Cart"
@@ -107,9 +97,27 @@ const Detail = (props) => {
                 handleClick={handleAdd}
               />
             </div>
-          </ButtonContainer>
-        </Info>
+          </ButtonWrapper>
+        </InfoWrapper>
       </Main>
+      {similar && similar.length > 0 && (
+        <SimilarWrapper>
+          <h4>You may also like</h4>
+          <SimilarProducts>
+            {similar.map((p, idx) => (
+              <Card
+                key={idx}
+                id={p.sku}
+                brand={p.brand}
+                name={p.name}
+                currency={p.currency && p.currency.label}
+                price={p.price}
+                imageUrl={p.imgs[0].src}
+              />
+            ))}
+          </SimilarProducts>
+        </SimilarWrapper>
+      )}
     </Container>
   );
 };
@@ -128,13 +136,9 @@ const Main = styled.main`
   }
 `;
 
-const ImageContainer = styled.div`
-  min-width: 430px;
-  background-color: #eee;
-  display: flex;
+const ImageWrapper = styled.section`
   flex: 1;
-  justify-content: center;
-  align-items: center;
+  min-width: 430px;
 
   img {
     width: 100%;
@@ -146,35 +150,12 @@ const ImageContainer = styled.div`
   }
 `;
 
-const Info = styled.section`
+const InfoWrapper = styled.section`
   flex: 1;
   padding-left: 2rem;
 `;
 
-const Article = styled.article`
-  padding: 0.75rem 0;
-  border-bottom: 1px solid ${neutral[100]};
-
-  .helper {
-    font-size: ${typeScale.helper};
-    color: ${neutral[400]};
-  }
-
-  .title {
-    font-size: ${typeScale.header3};
-  }
-
-  .body {
-    font-size: ${typeScale.sbody};
-    line-height: 1.5rem;
-  }
-
-  .counter {
-    margin: 0.875rem 0;
-  }
-`;
-
-const ButtonContainer = styled.div`
+const ButtonWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
@@ -185,6 +166,20 @@ const ButtonContainer = styled.div`
 
   .wishlist {
     flex: 1;
+  }
+`;
+
+const SimilarWrapper = styled.div`
+  padding: 2rem 0;
+`;
+
+const SimilarProducts = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
+
+  @media (max-width: 980px) {
+    grid-template-columns: repeat(1, 1fr);
   }
 `;
 

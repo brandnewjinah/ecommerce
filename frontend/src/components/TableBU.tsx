@@ -3,7 +3,6 @@ import _ from "lodash";
 import styled from "styled-components";
 
 //import components
-import Pagination from "./Pagination";
 import { paginate } from "../utils/Paginate";
 
 //import assets

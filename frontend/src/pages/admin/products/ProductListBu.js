@@ -8,7 +8,7 @@ import Table from "./Table";
 import styled from "styled-components";
 
 //demo data
-import { demoProducts } from "../../../data/demo/demoProducts";
+import { demoProducts } from "../../../data/demoProducts";
 
 //redux
 import { connect } from "react-redux";
