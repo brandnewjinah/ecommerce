@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { neutral } from "./token";
 
 const Sort = ({ options, handleSort, selected }) => {
   return (
@@ -14,6 +15,7 @@ const Sort = ({ options, handleSort, selected }) => {
 };
 
 const Select = styled.select`
+  border-color: ${neutral[200]};
   padding: 0.5rem;
 `;
 

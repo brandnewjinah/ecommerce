@@ -1,10 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { neutral, typeScale } from "./token";
+import { neutral, typeScale, breakpoint } from "./token";
 
 const Breadcrumbs = ({ item1, item2 }) => {
-  console.log(item1);
   return (
     <Container>
       <Link to={`/products/${item1 && item1.value}`}>
@@ -32,6 +31,10 @@ const Container = styled.div`
 
   .divider {
     padding: 0 0.35rem;
+  }
+
+  @media ${breakpoint.lg} {
+    padding: 1rem;
   }
 `;
 

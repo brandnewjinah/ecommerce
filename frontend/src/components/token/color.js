@@ -2,7 +2,7 @@ export const neutral = {
   10: "#fcfcfa",
   50: "#fafaf9",
   100: "#f3f3f1",
-  200: "#d9d9d7",
+  200: "#ebebea",
   300: "#b3b3ad",
   400: "#8a8a88",
   500: "#666562",
@@ -31,4 +31,5 @@ export const primaryColor = {
   gold: "#bca67d",
   coral: "#ee7868",
   orangeCoral: "#ea805e",
+  error: "#d83232",
 };

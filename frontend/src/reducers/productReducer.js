@@ -1,98 +1,41 @@
+import * as api from "../api";
+
 // Action types
-const ADD_ITEM = "ADD_ITEM";
-const EDIT_ITEM = "EDIT_ITEM";
-const DELETE_ITEM = "DELETE_ITEM";
-const DELETE_ALL = "DELETE_ALL";
+const PRODUCTS_REQUEST = "PRODUCTS_REQUEST";
+const PRODUCTS_SUCCESS = "PRODUCTS_SUCCESS";
+const PRODUCTS_FAIL = "PRODUCTS_FAIL";
 
 // Action creators
-export const addItem = (item) => {
-  return (dispatch) => {
-    dispatch({
-      type: ADD_ITEM,
-      payload: {
-        item,
-      },
-    });
-  };
-};
-
-export const editItem = (item) => {
-  return (dispatch) => {
-    dispatch({
-      type: EDIT_ITEM,
-      payload: {
-        item,
-      },
-    });
-  };
-};
-
-export const deleteItem = (item) => {
-  return (dispatch) => {
-    dispatch({
-      type: DELETE_ITEM,
-      payload: {
-        item,
-      },
-    });
-  };
-};
-
-export const deleteAll = (item) => {
-  return (dispatch) => {
-    dispatch({
-      type: DELETE_ALL,
-      payload: {
-        item,
-      },
-    });
-  };
+export const getProducts = (category) => async (dispatch) => {
+  dispatch({
+    type: PRODUCTS_REQUEST,
+  });
+  try {
+    const { data } = await api.getProducts(category);
+    dispatch({ type: PRODUCTS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: PRODUCTS_FAIL, payload: error.message });
+  }
 };
 
 // State
 const initialState = {
+  loading: true,
   products: [],
 };
 
 // Reducer
 const reducer = (state = initialState, action) => {
-  if (action.type === ADD_ITEM) {
-    let added = action.payload.item;
-    let newProducts = [...state.products];
-
-    //look for duplicate first
-    let duplicate = newProducts.find((item) => item.sku === added.sku);
-
-    if (duplicate) {
-      newProducts = newProducts.filter((f) => f.sku !== added.sku);
-    } else {
-      newProducts = [...newProducts, added];
-    }
-    return { ...state, products: newProducts };
+  switch (action.type) {
+    case PRODUCTS_REQUEST:
+      return { loading: true };
+    case PRODUCTS_SUCCESS:
+      return { loading: false, products: action.payload };
+    case PRODUCTS_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
   }
-
-  if (action.type === EDIT_ITEM) {
-    let updatedItem = action.payload.item;
-    let newProducts = [...state.products];
-    const index = newProducts.findIndex((item) => item.sku === updatedItem.sku);
-    newProducts[index] = updatedItem;
-
-    return { ...state, products: newProducts };
-  }
-
-  if (action.type === DELETE_ITEM) {
-    let item = action.payload.item;
-    let newProducts = [...state.products];
-    newProducts = newProducts.filter((c) => c.sku !== item.sku);
-
-    return { ...state, products: newProducts };
-  }
-
-  if (action.type === DELETE_ALL) {
-    return { products: [] };
-  }
-
-  return state;
 };
 
 export default reducer;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 //import styles and assets
-import Layout from "../../components/main/Layout";
+import Layout from "../../components/layout/Layout";
 import styled from "styled-components";
 
 import colors from "../../components/Colors";

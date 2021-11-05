@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 //import components
-import Layout from "../../components/main/Layout";
-import Section from "../../components/Grid";
-import Card from "../../components/ProductCard";
+import Layout from "../../components/layout/Layout";
+import Section from "../../components/layout/Grid";
+import Card from "../../components/products/ProductCard";
 
 //import styles and assets
 import styled from "styled-components";

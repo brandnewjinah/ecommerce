@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Select from "react-select";
 
 //import components
-import Layout from "../../components/main/Layout";
-import Input from "../../components/Input";
+import Layout from "../../components/layout/Layout";
+import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 
 //import styles and assets

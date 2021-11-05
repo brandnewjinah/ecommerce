@@ -1,113 +1,64 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Routing } from "./Path";
-import { Wrapper } from "../components/layout/Wrapper";
 
 //import home
 import Redirect from "../pages/redirect/Redirect";
 
 //import customer pages
-import CustomerLayout from "../components/main/Layout";
-import Home from "../pages/home/Home";
-import Category from "../pages/category";
-import Wishlist from "../pages/wishlist";
+import Layout from "../components/layout/Layout";
+import Home from "../pages/Home";
+import Wishlist from "../pages/Wishlist";
 import Collection from "../pages/collection/Collection";
 import AddCollection from "../pages/collection/AddCollection";
-import Signup from "../pages/auth/Signup";
-import Login from "../pages/auth/Login";
-import Detail from "../pages/products/Detail";
+import Detail from "../pages/ProductDetail";
 import CollectionDetail from "../pages/collection/Detail";
 import AddCollectionProduct from "../pages/collection/AddProduct";
-import Cart from "../pages/cart/Cart";
-import Checkout from "../pages/checkout/Checkout";
+import Cart from "../pages/Cart";
+import Checkout from "../pages/Checkout";
 import Confirmation from "../pages/order/OrderConfirmation";
-import ProductList from "../pages/category/ProductList";
-
-//import cms pages
-import AdminLayout from "../components/admin/Layout";
-import AdminHome from "../pages/admin/Home";
-import AddProduct from "../pages/admin/products/AddProducts";
-import Products from "../pages/admin/products/ProductList";
-import Orders from "../pages/admin/orders/OrderList";
-import OrderDetail from "../pages/admin/orders/OrderDetail";
-import Users from "../pages/admin/users/UserList";
-import UserDetail from "../pages/admin/users/Detail";
-
-const Layout = ({ component: Component, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={(props) => (
-        <Wrapper>
-          {props.location.pathname === "/" ? (
-            <Component {...props} />
-          ) : props.location.pathname.includes("/admin") ? (
-            <AdminLayout>
-              <Component {...props} />
-            </AdminLayout>
-          ) : (
-            <CustomerLayout>
-              <Component {...props} />
-            </CustomerLayout>
-          )}
-        </Wrapper>
-      )}
-    />
-  );
-};
+import ProductList from "../pages/ProductList";
 
 const Routes = () => {
   return (
     <Router>
       <Switch>
-        <Layout exact path={Routing.Home.path} component={Redirect} />
-        <Layout exact path={Routing.AdminHome.path} component={AdminHome} />
-        <Layout exact path={Routing.Products.path} component={Products} />
-        <Layout exact path={Routing.AddProduct.path} component={AddProduct} />
-        <Layout exact path={Routing.EditProduct.path} component={AddProduct} />
-        <Layout exact path={Routing.Orders.path} component={Orders} />
-        <Layout exact path={Routing.OrderDetail.path} component={OrderDetail} />
-        <Layout exact path={Routing.Customers.path} component={Users} />
-        <Layout
-          exact
-          path={Routing.CustomerDetail.path}
-          component={UserDetail}
-        />
-        <Layout exact path={Routing.CustomerHome.path} component={Home} />
-        {/* <Layout exact path={Routing.Category.path} component={Category} /> */}
-        <Layout exact path={Routing.Category.path} component={ProductList} />
-        <Layout exact path={Routing.Category.path} component={Wishlist} />
-        <Layout exact path={Routing.Detail.path} component={Detail} />
-        <Layout exact path={Routing.Collection.path} component={Collection} />
-        <Layout
-          exact
-          path={Routing.AddCollection.path}
-          component={AddCollection}
-        />
-        <Layout
-          exact
-          path={Routing.CollectionDetail.path}
-          component={CollectionDetail}
-        />
-        <Layout
-          exact
-          path={Routing.EditCollection.path}
-          component={AddCollection}
-        />
-        <Layout
-          exact
-          path={Routing.AddCollectionProduct.path}
-          component={AddCollectionProduct}
-        />
-        <Layout exact path={Routing.Signup.path} component={Signup} />
-        <Layout exact path={Routing.Signin.path} component={Login} />
-        <Layout exact path={Routing.Cart.path} component={Cart} />
-        <Layout exact path={Routing.Checkout.path} component={Checkout} />
-        <Layout
-          exact
-          path={Routing.Confirmation.path}
-          component={Confirmation}
-        />
+        <Route exact path={Routing.Home.path} component={Redirect} />
+        <Layout>
+          <Route exact path={Routing.CustomerHome.path} component={Home} />
+          {/* <Route exact path={Routing.Category.path} component={Category} /> */}
+          <Route exact path={Routing.Category.path} component={ProductList} />
+          <Route exact path={Routing.Wishlist.path} component={Wishlist} />
+          <Route exact path={Routing.Detail.path} component={Detail} />
+          <Route exact path={Routing.Collection.path} component={Collection} />
+          <Route
+            exact
+            path={Routing.AddCollection.path}
+            component={AddCollection}
+          />
+          <Route
+            exact
+            path={Routing.CollectionDetail.path}
+            component={CollectionDetail}
+          />
+          <Route
+            exact
+            path={Routing.EditCollection.path}
+            component={AddCollection}
+          />
+          <Route
+            exact
+            path={Routing.AddCollectionProduct.path}
+            component={AddCollectionProduct}
+          />
+          <Route exact path={Routing.Cart.path} component={Cart} />
+          <Route exact path={Routing.Checkout.path} component={Checkout} />
+          <Route
+            exact
+            path={Routing.Confirmation.path}
+            component={Confirmation}
+          />
+        </Layout>
       </Switch>
     </Router>
   );

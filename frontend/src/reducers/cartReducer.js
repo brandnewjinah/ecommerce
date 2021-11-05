@@ -1,128 +1,84 @@
-// Action types
-const ADD_CART = "ADD_CART";
+//Action types
+const ADD_TO_CART = "ADD_TO_CART";
 const INCREASE = "INCREASE";
 const DECREASE = "DECREASE";
 const DELETE_CARTITEM = "DELETE_CARTITEM";
-const CLEAR_CART = "CLEAR_CART";
 
-// Action creators
-export const addCart = (item) => {
-  return (dispatch) => {
-    dispatch({
-      type: ADD_CART,
-      payload: {
-        item,
-      },
-    });
-  };
+//Action creators
+export const addToCart = (product) => (dispatch) => {
+  dispatch({ type: ADD_TO_CART, payload: product });
 };
 
-export const increase = (item) => {
-  return (dispatch) => {
-    dispatch({
-      type: INCREASE,
-      payload: {
-        item,
-      },
-    });
-  };
+export const increase = (product) => (dispatch) => {
+  dispatch({ type: INCREASE, payload: product });
 };
 
-export const decrease = (item) => {
-  return (dispatch) => {
-    dispatch({
-      type: DECREASE,
-      payload: {
-        item,
-      },
-    });
-  };
+export const decrease = (product) => (dispatch) => {
+  dispatch({ type: DECREASE, payload: product });
 };
 
-export const deleteCartItem = (item) => {
-  return (dispatch) => {
-    dispatch({
-      type: DELETE_CARTITEM,
-      payload: {
-        item,
-      },
-    });
-  };
+export const deleteCartItem = (product) => (dispatch) => {
+  dispatch({ type: DELETE_CARTITEM, payload: product });
 };
 
-export const clearCart = (item) => {
-  return (dispatch) => {
-    dispatch({
-      type: CLEAR_CART,
-      payload: {
-        item,
-      },
-    });
-  };
-};
-
-// State
+// Initial State
 const initialState = {
-  cart: [],
+  products: [],
   qty: 0,
 };
 
-// Reducer
 const reducer = (state = initialState, action) => {
-  if (action.type === ADD_CART) {
-    let added = action.payload.item;
-    let newCart = [...state.cart];
-    let totalqty = state.qty;
+  switch (action.type) {
+    case ADD_TO_CART: {
+      let newProducts = [...state.products];
+      let totalQty = state.qty;
 
-    //look for duplicate first
-    let duplicate = newCart.find((item) => item.sku === added.sku);
-
-    if (duplicate) {
-      let index = newCart.findIndex((item) => item.sku === added.sku);
-      newCart[index].qty += added.qty;
-      return { ...state, cart: newCart, qty: totalqty + added.qty };
-    } else {
-      newCart = [...newCart, added];
-      return { ...state, cart: newCart, qty: totalqty + added.qty };
+      //duplicate item in the cart? then just increase qty
+      let existingProduct = newProducts.find(
+        (item) => item._id === action.payload._id
+      );
+      if (existingProduct) {
+        let index = newProducts.findIndex(
+          (item) => item._id === action.payload._id
+        );
+        return {
+          products: (newProducts[index].qty += action.payload.qty),
+          qty: (totalQty += action.payload.qty),
+        };
+      } else {
+        return {
+          products: [...newProducts, action.payload],
+          qty: totalQty + action.payload.qty,
+        };
+      }
     }
+    case INCREASE: {
+      let newProducts = state.products.map((item) => {
+        if (item._id === action.payload._id) {
+          item = { ...item, qty: item.qty + 1 };
+        }
+        return item;
+      });
+      return { products: newProducts, qty: state.qty + 1 };
+    }
+    case DECREASE: {
+      let newProducts = state.products.map((item) => {
+        if (item._id === action.payload._id && item.qty > 1) {
+          item = { ...item, qty: item.qty - 1 };
+        }
+        return item;
+      });
+      return { products: newProducts, qty: state.qty - 1 };
+    }
+    case DELETE_CARTITEM: {
+      let newProducts = state.products.filter(
+        (item) => item._id !== action.payload._id
+      );
+      return { products: newProducts, qty: state.qty - action.payload.qty };
+    }
+    default:
+      return state;
   }
-  if (action.type === INCREASE) {
-    let added = action.payload.item;
-    let newCart = state.cart.map((item) => {
-      if (item.sku === added.sku) {
-        item = { ...item, qty: item.qty + 1 };
-      }
-      return item;
-    });
-    const { qty } = state;
-    return { ...state, cart: newCart, qty: qty + 1 };
-  }
-  if (action.type === DECREASE) {
-    let added = action.payload.item;
-    let newCart = state.cart.map((item) => {
-      if (item.sku === added.sku) {
-        item = { ...item, qty: item.qty - 1 };
-      }
-      return item;
-    });
-    const { qty } = state;
-    return { ...state, cart: newCart, qty: qty - 1 };
-  }
-  if (action.type === DELETE_CARTITEM) {
-    let item = action.payload.item;
-    let newCart = [...state.cart];
-    let totalqty = state.qty;
-
-    newCart = newCart.filter((c) => c.sku !== item.sku);
-
-    return { ...state, cart: newCart, qty: totalqty - item.qty };
-  }
-
-  if (action.type === CLEAR_CART) {
-    return { cart: [], qty: 0 };
-  }
-
-  return state;
 };
 
 export default reducer;

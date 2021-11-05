@@ -1,15 +1,38 @@
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
-module.exports = (req, res, next) => {
-  try {
-    const token = req.headers.authorization.split(" ")[1];
-    const decoded = jwt.verify(token, "secret");
-    req.userData = decoded;
-    console.log(req);
-    next();
-  } catch (error) {
-    return res.status(400).json({
-      message: "Authentication failed",
+export const generateToken = (user) => {
+  return jwt.sign(
+    {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    },
+    process.env.JWT_KEY,
+    { expiresIn: "1d" }
+  );
+};
+
+export const checkToken = (req, res, next) => {
+  const authHeader = req.headers.token;
+  if (authHeader) {
+    const token = authHeader.split(" ")[1];
+    jwt.verify(token, process.env.JWT_KEY, (error, user) => {
+      if (error) res.status(403).json("Invalid token");
+      req.user = user;
+      next();
     });
+  } else {
+    return res.status(401).json("You are not authenticated");
   }
+};
+
+export const checkAuth = (req, res, next) => {
+  checkToken(req, res, () => {
+    if (req.user.id === req.params.id || req.user.isAdmin) {
+      next();
+    } else {
+      res.status(403).json("You are not authorized");
+    }
+  });
 };

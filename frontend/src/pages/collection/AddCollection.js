@@ -3,8 +3,8 @@ import Select from "react-select";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 
 //import components
-import Layout from "../../components/main/Layout";
-import Input from "../../components/Input";
+import Layout from "../../components/layout/Layout";
+import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 
 //import styles and assets

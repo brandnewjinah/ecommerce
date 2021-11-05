@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import styled from "styled-components";
 
 //import components
 import OrderItem from "./OrderItem";
 
-//import styles and assets
-import styled from "styled-components";
-
-//import redux
-import { connect } from "react-redux";
-
 const OrderConfirmation = (props) => {
   let { id } = useParams();
+  const order = useSelector((state) => state.order);
 
   const [data, setData] = useState({});
 
   useEffect(() => {
     const getData = async () => {
-      const currentOrder = props.order.find((o) => o.id === parseInt(id));
+      const currentOrder = order.orders.find(
+        (order) => order.id === parseInt(id)
+      );
       setData(currentOrder);
     };
     getData();
-  }, [id, props.order]);
-  console.log(data);
+  }, [id, order.orders]);
+
   return (
     <Wrapper>
       <Header>
@@ -103,10 +102,4 @@ const Summary = styled.div`
   padding: 2em 0;
 `;
 
-const mapStateToProps = (state) => {
-  return {
-    order: state.order.orders,
-  };
-};
-
-export default connect(mapStateToProps, null)(OrderConfirmation);
+export default OrderConfirmation;

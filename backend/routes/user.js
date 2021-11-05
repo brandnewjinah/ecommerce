@@ -1,11 +1,12 @@
 import express from "express";
-import { signin, signup } from "../controllers/user.js";
+import { checkAuth } from "../middleware/checkAuth.js";
+import { updateUser } from "../controllers/user.js";
 
 const router = express.Router();
 
 //create
-router.post("/login", signin);
-router.post("/signup", signup);
+
+router.put("/:id", checkAuth, updateUser);
 
 // //google
 // router.post("/googlelogin", user_googlelogin);

@@ -1,0 +1,104 @@
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
+
+//import components
+import CartItem from "../components/cart/CartItem";
+import CartSummary from "../components/cart/CartSummary";
+import ModalAuth from "../components/ModalAuth";
+
+const Cart = () => {
+  const history = useHistory();
+  const products = useSelector((state) => state.cart.products);
+  const dispatch = useDispatch();
+
+  const [loggedIn, setLoggedIn] = useState(
+    JSON.parse(localStorage.getItem("profile")) &&
+      JSON.parse(localStorage.getItem("profile")).token
+  );
+  const [loginOpen, setLoginOpen] = useState(false);
+
+  const handleShop = () => {
+    history.push("/products/all");
+  };
+
+  const handleClick = () => {
+    loggedIn ? history.push("/checkout") : setLoginOpen(true);
+  };
+
+  return (
+    <Container>
+      <Main>
+        <Items>
+          {products &&
+            products.length > 0 &&
+            products.map((item, idx) => <CartItem key={idx} data={item} />)}
+        </Items>
+        <Summary>
+          <CartSummary handleClick={handleClick} />
+        </Summary>
+        <ModalAuth
+          loginOpen={loginOpen}
+          setLoginOpen={() => setLoginOpen(false)}
+        />
+      </Main>
+    </Container>
+  );
+};
+
+const Container = styled.div`
+  max-width: 80rem;
+  padding: 0 1.5rem;
+  margin: 4rem auto;
+
+  .flex {
+    display: flex;
+  }
+
+  .link a {
+    color: #6b6b6b;
+    text-decoration: underline;
+  }
+`;
+
+const Main = styled.main`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: 840px) {
+    flex-direction: column;
+  }
+`;
+
+const Items = styled.div`
+  flex: 0 1 69%;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 840px) {
+    margin: 0 auto;
+  }
+`;
+
+const Summary = styled.div`
+  flex: 0 1 29%;
+
+  .btn {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2em 0;
+  }
+  .four {
+    flex: 0 1 40%;
+  }
+
+  .six {
+    flex: 0 1 59%;
+  }
+`;
+
+export default Cart;

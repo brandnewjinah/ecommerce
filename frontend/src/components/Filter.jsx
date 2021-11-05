@@ -8,14 +8,17 @@ import { categoryList } from "../data/category";
 import { neutral, typeScale } from "./token";
 
 const Filter = ({ category, handleFilter }) => {
-  const [subCategories, setSubCategories] = useState();
+  const [subCategories, setSubCategories] = useState([]);
   const [active, setActive] = useState();
 
   useEffect(() => {
     const findCategory = () => {
       const result =
-        category !== "all" &&
-        categoryList.find((item) => item.value === category);
+        category === "bakery" ||
+        category === "beverage" ||
+        category === "snacks"
+          ? categoryList.find((item) => item.value === category)
+          : [];
       setSubCategories(result.subcategory);
     };
 
@@ -27,9 +30,12 @@ const Filter = ({ category, handleFilter }) => {
     setActive(id);
   };
 
+  console.log(subCategories);
   return (
     <Container>
-      {category === "all" ? null : (
+      {category === "bakery" ||
+      category === "beverage" ||
+      category === "snacks" ? (
         <>
           <List onClick={() => handleSelect("all")}>
             <span className={active === "all" ? "active" : ""}>All</span>
@@ -45,13 +51,12 @@ const Filter = ({ category, handleFilter }) => {
               </List>
             ))}
         </>
-      )}
+      ) : null}
     </Container>
   );
 };
 
 const Container = styled.ul`
-  padding: 1em 0;
   display: flex;
 
   .active {
@@ -78,6 +83,10 @@ const List = styled.li`
   color: ${neutral[500]};
   padding: 0.25rem 0.5rem;
   cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const Item = styled.div``;

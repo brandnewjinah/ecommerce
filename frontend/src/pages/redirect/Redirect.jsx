@@ -27,11 +27,15 @@ const Redirect = (props) => {
           <Button
             label="Customer"
             color={primaryColor.button}
+            size="big"
+            margin=".5rem"
             handleClick={() => handleRedirect("home")}
           />
           <Button
             label="Admin"
             color={primaryColor.button}
+            size="big"
+            margin=".5rem"
             handleClick={() => handleRedirect("admin")}
           />
         </ButtonContainer>

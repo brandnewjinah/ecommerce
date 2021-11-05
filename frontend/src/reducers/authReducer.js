@@ -5,21 +5,21 @@ const AUTH = "AUTH";
 const LOGOUT = "LOGOUT";
 
 // Action creators
-export const signin = (values, history) => async (dispatch) => {
+export const signin = (values, history, path) => async (dispatch) => {
   try {
-    const { data } = await api.signIn(values);
+    const { data } = await api.signin(values);
     dispatch({ type: AUTH, data });
-    history.push("/home");
+    path === "/cart" ? history.push("/checkout") : history.push("/home");
   } catch (error) {
     console.log(error);
   }
 };
 
-export const signup = (values, history) => async (dispatch) => {
+export const signup = (values, history, path) => async (dispatch) => {
   try {
-    const { data } = await api.signUp(values);
+    const { data } = await api.signup(values);
     dispatch({ type: AUTH, data });
-    history.push("/home");
+    path === "/cart" ? history.push("/checkout") : history.push("/home");
   } catch (error) {
     console.log(error);
   }

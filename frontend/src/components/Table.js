@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import _ from "lodash";
 
@@ -6,7 +6,6 @@ import Checkbox from "./Checkbox";
 import Pagination from "./Pagination";
 import { paginate } from "../utils/Paginate";
 import Th from "./Th";
-import { ArrowUp, ArrowDown } from "../assets/Icon";
 import { neutral } from "./token";
 
 const Table = ({ keys, data, checkbox, listSize, dataKeys }) => {
