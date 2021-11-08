@@ -31,7 +31,6 @@ const AddProduct = () => {
     name: "",
     brand: "",
     sku: "",
-    currency: { id: 501, label: "$", value: "USD" },
     price: "",
     category1: {},
     category2: {},
@@ -92,8 +91,10 @@ const AddProduct = () => {
     setErrors(errors || {});
     if (errors) return;
 
+    const { currency, ...others } = product;
+
     if (id) {
-      dispatch(updateProduct(product._id, product));
+      dispatch(updateProduct(product._id, others));
     } else {
       dispatch(addProduct(product));
       clear();
@@ -156,14 +157,6 @@ const AddProduct = () => {
         </Item>
         <Item>
           <div className="one">
-            <p className="label">Currency</p>
-            <Select
-              value={product.currency}
-              options={currencyData}
-              onChange={handleCategory("currency")}
-            />
-          </div>
-          <div className="four">
             <Input
               label="Price"
               name="price"

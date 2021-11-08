@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 //token and icons
-import { typeScale, neutral } from "../token";
+import { typeScale, neutral, breakpoint } from "../token";
 import { ImageIcon } from "../../assets/Icons";
 
 const ProductCard = ({ imageUrl, brand, name, price, sku, currency, _id }) => {
@@ -101,6 +101,10 @@ const Details = styled.div`
   .main {
     padding: 0.25rem 0 0.35rem;
     font-weight: 600;
+  }
+
+  @media ${breakpoint.m} {
+    padding-top: 0;
   }
 `;
 

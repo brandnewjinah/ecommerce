@@ -10,14 +10,17 @@ import Pagination from "../components/Pagination";
 import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
 
+//token
+import { breakpoint } from "../components/token";
+
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { getProducts } from "../reducers/productReducer";
+import { getProducts } from "../redux/productRedux";
 
 const ProductList = () => {
   const dispatch = useDispatch();
-  const productlist = useSelector((state) => state.productlist);
-  const { loading, error, products } = productlist;
+  const productLists = useSelector((state) => state.productLists);
+  const { error, products } = productLists;
 
   const { id } = useParams();
   const [filter, setFilter] = useState("");
@@ -44,9 +47,7 @@ const ProductList = () => {
 
   return (
     <Container>
-      {loading ? (
-        <Loading />
-      ) : error ? (
+      {error ? (
         <ErrorMessage>{`${error} this is error message component`}</ErrorMessage>
       ) : (
         <>
@@ -83,6 +84,10 @@ const Container = styled.div`
   max-width: 90rem;
   padding: 0 1.5rem;
   margin: 4rem auto;
+
+  @media ${breakpoint.m} {
+    margin: 3rem auto;
+  }
 `;
 
 const Header = styled.div`
@@ -99,6 +104,11 @@ const FilterWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 1.25rem 0;
+
+  @media ${breakpoint.m} {
+    flex-direction: column;
+    padding: 0.5rem 0 1.5rem;
+  }
 `;
 
 export default ProductList;

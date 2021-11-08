@@ -18,18 +18,20 @@ import { Heart } from "../assets/Icon";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../reducers/cartReducer";
-import { getProductDetail } from "../reducers/productDetailReducer";
+import { getProductDetail } from "../redux/productDetailRedux";
+import { addToCart } from "../redux/cartRedux";
 import * as api from "../api";
 
 const Detail = () => {
   const location = useLocation();
+  const _id = location.state && location.state._id;
+
   const dispatch = useDispatch();
 
-  const _id = location.state && location.state._id;
-  const productDetail = useSelector((state) => state.productDetail);
-  const { loading, error, product } = productDetail;
+  const productDetails = useSelector((state) => state.productDetails);
+  const { loading, error, product } = productDetails;
   const [qty, setQty] = useState(1);
+
   const [similar, setSimilar] = useState([]);
 
   useEffect(() => {
@@ -59,8 +61,7 @@ const Detail = () => {
   const handleWishlist = () => {};
 
   const handleAddToCart = () => {
-    let updatedProduct = { ...product, qty };
-    dispatch(addToCart(updatedProduct));
+    dispatch(addToCart({ _id: product._id, qty }));
   };
 
   return (
@@ -78,12 +79,7 @@ const Detail = () => {
             </ImageWrapper>
             <InfoWrapper>
               <InfoItem helper={product.brand} title={product.name} />
-              <InfoItem
-                helper="Price"
-                title={`${product.currency && product.currency.label}${
-                  product.price
-                }`}
-              />
+              <InfoItem helper="Price" title={`$${product.price}`} />
               <InfoItem helper="Size" title={product.size} />
               <InfoItem
                 helper="Description"

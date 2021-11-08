@@ -1,34 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 
 //components
 import Hamburger from "./Hamburger";
-import ModalAuth from "../ModalAuth";
 
 //token
-import { neutral, primaryColor, breakpoint, typeScale } from "../token";
+import { neutral, breakpoint, typeScale } from "../token";
 import { Cart, Heart, ChevronDown } from "../../assets/Icon";
+
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import { signout } from "../../redux/authRedux";
 
 const Navbar = () => {
   const location = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();
-  const qty = useSelector((state) => state.cart.qty);
+  // const qty = useSelector((state) => state.cart.qty);
+
   const [open, setOpen] = useState(false);
-  const [loginOpen, setLoginOpen] = useState(false);
+
   const [clickLogout, setClickLogout] = useState(false);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("currentUser"))
+  );
+  const auth = useSelector((state) => state.auth);
+  const { currentUser } = auth;
 
-  useEffect(() => {
-    // const token = user?.token;
-    setUser(JSON.parse(localStorage.getItem("profile")));
-    setLoginOpen(false);
-  }, [location]);
+  const totalQty = useSelector((state) => state.cart.totalQty);
 
-  const logout = () => {
-    dispatch({ type: "LOGOUT" });
+  const handleSignOut = () => {
+    dispatch(signout());
     setClickLogout(!clickLogout);
     history.push("/home");
     setUser(null);
@@ -56,19 +59,31 @@ const Navbar = () => {
           <MobileLogin>Login</MobileLogin>
         </Center>
         <Right>
-          {user ? (
+          {currentUser ? (
             <User onClick={() => setClickLogout(!clickLogout)}>
-              <span>Hi, {user.name}</span>
+              <span>Hi, {currentUser.name}</span>
               <ChevronDown width={20} height={20} color="#000" stroke={2} />
-              <Logout clickLogout={clickLogout} onClick={logout}>
-                logout
-              </Logout>
+              <div className="dropdown">
+                <Link to="/profile">
+                  <div>User Profile</div>
+                </Link>
+                <div
+                  className="logout"
+                  clickLogout={clickLogout}
+                  onClick={handleSignOut}
+                >
+                  Logout
+                </div>
+              </div>
             </User>
           ) : (
-            <Signin onClick={() => setLoginOpen(true)}>
-              <p>Login</p>
-            </Signin>
+            <Link to="/signin">
+              <Signin>
+                <p>Login</p>
+              </Signin>
+            </Link>
           )}
+
           <Link to="/wishlist">
             <Wishlist>
               <Heart width="16" height="16" color="#000" stroke="1" />
@@ -77,7 +92,7 @@ const Navbar = () => {
           <Link to="/cart">
             <CartWrapper>
               <Cart width="16" height="16" color="#000" stroke="1" />
-              <span>{qty}</span>
+              <span>{totalQty}</span>
             </CartWrapper>
           </Link>
         </Right>
@@ -85,15 +100,11 @@ const Navbar = () => {
           <Link to="/cart">
             <CartWrapper>
               <Cart width="16" height="16" color="#000" stroke="1" />
-              <span>{qty}</span>
+              <span>{totalQty}</span>
             </CartWrapper>
           </Link>
           <Hamburger open={open} handleOpen={() => setOpen(!open)} />
         </MobileMenuWrapper>
-        <ModalAuth
-          loginOpen={loginOpen}
-          setLoginOpen={() => setLoginOpen(false)}
-        />
       </Wrapper>
     </Container>
   );
@@ -151,7 +162,7 @@ const Center = styled.div`
     background-color: #fff;
     font-size: ${typeScale.sbody};
     padding: 2rem 0;
-    z-index: 1;
+    z-index: 10;
     transform: ${({ open }) => (open ? "scale(1)" : "scale(0)")};
 
     a {
@@ -195,21 +206,26 @@ const User = styled.div`
   ${Flex}
   position: relative;
   cursor: pointer;
-`;
 
-const Logout = styled.div`
-  display: ${(props) => (props.clickLogout ? "block" : "none")};
-  position: absolute;
-  top: 37px;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  padding: 0.5rem 0.5rem;
-  background-color: #fff;
-  border-color: ${neutral[100]};
-  border-style: solid;
-  border-width: 0 1px 1px 1px;
-  z-index: 10;
+  .dropdown {
+    /* display: ${(props) => (props.clickLogout ? "block" : "none")}; */
+    display: none;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 0.5rem 0.5rem;
+    background-color: #fff;
+    border-color: ${neutral[100]};
+    border-style: solid;
+    border-width: 0 1px 1px 1px;
+    z-index: 10;
+  }
+
+  &:hover .dropdown {
+    display: block;
+  }
 `;
 
 const Wishlist = styled.div`

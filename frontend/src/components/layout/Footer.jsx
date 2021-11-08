@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Instagram, Twitter, Youtube } from "../../assets/Icon";
 
 //token
-import { neutral, primaryColor, typeScale } from "../token";
+import { neutral, breakpoint } from "../token";
 
 const Footer = () => {
   return (
@@ -58,6 +58,10 @@ const Wrapper = styled.div`
   align-items: center;
   max-width: 90rem;
   margin: 0 auto;
+
+  @media ${breakpoint.lg} {
+    flex-direction: column;
+  }
 `;
 
 const Left = styled.div`
@@ -76,20 +80,34 @@ const Center = styled.div`
   flex: 3;
   display: flex;
   justify-content: center;
+
+  @media ${breakpoint.lg} {
+    flex: 1;
+  }
 `;
 
 const List = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
+  column-count: 3;
+
+  @media ${breakpoint.lg} {
+    column-count: 2;
+    column-gap: 20px;
+    column-fill: auto;
+    list-style-position: inside;
+  }
 `;
 
 const ListItem = styled.li`
   font-size: 0.75rem;
   font-weight: 600;
-  width: 33%;
+  width: 100%;
   margin-bottom: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.045rem;
+
+  @media ${breakpoint.lg} {
+    width: 100%;
+  }
 `;
 
 const Right = styled.div`

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { GoogleLogin } from "react-google-login";
@@ -9,19 +8,25 @@ import styled from "styled-components";
 //comp
 import { Input } from "../components/Input";
 import { Button, TextButton } from "../components/Button";
+import Loading from "../components/Loading";
 
 //token
 import { primaryColor, typeScale, neutral } from "../components/token";
 import { Google } from "../assets/Icon";
 
 //redux
-import { signin, signup } from "../reducers/authReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { signin, signup } from "../redux/authRedux";
+import ErrorMessage from "../components/ErrorMessage";
 
 const Auth = (props) => {
   const history = useHistory();
   const location = useLocation();
   const path = location.pathname;
+  const redirect = location.search.split("=")[1];
   const dispatch = useDispatch();
+  // const auth = useSelector((state) => state.auth);
+  // const { userInfo, loading, error } = auth;
   const [isSignup, setIsSignup] = useState(false);
   const [user, setUser] = useState({
     name: "",
@@ -72,14 +77,21 @@ const Auth = (props) => {
 
   const handleSubmit = (values) => {
     if (isSignup) {
-      dispatch(signup(values, history, path));
+      dispatch(signup(values));
+      path === "/cart" ? history.push("/checkout") : history.push("/home");
     } else {
-      dispatch(signin(values, history, path));
+      dispatch(signin(values));
+      // path === "/cart" ? history.push("/checkout") : history.push("/home");
+      redirect === "CHECKOUT"
+        ? history.push("/checkout")
+        : history.push("/home");
     }
   };
   return (
     <Container>
       <h3>{isSignup ? "Create an account" : "Sign In"}</h3>
+      {/* {loading && <Loading />}
+      {error && <ErrorMessage>{error}</ErrorMessage>} */}
       <Formik
         initialValues={user}
         validationSchema={validate}
@@ -143,6 +155,7 @@ const Auth = (props) => {
 const Container = styled.div`
   width: 400px;
   padding: 2rem 1.5rem;
+  margin: 0 auto;
 
   h3 {
     text-transform: uppercase;

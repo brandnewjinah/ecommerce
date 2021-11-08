@@ -4,12 +4,12 @@ import Helmet from "react-helmet";
 import styled from "styled-components";
 
 //import components
-import { Button } from "../../components/Button";
+import { Button } from "../components/Button";
 
 //token
-import { primaryColor, breakpoint } from "../../components/token";
+import { primaryColor, breakpoint } from "../components/token";
 
-const Redirect = (props) => {
+const Root = () => {
   const history = useHistory();
 
   const handleRedirect = (path) => {
@@ -45,6 +45,8 @@ const Redirect = (props) => {
 };
 
 const Container = styled.div`
+  display: flex;
+  align-items: center;
   height: 100vh;
   background-color: ${primaryColor.background};
   padding: 2rem;
@@ -78,4 +80,4 @@ const ButtonContainer = styled.div`
   }
 `;
 
-export default Redirect;
+export default Root;

@@ -14,9 +14,9 @@ export const generateToken = (user) => {
 };
 
 export const checkToken = (req, res, next) => {
-  const authHeader = req.headers.token;
-  if (authHeader) {
-    const token = authHeader.split(" ")[1];
+  const authorization = req.headers.authorization;
+  if (authorization) {
+    const token = authorization.split(" ")[1];
     jwt.verify(token, process.env.JWT_KEY, (error, user) => {
       if (error) res.status(403).json("Invalid token");
       req.user = user;
@@ -29,7 +29,7 @@ export const checkToken = (req, res, next) => {
 
 export const checkAuth = (req, res, next) => {
   checkToken(req, res, () => {
-    if (req.user.id === req.params.id || req.user.isAdmin) {
+    if (req.user._id === req.params.id || req.user.isAdmin) {
       next();
     } else {
       res.status(403).json("You are not authorized");

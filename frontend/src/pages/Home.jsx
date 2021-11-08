@@ -3,12 +3,11 @@ import _ from "lodash";
 import styled from "styled-components";
 
 //import components
-import Hero from "../components/main/components/Hero";
+import Hero from "../components/Hero";
 import ProductSlider from "../components/products/ProductSlider";
 
 //demo data
 import { demoProducts } from "../data/demoProducts";
-import Categories from "../components/main/components/Categories";
 
 const Home = () => {
   const [newProducts, setNewProducts] = useState();
@@ -31,7 +30,6 @@ const Home = () => {
         data={newProducts}
         slidesPerView={{ small: 2, medium: 3, large: 4 }}
       />
-      <Categories />
     </Container>
   );
 };

@@ -6,42 +6,42 @@ import styled from "styled-components";
 //import components
 import CartItem from "../components/cart/CartItem";
 import CartSummary from "../components/cart/CartSummary";
-import ModalAuth from "../components/ModalAuth";
 
 const Cart = () => {
   const history = useHistory();
   const products = useSelector((state) => state.cart.products);
   const dispatch = useDispatch();
 
+  console.log(products);
+
   const [loggedIn, setLoggedIn] = useState(
-    JSON.parse(localStorage.getItem("profile")) &&
-      JSON.parse(localStorage.getItem("profile")).token
+    JSON.parse(localStorage.getItem("currentUser")) &&
+      JSON.parse(localStorage.getItem("currentUser")).token
   );
-  const [loginOpen, setLoginOpen] = useState(false);
 
   const handleShop = () => {
     history.push("/products/all");
   };
 
   const handleClick = () => {
-    loggedIn ? history.push("/checkout") : setLoginOpen(true);
+    loggedIn
+      ? history.push("/checkout")
+      : history.push("/signin?redirectTo=CHECKOUT");
   };
 
   return (
     <Container>
       <Main>
         <Items>
-          {products &&
-            products.length > 0 &&
-            products.map((item, idx) => <CartItem key={idx} data={item} />)}
+          {products && products.length > 0 ? (
+            products.map((item, idx) => <CartItem key={idx} data={item} />)
+          ) : (
+            <p>cart empty. shop items here and maybe show recommended items</p>
+          )}
         </Items>
         <Summary>
           <CartSummary handleClick={handleClick} />
         </Summary>
-        <ModalAuth
-          loginOpen={loginOpen}
-          setLoginOpen={() => setLoginOpen(false)}
-        />
       </Main>
     </Container>
   );

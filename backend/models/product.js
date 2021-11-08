@@ -31,9 +31,6 @@ const productSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  currency: {
-    type: selectSchema,
-  },
   price: {
     type: String,
     required: true,

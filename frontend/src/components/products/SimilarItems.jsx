@@ -9,15 +9,15 @@ const SimilarItems = ({ data, title, slidesPerView }) => {
     <Container>
       <h3>{title}</h3>
       <ProductsWrapper>
-        {data.map((p, idx) => (
+        {data.map((product) => (
           <Card
-            key={p.sku}
-            id={p.sku}
-            brand={p.brand}
-            name={p.name}
-            currency={p.currency && p.currency.label}
-            price={p.price}
-            imageUrl={p.imgs[0].src}
+            key={product.sku}
+            sku={product.sku}
+            brand={product.brand}
+            name={product.name}
+            price={product.price}
+            imageUrl={product.imgs[0].src}
+            _id={product._id}
           />
         ))}
       </ProductsWrapper>

@@ -9,21 +9,27 @@ import Counter from "../Counter";
 import { Close } from "../../assets/Icons";
 
 //import redux
-import { increase, decrease, deleteCartItem } from "../../reducers/cartReducer";
+
 import { neutral, typeScale } from "../token";
+import {
+  decreaseQty,
+  increaseQty,
+  removeFromCart,
+} from "../../redux/cartRedux";
 
 const CartItem = ({ data }) => {
+  // console.log(data);
   const dispatch = useDispatch();
   const handleIncrease = () => {
-    dispatch(increase(data));
+    dispatch(increaseQty(data));
   };
 
   const handleDecrease = () => {
-    dispatch(decrease(data));
+    dispatch(decreaseQty(data));
   };
 
   const handleDelete = () => {
-    dispatch(deleteCartItem(data));
+    dispatch(removeFromCart(data));
   };
 
   return (
@@ -34,7 +40,7 @@ const CartItem = ({ data }) => {
         </div>
         <div className="detail">
           <p className="main">{data.name}</p>
-          <p className="price">{`${data.currency.label}${data.price}`}</p>
+          <p className="price">{`$${data.price}`}</p>
         </div>
       </Left>
       <Right>
@@ -43,10 +49,10 @@ const CartItem = ({ data }) => {
           handleIncrease={() => handleIncrease()}
           handleDecrease={() => handleDecrease()}
         />
-        <div>{`${data.currency.label}${data.price * data.qty}`}</div>
-        <div onClick={handleDelete}>
+        <div>{`$${data.price * data.qty}`}</div>
+        <Delete onClick={handleDelete}>
           <Close width="18" height="18" color="#000" stroke="1" />
-        </div>
+        </Delete>
       </Right>
     </Container>
   );
@@ -100,6 +106,10 @@ const Right = styled.div`
   align-items: center;
   flex: 2;
   margin-right: 2em;
+`;
+
+const Delete = styled.div`
+  cursor: pointer;
 `;
 
 export default CartItem;

@@ -12,3 +12,11 @@ export const getProducts = (category) =>
 export const getProductDetail = (id) => axios.get(`${url}/products/${id}`);
 export const getSimilarProducts = (id, category2) =>
   axios.get(`${url}/products/similar/${id}?similar=${category2}`);
+
+export const placeOrder = (order) => {
+  axios.post(`${url}/orders`, order);
+};
+
+// export const placeOrder = (order, token) => {
+//   console.log(order, token);
+// };

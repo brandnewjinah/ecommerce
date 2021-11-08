@@ -2,13 +2,37 @@ import Order from "../models/order.js";
 
 //create
 export const createOrder = async (req, res) => {
-  const newOrder = new Order(req.body);
+  const newOrder = new Order({
+    orderItems: req.body.orderItems,
+    shipping: req.body.shipping,
+    billing: req.body.billing,
+    total: req.body.total,
+    user: req.user._id,
+  });
 
   try {
     const savedOrder = await newOrder.save();
-    res.status(200).json(savedOrder);
+    res.status(200).json({ message: "Order placed", order: savedOrder });
   } catch (error) {
     res.status(500).json(error);
+  }
+};
+
+export const getOneOrder = async (req, res) => {
+  const order = await Order.findById(req.params.id);
+  if (order) {
+    res.send(order);
+  } else {
+    res.status(404).send({ message: "Order Not Found" });
+  }
+};
+
+export const getUserOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({ user: req.params.id });
+    res.status(200).json(orders);
+  } catch (err) {
+    res.status(500).json(err);
   }
 };
 
@@ -22,7 +46,7 @@ export const updateOrder = async (req, res) => {
       },
       { new: true }
     );
-    res.status(200).json(updateOrder);
+    res.status(200).json(updatedOrder);
   } catch (error) {
     res.status(500).json(error);
   }

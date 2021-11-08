@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form } from "formik";
@@ -11,13 +11,14 @@ import { Input } from "../components/Input";
 import Selector from "../components/Selector";
 
 //import redux
-import { placeOrder } from "../reducers/orderReducer";
-import { clearCart } from "../reducers/cartReducer";
+import { placeOrder, resetOrder } from "../redux/orderRedux";
+import { clearCart } from "../redux/cartRedux";
 
 const Checkout = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const order = useSelector((state) => state.order);
+  const { success, orderDetail } = order;
   const cart = useSelector((state) => state.cart);
 
   const [data, setData] = useState({
@@ -50,15 +51,10 @@ const Checkout = () => {
   });
 
   const handleSubmit = (values) => {
-    let id =
-      order.orders.length === 0
-        ? 1
-        : order.orders[order.orders.length - 1].id + 1;
     const total = cart.products.reduce((total, item) => {
       return item.price * item.qty + total;
     }, 0);
     const thisOrder = {
-      id: id,
       shipping: {
         firstName: values.firstName,
         lastName: values.lastName,
@@ -75,15 +71,20 @@ const Checkout = () => {
         lastName: values.billingLastName,
         cardNumber: values.cardNumber.slice(-4),
       },
-      items: cart,
+      orderItems: cart.products,
       total: total,
     };
-    console.log(thisOrder);
 
-    // dispatch(placeOrder(thisOrder));
-    // dispatch(clearCart());
-    // history.push(`/confirmation/${id}`);
+    dispatch(placeOrder(thisOrder));
   };
+
+  useEffect(() => {
+    if (success) {
+      dispatch(clearCart());
+      history.push(`/confirmation/${orderDetail._id}`);
+      dispatch(resetOrder());
+    }
+  }, [dispatch, order, success]);
 
   return (
     <Container>

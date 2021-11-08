@@ -10,6 +10,9 @@ import "swiper/components/navigation/navigation.scss";
 //import components
 import Card from "./ProductCard";
 
+//token
+import { breakpoint } from "../token";
+
 SwiperCore.use([Navigation]);
 
 const ProductSlider = ({ data, title, slidesPerView }) => {
@@ -113,6 +116,17 @@ const Slider = styled.div`
 
   .swiper-button-prev {
     left: 0;
+  }
+
+  @media ${breakpoint.lg} {
+    .swiper-button-prev,
+    .swiper-button-next {
+      top: 30%;
+    }
+
+    .swiper-button-prev {
+      top: 30%;
+    }
   }
 `;
 

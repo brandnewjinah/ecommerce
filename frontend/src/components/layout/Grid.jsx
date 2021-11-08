@@ -19,6 +19,7 @@ const GridContainer = styled.div`
 
   @media ${breakpoint.m} {
     grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
   }
 `;
 

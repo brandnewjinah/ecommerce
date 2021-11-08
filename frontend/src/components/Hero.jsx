@@ -7,6 +7,9 @@ import SwiperCore, { Navigation } from "swiper";
 import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
 
+//token
+import { breakpoint } from "./token";
+
 SwiperCore.use([Navigation]);
 
 const Hero = () => {
@@ -49,6 +52,17 @@ const Container = styled.div`
 
   .swiper-button-prev {
     left: 2.5rem;
+  }
+
+  @media ${breakpoint.lg} {
+    .swiper-button-prev,
+    .swiper-button-next {
+      right: 0;
+    }
+
+    .swiper-button-prev {
+      left: 0;
+    }
   }
 `;
 

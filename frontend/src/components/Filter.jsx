@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { categoryList } from "../data/category";
 
 //token
-import { neutral, typeScale } from "./token";
+import { neutral, typeScale, breakpoint } from "./token";
 
 const Filter = ({ category, handleFilter }) => {
   const [subCategories, setSubCategories] = useState([]);
@@ -30,7 +30,6 @@ const Filter = ({ category, handleFilter }) => {
     setActive(id);
   };
 
-  console.log(subCategories);
   return (
     <Container>
       {category === "bakery" ||
@@ -72,6 +71,10 @@ const Container = styled.ul`
       bottom: 0;
       border-bottom: 1px solid ${neutral[400]};
     }
+  }
+
+  @media ${breakpoint.m} {
+    padding: 0.5rem 0 1rem;
   }
 `;
 
