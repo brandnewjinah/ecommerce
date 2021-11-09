@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductDetail } from "../redux/productDetailRedux";
 import { addToCart } from "../redux/cartRedux";
 import * as api from "../api";
+import { saveProduct } from "../redux/wishlistRedux";
 
 const Detail = () => {
   const location = useLocation();
@@ -58,7 +59,9 @@ const Detail = () => {
     setQty(qty + 1);
   };
 
-  const handleWishlist = () => {};
+  const handleWishlist = () => {
+    dispatch(saveProduct({ productId: product._id }));
+  };
 
   const handleAddToCart = () => {
     dispatch(addToCart({ _id: product._id, qty }));

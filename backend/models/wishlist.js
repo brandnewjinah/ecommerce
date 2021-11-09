@@ -2,24 +2,20 @@ import mongoose from "mongoose";
 
 const wishlistSchema = mongoose.Schema(
   {
-    name: {
-      type: String,
-      require: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    password: {
-      type: String,
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
-    isAdmin: {
-      type: Boolean,
-      default: false,
-      required: true,
-    },
+    products: [
+      {
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+          required: true,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
