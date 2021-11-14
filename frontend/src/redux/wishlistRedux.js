@@ -1,50 +1,117 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import * as api from "../api";
 import axios from "axios";
 
-export const saveProduct = createAsyncThunk(
-  "wishlist/saveProduct",
+export const addToWishlist = createAsyncThunk(
+  "wishlist/addToWishlist",
   async (productId, { getState }) => {
+    const {
+      auth: { currentUser },
+    } = getState();
     try {
-      console.log(productId);
-      //   const {
-      //     auth: { currentUser },
-      //   } = getState();
-      //   const { data } = await axios.post(
-      //     `http://localhost:5000/wishlist/${currentUser._id}`,
-      //     productId,
-      //     {
-      //       headers: {
-      //         authorization: `Bearer ${currentUser.token}`,
-      //       },
-      //     }
-      //   );
-      //   console.log(data);
+      const { data } = await axios.get(
+        `http://localhost:5000/wishlist/addToWishlist?productId=${productId}`,
+        {
+          headers: {
+            authorization: `Bearer ${currentUser.token}`,
+          },
+        }
+      );
+      return data;
     } catch (error) {
       return error;
     }
   }
 );
 
-const initialState = {};
+export const getWishlist = createAsyncThunk(
+  "wishlist/getWishlist",
+  async (arg, { getState }) => {
+    const {
+      auth: { currentUser },
+    } = getState();
+    try {
+      const { data } = await axios.get(`http://localhost:5000/wishlist`, {
+        headers: {
+          authorization: `Bearer ${currentUser.token}`,
+        },
+      });
+      console.log(data);
+      return data;
+    } catch (error) {
+      return error;
+    }
+  }
+);
+
+export const removeFromWishlist = createAsyncThunk(
+  "wishlist/removeFromWishlist",
+  async (productId, { getState }) => {
+    const {
+      auth: { currentUser },
+    } = getState();
+    try {
+      const { data } = await axios.get(
+        `http://localhost:5000/wishlist/removeFromWishlist?productId=${productId}`,
+        {
+          headers: {
+            authorization: `Bearer ${currentUser.token}`,
+          },
+        }
+      );
+
+      return data;
+    } catch (error) {}
+  }
+);
 
 const wishlistSlice = createSlice({
   name: "wishlist",
-  initialState,
+  initialState: {
+    products: [],
+    loading: true,
+  },
+  reducers: {
+    clearWishlist: (state) => {
+      state.products = [];
+      state.loading = false;
+    },
+  },
   extraReducers: {
-    [saveProduct.pending]: (state) => {
+    [addToWishlist.pending]: (state) => {
       state.loading = true;
     },
-    [saveProduct.fulfilled]: (state, action) => {
+    [addToWishlist.fulfilled]: (state, action) => {
       state.loading = false;
-      state.success = true;
-      state.orderDetail = action.payload.order;
+      state.products = action.payload;
     },
-    [saveProduct.rejected]: (state, action) => {
+    [addToWishlist.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    [getWishlist.pending]: (state) => {
+      state.loading = true;
+    },
+    [getWishlist.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.products = action.payload.products;
+    },
+    [getWishlist.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    [removeFromWishlist.pending]: (state) => {
+      state.loading = true;
+    },
+    [removeFromWishlist.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.products = action.payload;
+    },
+    [removeFromWishlist.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
   },
 });
+export const { clearWishlist } = wishlistSlice.actions;
 
 export default wishlistSlice.reducer;

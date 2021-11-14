@@ -17,6 +17,7 @@ import orderReducer from "./orderRedux";
 import orderDetailReducer from "./orderDetailRedux";
 import productReducer from "./productRedux";
 import productDetailReducer from "./productDetailRedux";
+import wishlistReducer from "./wishlistRedux";
 
 const persistConfig = {
   key: "root",
@@ -27,10 +28,11 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authReducer,
   cart: cartReducer,
-  productLists: productReducer,
-  productDetails: productDetailReducer,
+  productList: productReducer,
+  productDetail: productDetailReducer,
   order: orderReducer,
   orderDetail: orderDetailReducer,
+  wishlist: wishlistReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

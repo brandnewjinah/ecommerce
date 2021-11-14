@@ -8,6 +8,8 @@ import ProductSlider from "../components/products/ProductSlider";
 
 //demo data
 import { demoProducts } from "../data/demoProducts";
+import Newsletter from "../components/Newsletter";
+import Test from "../components/Test";
 
 const Home = () => {
   const [newProducts, setNewProducts] = useState();
@@ -30,6 +32,8 @@ const Home = () => {
         data={newProducts}
         slidesPerView={{ small: 2, medium: 3, large: 4 }}
       />
+      <Test />
+      <Newsletter />
     </Container>
   );
 };

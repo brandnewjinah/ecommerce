@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation, useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 //components
@@ -12,9 +12,10 @@ import { Cart, Heart, ChevronDown } from "../../assets/Icon";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { signout } from "../../redux/authRedux";
+import { clearCart } from "../../redux/cartRedux";
+import { clearWishlist } from "../../redux/wishlistRedux";
 
 const Navbar = () => {
-  const location = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();
   // const qty = useSelector((state) => state.cart.qty);
@@ -32,6 +33,8 @@ const Navbar = () => {
 
   const handleSignOut = () => {
     dispatch(signout());
+    dispatch(clearCart());
+    dispatch(clearWishlist());
     setClickLogout(!clickLogout);
     history.push("/home");
     setUser(null);
@@ -67,9 +70,12 @@ const Navbar = () => {
                 <Link to="/profile">
                   <div>User Profile</div>
                 </Link>
+                <Link to="/history">
+                  <div>Order History</div>
+                </Link>
                 <div
                   className="logout"
-                  clickLogout={clickLogout}
+                  // clickLogout={clickLogout}
                   onClick={handleSignOut}
                 >
                   Logout
@@ -86,7 +92,13 @@ const Navbar = () => {
 
           <Link to="/wishlist">
             <Wishlist>
-              <Heart width="16" height="16" color="#000" stroke="1" />
+              <Heart
+                width="16"
+                height="16"
+                color="#000"
+                stroke="1"
+                fill="none"
+              />
             </Wishlist>
           </Link>
           <Link to="/cart">
@@ -208,12 +220,13 @@ const User = styled.div`
   cursor: pointer;
 
   .dropdown {
-    /* display: ${(props) => (props.clickLogout ? "block" : "none")}; */
     display: none;
     position: absolute;
+    width: 200px;
     top: 20px;
-    left: 0;
-    width: 100%;
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, 0);
     text-align: center;
     padding: 0.5rem 0.5rem;
     background-color: #fff;
@@ -221,6 +234,14 @@ const User = styled.div`
     border-style: solid;
     border-width: 0 1px 1px 1px;
     z-index: 10;
+
+    div {
+      padding: 0.5rem 0;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   &:hover .dropdown {

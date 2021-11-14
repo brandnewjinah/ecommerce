@@ -6,7 +6,22 @@ import styled, { css } from "styled-components";
 import { typeScale, neutral, breakpoint } from "../token";
 import { ImageIcon } from "../../assets/Icons";
 
-const ProductCard = ({ imageUrl, brand, name, price, sku, currency, _id }) => {
+//redux
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/cartRedux";
+
+const ProductCard = ({
+  imageUrl,
+  brand,
+  name,
+  price,
+  sku,
+  currency,
+  _id,
+  wishlist,
+  handleDelete,
+}) => {
+  const dispatch = useDispatch();
   const [imgErr, setImgErr] = useState(false);
 
   const handleDefaultImg = (e) => {
@@ -15,9 +30,13 @@ const ProductCard = ({ imageUrl, brand, name, price, sku, currency, _id }) => {
     }
   };
 
+  const handleAddToCart = () => {
+    dispatch(addToCart({ _id, qty: 1 }));
+  };
+
   return (
-    <Link to={{ pathname: `/product/${sku}`, state: { _id } }}>
-      <Wrapper>
+    <Wrapper>
+      <Link to={{ pathname: `/product/${sku}`, state: { _id } }}>
         <ImageContainer>
           {imgErr ? (
             <ErrImg>
@@ -40,8 +59,14 @@ const ProductCard = ({ imageUrl, brand, name, price, sku, currency, _id }) => {
             <span>{price}</span>
           </p>
         </Details>
-      </Wrapper>
-    </Link>
+      </Link>
+      {wishlist && (
+        <WishlistContainer>
+          <div onClick={handleAddToCart}>add to cart</div>
+          <div onClick={handleDelete}>remove</div>
+        </WishlistContainer>
+      )}
+    </Wrapper>
   );
 };
 
@@ -106,6 +131,13 @@ const Details = styled.div`
   @media ${breakpoint.m} {
     padding-top: 0;
   }
+`;
+
+const WishlistContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
 `;
 
 export default ProductCard;

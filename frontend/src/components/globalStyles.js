@@ -49,7 +49,7 @@ const GlobalStyle = createGlobalStyle`
         line-height: ${typeScale.header6};
     }
     ul {
-        list-style-type: none;
+        list-style: none;
     }
     li {
         list-style-type: none;

@@ -3,9 +3,9 @@ import * as api from "../api";
 
 export const getProductDetail = createAsyncThunk(
   "productDetails/getProductDetail",
-  async (id) => {
+  async (_id) => {
     try {
-      const { data } = await api.getProductDetail(id);
+      const { data } = await api.getProductDetail(_id);
       return data;
     } catch (error) {
       return error;

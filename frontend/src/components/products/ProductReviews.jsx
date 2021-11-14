@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 //import components
@@ -6,12 +6,9 @@ import { Button } from "../Button";
 import { primaryColor } from "../token";
 
 const ProductSlider = ({ title }) => {
-  const [reviews, setReviews] = useState([1, 2, 3, 4, 5]);
-  const [review, setReview] = useState("");
-  const user = JSON.parse(localStorage.getItem("profile"));
+  const reviews = [(1, 2, 3, 4, 5)];
 
   const handleSubmit = () => {
-    const thisReview = `${user.result.name}: ${review}`;
     // dispatchEvent(reviewProduct(thisReview, product.sku));
   };
 

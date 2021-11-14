@@ -1,71 +1,91 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import _ from "lodash";
 import styled from "styled-components";
 
 //import components
+import {
+  ContainerSmall,
+  HeaderContainer,
+} from "../components/layout/Containers";
 import CartItem from "../components/cart/CartItem";
 import CartSummary from "../components/cart/CartSummary";
+import { Button } from "../components/Button";
+import ProductSlider from "../components/products/ProductSlider";
+import { primaryColor } from "../components/token";
+
+//demo data
+import { demoProducts } from "../data/demoProducts";
 
 const Cart = () => {
   const history = useHistory();
-  const products = useSelector((state) => state.cart.products);
-  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+  const auth = useSelector((state) => state.auth);
 
-  console.log(products);
+  const loggedIn = auth.currentUser && auth.currentUser.token;
 
-  const [loggedIn, setLoggedIn] = useState(
-    JSON.parse(localStorage.getItem("currentUser")) &&
-      JSON.parse(localStorage.getItem("currentUser")).token
-  );
+  const [newProducts, setNewProducts] = useState();
 
-  const handleShop = () => {
-    history.push("/products/all");
-  };
+  useEffect(() => {
+    const getData = () => {
+      let newest = _.orderBy(demoProducts, ["uploaded"], ["desc"]);
+      newest = newest.slice(0, 10);
+      setNewProducts(newest);
+    };
 
-  const handleClick = () => {
-    loggedIn
+    getData();
+  }, []);
+
+  const handleClick = (path) => {
+    path === "checkout" && loggedIn
       ? history.push("/checkout")
-      : history.push("/signin?redirectTo=CHECKOUT");
+      : path === "checkout"
+      ? history.push("/signin?redirectTo=checkout")
+      : history.push("/products/all");
   };
 
   return (
-    <Container>
-      <Main>
-        <Items>
-          {products && products.length > 0 ? (
-            products.map((item, idx) => <CartItem key={idx} data={item} />)
-          ) : (
-            <p>cart empty. shop items here and maybe show recommended items</p>
-          )}
-        </Items>
-        <Summary>
-          <CartSummary handleClick={handleClick} />
-        </Summary>
-      </Main>
-    </Container>
+    <ContainerSmall>
+      {cart.products && cart.products.length > 0 ? (
+        <Main>
+          <Items>
+            {cart.products.map((item, idx) => (
+              <CartItem key={idx} data={item} />
+            ))}
+          </Items>
+          <Summary>
+            <CartSummary handleClick={() => handleClick("checkout")} />
+          </Summary>
+        </Main>
+      ) : (
+        <Empty>
+          <Top>
+            <HeaderContainer title="Your cart is empty" />
+            <Button
+              label="Let's go shopping"
+              color={primaryColor.button}
+              handleClick={() => handleClick("shop")}
+            />
+          </Top>
+          <Bottom>
+            <ProductSlider
+              title="Recommended Products"
+              data={newProducts}
+              slidesPerView={{ small: 2, medium: 3, large: 4 }}
+            />
+          </Bottom>
+        </Empty>
+      )}
+    </ContainerSmall>
   );
 };
-
-const Container = styled.div`
-  max-width: 80rem;
-  padding: 0 1.5rem;
-  margin: 4rem auto;
-
-  .flex {
-    display: flex;
-  }
-
-  .link a {
-    color: #6b6b6b;
-    text-decoration: underline;
-  }
-`;
 
 const Main = styled.main`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  gap: 1.5rem;
 
   @media (max-width: 840px) {
     flex-direction: column;
@@ -73,7 +93,7 @@ const Main = styled.main`
 `;
 
 const Items = styled.div`
-  flex: 0 1 69%;
+  flex: 2;
   justify-content: center;
   align-items: center;
 
@@ -83,22 +103,22 @@ const Items = styled.div`
 `;
 
 const Summary = styled.div`
-  flex: 0 1 29%;
+  flex: 1;
+`;
 
-  .btn {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 2em 0;
-  }
-  .four {
-    flex: 0 1 40%;
-  }
+const Empty = styled.div``;
 
-  .six {
-    flex: 0 1 59%;
+const Top = styled.section`
+  max-width: 400px;
+  margin: 0 auto;
+
+  button {
+    margin: 2rem 0;
   }
+`;
+
+const Bottom = styled.section`
+  margin-top: 4rem;
 `;
 
 export default Cart;

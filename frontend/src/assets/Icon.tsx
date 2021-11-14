@@ -190,7 +190,7 @@ export const Heart: FC<Props> = ({ width, height, stroke, color, fill }) => {
       width={width}
       height={height}
       viewBox="0 0 24 24"
-      fill="none"
+      fill={fill}
       stroke={color}
       strokeWidth={stroke}
       strokeLinecap="round"

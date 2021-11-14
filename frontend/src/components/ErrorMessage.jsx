@@ -1,7 +1,7 @@
 import React from "react";
 
-const ErrorMessage = (props) => {
-  return <div>{props.children}</div>;
+const ErrorMessage = ({ children }) => {
+  return <div>{children}</div>;
 };
 
 export default ErrorMessage;

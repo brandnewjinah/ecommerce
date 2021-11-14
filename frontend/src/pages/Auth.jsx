@@ -8,32 +8,30 @@ import styled from "styled-components";
 //comp
 import { Input } from "../components/Input";
 import { Button, TextButton } from "../components/Button";
-import Loading from "../components/Loading";
 
 //token
-import { primaryColor, typeScale, neutral } from "../components/token";
+import { primaryColor, neutral } from "../components/token";
 import { Google } from "../assets/Icon";
 
 //redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { signin, signup } from "../redux/authRedux";
-import ErrorMessage from "../components/ErrorMessage";
 
-const Auth = (props) => {
+const Auth = () => {
   const history = useHistory();
   const location = useLocation();
+  const _id = history.location.state && history.location.state._id;
+
   const path = location.pathname;
-  const redirect = location.search.split("=")[1];
+  const redirect = location.search.split("redirectTo=")[1];
   const dispatch = useDispatch();
-  // const auth = useSelector((state) => state.auth);
-  // const { userInfo, loading, error } = auth;
   const [isSignup, setIsSignup] = useState(false);
-  const [user, setUser] = useState({
+  const user = {
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
-  });
+  };
 
   const handleSwitch = () => {
     setIsSignup((prev) => !prev);
@@ -81,10 +79,7 @@ const Auth = (props) => {
       path === "/cart" ? history.push("/checkout") : history.push("/home");
     } else {
       dispatch(signin(values));
-      // path === "/cart" ? history.push("/checkout") : history.push("/home");
-      redirect === "CHECKOUT"
-        ? history.push("/checkout")
-        : history.push("/home");
+      redirect ? history.push(`/${redirect}`, { _id }) : history.push("/home");
     }
   };
   return (
@@ -162,19 +157,6 @@ const Container = styled.div`
     text-align: center;
     letter-spacing: 0.05rem;
     padding: 1rem 0;
-  }
-`;
-
-const Redirect = styled.div`
-  display: flex;
-  font-size: ${typeScale.sbody};
-  color: ${neutral[400]};
-  margin-top: 1rem;
-
-  .link {
-    margin-left: 0.25rem;
-    text-decoration: underline;
-    cursor: pointer;
   }
 `;
 

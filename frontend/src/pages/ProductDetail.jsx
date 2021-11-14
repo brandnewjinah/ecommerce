@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 //components
@@ -21,23 +21,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductDetail } from "../redux/productDetailRedux";
 import { addToCart } from "../redux/cartRedux";
 import * as api from "../api";
-import { saveProduct } from "../redux/wishlistRedux";
+import { addToWishlist } from "../redux/wishlistRedux";
 
 const Detail = () => {
-  const location = useLocation();
-  const _id = location.state && location.state._id;
-
+  const history = useHistory();
   const dispatch = useDispatch();
-
-  const productDetails = useSelector((state) => state.productDetails);
-  const { loading, error, product } = productDetails;
-  const [qty, setQty] = useState(1);
-
-  const [similar, setSimilar] = useState([]);
+  const location = useLocation();
+  const currentUser = useSelector((state) => state.auth.currentUser);
+  const _id = location.state && location.state._id;
 
   useEffect(() => {
     dispatch(getProductDetail(_id));
   }, [dispatch, _id]);
+
+  const productDetail = useSelector((state) => state.productDetail);
+  const { loading, error, product } = productDetail;
+  const [qty, setQty] = useState(1);
+
+  const wishlist = useSelector((state) => state.wishlist);
+  const { products } = wishlist;
+  const isWishlist =
+    products && products.find((item) => item.product === product._id);
+
+  const [similar, setSimilar] = useState([]);
 
   useEffect(() => {
     const getSimilarProducts = async () => {
@@ -47,7 +53,7 @@ const Detail = () => {
       } catch {}
     };
     getSimilarProducts();
-  }, [product]);
+  }, [product, _id]);
 
   const handleDecrease = () => {
     if (qty > 1) {
@@ -59,12 +65,26 @@ const Detail = () => {
     setQty(qty + 1);
   };
 
-  const handleWishlist = () => {
-    dispatch(saveProduct({ productId: product._id }));
+  const handleAddToCart = () => {
+    dispatch(addToCart({ _id, qty }));
   };
 
-  const handleAddToCart = () => {
-    dispatch(addToCart({ _id: product._id, qty }));
+  const handleWishlist = () => {
+    //if isWishlist remove, else add
+
+    // currentUser && currentUser.token
+    //   ? dispatch(addToWishlist(product._id))
+    //   : history.push(
+    //       `/signin?redirectTo=product/${product.sku}&id=${product._id}`
+    //     );
+
+    currentUser && currentUser.token
+      ? dispatch(addToWishlist(product._id))
+      : history.push(`/signin?redirectTo=product/${product.sku}`, {
+          _id: product._id,
+        });
+
+    //then move back to wishlist and heart filled
   };
 
   return (
@@ -119,6 +139,7 @@ const Detail = () => {
                         width={20}
                         height={20}
                         color="#002C66"
+                        fill={isWishlist ? "#002C66" : "none"}
                         stroke={2}
                       />
                     }

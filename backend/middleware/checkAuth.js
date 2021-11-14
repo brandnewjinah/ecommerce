@@ -15,8 +15,10 @@ export const generateToken = (user) => {
 
 export const checkToken = (req, res, next) => {
   const authorization = req.headers.authorization;
+
   if (authorization) {
     const token = authorization.split(" ")[1];
+
     jwt.verify(token, process.env.JWT_KEY, (error, user) => {
       if (error) res.status(403).json("Invalid token");
       req.user = user;

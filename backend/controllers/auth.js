@@ -32,7 +32,7 @@ export const signup = async (req, res) => {
   }
 };
 
-//login
+//signin
 export const signin = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });

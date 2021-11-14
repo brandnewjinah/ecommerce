@@ -1,7 +1,7 @@
 export const categories = [
   {
     id: 1,
-    img: "https://images.unsplash.com/photo-1562440499-64c9a111f713?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3387&q=80",
+    img: "https://images.pexels.com/photos/7296683/pexels-photo-7296683.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
     title: "Bakery",
   },
   {

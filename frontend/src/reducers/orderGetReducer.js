@@ -1,4 +1,3 @@
-import * as api from "../api";
 import axios from "axios";
 
 // Action types

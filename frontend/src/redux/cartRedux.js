@@ -5,8 +5,7 @@ export const addToCart = createAsyncThunk(
   "cart/getProductDetail",
   async (product) => {
     try {
-      const id = product._id;
-      const { data } = await api.getProductDetail(id);
+      const { data } = await api.getProductDetail(product._id);
       return {
         name: data.name,
         brand: data.brand,

@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import styled from "styled-components";
 
 //components
+import { Container, HeaderContainer } from "../components/layout/Containers";
 import CartSummary from "../components/cart/CartSummary";
 import { Input } from "../components/Input";
 import Selector from "../components/Selector";
@@ -17,9 +18,9 @@ import { clearCart } from "../redux/cartRedux";
 const Checkout = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
   const order = useSelector((state) => state.order);
   const { success, orderDetail } = order;
-  const cart = useSelector((state) => state.cart);
 
   const [data, setData] = useState({
     firstName: "",
@@ -84,11 +85,11 @@ const Checkout = () => {
       history.push(`/confirmation/${orderDetail._id}`);
       dispatch(resetOrder());
     }
-  }, [dispatch, order, success]);
+  }, [dispatch, order, success, history]);
 
   return (
     <Container>
-      <h2>Checkout</h2>
+      <HeaderContainer title="Checkout" />
       <Formik
         initialValues={data}
         validationSchema={validate}
@@ -174,16 +175,6 @@ const Checkout = () => {
     </Container>
   );
 };
-
-const Container = styled.div`
-  max-width: 80rem;
-  padding: 0 1.5rem;
-  margin: 4rem auto;
-
-  h2 {
-    text-transform: uppercase;
-  }
-`;
 
 const MainWrapper = styled.div`
   display: flex;

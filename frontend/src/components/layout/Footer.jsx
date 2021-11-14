@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Instagram, Twitter, Youtube } from "../../assets/Icon";
-
 //token
 import { neutral, breakpoint } from "../token";
 
@@ -10,35 +8,43 @@ const Footer = () => {
   return (
     <Container>
       <Wrapper>
-        <Left>
+        <Section>
           <Logo>sweet</Logo>
-        </Left>
-        <Center>
-          <List>
-            <ListItem>All</ListItem>
-            <ListItem>Bakery</ListItem>
-            <ListItem>Beverage</ListItem>
-            <ListItem>Snacks</ListItem>
-            <ListItem>My Account</ListItem>
-            <ListItem>Wishlist</ListItem>
-            <ListItem>Terms</ListItem>
-            <ListItem>Contact</ListItem>
-            <ListItem>FAQ</ListItem>
-          </List>
-        </Center>
-        <Right>
-          <SocialContainer>
-            <SocialIcon>
-              <Instagram width={14} height={14} color="#fff" stroke={2} />
-            </SocialIcon>
-            <SocialIcon>
-              <Twitter width={14} height={14} color="#fff" stroke={2} />
-            </SocialIcon>
-            <SocialIcon>
-              <Youtube width={14} height={14} color="#fff" stroke={2} />
-            </SocialIcon>
-          </SocialContainer>
-        </Right>
+        </Section>
+        <Section>
+          <h6>About Us</h6>
+          <div>
+            <Column>
+              <li>Our Story</li>
+              <li>Media</li>
+              <li>Careers</li>
+              <li>Contact Us</li>
+            </Column>
+          </div>
+        </Section>
+        <Section>
+          <h6>Help</h6>
+          <div>
+            <Column>
+              <li>Ordering</li>
+              <li>Shipping</li>
+              <li>Return Policy</li>
+              <li>FAQ</li>
+            </Column>
+          </div>
+        </Section>
+
+        <Section>
+          <h6>My Account</h6>
+          <div>
+            <Column>
+              <li>Sign In</li>
+              <li>Register</li>
+              <li>Order Status</li>
+              <li>Returns</li>
+            </Column>
+          </div>
+        </Section>
       </Wrapper>
     </Container>
   );
@@ -51,21 +57,19 @@ const Container = styled.div`
   background-color: #e8dbcf;
   color: ${neutral[500]};
   padding: 4rem 2.5rem;
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  max-width: 90rem;
-  margin: 0 auto;
 
   @media ${breakpoint.lg} {
-    flex-direction: column;
+    padding: 2.5rem;
   }
 `;
 
-const Left = styled.div`
-  flex: 1;
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  @media ${breakpoint.lg} {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const Logo = styled.div`
@@ -74,61 +78,24 @@ const Logo = styled.div`
   font-size: 1.5rem;
   letter-spacing: 0.25rem;
   text-transform: lowercase;
-`;
-
-const Center = styled.div`
-  flex: 3;
-  display: flex;
-  justify-content: center;
 
   @media ${breakpoint.lg} {
-    flex: 1;
+    margin-bottom: 2rem;
   }
 `;
 
-const List = styled.ul`
-  column-count: 3;
-
-  @media ${breakpoint.lg} {
-    column-count: 2;
-    column-gap: 20px;
-    column-fill: auto;
-    list-style-position: inside;
+const Section = styled.section`
+  h6 {
+    text-transform: uppercase;
+    letter-spacing: 0.025rem;
   }
 `;
 
-const ListItem = styled.li`
-  font-size: 0.75rem;
-  font-weight: 600;
-  width: 100%;
-  margin-bottom: 0.875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.045rem;
-
-  @media ${breakpoint.lg} {
-    width: 100%;
-  }
-`;
-
-const Right = styled.div`
-  flex: 1;
-`;
-
-const SocialContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
-
-const SocialIcon = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  color: white;
-  background-color: ${neutral[500]};
-  margin-left: 1rem;
+const Column = styled.ul`
+  display: grid;
+  grid-gap: 1rem;
+  font-size: 0.775rem;
+  padding: 1.5rem 0;
 `;
 
 export default Footer;

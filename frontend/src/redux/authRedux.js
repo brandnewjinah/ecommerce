@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../api";
+import axios from "axios";
 
 export const signin = createAsyncThunk("auth/signin", async (values) => {
   try {
     const { data } = await api.signin(values);
     localStorage.setItem("currentUser", JSON.stringify(data));
-
     return data;
   } catch (error) {
     return error;
@@ -21,6 +21,30 @@ export const signup = createAsyncThunk("auth/signup", async (values) => {
     return error;
   }
 });
+
+export const editUser = createAsyncThunk(
+  "users/edit",
+  async (values, { getState }) => {
+    const {
+      auth: { currentUser },
+    } = getState();
+    try {
+      const { data } = await axios.put(
+        `http://localhost:5000/users/edit`,
+        values,
+        {
+          headers: {
+            authorization: `Bearer ${currentUser.token}`,
+          },
+        }
+      );
+
+      return data;
+    } catch (error) {
+      return error;
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -53,6 +77,17 @@ const authSlice = createSlice({
       state.currentUser = action.payload;
     },
     [signup.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    [editUser.pending]: (state) => {
+      state.loading = true;
+    },
+    [editUser.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.currentUser = action.payload;
+    },
+    [editUser.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },

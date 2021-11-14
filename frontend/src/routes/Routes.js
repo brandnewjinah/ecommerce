@@ -15,7 +15,8 @@ import Cart from "../pages/Cart";
 import Checkout from "../pages/Checkout";
 import Confirmation from "../pages/OrderConfirmation";
 import ProductList from "../pages/ProductList";
-import User from "../pages/User";
+import OrderHistory from "../pages/OrderHistory";
+import User from "../pages/UserProfile";
 
 const Routes = () => {
   return (
@@ -25,16 +26,29 @@ const Routes = () => {
         <Layout>
           <Route exact path={Routing.CustomerHome.path} component={Home} />
           <Route exact path={Routing.Signin.path} component={Auth} />
-          <Route exact path={Routing.Category.path} component={ProductList} />
+          <Route
+            exact
+            path={Routing.ProductList.path}
+            component={ProductList}
+          />
           <Route exact path={Routing.Wishlist.path} component={Wishlist} />
-          <Route exact path={Routing.Detail.path} component={Detail} />
+          <Route exact path={Routing.ProductDetail.path} component={Detail} />
           <Route exact path={Routing.UserProfile.path} component={User} />
-
+          <Route
+            exact
+            path={Routing.OrderHistory.path}
+            component={OrderHistory}
+          />
           <Route exact path={Routing.Cart.path} component={Cart} />
           <Route exact path={Routing.Checkout.path} component={Checkout} />
           <Route
             exact
             path={Routing.Confirmation.path}
+            component={Confirmation}
+          />
+          <Route
+            exact
+            path={Routing.OrderDetail.path}
             component={Confirmation}
           />
         </Layout>

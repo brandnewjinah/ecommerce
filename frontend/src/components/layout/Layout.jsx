@@ -28,10 +28,10 @@ const Wrapper = styled.div`
 
 const Container = styled.main`
   width: 100%;
-  padding-bottom: 236px;
+  padding-bottom: 304px;
 
   @media ${breakpoint.lg} {
-    padding-bottom: 460px;
+    padding-bottom: 709px;
   }
 `;
 

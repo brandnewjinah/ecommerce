@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import * as api from "../api";
 import axios from "axios";
 
 export const placeOrder = createAsyncThunk(
