@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
+
 import styled from "styled-components";
 
 //components
+import Layout from "../components/layout/sub/Layout";
 import { Container, HeaderContainer } from "../components/layout/Containers";
 import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
@@ -28,7 +30,7 @@ const User = () => {
   const { loading, orders, error } = orderDetail;
 
   return (
-    <Container>
+    <Layout>
       {loading ? (
         <Loading />
       ) : error ? (
@@ -47,7 +49,7 @@ const User = () => {
           )}
         </>
       )}
-    </Container>
+    </Layout>
   );
 };
 

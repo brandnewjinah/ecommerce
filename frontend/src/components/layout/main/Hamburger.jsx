@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 //token
-import { neutral } from "../token";
+import { neutral } from "../../token";
 
 const Hamburger = ({ open, handleOpen }) => {
   return (

@@ -6,7 +6,7 @@ import { Routing } from "./Path";
 import Root from "../pages/Root";
 
 //import customer pages
-import Layout from "../components/layout/Layout";
+import Layout from "../components/layout/main/Layout";
 import Home from "../pages/Home";
 import Auth from "../pages/Auth";
 import Wishlist from "../pages/Wishlist";

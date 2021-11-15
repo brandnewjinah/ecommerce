@@ -82,7 +82,7 @@ const wishlistSlice = createSlice({
     },
     [addToWishlist.fulfilled]: (state, action) => {
       state.loading = false;
-      state.products = action.payload;
+      state.products = action.payload.products;
     },
     [addToWishlist.rejected]: (state, action) => {
       state.loading = false;

@@ -21,7 +21,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductDetail } from "../redux/productDetailRedux";
 import { addToCart } from "../redux/cartRedux";
 import * as api from "../api";
-import { addToWishlist } from "../redux/wishlistRedux";
+import {
+  addToWishlist,
+  removeFromWishlist,
+  getWishlist,
+} from "../redux/wishlistRedux";
 
 const Detail = () => {
   const history = useHistory();
@@ -38,10 +42,9 @@ const Detail = () => {
   const { loading, error, product } = productDetail;
   const [qty, setQty] = useState(1);
 
-  const wishlist = useSelector((state) => state.wishlist);
-  const { products } = wishlist;
+  const products = useSelector((state) => state.wishlist.products);
   const isWishlist =
-    products && products.find((item) => item.product === product._id);
+    products && products.find((item) => item.product._id === product._id);
 
   const [similar, setSimilar] = useState([]);
 
@@ -70,22 +73,20 @@ const Detail = () => {
   };
 
   const handleWishlist = () => {
-    //if isWishlist remove, else add
-
-    // currentUser && currentUser.token
-    //   ? dispatch(addToWishlist(product._id))
-    //   : history.push(
-    //       `/signin?redirectTo=product/${product.sku}&id=${product._id}`
-    //     );
-
-    currentUser && currentUser.token
-      ? dispatch(addToWishlist(product._id))
-      : history.push(`/signin?redirectTo=product/${product.sku}`, {
-          _id: product._id,
-        });
-
-    //then move back to wishlist and heart filled
+    if (isWishlist) {
+      dispatch(removeFromWishlist(product._id));
+    } else {
+      currentUser && currentUser.token
+        ? dispatch(addToWishlist(product._id))
+        : history.push(`/signin?redirectTo=product/${product.sku}`, {
+            _id: product._id,
+          });
+    }
   };
+
+  useEffect(() => {
+    getWishlist();
+  }, [dispatch]);
 
   return (
     <>
@@ -222,7 +223,7 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-const Extras = styled.div`
+const Extras = styled.aside`
   max-width: 800px;
   padding: 2rem 0;
   margin: 0 auto;

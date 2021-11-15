@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import moment from "moment";
 
 //components
-import { Container, HeaderContainer } from "../components/layout/Containers";
+import Layout from "../components/layout/sub/Layout";
+import { HeaderContainer } from "../components/layout/Containers";
 import { Input } from "../components/Input2";
 import { Button } from "../components/Button";
 
@@ -37,7 +37,7 @@ const UserProfile = () => {
   };
 
   return (
-    <Container>
+    <Layout path="account">
       <HeaderContainer
         title="User Profile"
         body="Edit your account information"
@@ -77,14 +77,11 @@ const UserProfile = () => {
           />
         </Section>
       </Content>
-    </Container>
+    </Layout>
   );
 };
 
-const Content = styled.div`
-  margin: 0 auto;
-  width: 400px;
-`;
+const Content = styled.div``;
 
 const Section = styled.form`
   width: 100%;

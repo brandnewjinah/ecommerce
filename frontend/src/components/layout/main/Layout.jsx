@@ -7,7 +7,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 
 //token
-import { breakpoint } from "../token";
+import { breakpoint } from "../../token";
 
 const Layout = ({ children }) => {
   return (

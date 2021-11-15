@@ -8,7 +8,7 @@ import {
 
 const router = express.Router();
 
-// @route GET /
+// @route GET /wishlist
 // @desc View all wishlist products that belong to a user
 // @access Private
 router.get("/", checkToken, getWishlist);

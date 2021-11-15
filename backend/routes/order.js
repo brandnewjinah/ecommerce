@@ -12,15 +12,24 @@ import {
 
 const router = express.Router();
 
-//create
+// @route POST /orders
+// @desc Create a new order
+// @access Private
 router.post("/", checkToken, createOrder);
+
+// @route GET /orders/${id}
+// @desc Get order detail for a single order
+// @access Private
 router.get("/:id", checkToken, getOneOrder);
+
+// @route GET /orders/user/${userId}
+// @desc Get all orders placed by a user
+// @access Private
+router.get("/user/:id", checkAuth, getUserOrders);
 
 // router.get("/find/:userId", getUserOrder);
 // router.put("/:id", updateOrder);
 // router.delete("/:id", deleteOrder);
 // router.get("/", getAllOrders);
-
-router.get("/user/:id", checkAuth, getUserOrders);
 
 export default router;

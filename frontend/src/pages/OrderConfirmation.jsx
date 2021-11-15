@@ -2,10 +2,12 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
-//import components
-import { Container, HeaderContainer } from "../components/layout/Containers";
+//import components;
+import Layout from "../components/layout/sub/Layout";
+import { HeaderContainer } from "../components/layout/Containers";
 import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
+import { ChevronLeft } from "../assets/Icon";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +16,7 @@ import OrderItem from "../components/order/OrderItem";
 
 const OrderConfirmation = () => {
   let { id } = useParams();
+
   const dispatch = useDispatch();
   const orderDetail = useSelector((state) => state.orderDetail);
   const { order, loading, error } = orderDetail;
@@ -23,15 +26,23 @@ const OrderConfirmation = () => {
   }, [dispatch, id]);
 
   return (
-    <>
+    <Layout>
       {loading ? (
         <Loading />
       ) : error ? (
         <ErrorMessage>{`${error} this is error message component`}</ErrorMessage>
       ) : (
-        <Container>
+        <>
+          <ChevronLeft width={20} height={20} color="#000" stroke={2} />
           <HeaderContainer title="THANK YOU" body={`order# ${order._id}`} />
           <Details>
+            <Article>
+              <p>{order.status}</p>
+            </Article>
+            <Article>
+              <p>Delivery Method</p>
+              <p>{order && order.shipping && order.shipping.shipping}</p>
+            </Article>
             <Article>
               <p>Shipping Address</p>
               <p>{order && order.shipping && order.shipping.address1}</p>
@@ -41,10 +52,7 @@ const OrderConfirmation = () => {
                 {order && order.shipping && order.shipping.zip}
               </p>
             </Article>
-            <Article>
-              <p>Delivery Method</p>
-              <p>{order && order.shipping && order.shipping.shipping}</p>
-            </Article>
+
             <Article>
               <p>Payment Method</p>
               <p>****{order && order.billing && order.billing.cardNumber}</p>
@@ -56,16 +64,15 @@ const OrderConfirmation = () => {
               order.orderItems.length > 0 &&
               order.orderItems.map((item, idx) => <OrderItem item={item} />)}
           </Items>
-        </Container>
+        </>
       )}
-    </>
+    </Layout>
   );
 };
 
 const Details = styled.section`
-  display: flex;
   width: 100%;
-  padding: 2em 0;
+  padding: 2rem 0;
 
   p {
     line-height: 1.25rem;
@@ -73,12 +80,10 @@ const Details = styled.section`
 `;
 
 const Article = styled.article`
-  flex: 1;
+  padding: 1rem 0;
 `;
 
-const Items = styled.section`
-  flex: 1;
-`;
+const Items = styled.section``;
 
 const Item = styled.section``;
 

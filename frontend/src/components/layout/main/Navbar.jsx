@@ -6,14 +6,15 @@ import styled, { css } from "styled-components";
 import Hamburger from "./Hamburger";
 
 //token
-import { neutral, breakpoint, typeScale } from "../token";
-import { Cart, Heart, ChevronDown } from "../../assets/Icon";
+import { neutral, breakpoint, typeScale } from "../../token";
+import { Cart, Heart, ChevronDown } from "../../../assets/Icon";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { signout } from "../../redux/authRedux";
-import { clearCart } from "../../redux/cartRedux";
-import { clearWishlist } from "../../redux/wishlistRedux";
+import { signout } from "../../../redux/authRedux";
+import { clearCart } from "../../../redux/cartRedux";
+import { clearWishlist } from "../../../redux/wishlistRedux";
+import { clearOrders } from "../../../redux/orderDetailRedux";
 
 const Navbar = () => {
   const history = useHistory();
@@ -35,6 +36,7 @@ const Navbar = () => {
     dispatch(signout());
     dispatch(clearCart());
     dispatch(clearWishlist());
+    dispatch(clearOrders());
     setClickLogout(!clickLogout);
     history.push("/home");
     setUser(null);

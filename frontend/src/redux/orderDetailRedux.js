@@ -45,7 +45,17 @@ export const getUserOrders = createAsyncThunk(
 
 const orderDetailSlice = createSlice({
   name: "orderDetails",
-  initialState: {},
+  initialState: {
+    loading: true,
+    orders: [],
+    order: {},
+  },
+  reducers: {
+    clearOrders: (state) => {
+      state.orders = [];
+      state.order = {};
+    },
+  },
   extraReducers: {
     [getOrderDetail.pending]: (state) => {
       state.loading = true;
@@ -71,5 +81,7 @@ const orderDetailSlice = createSlice({
     },
   },
 });
+
+export const { clearOrders } = orderDetailSlice.actions;
 
 export default orderDetailSlice.reducer;

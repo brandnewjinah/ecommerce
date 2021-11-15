@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 //token
-import { neutral, breakpoint } from "../token";
+import { neutral, breakpoint } from "../../token";
 
 const Footer = () => {
   return (

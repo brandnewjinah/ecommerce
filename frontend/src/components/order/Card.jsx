@@ -1,11 +1,17 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import moment from "moment";
 import styled from "styled-components";
 
 import { neutral, typeScale } from "../token";
 import { Link } from "react-router-dom";
+import { Button } from "../Button";
 
 const Card = ({ order }) => {
+  const history = useHistory();
+  const handleClick = (orderId) => {
+    history.push(`/orderdetail/${orderId}`);
+  };
   return (
     <Container>
       <Header>
@@ -27,9 +33,10 @@ const Card = ({ order }) => {
         </Right>
       </Header>
       <Content>
-        <Link to={`/orderdetail/${order._id}`}>
-          <div>View Details</div>
-        </Link>
+        <Button
+          label="View Details"
+          handleClick={() => handleClick(order._id)}
+        />
       </Content>
     </Container>
   );
@@ -63,6 +70,8 @@ const Left = styled.div``;
 
 const Right = styled.div``;
 
-const Content = styled.div``;
+const Content = styled.div`
+  padding: 1rem 0; ;
+`;
 
 export default Card;
