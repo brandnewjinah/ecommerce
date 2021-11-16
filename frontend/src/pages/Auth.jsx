@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
-import { Formik, Form } from "formik";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+
+import { useHistory, useLocation } from "react-router-dom";
+
 import { GoogleLogin } from "react-google-login";
 import styled from "styled-components";
 
@@ -18,6 +21,35 @@ import { useDispatch } from "react-redux";
 import { signin, signup } from "../redux/authRedux";
 
 const Auth = () => {
+  const [isSignup, setIsSignup] = useState(false);
+
+  const validate = Yup.object({
+    ...(isSignup && {
+      name: Yup.string()
+        .max(15, "Must be 15 characters or less")
+        .required("Name is required"),
+    }),
+    email: Yup.string()
+      .email("Must be a valid email form")
+      .required("Email is required"),
+    password: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+    ...(isSignup && {
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref("password"), null], "Password must match")
+        .required("Confirm password is required"),
+    }),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validate),
+  });
+
   const history = useHistory();
   const location = useLocation();
   const _id = history.location.state && history.location.state._id;
@@ -25,7 +57,7 @@ const Auth = () => {
   const path = location.pathname;
   const redirect = location.search.split("redirectTo=")[1];
   const dispatch = useDispatch();
-  const [isSignup, setIsSignup] = useState(false);
+
   const user = {
     name: "",
     email: "",
@@ -54,65 +86,63 @@ const Auth = () => {
     console.log("Google Sign In Failed");
   };
 
-  const validate = Yup.object({
-    ...(isSignup && {
-      name: Yup.string()
-        .max(15, "Must be 15 characters or less")
-        .required("Name is required"),
-    }),
-    email: Yup.string()
-      .email("Must be a valid email form")
-      .required("Email is required"),
-    password: Yup.string()
-      .min(6, "Password must be at least 6 characters")
-      .required("Password is required"),
-    ...(isSignup && {
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password"), null], "Password must match")
-        .required("Confirm password is required"),
-    }),
-  });
-
-  const handleSubmit = (values) => {
+  const onSubmit = (data) => {
     if (isSignup) {
-      dispatch(signup(values));
+      dispatch(signup(data));
       path === "/cart" ? history.push("/checkout") : history.push("/home");
     } else {
-      dispatch(signin(values));
+      dispatch(signin(data));
       redirect ? history.push(`/${redirect}`, { _id }) : history.push("/home");
     }
   };
   return (
     <Container>
       <h3>{isSignup ? "Create an account" : "Sign In"}</h3>
-      {/* {loading && <Loading />}
-      {error && <ErrorMessage>{error}</ErrorMessage>} */}
-      <Formik
-        initialValues={user}
-        validationSchema={validate}
-        onSubmit={(values) => handleSubmit(values)}
-      >
-        {(formik) => (
-          <Form>
-            {isSignup && <Input name="name" placeholder="Name" />}
-            <Input name="email" placeholder="Email" type="email" />
-            <Input name="password" placeholder="Password" type="password" />
-            {isSignup && (
-              <Input
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                type="password"
-              />
-            )}
-            <Button
-              label={isSignup ? "Sign Up" : "Sign In"}
-              color={primaryColor.button}
-              type="submit"
-              margin="1rem 0"
-            />
-          </Form>
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {isSignup && (
+          <Input
+            name="name"
+            placeholder="Name"
+            register={register}
+            type="text"
+            required
+            errors={errors}
+          />
         )}
-      </Formik>
+        <Input
+          name="email"
+          placeholder="Email"
+          register={register}
+          type="email"
+          required
+          errors={errors}
+        />
+        <Input
+          name="password"
+          placeholder="Password"
+          register={register}
+          type="password"
+          required
+          errors={errors}
+        />
+        {isSignup && (
+          <Input
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            register={register}
+            type="password"
+            required
+            errors={errors}
+          />
+        )}
+        <Button
+          label={isSignup ? "Sign Up" : "Sign In"}
+          color={primaryColor.button}
+          type="submit"
+          margin="1rem 0"
+        />
+      </form>
 
       <GoogleLogin
         clientId={process.env.REACT_APP_GOOGLE_AUTH}
