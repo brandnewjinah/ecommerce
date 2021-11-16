@@ -27,11 +27,7 @@ const orderSchema = mongoose.Schema(
       },
     ],
     shipping: {
-      firstName: {
-        type: String,
-        required: true,
-      },
-      lastName: {
+      fullName: {
         type: String,
         required: true,
       },

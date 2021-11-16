@@ -20,13 +20,20 @@ export const placeOrder = createAsyncThunk(
   }
 );
 
-const initialState = {};
-
 const orderSlice = createSlice({
   name: "order",
-  initialState,
+  initialState: {},
   reducers: {
-    resetOrder: (state) => initialState,
+    saveShipping: (state, action) => {
+      state.shipping = action.payload;
+    },
+    saveDelivery: (state, action) => {
+      state.delivery = action.payload;
+    },
+    savePayment: (state, action) => {
+      state.payment = action.payload;
+    },
+    resetOrder: (state) => {},
   },
   extraReducers: {
     [placeOrder.pending]: (state) => {
@@ -44,5 +51,6 @@ const orderSlice = createSlice({
   },
 });
 
-export const { resetOrder } = orderSlice.actions;
+export const { resetOrder, saveShipping, saveDelivery, savePayment } =
+  orderSlice.actions;
 export default orderSlice.reducer;

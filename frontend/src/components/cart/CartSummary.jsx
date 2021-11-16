@@ -18,7 +18,7 @@ const Article = ({ left, right }) => {
   );
 };
 
-const CartSummary = ({ handleClick, submitType }) => {
+const CartSummary = ({ handleClick, submitType, step }) => {
   let location = useLocation();
   const path = location.pathname.split("/")[1];
   const products = useSelector((state) => state.cart.products);
@@ -52,6 +52,7 @@ const CartSummary = ({ handleClick, submitType }) => {
         <Button
           label={path === "checkout" ? "PLACE ORDER" : "CHECKOUT"}
           color={primaryColor.button}
+          disabled={step && step !== 4 && true}
           handleClick={handleClick}
         />
       </Bottom>

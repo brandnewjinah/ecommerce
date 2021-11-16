@@ -41,6 +41,7 @@ export const Button: FC<Props> = ({
         shape={shape}
         size={size}
         type={type}
+        disabled={disabled}
         onClick={handleClick}
       >
         <div className="flexCenter">
@@ -109,6 +110,10 @@ const ButtonContainer = styled.button<Props>`
 
   &:active {
     opacity: 1;
+  }
+
+  &:disabled {
+    background-color: ${neutral[200]};
   }
 
   svg {
