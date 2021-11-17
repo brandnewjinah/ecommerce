@@ -61,7 +61,11 @@ const Navbar = () => {
           <Link to="/products/snacks" onClick={() => setOpen(false)}>
             Snacks
           </Link>
-          <MobileLogin>Login</MobileLogin>
+          <MobileLogin>
+            <Link to="/signin" onClick={() => setOpen(false)}>
+              Login
+            </Link>
+          </MobileLogin>
         </Center>
         <Right>
           {currentUser ? (
@@ -111,6 +115,17 @@ const Navbar = () => {
           </Link>
         </Right>
         <MobileMenuWrapper>
+          <Link to="/wishlist">
+            <Wishlist>
+              <Heart
+                width="16"
+                height="16"
+                color="#000"
+                stroke="1"
+                fill="none"
+              />
+            </Wishlist>
+          </Link>
           <Link to="/cart">
             <CartWrapper>
               <Cart width="16" height="16" color="#000" stroke="1" />
@@ -195,6 +210,10 @@ const Center = styled.div`
 
 const MobileLogin = styled.div`
   display: none;
+
+  a {
+    padding: 0;
+  }
 `;
 
 const Right = styled.div`

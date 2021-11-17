@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import styled from "styled-components";
 
 // components
 import { Container, HeaderContainer } from "../components/layout/Containers";
@@ -10,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getWishlist, removeFromWishlist } from "../redux/wishlistRedux";
 import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
+import { typeScale } from "../components/token";
 
 const ProductList = () => {
   const dispatch = useDispatch();
@@ -31,36 +33,48 @@ const ProductList = () => {
         <>
           <HeaderContainer title="Wishlist" />
           {!wishlist.products && (
-            <p>
+            <Copy>
               You haven't saved anything to your wishlist. Add items to your
               wishlist and personalize your shopping experience.
-            </p>
+            </Copy>
           )}
-          <Grid>
-            {products &&
-              products.map((item, idx) => (
-                <Card
-                  key={item._id}
-                  sku={item.product.sku}
-                  brand={item.product.brand}
-                  name={item.product.name}
-                  currency={
-                    item.product.currency && item.product.currency.label
-                  }
-                  price={item.product.price}
-                  imageUrl={item.product.imgs[0].src}
-                  _id={item.product._id}
-                  wishlist={true}
-                  handleDelete={() =>
-                    dispatch(removeFromWishlist(item.product._id))
-                  }
-                />
-              ))}
-          </Grid>
+          <Wrapper>
+            <Grid>
+              {products &&
+                products.map((item, idx) => (
+                  <Card
+                    key={item._id}
+                    sku={item.product.sku}
+                    brand={item.product.brand}
+                    name={item.product.name}
+                    currency={
+                      item.product.currency && item.product.currency.label
+                    }
+                    price={item.product.price}
+                    imageUrl={item.product.imgs[0].src}
+                    _id={item.product._id}
+                    wishlist={true}
+                    handleDelete={() =>
+                      dispatch(removeFromWishlist(item.product._id))
+                    }
+                  />
+                ))}
+            </Grid>
+          </Wrapper>
         </>
       )}
     </Container>
   );
 };
+
+const Wrapper = styled.div`
+  margin: 2rem 0;
+`;
+
+const Copy = styled.div`
+  font-size: ${typeScale.body};
+  text-align: center;
+  padding: 1rem;
+`;
 
 export default ProductList;

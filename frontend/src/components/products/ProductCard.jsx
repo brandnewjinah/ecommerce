@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
+//components
+import { TextButton, Button } from "../Button";
+
 //token and icons
-import { typeScale, neutral, breakpoint } from "../token";
+import { typeScale, neutral, breakpoint, primaryColor } from "../token";
 import { ImageIcon } from "../../assets/Icons";
 
 //redux
@@ -62,8 +65,16 @@ const ProductCard = ({
       </Link>
       {wishlist && (
         <WishlistContainer>
-          <div onClick={handleAddToCart}>add to cart</div>
-          <div onClick={handleDelete}>remove</div>
+          <TextButton
+            label="Add To Cart"
+            color={primaryColor.button}
+            handleClick={handleAddToCart}
+          />
+          <TextButton
+            label="Remove"
+            color={neutral[300]}
+            handleClick={handleDelete}
+          />
         </WishlistContainer>
       )}
     </Wrapper>

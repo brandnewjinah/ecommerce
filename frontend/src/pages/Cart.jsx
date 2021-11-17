@@ -12,7 +12,7 @@ import CartItem from "../components/cart/CartItem";
 import CartSummary from "../components/cart/CartSummary";
 import { Button } from "../components/Button";
 import ProductSlider from "../components/products/ProductSlider";
-import { primaryColor } from "../components/token";
+import { breakpoint, primaryColor } from "../components/token";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -85,15 +85,15 @@ const Main = styled.main`
   justify-content: space-between;
   gap: 1.5rem;
 
-  @media (max-width: 840px) {
+  @media ${breakpoint.lg} {
     flex-direction: column;
   }
 `;
 
 const Items = styled.div`
   flex: 2;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
 `;
 
 const Summary = styled.div`

@@ -63,20 +63,14 @@ export const TextButton: FC<Props> = ({
   handleClick,
 }) => {
   return (
-    <Container
-      center={center}
-      margin={margin && margin}
-      className={className ? className : "flexCenter"}
+    <TextButtonWrapper
+      aria-label={label}
+      color={color}
+      disabled={disabled}
+      onClick={handleClick}
     >
-      <TextButtonContainer
-        aria-label={label}
-        color={color}
-        disabled={disabled}
-        onClick={handleClick}
-      >
-        <p>{label}</p>
-      </TextButtonContainer>
-    </Container>
+      <p>{label}</p>
+    </TextButtonWrapper>
   );
 };
 
@@ -137,7 +131,7 @@ const ButtonContainer = styled.button<Props>`
   }
 `;
 
-const TextButtonContainer = styled.button<Props>`
+const TextButtonWrapper = styled.button<Props>`
   font-weight: 600;
   background: transparent;
   color: ${(props) => props.color};
