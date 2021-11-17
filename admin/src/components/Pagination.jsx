@@ -5,8 +5,8 @@ import _ from "lodash";
 import styled from "styled-components";
 import { neutral, typeScale } from "./token";
 
-const Pagination = ({ count, limit, currentPage, handlePageChange }) => {
-  const pageCount = count / limit;
+const Pagination = ({ pageCount, currentPage, handlePageChange }) => {
+  // const pageCount = count / limit;
   const pages = _.range(1, pageCount + 1);
 
   return (

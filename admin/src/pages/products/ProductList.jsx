@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 //components
 import Table from "../../components/Table";
+import Pagination from "../../components/Pagination";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -22,21 +23,39 @@ const thead = [
 
 const ProductList = () => {
   const dispatch = useDispatch();
-  const products = useSelector((state) =>
-    state.productList.products.map((item) => ({
-      sku: item.sku,
-      name: item.name,
-      price: item.price,
-      brand: item.brand,
-      main: item.category1.value,
-      sub: item.category2.value,
-      id: item._id,
-    }))
-  );
+  // const products = useSelector((state) =>
+  //   state.productList.products.data.map((item) => ({
+  //     sku: item.sku,
+  //     name: item.name,
+  //     price: item.price,
+  //     brand: item.brand,
+  //     main: item.category1.value,
+  //     sub: item.category2.value,
+  //     id: item._id,
+  //   }))
+  // );
 
+  const productList = useSelector((state) => state.productList.products);
+  const { count, page, pages, data } = productList;
+
+  const products = data.map((item) => ({
+    sku: item.sku,
+    name: item.name,
+    price: item.price,
+    brand: item.brand,
+    main: item.category1.value,
+    sub: item.category2.value,
+    id: item._id,
+  }));
+
+  const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
-    dispatch(getProducts("all"));
-  }, [dispatch]);
+    dispatch(getProducts({ category: "all", page: currentPage }));
+  }, [dispatch, currentPage]);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <Container>
@@ -45,6 +64,11 @@ const ProductList = () => {
       </Header>
       <Card>
         <Table thead={thead} tbody={products} checkbox action="delete" />
+        <Pagination
+          pageCount={pages}
+          currentPage={currentPage}
+          handlePageChange={(page) => handlePageChange(page)}
+        />
       </Card>
     </Container>
   );

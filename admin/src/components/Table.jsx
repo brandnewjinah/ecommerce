@@ -29,7 +29,7 @@ const Table = ({ thead, tbody, checkbox, listSize, action }) => {
 
   const handleSelectAll = (e) => {
     setCheckAll(!checkAll);
-    setCheckedItems(paginatedData.map((item) => item.id));
+    setCheckedItems(sorted.map((item) => item.id));
     if (checkAll) {
       setCheckedItems([]);
     }
@@ -47,10 +47,6 @@ const Table = ({ thead, tbody, checkbox, listSize, action }) => {
     dispatch(deleteManyProducts(checkedItems));
   };
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
-
   const handleSort = (path) => {
     const newSortColumn = { ...sortColumn };
     if (newSortColumn.path === path) {
@@ -65,7 +61,7 @@ const Table = ({ thead, tbody, checkbox, listSize, action }) => {
   const sorted = _.orderBy(tbody, [sortColumn.path], [sortColumn.order]);
 
   //get a new array for pagination
-  const paginatedData = paginate(sorted, currentPage, pageSize);
+  // const paginatedData = paginate(sorted, currentPage, pageSize);
 
   return (
     <Wrapper>
@@ -97,7 +93,7 @@ const Table = ({ thead, tbody, checkbox, listSize, action }) => {
           </tr>
         </thead>
         <tbody>
-          {paginatedData.map((item, idx) => (
+          {sorted.map((item, idx) => (
             <tr key={idx}>
               {checkbox && (
                 <td>
@@ -121,7 +117,7 @@ const Table = ({ thead, tbody, checkbox, listSize, action }) => {
                           : ""
                       }
                     >
-                      <Link to={`products/edit/${item.sku}`}>
+                      <Link to={`products/edit/${item.id}`}>
                         <span>{it}</span>
                       </Link>
                     </td>
@@ -151,14 +147,6 @@ const Table = ({ thead, tbody, checkbox, listSize, action }) => {
               stroke={1}
             />
           )}
-        </div>
-        <div className="right">
-          <Pagination
-            count={tbody.length}
-            limit={pageSize}
-            currentPage={currentPage}
-            handlePageChange={(page) => handlePageChange(page)}
-          />
         </div>
       </Bottom>
     </Wrapper>

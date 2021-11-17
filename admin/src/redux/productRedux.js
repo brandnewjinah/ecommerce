@@ -3,9 +3,9 @@ import * as api from "../api";
 
 export const getProducts = createAsyncThunk(
   "products/getProducts",
-  async (category) => {
+  async (value) => {
     try {
-      const { data } = await api.getProducts(category);
+      const { data } = await api.getProducts(value.category, value.page);
       return data;
     } catch (error) {
       return error;
