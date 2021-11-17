@@ -7,32 +7,29 @@ import Hero from "../components/Hero";
 import ProductSlider from "../components/products/ProductSlider";
 
 //demo data
-import { demoProducts } from "../data/demoProducts";
 import Newsletter from "../components/Newsletter";
-import Test from "../components/Test";
+
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import { getNewProducts } from "../redux/productRedux";
 
 const Home = () => {
-  const [newProducts, setNewProducts] = useState();
+  const dispatch = useDispatch();
+  const productList = useSelector((state) => state.productList);
+  const { loading, products, error } = productList;
 
   useEffect(() => {
-    const getData = () => {
-      let newest = _.orderBy(demoProducts, ["uploaded"], ["desc"]);
-      newest = newest.slice(0, 10);
-      setNewProducts(newest);
-    };
-
-    getData();
-  }, []);
+    dispatch(getNewProducts());
+  }, [dispatch]);
 
   return (
     <Container>
       <Hero />
       <ProductSlider
         title="New Products"
-        data={newProducts}
+        data={products}
         slidesPerView={{ small: 2, medium: 3, large: 4 }}
       />
-      <Test />
       <Newsletter />
     </Container>
   );

@@ -6,25 +6,15 @@ import GlobalStyle from "./components/globalStyles";
 
 //redux
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware, compose } from "redux";
-import thunk from "redux-thunk";
-import reducers from "./reducers";
-
-const store = createStore(
-  reducers,
-  compose(
-    applyMiddleware(thunk),
-    window.navigator.userAgent.includes("Chrome")
-      ? window.__REDUX_DEVTOOLS_EXTENSION__ &&
-          window.__REDUX_DEVTOOLS_EXTENSION__()
-      : compose
-  )
-);
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "./redux/store";
 
 ReactDOM.render(
   <Provider store={store}>
-    <GlobalStyle />
-    <Routes />
+    <PersistGate loading={null} persistor={persistor}>
+      <GlobalStyle />
+      <Routes />
+    </PersistGate>
   </Provider>,
   document.getElementById("root")
 );

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
 import _ from "lodash";
 import styled from "styled-components";
 
@@ -15,8 +14,9 @@ import { Button } from "../components/Button";
 import ProductSlider from "../components/products/ProductSlider";
 import { primaryColor } from "../components/token";
 
-//demo data
-import { demoProducts } from "../data/demoProducts";
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import { getNewProducts } from "../redux/productRedux";
 
 const Cart = () => {
   const history = useHistory();
@@ -27,15 +27,13 @@ const Cart = () => {
 
   const [newProducts, setNewProducts] = useState();
 
-  useEffect(() => {
-    const getData = () => {
-      let newest = _.orderBy(demoProducts, ["uploaded"], ["desc"]);
-      newest = newest.slice(0, 10);
-      setNewProducts(newest);
-    };
+  const dispatch = useDispatch();
+  const productList = useSelector((state) => state.productList);
+  const { loading, products, error } = productList;
 
-    getData();
-  }, []);
+  useEffect(() => {
+    dispatch(getNewProducts());
+  }, [dispatch]);
 
   const handleClick = (path) => {
     path === "checkout" && loggedIn
@@ -71,7 +69,7 @@ const Cart = () => {
           <Bottom>
             <ProductSlider
               title="Recommended Products"
-              data={newProducts}
+              data={products}
               slidesPerView={{ small: 2, medium: 3, large: 4 }}
             />
           </Bottom>
@@ -96,10 +94,6 @@ const Items = styled.div`
   flex: 2;
   justify-content: center;
   align-items: center;
-
-  @media (max-width: 840px) {
-    margin: 0 auto;
-  }
 `;
 
 const Summary = styled.div`

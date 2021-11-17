@@ -4,14 +4,17 @@ import Product from "../models/product.js";
 //GET ALL PRODUCTS
 export const getProducts = async (req, res) => {
   const category = req.query.category;
+  const newProducts = req.query.new;
 
   try {
     let products;
 
-    if (category) {
-      products = await Product.find({ "category1.value": category });
-    } else {
+    if (newProducts) {
+      products = await Product.find().sort({ createdAt: -1 }).limit(8);
+    } else if (category === "all") {
       products = await Product.find();
+    } else if (category) {
+      products = await Product.find({ "category1.value": category });
     }
 
     res.status(200).json(products);

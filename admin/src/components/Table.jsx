@@ -14,7 +14,7 @@ import { Trash } from "../assets/Icons";
 
 //redux
 import { useDispatch } from "react-redux";
-import { deleteProduct, deleteManyProducts } from "../reducers/productReducer";
+import { deleteProduct, deleteManyProducts } from "../redux/productReducer";
 
 const Table = ({ thead, tbody, checkbox, listSize, action }) => {
   const dispatch = useDispatch();
@@ -109,6 +109,7 @@ const Table = ({ thead, tbody, checkbox, listSize, action }) => {
                   />
                 </td>
               )}
+
               {Object.values(item).map(
                 (it, idx, array) =>
                   idx !== array.length - 1 && (

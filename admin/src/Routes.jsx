@@ -17,6 +17,8 @@ import Orders from "./pages/Orders";
 import UserList from "./pages/users/UserList";
 import UserDetail from "./pages/users/UserDetail";
 
+import Announcement from "./pages/Announcements";
+
 const Routes = () => {
   return (
     <Router>
@@ -31,6 +33,7 @@ const Routes = () => {
           <Route exact path="/orders" component={Orders} />
           <Route exact path="/users" component={UserList} />
           <Route exact path="/users/:id" component={UserDetail} />
+          <Route exact path="/announcement" component={Announcement} />
         </Layout>
       </Switch>
     </Router>

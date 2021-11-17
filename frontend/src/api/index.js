@@ -6,9 +6,10 @@ export const signin = (values) => axios.post(`${url}/auth/signin`, values);
 export const signup = (values) => axios.post(`${url}/auth/signup`, values);
 
 export const getProducts = (category) =>
-  category === "bakery" || category === "beverage" || category === "snacks"
-    ? axios.get(`${url}/products?category=${category}`)
-    : axios.get(`${url}/products`);
+  axios.get(`${url}/products?category=${category}`);
+
+export const getNewProducts = () => axios.get(`${url}/products?new=true`);
+
 export const getProductDetail = (id) => axios.get(`${url}/products/${id}`);
 export const getSimilarProducts = (id, category2) =>
   axios.get(`${url}/products/similar/${id}?similar=${category2}`);
@@ -16,7 +17,3 @@ export const getSimilarProducts = (id, category2) =>
 export const placeOrder = (order) => {
   axios.post(`${url}/orders`, order);
 };
-
-// export const placeOrder = (order, token) => {
-//   console.log(order, token);
-// };

@@ -10,7 +10,7 @@ import { Close } from "../../assets/Icons";
 
 //import redux
 
-import { neutral, typeScale } from "../token";
+import { breakpoint, neutral, typeScale } from "../token";
 import {
   decreaseQty,
   increaseQty,
@@ -38,12 +38,12 @@ const CartItem = ({ data }) => {
         <div className="image">
           <img src={data.imgs && data.imgs[0].src} alt="" />
         </div>
+      </Left>
+      <Right>
         <div className="detail">
           <p className="main">{data.name}</p>
           <p className="price">{`$${data.price}`}</p>
         </div>
-      </Left>
-      <Right>
         <Counter
           qty={data.qty}
           handleIncrease={() => handleIncrease()}
@@ -70,7 +70,7 @@ const Container = styled.div`
 const Left = styled.div`
   display: flex;
   align-items: center;
-  flex: 4;
+  flex: 1;
   font-size: ${typeScale.body};
   font-weight: 500;
   color: ${neutral[600]};
@@ -104,8 +104,13 @@ const Right = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex: 2;
+  flex: 5;
   margin-right: 2em;
+
+  @media ${breakpoint.lg} {
+    flex: 2;
+    flex-direction: column;
+  }
 `;
 
 const Delete = styled.div`

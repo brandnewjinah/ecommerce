@@ -11,14 +11,8 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import authReducer from "./authRedux";
-import cartReducer from "./cartRedux";
-import orderReducer from "./orderRedux";
-import orderDetailReducer from "./orderDetailRedux";
 import productReducer from "./productRedux";
-import productDetailReducer from "./productDetailRedux";
-import wishlistReducer from "./wishlistRedux";
-import announcementReducer from "./announcementRedux";
+import announcementsReducer from "./announcementRedux";
 
 const persistConfig = {
   key: "root",
@@ -27,14 +21,8 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  auth: authReducer,
-  cart: cartReducer,
   productList: productReducer,
-  productDetail: productDetailReducer,
-  order: orderReducer,
-  orderDetail: orderDetailReducer,
-  wishlist: wishlistReducer,
-  announce: announcementReducer,
+  announcement: announcementsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -67,7 +67,7 @@ export const Input: FC<Props> = ({
 
 const Container = styled.div`
   position: relative;
-  margin: 1rem 0;
+  /* margin: 1rem 0; */
 
   label {
     display: inline-block;

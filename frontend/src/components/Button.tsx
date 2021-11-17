@@ -12,7 +12,7 @@ export interface Props {
   label?: string;
   margin?: string;
   shape?: "text" | "outline" | undefined;
-  size?: "big" | undefined;
+  size?: "big" | "small" | undefined;
   type?: "button" | "submit" | "reset" | undefined;
   handleClick?: () => void;
 }
@@ -89,7 +89,12 @@ const Container = styled.div<Props>`
 
 const ButtonContainer = styled.button<Props>`
   width: ${(props) => (props.shape === "text" ? null : "100%")};
-  font-size: ${(props) => (props.size === "big" ? "1.125rem" : "1rem")};
+  font-size: ${(props) =>
+    props.size === "big"
+      ? "1.125rem"
+      : props.size === "small"
+      ? ".875rem"
+      : "1rem"};
   font-weight: 600;
   color: ${(props) => (props.fontColor ? props.fontColor : "#fff")};
   background-color: ${(props) =>
@@ -100,7 +105,12 @@ const ButtonContainer = styled.button<Props>`
   border-color: ${(props) => props.shape === "outline" && props.color};
   border-width: ${(props) => (props.shape === "outline" ? "1px" : 0)};
   border-radius: 0.25rem;
-  padding: ${(props) => (props.size === "big" ? "1.25rem" : "1rem")};
+  padding: ${(props) =>
+    props.size === "big"
+      ? "1.25rem"
+      : props.size === "small"
+      ? ".7rem"
+      : "1rem"};
   transition: opacity 0.3s ease-out;
   cursor: pointer;
 

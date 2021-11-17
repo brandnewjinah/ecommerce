@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct, updateProduct } from "../../reducers/productReducer";
+import { addProduct, updateProduct } from "../../redux/productReducer";
 
 //components
 import Input from "../../components/Input";

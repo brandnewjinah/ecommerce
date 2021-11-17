@@ -18,13 +18,13 @@ import { Close } from "../../assets/Icons";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct, updateProduct } from "../../reducers/productReducer";
+import { addProduct, updateProduct } from "../../redux/productReducer";
 
 const AddProduct = () => {
   let { id } = useParams();
   const dispatch = useDispatch();
   const existingProduct = useSelector((state) =>
-    state.products.find((product) => product.sku === id)
+    state.productList.products.find((product) => product.sku === id)
   );
 
   const [product, setProduct] = useState({

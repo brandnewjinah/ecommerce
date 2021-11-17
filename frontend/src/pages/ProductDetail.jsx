@@ -227,6 +227,10 @@ const Extras = styled.aside`
   max-width: 800px;
   padding: 2rem 0;
   margin: 0 auto;
+
+  @media ${breakpoint.lg} {
+    padding: 1rem;
+  }
 `;
 
 export default Detail;

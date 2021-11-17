@@ -6,8 +6,9 @@ import Table from "../../components/Table";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../../reducers/productReducer";
+
 import { Card } from "../../components/Card";
+import { getProducts } from "../../redux/productRedux";
 
 const thead = [
   { id: "sku", name: "SKU", sort: true, width: "7.5%" },
@@ -22,7 +23,7 @@ const thead = [
 const ProductList = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) =>
-    state.products.map((item) => ({
+    state.productList.products.map((item) => ({
       sku: item.sku,
       name: item.name,
       price: item.price,
@@ -34,10 +35,8 @@ const ProductList = () => {
   );
 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getProducts("all"));
   }, [dispatch]);
-
-  console.log(products);
 
   return (
     <Container>
