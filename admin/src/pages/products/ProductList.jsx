@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 //components
+import { Card } from "../../components/Card";
 import Table from "../../components/Table";
 import Pagination from "../../components/Pagination";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-
-import { Card } from "../../components/Card";
 import { getProducts } from "../../redux/productRedux";
 
 const thead = [
@@ -22,21 +21,15 @@ const thead = [
 ];
 
 const ProductList = () => {
+  const [currentPage, setCurrentPage] = useState(1);
   const dispatch = useDispatch();
-  // const products = useSelector((state) =>
-  //   state.productList.products.data.map((item) => ({
-  //     sku: item.sku,
-  //     name: item.name,
-  //     price: item.price,
-  //     brand: item.brand,
-  //     main: item.category1.value,
-  //     sub: item.category2.value,
-  //     id: item._id,
-  //   }))
-  // );
+
+  useEffect(() => {
+    dispatch(getProducts({ category: "all", page: currentPage }));
+  }, [dispatch, currentPage]);
 
   const productList = useSelector((state) => state.productList.products);
-  const { count, page, pages, data } = productList;
+  const { pages, data } = productList;
 
   const products = data.map((item) => ({
     sku: item.sku,
@@ -48,11 +41,6 @@ const ProductList = () => {
     id: item._id,
   }));
 
-  const [currentPage, setCurrentPage] = useState(1);
-  useEffect(() => {
-    dispatch(getProducts({ category: "all", page: currentPage }));
-  }, [dispatch, currentPage]);
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -63,7 +51,13 @@ const ProductList = () => {
         <h3>PRODUCTS</h3>
       </Header>
       <Card>
-        <Table thead={thead} tbody={products} checkbox action="delete" />
+        <Table
+          thead={thead}
+          tbody={products}
+          checkbox
+          action="delete"
+          linkurl="products/edit"
+        />
         <Pagination
           pageCount={pages}
           currentPage={currentPage}

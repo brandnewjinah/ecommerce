@@ -15,7 +15,7 @@ export const addAnnouncement = async (req, res) => {
   }
 };
 
-//GET ALL PRODUCTS
+//get all announcement
 export const getAnnouncement = async (req, res) => {
   const active = req.query.active;
 

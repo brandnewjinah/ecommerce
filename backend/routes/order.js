@@ -27,6 +27,11 @@ router.get("/:id", checkToken, getOneOrder);
 // @access Private
 router.get("/user/:id", checkAuth, getUserOrders);
 
+// @route GET /orders
+// @desc Get all orders
+// @access Private
+router.get("/", getAllOrders);
+
 // router.get("/find/:userId", getUserOrder);
 // router.put("/:id", updateOrder);
 // router.delete("/:id", deleteOrder);

@@ -99,7 +99,7 @@ const Detail = () => {
           <Breadcrumbs item1={product.category1} item2={product.category2} />
           <Main>
             <ImageWrapper>
-              <img src={product.imgs && product.imgs[0].src} alt="" />
+              <img src={product.img && product.img} alt="" />
             </ImageWrapper>
             <InfoWrapper>
               <InfoItem helper={product.brand} title={product.name} />

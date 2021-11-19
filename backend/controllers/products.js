@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
 import Product from "../models/product.js";
+import cloudinary from "../middleware/cloudinary.js";
 
 //GET ALL PRODUCTS
 export const getProducts = async (req, res) => {
   const category = req.query.category;
   const newProducts = req.query.new;
   const page = parseInt(req.query.page) || 1;
-  const pageSize = parseInt(req.query.limit) || 4;
+  const pageSize = parseInt(req.query.limit) || 12;
   const skip = (page - 1) * pageSize;
 
   try {
@@ -75,15 +76,17 @@ export const getSimilarProducts = async (req, res) => {
 //ADD PRODUCT
 export const addProduct = async (req, res) => {
   const product = req.body;
-
-  const newProduct = new Product(product);
+  const image = req.body.img;
 
   try {
+    const uploadedResponse = await cloudinary.uploader.upload(image, {
+      upload_preset: "ecommerce",
+    });
+    const newProduct = new Product({ ...product, img: uploadedResponse.url });
     await newProduct.save();
-
     res.status(201).json(newProduct);
   } catch (error) {
-    res.status(409).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 

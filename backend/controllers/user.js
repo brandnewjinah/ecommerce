@@ -3,7 +3,6 @@ import CryptoJS from "crypto-js";
 import { generateToken } from "../middleware/checkAuth.js";
 
 //update
-
 export const updateUser = async (req, res) => {
   try {
     if (req.body.password === "") {
@@ -39,6 +38,30 @@ export const updateUser = async (req, res) => {
       const { password, ...others } = updatedUser._doc;
       res.status(200).json({ ...others, token });
     }
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+//GET ALL USERS
+export const getAllUsers = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const pageSize = parseInt(req.query.limit) || 12;
+  const skip = (page - 1) * pageSize;
+
+  try {
+    let users = User.find();
+    const total = await User.countDocuments();
+    const pages = Math.ceil(total / pageSize);
+    users = users.skip(skip).limit(pageSize);
+    const result = await users;
+    res.status(200).json({
+      status: "success",
+      count: result.length,
+      page,
+      pages,
+      data: result,
+    });
   } catch (error) {
     res.status(500).json(error);
   }

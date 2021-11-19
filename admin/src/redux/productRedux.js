@@ -13,11 +13,11 @@ export const getProducts = createAsyncThunk(
   }
 );
 
-export const getNewProducts = createAsyncThunk(
-  "products/getNewProducts",
-  async () => {
+export const addProduct = createAsyncThunk(
+  "products/addProduct",
+  async (value) => {
     try {
-      const { data } = await api.getNewProducts();
+      const { data } = await api.addProduct(value);
       return data;
     } catch (error) {
       return error;
@@ -43,14 +43,14 @@ const productsSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    [getNewProducts.pending]: (state) => {
+    [addProduct.pending]: (state) => {
       state.loading = true;
     },
-    [getNewProducts.fulfilled]: (state, action) => {
+    [addProduct.fulfilled]: (state, action) => {
       state.loading = false;
       state.products = action.payload;
     },
-    [getNewProducts.rejected]: (state, action) => {
+    [addProduct.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },

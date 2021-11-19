@@ -4,8 +4,6 @@ import styled from "styled-components";
 import _ from "lodash";
 
 import Checkbox from "./Checkbox";
-import Pagination from "./Pagination";
-import { paginate } from "../utils/Paginate";
 import Th from "./Th";
 
 //token and icons
@@ -16,10 +14,8 @@ import { Trash } from "../assets/Icons";
 import { useDispatch } from "react-redux";
 import { deleteProduct, deleteManyProducts } from "../redux/productReducer";
 
-const Table = ({ thead, tbody, checkbox, listSize, action }) => {
+const Table = ({ thead, tbody, checkbox, action, linkurl }) => {
   const dispatch = useDispatch();
-  const pageSize = listSize ? listSize : 5;
-  const [currentPage, setCurrentPage] = useState(1);
   const [checkAll, setCheckAll] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
   const [sortColumn, setSortColumn] = useState({
@@ -60,9 +56,6 @@ const Table = ({ thead, tbody, checkbox, listSize, action }) => {
 
   const sorted = _.orderBy(tbody, [sortColumn.path], [sortColumn.order]);
 
-  //get a new array for pagination
-  // const paginatedData = paginate(sorted, currentPage, pageSize);
-
   return (
     <Wrapper>
       <table aria-label="table">
@@ -73,7 +66,6 @@ const Table = ({ thead, tbody, checkbox, listSize, action }) => {
                 <Checkbox
                   name="selectAll"
                   id="selectAll"
-                  // handleClick={(e) => handleSelectAll(e)}
                   handleSelect={handleSelectAll}
                   checked={checkAll}
                 />
@@ -117,7 +109,7 @@ const Table = ({ thead, tbody, checkbox, listSize, action }) => {
                           : ""
                       }
                     >
-                      <Link to={`products/edit/${item.id}`}>
+                      <Link to={`${linkurl}/${item.id}`}>
                         <span>{it}</span>
                       </Link>
                     </td>

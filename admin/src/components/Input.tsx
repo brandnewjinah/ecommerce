@@ -72,7 +72,7 @@ const Container = styled.div`
   label {
     display: inline-block;
     font-size: ${typeScale.sbody};
-    padding: 0 0 0.25rem;
+    padding: 0 0 0.5rem;
   }
 
   .errorTxt {

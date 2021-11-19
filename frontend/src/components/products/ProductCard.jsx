@@ -104,7 +104,7 @@ const Image = styled.img`
 
 const ImageContainer = styled.div`
   position: relative;
-  max-height: 300px;
+  max-height: 360px;
   overflow: hidden;
 
   &:hover {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import Select from "react-select";
 import styled from "styled-components";
-import * as api from "../../api/index";
 
 //components
 import { Card } from "../../components/Card";
@@ -12,14 +12,22 @@ import { Button, IconButton, TextButton } from "../../components/Button";
 import { categoryList } from "../../data/category";
 
 //token and icons
-import { typeScale } from "../../components/token";
+import { neutral } from "../../components/token";
+import { Close } from "../../assets/Icons";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct } from "../../redux/productRedux";
+import { addProduct, updateProduct } from "../../redux/productReducer";
+import { getProductDetail } from "../../redux/productDetailRedux";
 
 const AddProduct = () => {
+  let { id } = useParams();
+  const location = useLocation();
+  console.log(location);
   const dispatch = useDispatch();
+  // const existingProduct = useSelector((state) =>
+  //   state.productList.products.find((product) => product.sku === id)
+  // );
 
   const [productInfo, setProductInfo] = useState({
     name: "",
@@ -28,24 +36,25 @@ const AddProduct = () => {
     price: "",
     category1: {},
     category2: {},
-    img: "",
+    imgs: [
+      {
+        id: 1,
+        src: "",
+      },
+    ],
     size: "",
   });
 
-  const [previewSource, setPreviewSource] = useState("");
+  useEffect(() => {
+    if (location.pathname.includes("/edit")) dispatch(getProductDetail(id));
+  }, [dispatch, id]);
 
-  const handleImageFile = (e) => {
-    const file = e.target.files[0];
-    previewFile(file);
-  };
+  const productDetail = useSelector((state) => state.productDetail);
+  const { product, loading } = productDetail;
 
-  const previewFile = (file) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      setPreviewSource(reader.result);
-    };
-  };
+  useEffect(() => {
+    if (product) setProductInfo(product);
+  }, [product]);
 
   const [errors, setErrors] = useState({});
 
@@ -68,20 +77,37 @@ const AddProduct = () => {
     setProductInfo({ ...productInfo, [name]: value });
   };
 
-  const handleSubmit = async () => {
-    // const errors = validate();
-    // setErrors(errors || {});
-    // if (errors) return;
-    // dispatch(addProduct(productInfo));
-    if (!previewSource) return;
-    const newProductInfo = { ...productInfo, img: previewSource };
+  let newImgs = [...productInfo.imgs];
 
-    try {
-      const { data } = await api.addProduct(newProductInfo);
-      console.log(data);
-      // return data;
-    } catch (error) {
-      return error;
+  const handleImgAdd = () => {
+    let id = newImgs[newImgs.length - 1].id + 1;
+    newImgs = [...newImgs, { id: id, src: "" }];
+    setProductInfo({ ...productInfo, imgs: newImgs });
+  };
+
+  const handleImgChange = (e, idx) => {
+    const userInput = { ...productInfo };
+    userInput[e.target.name][idx].src = e.target.value;
+    setProductInfo(userInput);
+  };
+
+  const handleImgDelete = (id) => {
+    newImgs = newImgs.filter((i) => i.id !== id);
+    setProductInfo({ ...productInfo, imgs: newImgs });
+  };
+
+  const handleSubmit = () => {
+    const errors = validate();
+    setErrors(errors || {});
+    if (errors) return;
+
+    const { currency, ...others } = productInfo;
+
+    if (id) {
+      dispatch(updateProduct(productInfo._id, others));
+    } else {
+      dispatch(addProduct(productInfo));
+      clear();
     }
   };
 
@@ -90,17 +116,23 @@ const AddProduct = () => {
       name: "",
       brand: "",
       sku: "",
+      currency: { id: 501, label: "$", value: "USD" },
       price: "",
       category1: {},
       category2: {},
-      img: "",
+      imgs: [
+        {
+          id: 1,
+          src: "",
+        },
+      ],
       size: "",
     });
   };
 
   return (
     <Container>
-      <h3>Add Product</h3>
+      <h3>{id ? "Edit Product" : "Add Product"}</h3>
       <Card margin={`1rem 0`}>
         <Item>
           <div className="one">
@@ -145,19 +177,17 @@ const AddProduct = () => {
           </div>
         </Item>
       </Card>
-      <Card margin={`1rem 0`}>
-        <SelectWrapper>
-          <p className="label">Select Main Category</p>
-          <Select
-            name="category1"
-            value={productInfo.category1}
-            options={categoryList}
-            onChange={handleCategory("category1")}
-          />
-        </SelectWrapper>
+      <Card>
+        <p className="label">Select Main Category</p>
+        <Select
+          name="category1"
+          value={productInfo.category1}
+          options={categoryList}
+          onChange={handleCategory("category1")}
+        />
         {Object.keys(productInfo.category1).length !== 0 &&
           productInfo.category1.subcategory && (
-            <SelectWrapper>
+            <div className="item">
               <p className="label">Select Subcategory</p>
               <Select
                 name="category2"
@@ -165,21 +195,46 @@ const AddProduct = () => {
                 options={productInfo.category1.subcategory}
                 onChange={handleCategory("category2")}
               />
-            </SelectWrapper>
+            </div>
           )}
       </Card>
-      <Card margin={`1rem 0`}>
-        <input
-          type="file"
-          name="img"
-          value={productInfo.img}
-          onChange={handleImageFile}
+      <Card>
+        {productInfo.imgs.map((img, idx) => (
+          <Item key={idx}>
+            <div className="nine">
+              <Input
+                label="Image URL"
+                name="imgs"
+                value={img.src}
+                handleChange={(e) => handleImgChange(e, idx)}
+              />
+            </div>
+            {idx === 0 ? (
+              <></>
+            ) : (
+              <div className="one">
+                <IconButton
+                  icon={
+                    <Close
+                      width={16}
+                      height={16}
+                      stroke={2}
+                      color={neutral[10]}
+                    />
+                  }
+                  handleClick={() => handleImgDelete(img.id)}
+                />
+              </div>
+            )}
+          </Item>
+        ))}
+        <TextButton
+          label="More"
+          color={neutral[400]}
+          handleClick={handleImgAdd}
         />
-        {previewSource && (
-          <img src={previewSource} alt="chosen" style={{ height: "300px" }} />
-        )}
       </Card>
-      <Card margin={`1rem 0`}>
+      <Card>
         <Item>
           <div className="one">
             <Input
@@ -192,7 +247,7 @@ const AddProduct = () => {
         </Item>
       </Card>
       <Button
-        label="Add"
+        label={id ? "Save Changes" : "Add"}
         type="submit"
         color="#06193b"
         handleClick={handleSubmit}
@@ -224,15 +279,6 @@ const Item = styled.div`
 
   .nine {
     flex: 9;
-  }
-`;
-
-const SelectWrapper = styled.div`
-  padding: 0.75rem 0;
-
-  .label {
-    font-size: ${typeScale.sbody};
-    padding: 0 0 0.5rem;
   }
 `;
 

@@ -14,9 +14,9 @@ import announceRoutes from "./routes/announcement.js";
 const app = express();
 dotenv.config();
 
-//middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+//middlewareå
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(cors());
 
 //use router

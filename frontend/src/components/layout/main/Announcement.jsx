@@ -8,17 +8,21 @@ import { getAnnouncements } from "../../../redux/announcementRedux";
 
 const Announcement = () => {
   const dispatch = useDispatch();
-  const announce = useSelector((state) => state.announce);
-  const { error, loading, announcement } = announce;
-  console.log(announcement);
 
   useEffect(() => {
     dispatch(getAnnouncements());
   }, [dispatch]);
 
+  const announce = useSelector((state) => state.announce);
+  const { error, loading, announcement } = announce;
+
   return (
     <Wrapper>
-      {error ? <p>Welcome</p> : <p>{announcement[0].announcement}</p>}
+      {error ? (
+        <p>Welcome</p>
+      ) : (
+        <p>{announcement && announcement[0].announcement}</p>
+      )}
     </Wrapper>
   );
 };

@@ -2,6 +2,7 @@ import axios from "axios";
 
 const url = "http://localhost:5000";
 
+//products
 export const addProduct = (newProduct) =>
   axios.post(`${url}/products`, newProduct);
 
@@ -19,4 +20,11 @@ export const deleteProduct = (id) => axios.delete(`${url}/products/${id}`);
 
 export const deleteManyProducts = (id) => axios.patch(`${url}/products`, id);
 
+//announcements
 export const getAnnouncements = () => axios.get(`${url}/announcements`);
+
+//users
+export const getUsers = () => axios.get(`${url}/users`);
+
+//orders
+export const getAllOrders = () => axios.get(`${url}/orders`);

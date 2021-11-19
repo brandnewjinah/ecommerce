@@ -13,11 +13,6 @@ const categorySchema = mongoose.Schema({
   subcategory: [selectSchema],
 });
 
-const imgSchema = mongoose.Schema({
-  id: Number,
-  src: String,
-});
-
 const productSchema = mongoose.Schema({
   name: {
     type: String,
@@ -42,7 +37,9 @@ const productSchema = mongoose.Schema({
   category2: {
     type: selectSchema,
   },
-  imgs: [imgSchema],
+  img: {
+    type: String,
+  },
   size: String,
   createdAt: {
     type: Date,

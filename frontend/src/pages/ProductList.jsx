@@ -72,7 +72,7 @@ const ProductList = () => {
             />
           </FilterContainer>
           <Products
-            products={products}
+            products={products.data}
             category={category}
             filter={filter}
             sort={sort}

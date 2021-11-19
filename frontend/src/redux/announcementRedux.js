@@ -8,6 +8,7 @@ export const getAnnouncements = createAsyncThunk(
       const { data } = await axios.get(
         `http://localhost:5000/announcements?active=true`
       );
+      console.log(data);
       return data;
     } catch (error) {
       return error;

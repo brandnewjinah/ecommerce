@@ -73,11 +73,25 @@ export const getUserOrder = async (req, res) => {
   }
 };
 
-//get all orders
+//GET ALL ORDERS
 export const getAllOrders = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const pageSize = parseInt(req.query.limit) || 12;
+  const skip = (page - 1) * pageSize;
+
   try {
-    const orders = Order.find();
-    res.stauts(200).json(orders);
+    let orders = Order.find();
+    const total = await Order.countDocuments();
+    const pages = Math.ceil(total / pageSize);
+    orders = orders.skip(skip).limit(pageSize);
+    const result = await orders;
+    res.status(200).json({
+      status: "success",
+      count: result.length,
+      page,
+      pages,
+      data: result,
+    });
   } catch (error) {
     res.status(500).json(error);
   }

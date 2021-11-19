@@ -46,7 +46,7 @@ const Products = ({ products, category, filter, sort }) => {
               name={product.name}
               currency={product.currency && product.currency.label}
               price={product.price}
-              imageUrl={product.imgs[0].src}
+              imageUrl={product.img}
               _id={product._id}
             />
           ))}

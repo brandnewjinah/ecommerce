@@ -49,7 +49,7 @@ const ProductSlider = ({ data, title, slidesPerView }) => {
                   name={p.name}
                   currency={p.currency && p.currency.label}
                   price={p.price}
-                  imageUrl={p.imgs[0].src}
+                  imageUrl={p.img}
                   _id={p._id}
                 />
               </SwiperSlide>
