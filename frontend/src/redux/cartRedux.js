@@ -9,8 +9,8 @@ export const addToCart = createAsyncThunk(
       return {
         name: data.name,
         brand: data.brand,
-        imgs: data.imgs,
         price: data.price,
+        img: data.img,
         productId: data._id,
         qty: product.qty,
       };

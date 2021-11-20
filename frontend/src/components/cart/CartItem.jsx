@@ -17,7 +17,7 @@ import {
 } from "../../redux/cartRedux";
 
 const CartItem = ({ data }) => {
-  // console.log(data);
+  console.log(data);
   const dispatch = useDispatch();
   const handleIncrease = () => {
     dispatch(increaseQty(data));
@@ -34,7 +34,7 @@ const CartItem = ({ data }) => {
   return (
     <Container>
       <Image>
-        <img src={data.imgs && data.imgs[0].src} alt="" />
+        <img src={data.img} alt="" />
       </Image>
       <Details>
         <Info>

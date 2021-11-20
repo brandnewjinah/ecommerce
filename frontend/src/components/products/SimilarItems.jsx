@@ -16,7 +16,7 @@ const SimilarItems = ({ data, title, slidesPerView }) => {
             brand={product.brand}
             name={product.name}
             price={product.price}
-            imageUrl={product.imgs[0].src}
+            imageUrl={product.img}
             _id={product._id}
           />
         ))}

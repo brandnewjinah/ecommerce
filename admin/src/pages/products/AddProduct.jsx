@@ -69,17 +69,16 @@ const AddProduct = () => {
   };
 
   const handleSubmit = async () => {
-    // const errors = validate();
-    // setErrors(errors || {});
-    // if (errors) return;
+    const errors = validate();
+    setErrors(errors || {});
+    if (errors) return;
     // dispatch(addProduct(productInfo));
     if (!previewSource) return;
     const newProductInfo = { ...productInfo, img: previewSource };
 
     try {
-      const { data } = await api.addProduct(newProductInfo);
-      console.log(data);
-      // return data;
+      const result = await api.addProduct(newProductInfo);
+      result.status === 201 && clear();
     } catch (error) {
       return error;
     }
@@ -96,6 +95,7 @@ const AddProduct = () => {
       img: "",
       size: "",
     });
+    setPreviewSource("");
   };
 
   return (

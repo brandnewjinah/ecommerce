@@ -3,9 +3,9 @@ import * as api from "../api";
 
 export const getAllOrders = createAsyncThunk(
   "orders/getAllOrders",
-  async (page) => {
+  async (value) => {
     try {
-      const { data } = await api.getAllOrders(page);
+      const { data } = await api.getAllOrders(value.page);
       return data;
     } catch (error) {
       return error;
@@ -16,9 +16,8 @@ export const getAllOrders = createAsyncThunk(
 const orderSlice = createSlice({
   name: "orders",
   initialState: {
-    orders: [],
-    loading: false,
-    error: false,
+    orderdata: [],
+    loading: true,
   },
   extraReducers: {
     [getAllOrders.pending]: (state) => {
@@ -26,11 +25,11 @@ const orderSlice = createSlice({
     },
     [getAllOrders.fulfilled]: (state, action) => {
       state.loading = false;
-      state.orders = action.payload;
+      state.orderdata = action.payload;
     },
-    [getAllOrders.rejected]: (state) => {
+    [getAllOrders.rejected]: (state, action) => {
       state.loading = false;
-      state.error = true;
+      state.error = action.payload;
     },
   },
 });

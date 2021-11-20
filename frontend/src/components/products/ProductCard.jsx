@@ -96,7 +96,6 @@ const Wrapper = styled.div`
 const Image = styled.img`
   display: block;
   width: 100%;
-  max-width: 100%;
   height: auto !important;
   object-fit: cover;
   object-position: 0 -25px;
@@ -104,7 +103,7 @@ const Image = styled.img`
 
 const ImageContainer = styled.div`
   position: relative;
-  max-height: 360px;
+  height: 360px;
   overflow: hidden;
 
   &:hover {

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 //components
+import { Card } from "../../components/Card";
 import Table from "../../components/Table";
 import Pagination from "../../components/Pagination";
-import { Card } from "../../components/Card";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -16,22 +16,24 @@ const thead = [
   { id: "createdAt", name: "Joined", sort: true, width: "30%" },
 ];
 
-const ProductList = () => {
-  const dispatch = useDispatch();
+const CustomerList = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(getAllUsers());
-  }, [dispatch]);
+    dispatch(getAllUsers({ page: currentPage }));
+  }, [dispatch, currentPage]);
 
-  const userList = useSelector((state) => state.users.users);
-  const { pages, data } = userList;
+  const { pages, data } = useSelector((state) => state.users.users);
 
-  const users = data.map((item) => ({
-    name: item.name,
-    email: item.email,
-    createdAt: item.createdAt,
-    id: item._id,
-  }));
+  const users =
+    data &&
+    data.map((item) => ({
+      name: item.name,
+      email: item.email,
+      createdAt: item.createdAt,
+      id: item._id,
+    }));
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -60,4 +62,4 @@ const Header = styled.div`
   padding: 0 0 1.5rem;
 `;
 
-export default ProductList;
+export default CustomerList;

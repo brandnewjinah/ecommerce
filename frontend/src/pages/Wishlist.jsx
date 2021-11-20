@@ -51,7 +51,7 @@ const ProductList = () => {
                       item.product.currency && item.product.currency.label
                     }
                     price={item.product.price}
-                    imageUrl={item.product.imgs[0].src}
+                    imageUrl={item.product.img}
                     _id={item.product._id}
                     wishlist={true}
                     handleDelete={() =>

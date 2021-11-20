@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 //components
+import { Card } from "../../components/Card";
 import Table from "../../components/Table";
 import Pagination from "../../components/Pagination";
-import { Card } from "../../components/Card";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -18,23 +18,24 @@ const thead = [
 ];
 
 const OrderList = () => {
-  const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllOrders());
+    dispatch(getAllOrders({ page: currentPage }));
   }, [dispatch, currentPage]);
 
-  const orderList = useSelector((state) => state.orders.orders);
-  const { pages, data } = orderList;
+  const { pages, data } = useSelector((state) => state.orders.orders);
 
-  const orders = data.map((item) => ({
-    name: item.shipping.firstName,
-    createdAt: item.createdAt,
-    total: item.total,
-    status: item.status,
-    id: item._id,
-  }));
+  const orders =
+    data &&
+    data.map((item) => ({
+      name: item.shipping.firstName,
+      createdAt: item.createdAt,
+      total: item.total,
+      status: item.status,
+      id: item._id,
+    }));
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -47,12 +48,12 @@ const OrderList = () => {
       </Header>
       <Card>
         <Table thead={thead} tbody={orders} linkurl="users" />
-        <Pagination
-          pageCount={pages}
-          currentPage={currentPage}
-          handlePageChange={(page) => handlePageChange(page)}
-        />
       </Card>
+      <Pagination
+        pageCount={pages}
+        currentPage={currentPage}
+        handlePageChange={(page) => handlePageChange(page)}
+      />
     </Container>
   );
 };

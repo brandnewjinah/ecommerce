@@ -31,15 +31,18 @@ const ProductList = () => {
   const productList = useSelector((state) => state.productList.products);
   const { pages, data } = productList;
 
-  const products = data.map((item) => ({
-    sku: item.sku,
-    name: item.name,
-    price: item.price,
-    brand: item.brand,
-    main: item.category1.value,
-    sub: item.category2.value,
-    id: item._id,
-  }));
+  const products =
+    productList &&
+    data &&
+    data.map((item) => ({
+      sku: item.sku,
+      name: item.name,
+      price: item.price,
+      brand: item.brand,
+      main: item.category1.value,
+      sub: item.category2.value,
+      id: item._id,
+    }));
 
   const handlePageChange = (page) => {
     setCurrentPage(page);

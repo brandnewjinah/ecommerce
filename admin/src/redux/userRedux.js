@@ -1,19 +1,23 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../api";
 
-export const getAllUsers = createAsyncThunk("users/getAllUsers", async () => {
-  try {
-    const { data } = await api.getUsers();
-    return data;
-  } catch (error) {
-    return error;
+export const getAllUsers = createAsyncThunk(
+  "users/getAllUsers",
+  async (page) => {
+    try {
+      const { data } = await api.getUsers(page);
+      return data;
+    } catch (error) {
+      return error;
+    }
   }
-});
+);
 
 const userSlice = createSlice({
   name: "users",
   initialState: {
-    loading: true,
+    users: [],
+    loading: false,
   },
   extraReducers: {
     [getAllUsers.pending]: (state) => {
@@ -25,7 +29,7 @@ const userSlice = createSlice({
     },
     [getAllUsers.rejected]: (state, action) => {
       state.loading = false;
-      state.error = action.payload;
+      state.error = true;
     },
   },
 });

@@ -24,7 +24,7 @@ export const deleteManyProducts = (id) => axios.patch(`${url}/products`, id);
 export const getAnnouncements = () => axios.get(`${url}/announcements`);
 
 //users
-export const getUsers = () => axios.get(`${url}/users`);
+export const getUsers = (page) => axios.get(`${url}/users?page=${page}`);
 
 //orders
-export const getAllOrders = () => axios.get(`${url}/orders`);
+export const getAllOrders = (page) => axios.get(`${url}/orders?page=${page}`);

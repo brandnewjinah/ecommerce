@@ -44,7 +44,7 @@ const ProductSlider = ({ data, title, slidesPerView }) => {
             data.map((p, idx) => (
               <SwiperSlide key={idx}>
                 <Card
-                  id={p.sku}
+                  sku={p.sku}
                   brand={p.brand}
                   name={p.name}
                   currency={p.currency && p.currency.label}
