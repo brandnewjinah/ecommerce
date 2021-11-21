@@ -22,7 +22,7 @@ const Newsletter = () => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.section`
   padding: 2.5rem;
 `;
 

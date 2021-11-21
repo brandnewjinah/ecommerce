@@ -97,7 +97,9 @@ const Auth = () => {
   };
   return (
     <Container>
-      <h3>{isSignup ? "Create an account" : "Sign In"}</h3>
+      <Header>
+        <h3>{isSignup ? "Create an account" : "Sign In"}</h3>
+      </Header>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         {isSignup && (
@@ -181,7 +183,9 @@ const Container = styled.div`
   width: 400px;
   padding: 2rem 1.5rem;
   margin: 0 auto;
+`;
 
+const Header = styled.header`
   h3 {
     text-transform: uppercase;
     text-align: center;

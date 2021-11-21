@@ -53,6 +53,6 @@ const User = () => {
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.section``;
 
 export default User;

@@ -38,6 +38,7 @@ const Navbar = () => {
     dispatch(clearWishlist());
     dispatch(clearOrders());
     setClickLogout(!clickLogout);
+    setOpen(false);
     history.push("/home");
     setUser(null);
   };
@@ -62,42 +63,54 @@ const Navbar = () => {
             Snacks
           </Link>
           <MobileLogin>
-            <Link to="/signin" onClick={() => setOpen(false)}>
-              Login
-            </Link>
-          </MobileLogin>
-        </Center>
-        <Right>
-          {currentUser ? (
-            <User onClick={() => setClickLogout(!clickLogout)}>
-              <span>Hi, {currentUser.name}</span>
-              <ChevronDown width={20} height={20} color="#000" stroke={2} />
-              <div className="dropdown">
+            {currentUser ? (
+              <>
+                <div>Hi, {currentUser.name}</div>
                 <Link to="/profile">
                   <div>User Profile</div>
                 </Link>
                 <Link to="/history">
                   <div>Order History</div>
                 </Link>
-                <div
-                  className="logout"
-                  // clickLogout={clickLogout}
-                  onClick={handleSignOut}
-                >
+                <div className="logout" onClick={handleSignOut}>
                   Logout
                 </div>
-              </div>
-            </User>
-          ) : (
-            <Link to="/signin">
-              <Signin>
+              </>
+            ) : (
+              <Link to="/signin" onClick={() => setOpen(false)}>
                 <p>Login</p>
-              </Signin>
-            </Link>
-          )}
-
+              </Link>
+            )}
+          </MobileLogin>
+        </Center>
+        <Right>
+          <UserLogin>
+            {currentUser ? (
+              <User onClick={() => setClickLogout(!clickLogout)}>
+                <span>Hi, {currentUser.name}</span>
+                <ChevronDown width={20} height={20} color="#000" stroke={2} />
+                <div className="dropdown">
+                  <Link to="/profile">
+                    <div>User Profile</div>
+                  </Link>
+                  <Link to="/history">
+                    <div>Order History</div>
+                  </Link>
+                  <div
+                    className="logout"
+                    // clickLogout={clickLogout}
+                    onClick={handleSignOut}
+                  >
+                    Logout
+                  </div>
+                </div>
+              </User>
+            ) : (
+              <Link to="/signin">Login</Link>
+            )}
+          </UserLogin>
           <Link to="/wishlist">
-            <Wishlist>
+            <IconWrapper>
               <Heart
                 width="16"
                 height="16"
@@ -105,7 +118,7 @@ const Navbar = () => {
                 stroke="1"
                 fill="none"
               />
-            </Wishlist>
+            </IconWrapper>
           </Link>
           <Link to="/cart">
             <CartWrapper>
@@ -113,27 +126,10 @@ const Navbar = () => {
               <span>{totalQty}</span>
             </CartWrapper>
           </Link>
+          <MobileMenu>
+            <Hamburger open={open} handleOpen={() => setOpen(!open)} />
+          </MobileMenu>
         </Right>
-        <MobileMenuWrapper>
-          <Link to="/wishlist">
-            <Wishlist>
-              <Heart
-                width="16"
-                height="16"
-                color="#000"
-                stroke="1"
-                fill="none"
-              />
-            </Wishlist>
-          </Link>
-          <Link to="/cart">
-            <CartWrapper>
-              <Cart width="16" height="16" color="#000" stroke="1" />
-              <span>{totalQty}</span>
-            </CartWrapper>
-          </Link>
-          <Hamburger open={open} handleOpen={() => setOpen(!open)} />
-        </MobileMenuWrapper>
       </Wrapper>
     </Container>
   );
@@ -144,7 +140,7 @@ const Flex = css`
   align-items: center;
 `;
 
-const Container = styled.div`
+const Container = styled.header`
   height: 54px;
   border-bottom: 1px solid ${neutral[100]};
 `;
@@ -175,7 +171,7 @@ const Left = styled.div`
   text-transform: lowercase;
 `;
 
-const Center = styled.div`
+const Center = styled.nav`
   ${Flex}
   justify-content: space-between;
   flex: 1;
@@ -208,15 +204,7 @@ const Center = styled.div`
   }
 `;
 
-const MobileLogin = styled.div`
-  display: none;
-
-  a {
-    padding: 0;
-  }
-`;
-
-const Right = styled.div`
+const Right = styled.nav`
   ${Flex}
   justify-content: flex-end;
   flex: 1;
@@ -225,14 +213,6 @@ const Right = styled.div`
   .login {
     margin-right: 1rem;
   }
-
-  @media ${breakpoint.lg} {
-    display: none;
-  }
-`;
-
-const Signin = styled.div`
-  cursor: pointer;
 `;
 
 const User = styled.div`
@@ -270,18 +250,9 @@ const User = styled.div`
   }
 `;
 
-const Wishlist = styled.div`
+const IconWrapper = styled.div`
   ${Flex}
   margin: 0 1rem;
-`;
-
-const MobileMenuWrapper = styled.div`
-  display: none;
-
-  @media ${breakpoint.lg} {
-    ${Flex}
-    font-size: ${typeScale.helper};
-  }
 `;
 
 const CartWrapper = styled.div`
@@ -293,6 +264,31 @@ const CartWrapper = styled.div`
 
   span {
     margin-left: 0.5rem;
+  }
+`;
+
+const UserLogin = styled.div`
+  @media ${breakpoint.lg} {
+    display: none;
+  }
+`;
+
+const MobileLogin = styled.div`
+  display: none;
+
+  @media ${breakpoint.lg} {
+    text-align: center;
+    a {
+      display: block;
+      padding: 0;
+    }
+  }
+`;
+
+const MobileMenu = styled.div`
+  display: none;
+  @media ${breakpoint.lg} {
+    display: block;
   }
 `;
 

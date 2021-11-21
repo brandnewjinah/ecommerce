@@ -36,12 +36,7 @@ const AddProduct = () => {
     price: "",
     category1: {},
     category2: {},
-    imgs: [
-      {
-        id: 1,
-        src: "",
-      },
-    ],
+    img: "",
     size: "",
   });
 
@@ -77,25 +72,6 @@ const AddProduct = () => {
     setProductInfo({ ...productInfo, [name]: value });
   };
 
-  let newImgs = [...productInfo.imgs];
-
-  const handleImgAdd = () => {
-    let id = newImgs[newImgs.length - 1].id + 1;
-    newImgs = [...newImgs, { id: id, src: "" }];
-    setProductInfo({ ...productInfo, imgs: newImgs });
-  };
-
-  const handleImgChange = (e, idx) => {
-    const userInput = { ...productInfo };
-    userInput[e.target.name][idx].src = e.target.value;
-    setProductInfo(userInput);
-  };
-
-  const handleImgDelete = (id) => {
-    newImgs = newImgs.filter((i) => i.id !== id);
-    setProductInfo({ ...productInfo, imgs: newImgs });
-  };
-
   const handleSubmit = () => {
     const errors = validate();
     setErrors(errors || {});
@@ -120,12 +96,7 @@ const AddProduct = () => {
       price: "",
       category1: {},
       category2: {},
-      imgs: [
-        {
-          id: 1,
-          src: "",
-        },
-      ],
+      img: "",
       size: "",
     });
   };

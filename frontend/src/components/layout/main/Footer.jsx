@@ -50,7 +50,7 @@ const Footer = () => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.footer`
   position: absolute;
   bottom: 0;
   width: 100%;

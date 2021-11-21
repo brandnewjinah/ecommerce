@@ -66,13 +66,12 @@ const Cart = () => {
               handleClick={() => handleClick("shop")}
             />
           </Top>
-          <Bottom>
-            <ProductSlider
-              title="Recommended Products"
-              data={products}
-              slidesPerView={{ small: 2, medium: 3, large: 4 }}
-            />
-          </Bottom>
+
+          <ProductSlider
+            title="Recommended Products"
+            data={products}
+            slidesPerView={{ small: 2, medium: 3, large: 4 }}
+          />
         </Empty>
       )}
     </ContainerSmall>
@@ -90,13 +89,13 @@ const Main = styled.main`
   }
 `;
 
-const Items = styled.div`
+const Items = styled.section`
   flex: 2;
   /* justify-content: center;
   align-items: center; */
 `;
 
-const Summary = styled.div`
+const Summary = styled.aside`
   flex: 1;
 `;
 
@@ -109,10 +108,6 @@ const Top = styled.section`
   button {
     margin: 2rem 0;
   }
-`;
-
-const Bottom = styled.section`
-  margin-top: 4rem;
 `;
 
 export default Cart;

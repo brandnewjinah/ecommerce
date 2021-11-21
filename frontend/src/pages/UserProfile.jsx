@@ -42,46 +42,42 @@ const UserProfile = () => {
         title="User Profile"
         body="Edit your account information"
       />
-      <Content>
-        <Section onSubmit={handleSubmit}>
-          <div>
-            <Input
-              label="Name"
-              name="name"
-              value={account.name}
-              handleChange={handleChange}
-            />
-          </div>
-          <div>
-            <Input
-              label="Email"
-              name="email"
-              value={account.email}
-              handleChange={handleChange}
-            />
-          </div>
-          <div>
-            <Input
-              label="New Password"
-              name="password"
-              value={account.password}
-              type="password"
-              handleChange={handleChange}
-            />
-          </div>
-          <Button
-            label="Save"
-            color={primaryColor.button}
-            type="submit"
-            margin="1rem 0"
+      <Section onSubmit={handleSubmit}>
+        <div>
+          <Input
+            label="Name"
+            name="name"
+            value={account.name}
+            handleChange={handleChange}
           />
-        </Section>
-      </Content>
+        </div>
+        <div>
+          <Input
+            label="Email"
+            name="email"
+            value={account.email}
+            handleChange={handleChange}
+          />
+        </div>
+        <div>
+          <Input
+            label="New Password"
+            name="password"
+            value={account.password}
+            type="password"
+            handleChange={handleChange}
+          />
+        </div>
+        <Button
+          label="Save"
+          color={primaryColor.button}
+          type="submit"
+          margin="1rem 0"
+        />
+      </Section>
     </Layout>
   );
 };
-
-const Content = styled.div``;
 
 const Section = styled.form`
   width: 100%;

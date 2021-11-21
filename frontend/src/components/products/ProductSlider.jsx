@@ -18,7 +18,9 @@ SwiperCore.use([Navigation]);
 const ProductSlider = ({ data, title, slidesPerView }) => {
   return (
     <Section>
-      <h3>{title}</h3>
+      <Header>
+        <h3>{title}</h3>
+      </Header>
       <Slider>
         <Swiper
           navigation
@@ -62,7 +64,9 @@ const ProductSlider = ({ data, title, slidesPerView }) => {
 
 const Section = styled.section`
   padding: 2rem 0;
+`;
 
+const Header = styled.header`
   h3 {
     text-align: center;
     text-transform: uppercase;

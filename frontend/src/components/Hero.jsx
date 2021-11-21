@@ -33,7 +33,7 @@ const Hero = () => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.section`
   .swiper-button-prev,
   .swiper-button-next {
     width: 40px;

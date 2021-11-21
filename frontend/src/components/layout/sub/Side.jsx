@@ -31,7 +31,7 @@ const Side = () => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.nav`
   flex: 1;
 `;
 

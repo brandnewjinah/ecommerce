@@ -39,7 +39,7 @@ const WrapperSmall = styled(Wrapper)`
   max-width: 80rem;
 `;
 
-const HeaderWrapper = styled.div`
+const HeaderWrapper = styled.header`
   text-align: center;
 
   h3 {
