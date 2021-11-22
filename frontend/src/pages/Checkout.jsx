@@ -22,27 +22,14 @@ const Checkout = () => {
   const order = useSelector((state) => state.order);
   const { success, orderDetail, shipping, delivery, payment } = order;
 
-  const onSubmit = (data) => {
+  const handleClick = () => {
     const total = cart.products.reduce((total, item) => {
       return item.price * item.qty + total;
     }, 0);
     const thisOrder = {
-      shipping: {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        address1: data.address1,
-        address2: data.address2,
-        city: data.city,
-        state: data.state,
-        zip: data.zip,
-        phone: data.phone,
-        shipping: data.shipping,
-      },
-      billing: {
-        firstName: data.billingFirstName,
-        lastName: data.billingLastName,
-        cardNumber: data.cardNumber.slice(-4),
-      },
+      shipping,
+      delivery,
+      payment,
       orderItems: cart.products,
       total: total,
     };
@@ -53,8 +40,8 @@ const Checkout = () => {
   useEffect(() => {
     if (success) {
       dispatch(clearCart());
-      history.push(`/confirmation/${orderDetail._id}`);
       dispatch(resetOrder());
+      history.push(`/confirmation/${orderDetail._id}`);
     }
   }, [dispatch, order, success, history]);
 
@@ -77,7 +64,7 @@ const Checkout = () => {
           <Payment handleStep={handleStep} step={step} info={payment} />
         </Main>
         <SummaryWrapper>
-          <CartSummary step={step} />
+          <CartSummary step={step} handleClick={handleClick} />
         </SummaryWrapper>
       </MainWrapper>
     </Container>

@@ -101,9 +101,24 @@ const AddProduct = () => {
     });
   };
 
+  const [previewSource, setPreviewSource] = useState("");
+
+  const handleImageFile = (e) => {
+    const file = e.target.files[0];
+    previewFile(file);
+  };
+
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      setPreviewSource(reader.result);
+    };
+  };
+
   return (
     <Container>
-      <h3>{id ? "Edit Product" : "Add Product"}</h3>
+      <h3>Edit Product</h3>
       <Card margin={`1rem 0`}>
         <Item>
           <div className="one">
@@ -170,40 +185,15 @@ const AddProduct = () => {
           )}
       </Card>
       <Card>
-        {productInfo.imgs.map((img, idx) => (
-          <Item key={idx}>
-            <div className="nine">
-              <Input
-                label="Image URL"
-                name="imgs"
-                value={img.src}
-                handleChange={(e) => handleImgChange(e, idx)}
-              />
-            </div>
-            {idx === 0 ? (
-              <></>
-            ) : (
-              <div className="one">
-                <IconButton
-                  icon={
-                    <Close
-                      width={16}
-                      height={16}
-                      stroke={2}
-                      color={neutral[10]}
-                    />
-                  }
-                  handleClick={() => handleImgDelete(img.id)}
-                />
-              </div>
-            )}
-          </Item>
-        ))}
-        <TextButton
-          label="More"
-          color={neutral[400]}
-          handleClick={handleImgAdd}
+        {/*  <input
+          type="file"
+          name="img"
+          value={productInfo.img}
+          onChange={handleImageFile}
         />
+        {previewSource && (
+          <img src={previewSource} alt="chosen" style={{ height: "300px" }} />
+        )} */}
       </Card>
       <Card>
         <Item>

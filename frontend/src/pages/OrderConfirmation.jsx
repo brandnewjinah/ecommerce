@@ -37,14 +37,15 @@ const OrderConfirmation = () => {
           <HeaderContainer title="THANK YOU" body={`order# ${order._id}`} />
           <Details>
             <Article>
+              <h5>Order Status</h5>
               <p>{order.status}</p>
             </Article>
             <Article>
-              <p>Delivery Method</p>
+              <h5>Delivery Method</h5>
               <p>{order && order.shipping && order.shipping.shipping}</p>
             </Article>
             <Article>
-              <p>Shipping Address</p>
+              <h5>Shipping Address</h5>
               <p>{order && order.shipping && order.shipping.address1}</p>
               <p>
                 {order && order.shipping && order.shipping.city},{" "}
@@ -54,12 +55,12 @@ const OrderConfirmation = () => {
             </Article>
 
             <Article>
-              <p>Payment Method</p>
+              <h5>Payment Method</h5>
               <p>****{order && order.billing && order.billing.cardNumber}</p>
             </Article>
           </Details>
           <Items>
-            <h6>Summary</h6>
+            <h5>Summary</h5>
             {order.orderItems &&
               order.orderItems.length > 0 &&
               order.orderItems.map((item, idx) => <OrderItem item={item} />)}
@@ -74,6 +75,11 @@ const Details = styled.section`
   width: 100%;
   padding: 2rem 0;
 
+  h5 {
+    text-transform: uppercase;
+    padding: 1rem 0;
+  }
+
   p {
     line-height: 1.25rem;
   }
@@ -83,7 +89,12 @@ const Article = styled.article`
   padding: 1rem 0;
 `;
 
-const Items = styled.section``;
+const Items = styled.section`
+  h5 {
+    text-transform: uppercase;
+    padding: 1rem 0;
+  }
+`;
 
 const Item = styled.section``;
 

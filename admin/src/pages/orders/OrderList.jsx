@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import moment from "moment";
 
 //components
 import { Card } from "../../components/Card";
@@ -31,7 +32,7 @@ const OrderList = () => {
     data &&
     data.map((item) => ({
       name: item.shipping.firstName,
-      createdAt: item.createdAt,
+      createdAt: moment(item.createdAt).format("lll"),
       total: item.total,
       status: item.status,
       id: item._id,
@@ -47,7 +48,7 @@ const OrderList = () => {
         <h3>ORDERS</h3>
       </Header>
       <Card>
-        <Table thead={thead} tbody={orders} linkurl="users" />
+        <Table thead={thead} tbody={orders} linkurl="orders" />
       </Card>
       <Pagination
         pageCount={pages}

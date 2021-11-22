@@ -40,7 +40,7 @@ const Nav = styled.ul`
 `;
 
 const List = styled.li`
-  color: ${(props) => props.url === props.pathname && "red"};
+  font-weight: ${(props) => props.url === props.pathname && 700};
   padding: 0.5rem 0;
 `;
 

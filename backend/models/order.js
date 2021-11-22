@@ -54,16 +54,30 @@ const orderSchema = mongoose.Schema(
         type: String,
       },
     },
-    billing: {
-      firstName: {
+    payment: {
+      billingFirstName: {
         type: String,
         required: true,
       },
-      lastName: {
+      billingLastName: {
         type: String,
         required: true,
       },
       cardNumber: {
+        type: String,
+        required: true,
+      },
+      expiration: {
+        type: String,
+        required: true,
+      },
+      security: {
+        type: String,
+        required: true,
+      },
+    },
+    delivery: {
+      shipping: {
         type: String,
         required: true,
       },

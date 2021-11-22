@@ -19,6 +19,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getProducts } from "../redux/productRedux";
 
 const ProductList = () => {
+  const [currentPage, setCurrentPage] = useState(1);
   const { category } = useParams();
   const [filter, setFilter] = useState("");
   const [sort, setSort] = useState("Newest");
@@ -26,10 +27,11 @@ const ProductList = () => {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, products, error } = productList;
+  const { pages, data } = products;
 
   useEffect(() => {
-    dispatch(getProducts(category));
-  }, [dispatch, category]);
+    dispatch(getProducts({ category, page: currentPage }));
+  }, [dispatch, category, currentPage]);
 
   useEffect(() => {
     if (category) {
@@ -44,6 +46,10 @@ const ProductList = () => {
 
   const handleSort = (e) => {
     setSort(e.target.value);
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -72,12 +78,16 @@ const ProductList = () => {
             />
           </FilterContainer>
           <Products
-            products={products.data}
+            products={data}
             category={category}
             filter={filter}
             sort={sort}
           />
-          <Pagination />
+          <Pagination
+            pageCount={pages}
+            currentPage={currentPage}
+            handlePageChange={(page) => handlePageChange(page)}
+          />
         </>
       )}
     </Container>

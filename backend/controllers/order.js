@@ -1,11 +1,12 @@
 import Order from "../models/order.js";
 
-//create
+//CREATE AN ORDER
 export const createOrder = async (req, res) => {
   const newOrder = new Order({
     orderItems: req.body.orderItems,
     shipping: req.body.shipping,
-    billing: req.body.billing,
+    payment: req.body.payment,
+    delivery: req.body.delivery,
     total: req.body.total,
     user: req.user._id,
   });
@@ -18,6 +19,7 @@ export const createOrder = async (req, res) => {
   }
 };
 
+//Get order detail for a single order
 export const getOneOrder = async (req, res) => {
   const order = await Order.findById(req.params.id);
 
@@ -28,6 +30,7 @@ export const getOneOrder = async (req, res) => {
   }
 };
 
+//CREATE ALL ORDERS SUBMITTED BY ONE USER
 export const getUserOrders = async (req, res) => {
   try {
     const orders = await Order.find({ user: req.params.id });

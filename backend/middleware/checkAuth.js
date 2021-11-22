@@ -31,7 +31,7 @@ export const checkToken = (req, res, next) => {
 
 export const checkAuth = (req, res, next) => {
   checkToken(req, res, () => {
-    if (req.user._id === req.params.id || req.user.isAdmin) {
+    if (req.user._id || req.user.isAdmin) {
       next();
     } else {
       res.status(403).json("You are not authorized");

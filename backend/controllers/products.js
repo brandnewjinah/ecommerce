@@ -27,9 +27,11 @@ export const getProducts = async (req, res) => {
         pages,
         data: result,
       });
-    } else if (category) {
+    } else if (category && category !== "all") {
       let products = Product.find({ "category1.value": category });
-      const total = await Product.countDocuments();
+      const total = await Product.countDocuments({
+        "category1.value": category,
+      });
       const pages = Math.ceil(total / pageSize);
       products = products.skip(skip).limit(pageSize);
       const result = await products;

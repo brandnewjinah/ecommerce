@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import moment from "moment";
 import styled from "styled-components";
 
-import { neutral, typeScale } from "../token";
+import { neutral, primaryColor, typeScale } from "../token";
 import { Link } from "react-router-dom";
 import { Button } from "../Button";
 
@@ -35,6 +35,9 @@ const Card = ({ order }) => {
       <Content>
         <Button
           label="View Details"
+          shape="outline"
+          color={primaryColor.button}
+          fontColor={primaryColor.button}
           handleClick={() => handleClick(order._id)}
         />
       </Content>

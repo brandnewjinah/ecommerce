@@ -17,7 +17,6 @@ import {
 } from "../../redux/cartRedux";
 
 const CartItem = ({ data }) => {
-  console.log(data);
   const dispatch = useDispatch();
   const handleIncrease = () => {
     dispatch(increaseQty(data));
