@@ -4,10 +4,8 @@ import _ from "lodash";
 import styled from "styled-components";
 
 //import components
-import {
-  ContainerSmall,
-  HeaderContainer,
-} from "../components/layout/Containers";
+import { ContainerSmall } from "../components/layout/Containers";
+import { Header } from "../components/layout/Header";
 import CartItem from "../components/cart/CartItem";
 import CartSummary from "../components/cart/CartSummary";
 import { Button } from "../components/Button";
@@ -38,9 +36,7 @@ const Cart = () => {
   const handleClick = (path) => {
     path === "checkout" && loggedIn
       ? history.push("/checkout")
-      : path === "checkout"
-      ? history.push("/signin?redirectTo=checkout")
-      : history.push("/products/all");
+      : history.push("/signin?redirectTo=checkout");
   };
 
   return (
@@ -59,7 +55,7 @@ const Cart = () => {
       ) : (
         <Empty>
           <Top>
-            <HeaderContainer title="Your cart is empty" />
+            <Header title="Your cart is empty" />
             <Button
               label="Let's go shopping"
               color={primaryColor.button}

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { categoryList } from "../data/category";
 
 //token
-import { neutral, typeScale, breakpoint } from "./token";
+import { neutral, fontScale, breakpoint } from "./token";
 
 const Filter = ({ category, handleFilter }) => {
   const [subCategories, setSubCategories] = useState([]);
@@ -82,7 +82,7 @@ const List = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: ${typeScale.sbody};
+  font-size: ${fontScale.scale_s2};
   color: ${neutral[500]};
   padding: 0.25rem 0.5rem;
   cursor: pointer;

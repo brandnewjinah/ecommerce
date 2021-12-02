@@ -3,12 +3,12 @@ import styled from "styled-components";
 
 //components
 import Layout from "../components/layout/sub/Layout";
-import { HeaderContainer } from "../components/layout/Containers";
+import { Header } from "../components/layout/Header";
 import { Input } from "../components/Input2";
 import { Button } from "../components/Button";
 
 //token
-import { neutral, typeScale, primaryColor } from "../components/token";
+import { neutral, fontScale, primaryColor } from "../components/token";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -38,10 +38,7 @@ const UserProfile = () => {
 
   return (
     <Layout path="account">
-      <HeaderContainer
-        title="User Profile"
-        body="Edit your account information"
-      />
+      <Header title="User Profile" body="Edit your account information" />
       <Section onSubmit={handleSubmit}>
         <div>
           <Input
@@ -81,7 +78,7 @@ const UserProfile = () => {
 
 const Section = styled.form`
   width: 100%;
-  font-size: ${typeScale.sbody};
+  font-size: ${fontScale.sbody};
   border-bottom: 1px solid ${neutral[100]};
   padding: 1rem 0;
 

@@ -2,7 +2,7 @@ import React, { FC, useState, ChangeEvent } from "react";
 import styled from "styled-components";
 
 //layout component
-import { neutral, primaryColor, typeScale } from "./token";
+import { neutral, primaryColor, fontScale } from "./token";
 import { Eye, EyeOff } from "../assets/Icons";
 
 export interface Props {
@@ -67,22 +67,22 @@ export const Input: FC<Props> = ({
 
 const Container = styled.div`
   position: relative;
-  /* margin: 1rem 0; */
 
   label {
     display: inline-block;
-    font-size: ${typeScale.sbody};
-    padding: 0 0 0.25rem;
+    font-size: ${fontScale.scale_s3};
   }
 
   .errorTxt {
-    font-size: ${typeScale.error};
+    font-size: ${fontScale.scale_s3};
     color: ${primaryColor.error};
     margin: 0.25rem 0;
   }
 `;
 
 const InputContainer = styled.div`
+  margin: 0.75rem 0 1.5rem;
+
   .error {
     background-color: rgba(216, 50, 50, 0.08);
   }
@@ -90,7 +90,7 @@ const InputContainer = styled.div`
 
 const InputTag = styled.input<Props>`
   width: 100%;
-  font-size: ${typeScale.body};
+  font-size: ${fontScale.scale_1};
   border-radius: 0.25rem;
   border: 1px solid ${neutral[200]};
   padding: 0.75rem;
@@ -111,7 +111,7 @@ const InputTag = styled.input<Props>`
 
 const Toggle = styled.div`
   position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
+  top: 3rem;
+  right: 1rem;
   cursor: pointer;
 `;

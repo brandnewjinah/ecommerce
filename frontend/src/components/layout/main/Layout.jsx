@@ -7,7 +7,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 
 //token
-import { breakpoint } from "../../token";
+import { breakpoint, size } from "../../token";
 
 const Layout = ({ children }) => {
   return (
@@ -28,6 +28,8 @@ const Wrapper = styled.div`
 
 const Container = styled.main`
   width: 100%;
+  max-width: ${size.xlg};
+  margin: 4rem auto;
   padding-bottom: 304px;
 
   @media ${breakpoint.lg} {

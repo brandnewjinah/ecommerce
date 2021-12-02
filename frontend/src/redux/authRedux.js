@@ -1,11 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import * as api from "../api";
+import { publicRequest } from "../api";
 import axios from "axios";
 
 export const signin = createAsyncThunk("auth/signin", async (values) => {
   try {
-    const { data } = await api.signin(values);
-    localStorage.setItem("currentUser", JSON.stringify(data));
+    const { data } = await publicRequest.post("/auth/signin", values);
     return data;
   } catch (error) {
     return error;
@@ -14,8 +13,7 @@ export const signin = createAsyncThunk("auth/signin", async (values) => {
 
 export const signup = createAsyncThunk("auth/signup", async (values) => {
   try {
-    const { data } = await api.signup(values);
-    localStorage.setItem("currentUser", JSON.stringify(data));
+    const { data } = await publicRequest.post("/auth/signup", values);
     return data;
   } catch (error) {
     return error;

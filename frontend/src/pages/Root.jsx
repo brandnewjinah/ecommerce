@@ -58,8 +58,15 @@ const Wrapper = styled.main`
   margin: 0 auto;
 
   h1 {
+    font-size: 2.5rem;
     text-align: center;
     color: ${primaryColor.blue};
+  }
+
+  @media ${breakpoint.lg} {
+    h1 {
+      font-size: 2rem;
+    }
   }
 `;
 

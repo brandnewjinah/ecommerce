@@ -15,7 +15,7 @@ export const ContainerSmall = ({ children }) => {
 export const HeaderContainer = ({ title, body }) => {
   return (
     <HeaderWrapper>
-      <h3>{title}</h3>
+      <h1>{title}</h1>
       {body && <p>{body}</p>}
     </HeaderWrapper>
   );
@@ -42,7 +42,7 @@ const WrapperSmall = styled(Wrapper)`
 const HeaderWrapper = styled.header`
   text-align: center;
 
-  h3 {
+  h1 {
     text-transform: uppercase;
     letter-spacing: 0.05rem;
   }

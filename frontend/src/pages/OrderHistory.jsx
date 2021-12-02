@@ -4,7 +4,8 @@ import styled from "styled-components";
 
 //components
 import Layout from "../components/layout/sub/Layout";
-import { Container, HeaderContainer } from "../components/layout/Containers";
+import { Container } from "../components/layout/Containers";
+import { Header } from "../components/layout/Header";
 import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
 import Card from "../components/order/Card";
@@ -37,7 +38,7 @@ const User = () => {
         <ErrorMessage>{`${error} this is error message component`}</ErrorMessage>
       ) : (
         <>
-          <HeaderContainer title="Order History" />
+          <Header title="Order History" />
           {orders && orders.length > 0 ? (
             <Wrapper>
               {orders.map((order, idx) => (

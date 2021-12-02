@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 //components
 import { Container, HeaderContainer } from "../components/layout/Containers";
+import { Header } from "../components/layout/Header";
 import CartSummary from "../components/cart/CartSummary";
 
 //import redux
@@ -35,15 +36,20 @@ const Checkout = () => {
     };
 
     dispatch(placeOrder(thisOrder));
-  };
-
-  useEffect(() => {
     if (success) {
       dispatch(clearCart());
       dispatch(resetOrder());
       history.push(`/confirmation/${orderDetail._id}`);
     }
-  }, [dispatch, order, success, history]);
+  };
+
+  // useEffect(() => {
+  //   if (success) {
+  //     dispatch(clearCart());
+  //     dispatch(resetOrder());
+  //     history.push(`/confirmation/${orderDetail._id}`);
+  //   }
+  // }, [dispatch, order, success, history]);
 
   const handleStep = (num) => {
     setStep(num);
@@ -51,7 +57,7 @@ const Checkout = () => {
 
   return (
     <Container>
-      <HeaderContainer title="Checkout" />
+      <Header title="Checkout" />
 
       <MainWrapper>
         <Main>

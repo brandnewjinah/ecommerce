@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-import { typeScale, neutral } from "../token";
+import { fontScale, neutral } from "../token";
 
 const OrderItem = ({ item }) => {
   return (
     <Container>
       <Left>
         <div className="image">
-          <img src={item.imgs && item.imgs[0].src} alt="" />
+          <img src={item.img && item.img} alt="" />
         </div>
         <div className="detail">
           <p className="main">{item.name}</p>
@@ -31,7 +31,7 @@ const Left = styled.div`
   display: flex;
   align-items: center;
   flex: 4;
-  font-size: ${typeScale.body};
+  font-size: ${fontScale.body};
   font-weight: 500;
   color: ${neutral[600]};
 

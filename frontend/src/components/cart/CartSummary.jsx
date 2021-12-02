@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { Button } from "../Button";
 
 //token
-import { neutral, primaryColor, typeScale } from "../token";
+import { neutral, primaryColor, fontScale } from "../token";
 
 const Article = ({ left, right }) => {
   return (
@@ -90,7 +90,7 @@ const Bottom = styled.div`
 const Item = styled.div`
   display: flex;
   justify-content: space-between;
-  font-size: ${typeScale.helper};
+  font-size: ${fontScale.scale_s2};
   padding: 0.5em 0;
 
   p {

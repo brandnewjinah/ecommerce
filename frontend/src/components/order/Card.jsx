@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import moment from "moment";
 import styled from "styled-components";
 
-import { neutral, primaryColor, typeScale } from "../token";
+import { neutral, primaryColor, fontScale } from "../token";
 import { Link } from "react-router-dom";
 import { Button } from "../Button";
 
@@ -55,7 +55,7 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  font-size: ${typeScale.helper};
+  font-size: ${fontScale.helper};
   border-bottom: 1px solid ${neutral[200]};
   padding-bottom: 0.75rem;
 

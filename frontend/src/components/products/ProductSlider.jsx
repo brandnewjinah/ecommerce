@@ -11,7 +11,7 @@ import "swiper/components/navigation/navigation.scss";
 import Card from "./ProductCard";
 
 //token
-import { breakpoint } from "../token";
+import { breakpoint, fontScale } from "../token";
 
 SwiperCore.use([Navigation]);
 
@@ -19,7 +19,7 @@ const ProductSlider = ({ data, title, slidesPerView }) => {
   return (
     <Section>
       <Header>
-        <h3>{title}</h3>
+        <h2>{title}</h2>
       </Header>
       <Slider>
         <Swiper
@@ -67,10 +67,11 @@ const Section = styled.section`
 `;
 
 const Header = styled.header`
-  h3 {
+  h2 {
+    font-size: ${fontScale.scale_b3};
     text-align: center;
     text-transform: uppercase;
-    letter-spacing: 0.05rem;
+    letter-spacing: 0.03rem;
     position: relative;
     padding-bottom: 1.25rem;
     margin-bottom: 1.75rem;

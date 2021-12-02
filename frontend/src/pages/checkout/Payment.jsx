@@ -7,7 +7,7 @@ import styled from "styled-components";
 //components
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
-import { primaryColor } from "../../components/token";
+import { fontScale, primaryColor } from "../../components/token";
 
 //redux
 import { useDispatch } from "react-redux";
@@ -33,13 +33,13 @@ const Payment = ({ handleStep, step, info }) => {
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    handleStep(4);
     dispatch(savePayment(data));
+    handleStep(4);
   };
 
   return (
     <Section>
-      <h5>3. Payment Method</h5>
+      <h2>3. Payment Method</h2>
       {step === 3 && (
         <form onSubmit={handleSubmit(onSubmit)}>
           <Item>
@@ -105,9 +105,8 @@ const Section = styled.div`
   padding: 2em;
   margin-bottom: 1em;
 
-  h5 {
-    text-transform: uppercase;
-    letter-spacing: 0.075rem;
+  h2 {
+    font-size: ${fontScale.scale_b4};
     padding: 0.875rem 0;
   }
 

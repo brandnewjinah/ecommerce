@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 //import components;
 import Layout from "../components/layout/sub/Layout";
-import { HeaderContainer } from "../components/layout/Containers";
+import { Header } from "../components/layout/Header";
 import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
 import { ChevronLeft } from "../assets/Icon";
@@ -34,7 +34,7 @@ const OrderConfirmation = () => {
       ) : (
         <>
           <ChevronLeft width={20} height={20} color="#000" stroke={2} />
-          <HeaderContainer title="THANK YOU" body={`order# ${order._id}`} />
+          <Header title="THANK YOU" body={`order# ${order._id}`} />
           <Details>
             <Article>
               <h5>Order Status</h5>
@@ -42,7 +42,7 @@ const OrderConfirmation = () => {
             </Article>
             <Article>
               <h5>Delivery Method</h5>
-              <p>{order && order.shipping && order.shipping.shipping}</p>
+              <p>{order && order.delivery && order.delivery.shipping}</p>
             </Article>
             <Article>
               <h5>Shipping Address</h5>

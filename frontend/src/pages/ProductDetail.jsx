@@ -20,7 +20,7 @@ import { Heart } from "../assets/Icon";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetail } from "../redux/productDetailRedux";
 import { addToCart } from "../redux/cartRedux";
-import * as api from "../api";
+import { publicRequest } from "../api";
 import {
   addToWishlist,
   removeFromWishlist,
@@ -51,8 +51,11 @@ const Detail = () => {
   useEffect(() => {
     const getSimilarProducts = async () => {
       try {
-        const res = await api.getSimilarProducts(_id, product.category2.id);
-        setSimilar(res.data);
+        const { data } = await publicRequest.get(
+          `/products/similar/${_id}?similar=${product.category2.id}`
+        );
+
+        setSimilar(data);
       } catch {}
     };
     getSimilarProducts();
@@ -103,8 +106,8 @@ const Detail = () => {
             </ImageWrapper>
             <InfoWrapper>
               <InfoItem helper={product.brand} title={product.name} />
-              <InfoItem helper="Price" title={`$${product.price}`} />
-              <InfoItem helper="Size" title={product.size} />
+              <InfoItem helper="Price" subtitle={`$${product.price}`} />
+              <InfoItem helper="Size" body={product.size} />
               <InfoItem
                 helper="Description"
                 body="dLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed

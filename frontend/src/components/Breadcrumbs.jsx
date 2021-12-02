@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { neutral, typeScale, breakpoint } from "./token";
+import { neutral, fontScale, breakpoint } from "./token";
 
 const Breadcrumbs = ({ item1, item2 }) => {
   return (
@@ -16,7 +16,7 @@ const Breadcrumbs = ({ item1, item2 }) => {
 };
 
 const Container = styled.div`
-  font-size: ${typeScale.helper};
+  font-size: ${fontScale.scale_s2};
   color: ${neutral[400]};
   padding: 0.5rem 0;
 

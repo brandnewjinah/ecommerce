@@ -1,11 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import * as api from "../api";
+import { publicRequest } from "../api";
 
 export const getProducts = createAsyncThunk(
   "products/getProducts",
   async (value) => {
     try {
-      const { data } = await api.getProducts(value.category, value.page);
+      const { data } = await publicRequest.get(
+        `/products?category=${value.category}&page=${value.page}`
+      );
       return data;
     } catch (error) {
       return error;
@@ -17,7 +19,7 @@ export const getNewProducts = createAsyncThunk(
   "products/getNewProducts",
   async () => {
     try {
-      const { data } = await api.getNewProducts();
+      const { data } = await publicRequest.get(`/products?new=true`);
       return data;
     } catch (error) {
       return error;

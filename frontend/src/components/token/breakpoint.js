@@ -1,7 +1,7 @@
 export const size = {
   m: "640px",
   lg: "1024px",
-  xlg: "1140px",
+  xlg: "1280px",
 };
 
 export const breakpoint = {

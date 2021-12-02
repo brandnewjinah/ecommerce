@@ -9,6 +9,7 @@ import { GoogleLogin } from "react-google-login";
 import styled from "styled-components";
 
 //comp
+import { Header } from "../components/layout/Header";
 import { Input } from "../components/Input";
 import { Button, TextButton } from "../components/Button";
 
@@ -97,9 +98,7 @@ const Auth = () => {
   };
   return (
     <Container>
-      <Header>
-        <h3>{isSignup ? "Create an account" : "Sign In"}</h3>
-      </Header>
+      <Header title={isSignup ? "Create an account" : "Sign In"} />
 
       <form onSubmit={handleSubmit(onSubmit)}>
         {isSignup && (
@@ -183,15 +182,6 @@ const Container = styled.div`
   width: 400px;
   padding: 2rem 1.5rem;
   margin: 0 auto;
-`;
-
-const Header = styled.header`
-  h3 {
-    text-transform: uppercase;
-    text-align: center;
-    letter-spacing: 0.05rem;
-    padding: 1rem 0;
-  }
 `;
 
 export default Auth;

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { fontScale } from "../token";
 
 //import components
 import Card from "./ProductCard";
@@ -7,7 +8,7 @@ import Card from "./ProductCard";
 const SimilarItems = ({ data, title, slidesPerView }) => {
   return (
     <Container>
-      <h3>{title}</h3>
+      <h2>{title}</h2>
       <ProductsWrapper>
         {data.map((product) => (
           <Card
@@ -29,10 +30,11 @@ const Container = styled.section`
   padding: 2rem 0;
   margin: 2rem 0;
 
-  h3 {
+  h2 {
+    font-size: ${fontScale.scale_b3};
     text-align: center;
     text-transform: uppercase;
-    letter-spacing: 0.05rem;
+    letter-spacing: 0.03rem;
     position: relative;
     padding-bottom: 1.25rem;
     margin-bottom: 1.75rem;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { typeScale } from "../../token";
+import { fontScale } from "../../token";
 
 const menuItems = [
   {
@@ -36,7 +36,7 @@ const Container = styled.nav`
 `;
 
 const Nav = styled.ul`
-  font-size: ${typeScale.sbody};
+  font-size: ${fontScale.scale_s2};
 `;
 
 const List = styled.li`

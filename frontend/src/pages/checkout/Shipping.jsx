@@ -7,7 +7,7 @@ import styled from "styled-components";
 //components
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
-import { primaryColor } from "../../components/token";
+import { fontScale, primaryColor } from "../../components/token";
 
 //redux
 import { useDispatch } from "react-redux";
@@ -42,14 +42,13 @@ const Shipping = ({ handleStep, step, info }) => {
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    handleStep(2);
     dispatch(saveShipping(data));
-    //dispatch data
+    handleStep(2);
   };
 
   return (
     <Section>
-      <h4>1. Shipping</h4>
+      <h2>1. Shipping</h2>
       {step === 1 && (
         <form onSubmit={handleSubmit(onSubmit)}>
           <Item>
@@ -131,8 +130,8 @@ const Section = styled.section`
   padding: 2em;
   margin-bottom: 1em;
 
-  h4 {
-    text-transform: uppercase;
+  h2 {
+    font-size: ${fontScale.scale_b4};
     padding: 0.875rem 0;
   }
 

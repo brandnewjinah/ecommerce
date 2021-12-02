@@ -3,7 +3,7 @@ import _ from "lodash";
 
 //import styles and assets
 import styled from "styled-components";
-import { neutral, typeScale } from "./token";
+import { neutral, fontScale } from "./token";
 
 const Pagination = ({ pageCount, currentPage, handlePageChange }) => {
   // const pageCount = count / limit;
@@ -43,7 +43,7 @@ const Container = styled.nav`
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: ${typeScale.sbody};
+    font-size: ${fontScale.sbody};
     padding: 0.25rem;
     margin: 0 0.5rem;
     cursor: pointer;

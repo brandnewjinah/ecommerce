@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import * as api from "../api";
+import { publicRequest } from "../api";
 
 export const addToCart = createAsyncThunk(
   "cart/getProductDetail",
   async (product) => {
     try {
-      const { data } = await api.getProductDetail(product._id);
+      const { data } = await publicRequest.get(`/products/${product._id}`);
       return {
         name: data.name,
         brand: data.brand,

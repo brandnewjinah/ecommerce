@@ -9,7 +9,7 @@ import Counter from "../Counter";
 import { Close } from "../../assets/Icons";
 
 //import redux
-import { breakpoint, neutral, typeScale } from "../token";
+import { breakpoint, neutral, fontScale } from "../token";
 import {
   decreaseQty,
   increaseQty,
@@ -105,7 +105,7 @@ const Info = styled.div`
   }
 
   @media ${breakpoint.lg} {
-    font-size: ${typeScale.sbody};
+    font-size: ${fontScale.sbody};
 
     .name {
       padding: 0;

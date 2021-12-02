@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 //components
-import {
-  Container,
-  HeaderContainer,
-  FilterContainer,
-} from "../components/layout/Containers";
+import { Container, FilterContainer } from "../components/layout/Containers";
+import { Header } from "../components/layout/Header";
 import Filter from "../components/Filter";
 import Sort from "../components/Sort";
 import Products from "../components/products/Products";
@@ -53,14 +50,14 @@ const ProductList = () => {
   };
 
   return (
-    <Container>
+    <>
       {loading ? (
         <Loading />
       ) : error ? (
         <ErrorMessage>{`${error} this is error message component`}</ErrorMessage>
       ) : (
         <>
-          <HeaderContainer
+          <Header
             title={
               category === "bakery" ||
               category === "beverage" ||
@@ -90,7 +87,7 @@ const ProductList = () => {
           />
         </>
       )}
-    </Container>
+    </>
   );
 };
 

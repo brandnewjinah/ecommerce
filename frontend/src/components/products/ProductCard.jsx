@@ -6,7 +6,7 @@ import styled, { css } from "styled-components";
 import { TextButton, Button } from "../Button";
 
 //token and icons
-import { typeScale, neutral, breakpoint, primaryColor } from "../token";
+import { fontScale, neutral, breakpoint, primaryColor } from "../token";
 import { ImageIcon } from "../../assets/Icons";
 
 //redux
@@ -54,9 +54,9 @@ const ProductCard = ({
         </ImageContainer>
         <Details>
           <p className="sub">{brand}</p>
-          <p className="main">
+          <h2 className="main">
             {name.length > 26 ? `${name.substring(0, 24)}...` : name}
-          </p>
+          </h2>
           <p>
             <span>{currency}</span>
             <span>{price}</span>
@@ -121,21 +121,21 @@ const ErrImg = styled.div`
 
 const Details = styled.div`
   width: 100%;
-  font-size: ${typeScale.body};
+  font-size: ${fontScale.scale_1};
   font-weight: 500;
   color: ${neutral[600]};
   padding-top: 1rem;
 
+  h2 {
+    font-size: ${fontScale.scale_1};
+    padding: 0.25rem 0 0.35rem;
+  }
+
   .sub {
-    font-size: ${typeScale.helper};
+    font-size: ${fontScale.scale_s3};
     text-transform: uppercase;
     letter-spacing: 0.05rem;
     color: ${neutral[400]};
-  }
-
-  .main {
-    padding: 0.25rem 0 0.35rem;
-    font-weight: 600;
   }
 
   @media ${breakpoint.m} {

@@ -6,7 +6,7 @@ import { saveDelivery } from "../../redux/orderRedux";
 //components
 import Selector from "../../components/Selector";
 import { Button } from "../../components/Button";
-import { primaryColor } from "../../components/token";
+import { fontScale, primaryColor } from "../../components/token";
 
 const Delivery = ({ handleStep, step, info }) => {
   const dispatch = useDispatch();
@@ -15,12 +15,12 @@ const Delivery = ({ handleStep, step, info }) => {
   });
 
   const handleClick = () => {
-    handleStep(3);
     dispatch(saveDelivery(data));
+    handleStep(3);
   };
   return (
     <Section>
-      <h4>2. Delivery</h4>
+      <h2>2. Delivery</h2>
 
       {step === 2 && (
         <>
@@ -67,8 +67,8 @@ const Section = styled.div`
   padding: 2em;
   margin-bottom: 1em;
 
-  h4 {
-    text-transform: uppercase;
+  h2 {
+    font-size: ${fontScale.scale_b4};
     padding: 0.875rem 0;
   }
 

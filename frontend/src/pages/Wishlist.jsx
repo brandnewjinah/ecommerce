@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 
 // components
-import { Container, HeaderContainer } from "../components/layout/Containers";
+import { Container } from "../components/layout/Containers";
+import { Header } from "../components/layout/Header";
 import Grid from "../components/layout/Grid";
 import Card from "../components/products/ProductCard";
 
@@ -11,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getWishlist, removeFromWishlist } from "../redux/wishlistRedux";
 import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
-import { typeScale } from "../components/token";
+import { fontScale } from "../components/token";
 
 const ProductList = () => {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ const ProductList = () => {
         <ErrorMessage>{`${error} this is error message component`}</ErrorMessage>
       ) : (
         <>
-          <HeaderContainer title="Wishlist" />
+          <Header title="Wishlist" />
           {!wishlist.products && (
             <Copy>
               You haven't saved anything to your wishlist. Add items to your
@@ -72,7 +73,7 @@ const Wrapper = styled.div`
 `;
 
 const Copy = styled.div`
-  font-size: ${typeScale.body};
+  font-size: ${fontScale.body};
   text-align: center;
   padding: 1rem;
 `;

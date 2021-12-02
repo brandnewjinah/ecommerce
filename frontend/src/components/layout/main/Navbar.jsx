@@ -6,7 +6,7 @@ import styled, { css } from "styled-components";
 import Hamburger from "./Hamburger";
 
 //token
-import { neutral, breakpoint, typeScale } from "../../token";
+import { neutral, breakpoint, fontScale } from "../../token";
 import { Cart, Heart, ChevronDown } from "../../../assets/Icon";
 
 //redux
@@ -152,9 +152,9 @@ const Wrapper = styled.div`
   justify-content: space-between;
   font-family: semplicitapro, sans-serif;
   font-weight: 700;
-  font-size: ${typeScale.helper};
+  font-size: ${fontScale.scale_s4};
   text-transform: uppercase;
-  letter-spacing: 0.1rem;
+  letter-spacing: 0.0875rem;
   padding: 0.75rem 1.5rem;
 
   @media ${breakpoint.lg} {
@@ -167,7 +167,7 @@ const Left = styled.div`
   font-family: "Raleway", sans-serif;
   font-weight: 600;
   font-size: 1.5rem;
-  letter-spacing: 0.25rem;
+  letter-spacing: 0.025rem;
   text-transform: lowercase;
 `;
 
@@ -185,7 +185,7 @@ const Center = styled.nav`
     right: 0;
     height: calc(100vh - 4.25rem);
     background-color: #fff;
-    font-size: ${typeScale.sbody};
+    font-size: ${fontScale.scale_s2};
     padding: 2rem 0;
     z-index: 10;
     transform: ${({ open }) => (open ? "scale(1)" : "scale(0)")};

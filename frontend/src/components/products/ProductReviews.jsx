@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 //import components
 import { Button } from "../Button";
-import { primaryColor } from "../token";
+import { fontScale, primaryColor } from "../token";
 
 const ProductSlider = ({ title }) => {
   const reviews = [(1, 2, 3, 4, 5)];
@@ -14,7 +14,7 @@ const ProductSlider = ({ title }) => {
 
   return (
     <Container>
-      <h3>{title}</h3>
+      <h2>{title}</h2>
       <FilterContainer>
         <p>12 reviews</p>
         <p>sort by</p>
@@ -40,10 +40,11 @@ const Container = styled.section`
   padding: 2rem 0;
   margin: 2rem 0;
 
-  h3 {
+  h2 {
+    font-size: ${fontScale.scale_b3};
     text-align: center;
     text-transform: uppercase;
-    letter-spacing: 0.05rem;
+    letter-spacing: 0.03rem;
     position: relative;
     padding-bottom: 1.25rem;
     margin-bottom: 1.75rem;

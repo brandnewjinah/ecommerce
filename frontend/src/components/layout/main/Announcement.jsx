@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { typeScale } from "../../token";
+import { fontScale } from "../../token";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -32,11 +32,11 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: ${typeScale.caption};
-  font-weight: 700;
+  font-size: ${fontScale.scale_s2};
+  font-weight: 500;
   letter-spacing: 0.05rem;
   color: #fff;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   background-color: #d0af8f;
 `;
 

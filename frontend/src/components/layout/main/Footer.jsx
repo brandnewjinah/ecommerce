@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 //token
-import { neutral, breakpoint } from "../../token";
+import { neutral, breakpoint, fontScale } from "../../token";
 
 const Footer = () => {
   return (
@@ -76,7 +76,7 @@ const Logo = styled.div`
   font-family: "Raleway", sans-serif;
   font-weight: 600;
   font-size: 1.5rem;
-  letter-spacing: 0.25rem;
+  letter-spacing: 0.025rem;
   text-transform: lowercase;
 
   @media ${breakpoint.lg} {
@@ -86,16 +86,15 @@ const Logo = styled.div`
 
 const Section = styled.section`
   h6 {
-    text-transform: uppercase;
-    letter-spacing: 0.025rem;
+    font-size: ${fontScale.scale_s2};
   }
 `;
 
 const Column = styled.ul`
   display: grid;
-  grid-gap: 1rem;
-  font-size: 0.775rem;
-  padding: 1.5rem 0;
+  grid-gap: 0.5rem;
+  font-size: ${fontScale.scale_s2};
+  padding: 1rem 0;
 `;
 
 export default Footer;
