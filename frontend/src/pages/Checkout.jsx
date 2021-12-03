@@ -14,6 +14,7 @@ import { clearCart } from "../redux/cartRedux";
 import Shipping from "./checkout/Shipping";
 import Delivery from "./checkout/Delivery";
 import Payment from "./checkout/Payment";
+import { breakpoint } from "../components/token";
 
 const Checkout = () => {
   const [step, setStep] = useState(1);
@@ -58,7 +59,6 @@ const Checkout = () => {
   return (
     <Container>
       <Header title="Checkout" />
-
       <MainWrapper>
         <Main>
           <Shipping
@@ -81,6 +81,10 @@ const MainWrapper = styled.div`
   display: flex;
   gap: 1rem;
   padding: 1.5rem 0;
+
+  @media ${breakpoint.lg} {
+    flex-direction: column;
+  }
 `;
 
 const Main = styled.main`

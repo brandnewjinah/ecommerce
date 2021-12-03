@@ -6,7 +6,13 @@ import styled, { css } from "styled-components";
 import Hamburger from "./Hamburger";
 
 //token
-import { neutral, breakpoint, fontScale } from "../../token";
+import {
+  neutral,
+  breakpoint,
+  fontScale,
+  primaryColor,
+  size,
+} from "../../token";
 import { Cart, Heart, ChevronDown } from "../../../assets/Icon";
 
 //redux
@@ -16,12 +22,11 @@ import { clearCart } from "../../../redux/cartRedux";
 import { clearWishlist } from "../../../redux/wishlistRedux";
 import { clearOrders } from "../../../redux/orderDetailRedux";
 
-const Navbar = () => {
+const Navbar = ({ open, handleOpen, handleMenu }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  // const qty = useSelector((state) => state.cart.qty);
 
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
 
   const [clickLogout, setClickLogout] = useState(false);
   const [user, setUser] = useState(
@@ -32,13 +37,17 @@ const Navbar = () => {
 
   const totalQty = useSelector((state) => state.cart.totalQty);
 
+  const handleMenuClick = () => {
+    handleOpen((prev) => !prev);
+  };
+
   const handleSignOut = () => {
     dispatch(signout());
     dispatch(clearCart());
     dispatch(clearWishlist());
     dispatch(clearOrders());
     setClickLogout(!clickLogout);
-    setOpen(false);
+    handleOpen((prev) => !prev);
     history.push("/home");
     setUser(null);
   };
@@ -47,38 +56,48 @@ const Navbar = () => {
     <Container>
       <Wrapper>
         <Left>
-          <Link to="/home">SWEET</Link>
+          <Link to="/home">sweet</Link>
         </Left>
         <Center open={open}>
-          <Link to="/products/all" onClick={() => setOpen(false)}>
-            All
-          </Link>
-          <Link to="/products/bakery" onClick={() => setOpen(false)}>
-            Bakery
-          </Link>
-          <Link to="/products/beverage" onClick={() => setOpen(false)}>
-            Beverage
-          </Link>
-          <Link to="/products/snacks" onClick={() => setOpen(false)}>
-            Snacks
-          </Link>
+          <List>
+            <Item>
+              <Link to="/products/all" onClick={handleMenuClick}>
+                All
+              </Link>
+            </Item>
+            <Item>
+              <Link to="/products/bakery" onClick={handleMenuClick}>
+                Bakery
+              </Link>
+            </Item>
+            <Item>
+              <Link to="/products/beverage" onClick={handleMenuClick}>
+                Beverage
+              </Link>
+            </Item>
+            <Item>
+              <Link to="/products/snacks" onClick={handleMenuClick}>
+                Snacks
+              </Link>
+            </Item>
+          </List>
           <MobileLogin>
             {currentUser ? (
               <>
-                <div>Hi, {currentUser.name}</div>
+                <p className="username">Hi, {currentUser.name}</p>
                 <Link to="/profile">
                   <div>User Profile</div>
                 </Link>
                 <Link to="/history">
                   <div>Order History</div>
                 </Link>
-                <div className="logout" onClick={handleSignOut}>
+                <p className="logout" onClick={handleSignOut}>
                   Logout
-                </div>
+                </p>
               </>
             ) : (
-              <Link to="/signin" onClick={() => setOpen(false)}>
-                <p>Login</p>
+              <Link to="/signin" onClick={handleMenuClick}>
+                Login
               </Link>
             )}
           </MobileLogin>
@@ -96,11 +115,7 @@ const Navbar = () => {
                   <Link to="/history">
                     <div>Order History</div>
                   </Link>
-                  <div
-                    className="logout"
-                    // clickLogout={clickLogout}
-                    onClick={handleSignOut}
-                  >
+                  <div className="logout" onClick={handleSignOut}>
                     Logout
                   </div>
                 </div>
@@ -127,7 +142,7 @@ const Navbar = () => {
             </CartWrapper>
           </Link>
           <MobileMenu>
-            <Hamburger open={open} handleOpen={() => setOpen(!open)} />
+            <Hamburger open={open} handleOpen={handleMenuClick} />
           </MobileMenu>
         </Right>
       </Wrapper>
@@ -147,67 +162,84 @@ const Container = styled.header`
 
 const Wrapper = styled.div`
   ${Flex}
-  max-width: 90rem;
-  margin: 0 auto;
   justify-content: space-between;
+  max-width: ${size.xlg};
   font-family: semplicitapro, sans-serif;
-  font-weight: 700;
   font-size: ${fontScale.scale_s4};
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.0875rem;
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 0;
+  margin: 0 auto;
 
-  @media ${breakpoint.lg} {
+  @media ${breakpoint.xlg} {
     padding: 0.75rem 1rem;
   }
 `;
 
 const Left = styled.div`
-  flex: 1;
+  width: 100%;
+  flex: 0 1 auto;
+  justify-content: flex-start;
   font-family: "Raleway", sans-serif;
-  font-weight: 600;
   font-size: 1.5rem;
+  font-weight: 600;
   letter-spacing: 0.025rem;
   text-transform: lowercase;
 `;
 
 const Center = styled.nav`
   ${Flex}
-  justify-content: space-between;
-  flex: 1;
+  justify-content: center;
+  width: 100%;
 
   @media ${breakpoint.lg} {
     flex-direction: column;
     justify-content: flex-start;
-    position: absolute;
+    position: fixed;
     top: 94px;
     left: 0;
     right: 0;
+    bottom: 0;
     height: calc(100vh - 4.25rem);
     background-color: #fff;
-    font-size: ${fontScale.scale_s2};
-    padding: 2rem 0;
+    font-size: ${fontScale.scale_s4};
     z-index: 10;
     transform: ${({ open }) => (open ? "scale(1)" : "scale(0)")};
+  }
+`;
 
-    a {
-      padding: 1.25rem 0;
-    }
+const List = styled.ul`
+  ${Flex}
+  justify-content: space-between;
+  z-index: 2;
 
-    div {
-      padding: 1.25rem;
+  @media ${breakpoint.lg} {
+    flex-direction: column;
+    flex: 0 1 auto;
+    justify-content: flex-start;
+    padding: 1.25rem 0;
+  }
+`;
 
-      @media ${breakpoint.lg} {
-        display: block;
-      }
-    }
+const Item = styled.li`
+  margin-right: ${(props) => props.end && 0};
+  text-align: center;
+  border-bottom: 2px solid
+    ${(props) => (props.current ? primaryColor.blue : "transparent")};
+  transition: border-bottom 0.5s ease-in-out;
+  padding: 0 0.75rem;
+
+  @media ${breakpoint.lg} {
+    padding: 1rem 0.75rem;
   }
 `;
 
 const Right = styled.nav`
   ${Flex}
+  width: 100%;
+  flex: 0 1 auto;
   justify-content: flex-end;
-  flex: 1;
   position: relative;
 
   .login {
@@ -277,16 +309,33 @@ const MobileLogin = styled.div`
   display: none;
 
   @media ${breakpoint.lg} {
+    display: block;
     text-align: center;
+    border-top: 1px solid ${neutral[200]};
+    padding: 1.25rem 0;
+
+    div,
+    p {
+      padding: 1rem 0.75rem;
+    }
+
+    .username {
+      color: #e8dbce;
+    }
+
     a {
       display: block;
-      padding: 0;
+    }
+
+    .logout {
+      cursor: pointer;
     }
   }
 `;
 
 const MobileMenu = styled.div`
   display: none;
+
   @media ${breakpoint.lg} {
     display: block;
   }

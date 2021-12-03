@@ -93,8 +93,6 @@ const Header = styled.header`
 `;
 
 const Slider = styled.div`
-  padding: 0 2.5rem;
-
   .swiper-wrapper {
   }
 
@@ -110,10 +108,9 @@ const Slider = styled.div`
     height: 40px;
     background-color: rgba(0, 0, 0, 0.12);
     color: #fff;
-    transform: translate(0, -50%);
-    top: 40%;
+    top: 45%;
     right: 0;
-    padding: 5px;
+    transform: translate(0, -50%);
 
     &:after {
       font-size: 1.5rem;
@@ -122,17 +119,6 @@ const Slider = styled.div`
 
   .swiper-button-prev {
     left: 0;
-  }
-
-  @media ${breakpoint.lg} {
-    .swiper-button-prev,
-    .swiper-button-next {
-      top: 30%;
-    }
-
-    .swiper-button-prev {
-      top: 30%;
-    }
   }
 `;
 

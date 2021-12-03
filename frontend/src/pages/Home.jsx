@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import _ from "lodash";
 import styled from "styled-components";
 
-//import components
+//components
 import Hero from "../components/Hero";
 import ProductSlider from "../components/products/ProductSlider";
-
-//demo data
 import Newsletter from "../components/Newsletter";
 
 //redux

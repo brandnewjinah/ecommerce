@@ -59,6 +59,8 @@ const Payment = ({ handleStep, step, info }) => {
           <Input
             placeholder="Card Number"
             name="cardNumber"
+            pattern="\d*"
+            maxLength={16}
             placeholder="0000 0000 0000 1234"
             register={register}
             errors={errors}

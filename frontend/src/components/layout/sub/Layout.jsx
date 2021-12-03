@@ -17,11 +17,11 @@ const Layout = ({ children }) => {
 const Container = styled.div`
   display: flex;
   gap: 2rem;
-  max-width: 50rem;
   padding: 0 1.5rem;
   margin: 4rem auto;
 
-  @media ${breakpoint.m} {
+  @media ${breakpoint.lg} {
+    flex-direction: column;
     margin: 3rem auto;
   }
 `;

@@ -4,14 +4,10 @@ import styled from "styled-components";
 
 //components
 import Layout from "../components/layout/sub/Layout";
-import { Container } from "../components/layout/Containers";
-import { Header } from "../components/layout/Header";
+import { HeaderSmall } from "../components/layout/Header";
 import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
 import Card from "../components/order/Card";
-
-//token
-import { breakpoint } from "../components/token";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -38,7 +34,7 @@ const User = () => {
         <ErrorMessage>{`${error} this is error message component`}</ErrorMessage>
       ) : (
         <>
-          <Header title="Order History" />
+          <HeaderSmall title="Order History" />
           {orders && orders.length > 0 ? (
             <Wrapper>
               {orders.map((order, idx) => (
@@ -54,6 +50,11 @@ const User = () => {
   );
 };
 
-const Wrapper = styled.section``;
+const Wrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem 0;
+`;
 
 export default User;

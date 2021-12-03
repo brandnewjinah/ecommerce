@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { fontScale } from "../../token";
+import { breakpoint, fontScale } from "../../token";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +21,11 @@ const Announcement = () => {
       {error ? (
         <p>Welcome</p>
       ) : (
-        <p>{announcement && announcement[0].announcement}</p>
+        <p>
+          {announcement &&
+            announcement !== undefined &&
+            announcement[0].announcement}
+        </p>
       )}
     </Wrapper>
   );
@@ -32,11 +36,10 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: ${fontScale.scale_s2};
+  font-size: ${fontScale.scale_s4};
   font-weight: 500;
   letter-spacing: 0.05rem;
   color: #fff;
-  /* text-transform: uppercase; */
   background-color: #d0af8f;
 `;
 

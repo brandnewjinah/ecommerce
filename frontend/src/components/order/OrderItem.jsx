@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { fontScale, neutral } from "../token";
 
 const OrderItem = ({ item }) => {
+  console.log(item);
   return (
     <Container>
       <Left>

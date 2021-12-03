@@ -116,7 +116,9 @@ const Shipping = ({ handleStep, step, info }) => {
             <span>{info.city}</span>
             <span>{info.zip}</span>
           </p>
-          <p onClick={() => handleStep(1)}>edit</p>
+          <p className="edit" onClick={() => handleStep(1)}>
+            edit
+          </p>
         </>
       )}
     </Section>
@@ -135,8 +137,18 @@ const Section = styled.section`
     padding: 0.875rem 0;
   }
 
+  p {
+    font-size: ${fontScale.scale_s2};
+  }
+
   .item {
     margin-bottom: 1em;
+  }
+
+  .edit {
+    text-decoration: underline;
+    padding: 0.5rem 0;
+    cursor: pointer;
   }
 `;
 

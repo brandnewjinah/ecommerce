@@ -9,6 +9,8 @@ export const Input = ({
   placeholder,
   register,
   type,
+  pattern,
+  maxLength,
   required,
 }) => {
   return (
@@ -23,6 +25,8 @@ export const Input = ({
           {...register(name, { required })}
           placeholder={placeholder}
           type={type}
+          pattern={pattern}
+          maxLength={maxLength}
         />
       </InputContainer>
       {errors[name] && (

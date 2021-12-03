@@ -51,7 +51,9 @@ const Delivery = ({ handleStep, step, info }) => {
           {info && info.shipping && (
             <>
               <p>{info.shipping}</p>
-              <p onClick={() => handleStep(2)}>edit</p>
+              <p className="edit" onClick={() => handleStep(2)}>
+                edit
+              </p>
             </>
           )}
         </>
@@ -74,6 +76,16 @@ const Section = styled.div`
 
   .item {
     margin-bottom: 1em;
+  }
+
+  p {
+    font-size: ${fontScale.scale_s2};
+  }
+
+  .edit {
+    text-decoration: underline;
+    padding: 0.5rem 0;
+    cursor: pointer;
   }
 `;
 

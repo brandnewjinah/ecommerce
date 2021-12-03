@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 //token
-import { neutral, breakpoint, fontScale } from "../../token";
+import { neutral, breakpoint, fontScale, size } from "../../token";
 
 const Footer = () => {
   return (
@@ -64,8 +64,11 @@ const Container = styled.footer`
 `;
 
 const Wrapper = styled.div`
+  width: 100%;
+  max-width: ${size.xlg};
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  margin: 0 auto;
 
   @media ${breakpoint.lg} {
     grid-template-columns: repeat(1, 1fr);

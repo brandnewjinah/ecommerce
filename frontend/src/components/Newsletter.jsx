@@ -1,7 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { Button } from "./Button";
-import { breakpoint, neutral, primaryColor, typeScale } from "./token";
+import {
+  breakpoint,
+  fontScale,
+  neutral,
+  primaryColor,
+  typeScale,
+} from "./token";
 
 const Newsletter = () => {
   return (
@@ -10,7 +16,8 @@ const Newsletter = () => {
         <Title>
           <h2>Stay Tuned</h2>
           <p>
-            Sign up to enjoy free U.S. shipping and returns on your first order.
+            Sign up to receive offers and enjoy free U.S. shipping and returns
+            on your first order.
           </p>
         </Title>
         <InputContainer>
@@ -23,16 +30,16 @@ const Newsletter = () => {
 };
 
 const Container = styled.section`
-  padding: 2.5rem;
+  padding: 2.5rem 0;
 `;
 
 const Wrapper = styled.div`
-  background-color: ${neutral[100]};
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 2.5rem;
+  background-color: ${neutral[100]};
+  padding: 3rem;
 `;
 
 const Title = styled.div`
@@ -40,8 +47,30 @@ const Title = styled.div`
   margin-bottom: 1.5rem;
 
   h2 {
+    font-size: ${fontScale.scale_b3};
+    text-align: center;
     text-transform: uppercase;
-    margin-bottom: 1.25rem;
+    letter-spacing: 0.03rem;
+    position: relative;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.75rem;
+
+    &:after {
+      content: "";
+      margin: auto;
+      width: 30px;
+      height: 3px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #000;
+      opacity: 0.2;
+    }
+  }
+
+  p {
+    font-size: ${fontScale.scale_s2};
   }
 `;
 
@@ -49,6 +78,7 @@ const InputContainer = styled.div`
   display: flex;
   gap: 0.25rem;
   justify-content: space-between;
+  padding: 1rem 0;
 
   @media ${breakpoint.lg} {
     flex-direction: column;

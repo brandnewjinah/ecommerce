@@ -47,15 +47,14 @@ const Card = ({ order }) => {
 
 const Container = styled.div`
   background-color: ${neutral[50]};
-  padding: 1rem;
-  margin: 1rem 0;
+  padding: 2rem 1.5rem;
 `;
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  font-size: ${fontScale.helper};
+  font-size: ${fontScale.scale_s2};
   border-bottom: 1px solid ${neutral[200]};
   padding-bottom: 0.75rem;
 

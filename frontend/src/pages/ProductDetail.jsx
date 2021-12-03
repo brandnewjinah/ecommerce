@@ -98,7 +98,7 @@ const Detail = () => {
       ) : error ? (
         <ErrorMessage>{`${error} this is error message component`}</ErrorMessage>
       ) : (
-        <Container>
+        <>
           <Breadcrumbs item1={product.category1} item2={product.category2} />
           <Main>
             <ImageWrapper>
@@ -163,21 +163,11 @@ const Detail = () => {
             )}
             <Reviews title="Reviews" />
           </Extras>
-        </Container>
+        </>
       )}
     </>
   );
 };
-
-const Container = styled.div`
-  max-width: 1280px;
-  padding: 3rem 2.5rem;
-  margin: 0 auto;
-
-  @media ${breakpoint.lg} {
-    padding: 0;
-  }
-`;
 
 const Main = styled.main`
   display: flex;

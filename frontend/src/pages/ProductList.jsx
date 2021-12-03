@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 //components
-import { Container, FilterContainer } from "../components/layout/Containers";
+import { FilterContainer } from "../components/layout/Containers";
 import { Header } from "../components/layout/Header";
 import Filter from "../components/Filter";
 import Sort from "../components/Sort";

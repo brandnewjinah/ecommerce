@@ -54,9 +54,9 @@ const ProductCard = ({
         </ImageContainer>
         <Details>
           <p className="sub">{brand}</p>
-          <h2 className="main">
+          <h3 className="main">
             {name.length > 26 ? `${name.substring(0, 24)}...` : name}
-          </h2>
+          </h3>
           <p>
             <span>{currency}</span>
             <span>{price}</span>
@@ -87,23 +87,35 @@ const Flex = css`
 `;
 
 const Wrapper = styled.div`
-  ${Flex}
   width: 100%;
-  flex-direction: column;
-  padding-bottom: 1em;
+  height: 100%;
+
+  a {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  @media ${breakpoint.m} {
+    a {
+      gap: 0.75rem;
+    }
+  }
 `;
 
 const Image = styled.img`
-  display: block;
+  position: absolute;
   width: 100%;
-  height: auto !important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   object-fit: cover;
-  object-position: 0 -25px;
 `;
 
 const ImageContainer = styled.div`
   position: relative;
-  height: 360px;
+  width: 100%;
+  padding-bottom: 125%;
   overflow: hidden;
 
   &:hover {
@@ -124,9 +136,8 @@ const Details = styled.div`
   font-size: ${fontScale.scale_1};
   font-weight: 500;
   color: ${neutral[600]};
-  padding-top: 1rem;
 
-  h2 {
+  h3 {
     font-size: ${fontScale.scale_1};
     padding: 0.25rem 0 0.35rem;
   }
@@ -139,7 +150,13 @@ const Details = styled.div`
   }
 
   @media ${breakpoint.m} {
-    padding-top: 0;
+    h3 {
+      font-size: ${fontScale.scale_s2};
+    }
+
+    .sub {
+      font-size: ${fontScale.scale_s4};
+    }
   }
 `;
 

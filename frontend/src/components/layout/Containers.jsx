@@ -8,10 +8,6 @@ export const Container = ({ children }) => {
   return <Wrapper>{children}</Wrapper>;
 };
 
-export const ContainerSmall = ({ children }) => {
-  return <WrapperSmall>{children}</WrapperSmall>;
-};
-
 export const HeaderContainer = ({ title, body }) => {
   return (
     <HeaderWrapper>
@@ -33,10 +29,6 @@ const Wrapper = styled.div`
   @media ${breakpoint.m} {
     margin: 3rem auto;
   }
-`;
-
-const WrapperSmall = styled(Wrapper)`
-  max-width: 80rem;
 `;
 
 const HeaderWrapper = styled.header`

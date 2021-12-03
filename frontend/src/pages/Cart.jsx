@@ -4,7 +4,6 @@ import _ from "lodash";
 import styled from "styled-components";
 
 //import components
-import { ContainerSmall } from "../components/layout/Containers";
 import { Header } from "../components/layout/Header";
 import CartItem from "../components/cart/CartItem";
 import CartSummary from "../components/cart/CartSummary";
@@ -23,8 +22,6 @@ const Cart = () => {
 
   const loggedIn = auth.currentUser && auth.currentUser.token;
 
-  const [newProducts, setNewProducts] = useState();
-
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, products, error } = productList;
@@ -40,7 +37,7 @@ const Cart = () => {
   };
 
   return (
-    <ContainerSmall>
+    <>
       {cart.products && cart.products.length > 0 ? (
         <Main>
           <Items>
@@ -70,11 +67,11 @@ const Cart = () => {
           />
         </Empty>
       )}
-    </ContainerSmall>
+    </>
   );
 };
 
-const Main = styled.main`
+const Main = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -85,10 +82,8 @@ const Main = styled.main`
   }
 `;
 
-const Items = styled.section`
+const Items = styled.ul`
   flex: 2;
-  /* justify-content: center;
-  align-items: center; */
 `;
 
 const Summary = styled.aside`
