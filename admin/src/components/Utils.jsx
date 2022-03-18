@@ -41,10 +41,6 @@ export const MenuItems = [
     name: "Customers",
     link: "/customers",
   },
-  {
-    name: "Manage",
-    link: "/announcement",
-  },
 ];
 
 const MenuIcons = ({ name, width, height, stroke, color }) => {

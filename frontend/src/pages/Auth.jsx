@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
@@ -18,7 +18,7 @@ import { primaryColor, neutral } from "../components/token";
 import { Google } from "../assets/Icon";
 
 //redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signin, signup } from "../redux/authRedux";
 
 const Auth = () => {
@@ -87,13 +87,31 @@ const Auth = () => {
     console.log("Google Sign In Failed");
   };
 
+  const { isLoading, isSuccess, isError, message, currentUser } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (isError) {
+      alert(message);
+    }
+
+    if (isSuccess) {
+      history.push("/home");
+    }
+  }, [isSuccess, isError, message, currentUser, dispatch]);
+
   const onSubmit = (data) => {
     if (isSignup) {
       dispatch(signup(data));
-      path === "/cart" ? history.push("/checkout") : history.push("/home");
+      // path === "/cart" ? history.push("/checkout") : history.push("/home");
     } else {
       dispatch(signin(data));
-      redirect ? history.push(`/${redirect}`, { _id }) : history.push("/home");
+      // error === null && redirect
+      //   ? history.push(`/${redirect}`, { _id })
+      //   : error === null && history.push("/home");
+      // console.log(error);
+      //null 이 먼저 찍힘
     }
   };
   return (

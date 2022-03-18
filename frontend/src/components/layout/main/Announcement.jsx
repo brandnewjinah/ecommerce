@@ -18,7 +18,7 @@ const Announcement = () => {
 
   return (
     <Wrapper>
-      {error ? (
+      {/* {error ? (
         <p>Welcome</p>
       ) : (
         <p>
@@ -26,7 +26,8 @@ const Announcement = () => {
             announcement !== undefined &&
             announcement[0].announcement}
         </p>
-      )}
+      )} */}
+      <p>Welcome, new customers!</p>
     </Wrapper>
   );
 };

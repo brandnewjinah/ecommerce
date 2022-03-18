@@ -34,11 +34,12 @@ const Routes = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/signin" component={Login} />
-        <Layout>
-          {/* <PrivateRoute path="/home" component={Home} isAdmin={isAdmin} /> */}
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/products" component={ProductList} />
+        <Route exact path="/" component={Test} />
+        {/* <Route exact path="/signin" component={Login} /> */}
+        {/* <Layout> */}
+        {/* <PrivateRoute path="/home" component={Home} isAdmin={isAdmin} /> */}
+        {/* <Route exact path="/home" component={Home} /> */}
+        {/* <Route exact path="/products" component={ProductList} />
           <Route exact path="/addproduct" component={AddProduct} />
           <Route exact path="/products/:id" component={ProductDetail} />
           <Route exact path="/products/edit/:id" component={EditProduct} />
@@ -46,7 +47,8 @@ const Routes = () => {
           <Route exact path="/orders/:id" component={OrderDetail} />
           <Route exact path="/customers" component={CustomerList} />
           <Route exact path="/users/:id" component={UserDetail} />
-        </Layout>
+          */}
+        {/* </Layout> */}
       </Switch>
     </Router>
   );
