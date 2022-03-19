@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { saveDelivery } from "../../redux/orderRedux";
 
 //components
 import Selector from "../../components/Selector";
-import { Button } from "../../components/Button";
+import { Button, TextButton } from "../../components/Button";
 import { fontScale, primaryColor } from "../../components/token";
+
+//redux
+import { useDispatch } from "react-redux";
+import { saveDelivery } from "../../redux/orderRedux";
+import Text from "../../components/Text";
 
 const Delivery = ({ handleStep, step, info }) => {
   const dispatch = useDispatch();
@@ -28,11 +31,11 @@ const Delivery = ({ handleStep, step, info }) => {
             name="shipping"
             data={[
               {
-                type: "standard",
+                type: "Standard",
                 desc: "4-8 business days - Free",
               },
               {
-                type: "express",
+                type: "Express",
                 desc: "1-3 business days - $15.00",
               },
             ]}
@@ -50,10 +53,8 @@ const Delivery = ({ handleStep, step, info }) => {
         <>
           {info && info.shipping && (
             <>
-              <p>{info.shipping}</p>
-              <p className="edit" onClick={() => handleStep(2)}>
-                edit
-              </p>
+              <Text>{info.shipping}</Text>
+              <TextButton label="edit" handleClick={() => handleStep(2)} />
             </>
           )}
         </>

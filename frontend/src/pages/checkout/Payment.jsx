@@ -6,12 +6,13 @@ import styled from "styled-components";
 
 //components
 import { Input } from "../../components/Input";
-import { Button } from "../../components/Button";
+import { Button, TextButton } from "../../components/Button";
 import { fontScale, primaryColor } from "../../components/token";
 
 //redux
 import { useDispatch } from "react-redux";
 import { savePayment } from "../../redux/orderRedux";
+import Text from "../../components/Text";
 
 const Payment = ({ handleStep, step, info }) => {
   const validate = Yup.object({
@@ -57,7 +58,6 @@ const Payment = ({ handleStep, step, info }) => {
             />
           </Item>
           <Input
-            placeholder="Card Number"
             name="cardNumber"
             pattern="\d*"
             maxLength={16}
@@ -86,12 +86,12 @@ const Payment = ({ handleStep, step, info }) => {
         <>
           {info && (
             <>
-              <p>
-                <span>{info.billingFirstName}</span>
-                <span>{info.billingLastName}</span>
-              </p>
-              <p>{info.cardNumber}</p>
-              <p onClick={() => handleStep(3)}>edit</p>
+              <Text bold>
+                {`${info.billingFirstName} ${info.billingLastName}`}
+              </Text>
+              <Text>Card ending in {String(info.cardNumber).slice(-4)}</Text>
+              <Text>{info.expiration}</Text>
+              <TextButton label="edit" handleClick={() => handleStep(3)} />
             </>
           )}
         </>

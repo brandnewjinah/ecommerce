@@ -26,6 +26,7 @@ import OrderList from "./pages/orders/OrderList";
 import OrderDetail from "./pages/orders/OrderDetail";
 import CustomerList from "./pages/customers/CustomerList";
 import UserDetail from "./pages/customers/UserDetail";
+import SubscribersList from "./pages/SubscribersList";
 
 const Routes = () => {
   const admin = useSelector((state) => state.auth.currentUser);
@@ -46,6 +47,7 @@ const Routes = () => {
           <Route exact path="/orders/:id" component={OrderDetail} />
           <Route exact path="/customers" component={CustomerList} />
           <Route exact path="/users/:id" component={UserDetail} />
+          <Route exact path="/subscribers" component={SubscribersList} />
         </Layout>
       </Switch>
     </Router>

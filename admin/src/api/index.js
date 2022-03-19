@@ -40,3 +40,10 @@ export const getUsers = (page) => axios.get(`${URL}/users?page=${page}`);
 //orders
 export const getAllOrders = (page) => axios.get(`${URL}/orders?page=${page}`);
 export const getOrderDetail = (id) => axios.get(`${URL}/orders/${id}`);
+
+//announcements
+export const getAnnouncements = () => axios.post(`${URL}/announcements`);
+
+//subscribers
+export const getSubscribers = (page) =>
+  axios.get(`${URL}/subscribers?page=${page}`);

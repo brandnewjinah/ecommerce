@@ -36,6 +36,10 @@ const Cart = () => {
       : history.push("/signin?redirectTo=checkout");
   };
 
+  const handleClickShop = () => {
+    history.push("/products/all");
+  };
+
   return (
     <>
       {cart.products && cart.products.length > 0 ? (
@@ -56,7 +60,7 @@ const Cart = () => {
             <Button
               label="Let's go shopping"
               color={primaryColor.button}
-              handleClick={() => handleClick("shop")}
+              handleClick={handleClickShop}
             />
           </Top>
 

@@ -1,15 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Button } from "./Button";
-import {
-  breakpoint,
-  fontScale,
-  neutral,
-  primaryColor,
-  typeScale,
-} from "./token";
+import { breakpoint, fontScale, neutral, primaryColor } from "./token";
+
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import { addSubscriber } from "../redux/subscriberRedux";
+import { reset } from "../redux/subscriberRedux";
 
 const Newsletter = () => {
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState({ email: "" });
+
+  const handleChange = ({ currentTarget: input }) => {
+    const newEmail = { ...email };
+    newEmail.email = input.value;
+    setEmail(newEmail);
+  };
+
+  const { isSuccess, isError, message } = useSelector(
+    (state) => state.subscriber
+  );
+
+  useEffect(() => {
+    if (isError) {
+      alert(message);
+      setEmail({ email: "" });
+    }
+
+    if (isSuccess) {
+      alert("You're subscribed!");
+      dispatch(reset());
+      window.location.reload();
+    }
+  }, [isSuccess, isError, dispatch]);
+
+  const handleSubscribe = () => {
+    dispatch(addSubscriber(email));
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -21,8 +50,13 @@ const Newsletter = () => {
           </p>
         </Title>
         <InputContainer>
-          <Input placeholder="Email address" />
-          <Button label="Subscribe" color={primaryColor.button} size="small" />
+          <Input placeholder="Email address" onChange={handleChange} />
+          <Button
+            label="Subscribe"
+            color={primaryColor.button}
+            size="small"
+            handleClick={handleSubscribe}
+          />
         </InputContainer>
       </Wrapper>
     </Container>

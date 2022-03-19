@@ -6,8 +6,9 @@ import styled from "styled-components";
 
 //components
 import { Input } from "../../components/Input";
-import { Button } from "../../components/Button";
-import { fontScale, primaryColor } from "../../components/token";
+import { Button, TextButton } from "../../components/Button";
+import Text from "../../components/Text";
+import { fontScale, lineHeight, primaryColor } from "../../components/token";
 
 //redux
 import { useDispatch } from "react-redux";
@@ -109,17 +110,12 @@ const Shipping = ({ handleStep, step, info }) => {
         </form>
       )}
       {step !== 1 && (
-        <>
-          <p>{info.fullName}</p>
-          <p>{info.address1}</p>
-          <p>
-            <span>{info.city}</span>
-            <span>{info.zip}</span>
-          </p>
-          <p className="edit" onClick={() => handleStep(1)}>
-            edit
-          </p>
-        </>
+        <Article>
+          <Text bold>{info.fullName}</Text>
+          <Text>{info.address1}</Text>
+          <Text>{`${info.city}, ${info.state} ${info.zip}`}</Text>
+          <TextButton label="edit" handleClick={() => handleStep(1)} />
+        </Article>
       )}
     </Section>
   );
@@ -162,6 +158,10 @@ const Item = styled.div`
   div {
     flex: 1;
   }
+`;
+
+const Article = styled.article`
+  line-height: ${lineHeight.base};
 `;
 
 export default Shipping;

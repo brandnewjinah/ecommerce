@@ -22,6 +22,8 @@ const CartSummary = ({ handleClick, submitType, step }) => {
   let location = useLocation();
   const path = location.pathname.split("/")[1];
   const products = useSelector((state) => state.cart.products);
+  const shipping = useSelector((state) => state.order.delivery.shipping);
+  const shippingCost = shipping === "standard" ? 0 : 15;
   const [subtotal, setSubtotal] = useState(0);
 
   useEffect(() => {
@@ -40,12 +42,13 @@ const CartSummary = ({ handleClick, submitType, step }) => {
       <Top>
         <Summary>
           <Article left="Subtotal" right={`$${subtotal.toFixed(2)}`} />
-          <Article left="Shipping" right="TBD" />
+          <Article left="Shipping" right={`$${shippingCost}.00`} />
           <Article left="Estimated Tax" right="$0.00" />
         </Summary>
         <Total>
           <p>Total</p>
-          <p>${subtotal.toFixed(2)}</p>
+          {/* <p>${subtotal.toFixed(2)}</p> */}
+          <p>${(subtotal + shippingCost).toFixed(2)}</p>
         </Total>
       </Top>
       <Bottom>

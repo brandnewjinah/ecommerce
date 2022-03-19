@@ -10,6 +10,7 @@ import {
   Orders,
   ChevronRight,
   Grid,
+  Subscribers,
 } from "../assets/Icons";
 
 //token
@@ -41,6 +42,10 @@ export const MenuItems = [
     name: "Customers",
     link: "/customers",
   },
+  {
+    name: "Subscribers",
+    link: "/subscribers",
+  },
 ];
 
 const MenuIcons = ({ name, width, height, stroke, color }) => {
@@ -61,6 +66,13 @@ const MenuIcons = ({ name, width, height, stroke, color }) => {
         />
       ) : name === "Manage" ? (
         <Grid width={width} height={height} color={color} stroke={stroke} />
+      ) : name === "Subscribers" ? (
+        <Subscribers
+          width={width}
+          height={height}
+          color={color}
+          stroke={stroke}
+        />
       ) : null}
     </>
   );
