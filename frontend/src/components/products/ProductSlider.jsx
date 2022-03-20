@@ -1,26 +1,23 @@
 import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation } from "swiper";
 import styled from "styled-components";
 
-// Import Swiper styles
+// Swiper
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation } from "swiper";
 import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
 
-//import components
+//Components
+import { Section } from "../Container";
 import Card from "./ProductCard";
-
-//token
-import { breakpoint, fontScale } from "../token";
+import Header from "../Header";
 
 SwiperCore.use([Navigation]);
 
 const ProductSlider = ({ data, title, slidesPerView }) => {
   return (
-    <Section>
-      <Header>
-        <h2>{title}</h2>
-      </Header>
+    <Section padding="2rem 0">
+      <Header title={title} />
       <Slider>
         <Swiper
           navigation
@@ -61,36 +58,6 @@ const ProductSlider = ({ data, title, slidesPerView }) => {
     </Section>
   );
 };
-
-const Section = styled.section`
-  padding: 2rem 0;
-`;
-
-const Header = styled.header`
-  h2 {
-    font-size: ${fontScale.scale_b3};
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.03rem;
-    position: relative;
-    padding-bottom: 1.25rem;
-    margin-bottom: 1.75rem;
-
-    &:after {
-      content: "";
-      margin: auto;
-      width: 30px;
-      height: 3px;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #000;
-      opacity: 0.2;
-      font-size: 1.5rem;
-    }
-  }
-`;
 
 const Slider = styled.div`
   .swiper-wrapper {

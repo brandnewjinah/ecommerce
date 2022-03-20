@@ -20,7 +20,8 @@ router.post("/", checkToken, createOrder);
 // @route GET /orders/${id}
 // @desc Get order detail for a single order
 // @access Private
-router.get("/:id", checkAuth, getOneOrder);
+// router.get("/:id", checkAuth, getOneOrder);
+router.get("/:id", getOneOrder);
 
 // @route GET /orders/user/${userId}
 // @desc Get all orders placed by a user

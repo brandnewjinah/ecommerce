@@ -4,8 +4,6 @@ import styled, { css } from "styled-components";
 
 //components
 import { TextButton, Button } from "../Button";
-
-//token and icons
 import { fontScale, neutral, breakpoint, primaryColor } from "../token";
 import { ImageIcon } from "../../assets/Icons";
 

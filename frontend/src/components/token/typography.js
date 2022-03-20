@@ -5,7 +5,7 @@ export const fontSize = {
   base: "16px",
   lg1: "1.125rem",
   lg2: "1.25rem",
-  lg3: "1.5rem",
+  lg3: "1.138rem",
   lg4: "2.5rem",
   lg5: "3.75rem",
 };

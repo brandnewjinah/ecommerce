@@ -14,6 +14,7 @@ const OrderDetail = () => {
 
   useEffect(() => {
     dispatch(getOrderDetail(id));
+    //dispatch product details
   }, [dispatch]);
 
   const { order } = useSelector((state) => state.orderDetail);
@@ -41,7 +42,15 @@ const OrderDetail = () => {
         <p>{order.shipping.address1}</p>
         <p>{order.shipping.city}</p>
       </Section>
-      <Section></Section>
+      <Section>
+        <h5>Order Details</h5>
+        <p>
+          {order.orderItems.map((item) => (
+            <p>{item.name}</p>
+          ))}
+        </p>
+        <p>{order.shipping.city}</p>
+      </Section>
     </Container>
   );
 };

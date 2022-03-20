@@ -31,12 +31,14 @@ const OrderList = () => {
   const orders =
     data &&
     data.map((item) => ({
-      name: item.shipping.firstName,
+      name: item.shipping.fullName,
       createdAt: moment(item.createdAt).format("lll"),
       total: item.total,
       status: item.status,
       id: item._id,
     }));
+
+  console.log(orders);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
