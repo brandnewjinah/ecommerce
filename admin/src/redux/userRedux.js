@@ -13,10 +13,20 @@ export const getAllUsers = createAsyncThunk(
   }
 );
 
+export const getOneUser = createAsyncThunk("users/getOneUser", async (id) => {
+  try {
+    const { data } = await api.getUserDetail(id);
+    return data;
+  } catch (error) {
+    return error;
+  }
+});
+
 const userSlice = createSlice({
   name: "users",
   initialState: {
     users: [],
+    userDetail: {},
     loading: false,
   },
   extraReducers: {
@@ -28,6 +38,17 @@ const userSlice = createSlice({
       state.users = action.payload;
     },
     [getAllUsers.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = true;
+    },
+    [getOneUser.pending]: (state) => {
+      state.loading = true;
+    },
+    [getOneUser.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.userDetail = action.payload;
+    },
+    [getOneUser.rejected]: (state, action) => {
       state.loading = false;
       state.error = true;
     },

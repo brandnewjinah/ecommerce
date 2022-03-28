@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import styled from "styled-components";
 import axios from "axios";
 import config from "../../config.json";
 
@@ -6,10 +8,16 @@ import config from "../../config.json";
 import Input from "../../components/Input";
 import { Button, TextButton } from "../../components/Button";
 
-//import styles and assets
-import styled from "styled-components";
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import { getOneUser } from "../../redux/userRedux";
+import Heading from "../../components/Heading";
+import { Card } from "../../components/Card";
 
 const UserDetail = (props) => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -23,20 +31,15 @@ const UserDetail = (props) => {
     setData(userInput);
   };
 
+  const userDetail = useSelector((state) => state.users.userDetail);
+
   useEffect(() => {
-    const getData = async () => {
-      await axios
-        .get(`${config.API}/user/${props.match.params.id}`)
-        .then((res) => {
-          const { userInfo } = res.data;
-          setData(userInfo);
-        })
-        .catch((err) => {
-          alert(err);
-        });
-    };
-    getData();
-  }, [props.match.params.id]);
+    dispatch(getOneUser(id));
+    setData({
+      name: userDetail.name,
+      email: userDetail.email,
+    });
+  }, [dispatch, userDetail]);
 
   const validate = () => {
     const errors = {};
@@ -92,24 +95,26 @@ const UserDetail = (props) => {
 
   return (
     <Wrapper>
-      <h4>User Detail</h4>
-      <form onSubmit={handleSubmit}>
-        <Input
-          label="Name"
-          name="name"
-          value={data.name}
-          error={errors.name}
-          handleChange={handleChange}
-        />
-        <Input
-          label="Email"
-          name="email"
-          value={data.email}
-          error={errors.email}
-          handleChange={handleChange}
-        />
-        <Button label="Update" />
-      </form>
+      <Heading title="User Detail" />
+      <Card margin="1rem 0">
+        <form onSubmit={handleSubmit}>
+          <Input
+            label="Name"
+            name="name"
+            value={data.name}
+            error={errors.name}
+            handleChange={handleChange}
+          />
+          <Input
+            label="Email"
+            name="email"
+            value={data.email}
+            error={errors.email}
+            handleChange={handleChange}
+          />
+          <Button label="Update" />
+        </form>
+      </Card>
       <div style={{ margin: `1em 0` }}>
         <TextButton label="Delete User" handleClick={handleDelete} />
       </div>

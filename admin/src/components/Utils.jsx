@@ -97,7 +97,7 @@ export const MenuItem = ({
         }
         onClick={handleSelected}
       >
-        <Link to={!submenu ? `${link}` : ""}>
+        <Link to={!submenu && link}>
           <div className="flexAignCenter">
             <MenuIcons
               name={name}
@@ -160,7 +160,7 @@ const List = styled.li`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.625rem 1.5rem;
+    padding: 0.875rem 1.5rem;
   }
 
   .flexAignCenter {
@@ -193,7 +193,7 @@ const List = styled.li`
   }
 
   .subList {
-    padding: 0.4rem 3rem;
+    padding: 0.75rem 3rem;
   }
 
   .flexCenter {

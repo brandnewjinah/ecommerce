@@ -1,6 +1,6 @@
 import express from "express";
 import { checkToken } from "../middleware/checkAuth.js";
-import { updateUser, getAllUsers } from "../controllers/user.js";
+import { updateUser, getAllUsers, getOneUser } from "../controllers/user.js";
 
 const router = express.Router();
 
@@ -8,6 +8,11 @@ const router = express.Router();
 // @desc Get all user information
 // @access Private
 router.get("/", getAllUsers);
+
+// @route GET /
+// @desc Get one user information
+// @access Private
+router.get("/:id", getOneUser);
 
 // @route PUT /
 // @desc Update user account information

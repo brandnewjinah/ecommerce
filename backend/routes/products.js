@@ -12,7 +12,11 @@ import {
 
 const router = express.Router();
 
+// @route GET
+// @desc View all products
+// @access Public
 router.get("/", getProducts);
+
 router.get("/:id", getAProduct);
 router.get("/similar/:id", getSimilarProducts);
 router.post("/", addProduct);

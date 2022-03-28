@@ -8,7 +8,7 @@ const OrderItem = ({ item }) => {
     <Container>
       <Left>
         <div className="image">
-          <img src={item.imgs && item.imgs[0].src} alt="" />
+          <img src={item.img} alt="" />
         </div>
         <div className="detail">
           <p className="main">{item.name}</p>

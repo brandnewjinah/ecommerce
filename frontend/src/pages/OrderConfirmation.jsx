@@ -8,11 +8,11 @@ import { HeaderSmall } from "../components/layout/Header";
 import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
 import { ChevronLeft } from "../assets/Icon";
+import OrderItem from "../components/order/OrderItem";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetail } from "../redux/orderDetailRedux";
-import OrderItem from "../components/order/OrderItem";
 
 const OrderConfirmation = () => {
   let { id } = useParams();

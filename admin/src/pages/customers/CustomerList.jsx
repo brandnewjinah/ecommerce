@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import moment from "moment";
 
 //components
 import { Card } from "../../components/Card";
@@ -9,6 +10,7 @@ import Pagination from "../../components/Pagination";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "../../redux/userRedux";
+import Heading from "../../components/Heading";
 
 const thead = [
   { id: "name", name: "Name", sort: true, width: "30%" },
@@ -31,7 +33,7 @@ const CustomerList = () => {
     data.map((item) => ({
       name: item.name,
       email: item.email,
-      createdAt: item.createdAt,
+      createdAt: moment(item.createdAt).format("lll"),
       id: item._id,
     }));
 
@@ -41,10 +43,8 @@ const CustomerList = () => {
 
   return (
     <Container>
-      <Header>
-        <h3>CUSTOMERS</h3>
-      </Header>
-      <Card>
+      <Heading title="Customers" />
+      <Card margin="1rem 0">
         <Table thead={thead} tbody={users} linkurl="users" />
         <Pagination
           pageCount={pages}
@@ -57,9 +57,5 @@ const CustomerList = () => {
 };
 
 const Container = styled.div``;
-
-const Header = styled.div`
-  padding: 0 0 1.5rem;
-`;
 
 export default CustomerList;

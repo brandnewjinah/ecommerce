@@ -35,19 +35,22 @@ const Routes = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/signin" component={Login} />
+        <Route exact path="/" component={Login} />
         <Layout>
-          {/* <PrivateRoute path="/home" component={Home} isAdmin={isAdmin} /> */}
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/products" component={ProductList} />
-          <Route exact path="/addproduct" component={AddProduct} />
-          <Route exact path="/products/:id" component={ProductDetail} />
-          <Route exact path="/products/edit/:id" component={EditProduct} />
-          <Route exact path="/orders" component={OrderList} />
-          <Route exact path="/orders/:id" component={OrderDetail} />
-          <Route exact path="/customers" component={CustomerList} />
-          <Route exact path="/users/:id" component={UserDetail} />
-          <Route exact path="/subscribers" component={SubscribersList} />
+          <PrivateRoute path="/home" component={Home} />
+          <PrivateRoute exact path="/products" component={ProductList} />
+          <PrivateRoute exact path="/addproduct" component={AddProduct} />
+          <PrivateRoute exact path="/products/:id" component={ProductDetail} />
+          <PrivateRoute
+            exact
+            path="/products/edit/:id"
+            component={EditProduct}
+          />
+          <PrivateRoute exact path="/orders" component={OrderList} />
+          <PrivateRoute exact path="/orders/:id" component={OrderDetail} />
+          <PrivateRoute exact path="/customers" component={CustomerList} />
+          <PrivateRoute exact path="/users/:id" component={UserDetail} />
+          <PrivateRoute exact path="/subscribers" component={SubscribersList} />
         </Layout>
       </Switch>
     </Router>

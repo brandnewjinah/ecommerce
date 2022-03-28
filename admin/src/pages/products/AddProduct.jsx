@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from "react";
-import Select from "react-select";
+import React, { useState } from "react";
 import styled from "styled-components";
 import * as api from "../../api/index";
 
 //components
+import Heading from "../../components/Heading";
+import { Div } from "../../components/containers/Divs";
 import { Card } from "../../components/Card";
 import Input from "../../components/Input";
-import { Button, IconButton, TextButton } from "../../components/Button";
+import { Button } from "../../components/Button";
+import Select from "../../components/Select";
+import Text from "../../components/Text";
+import { typeScale } from "../../components/token";
 
 //data
 import { categoryList } from "../../data/category";
 
-//token and icons
-import { typeScale } from "../../components/token";
-
 //redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addProduct } from "../../redux/productRedux";
 
 const AddProduct = () => {
@@ -64,8 +65,14 @@ const AddProduct = () => {
     setProductInfo({ ...productInfo, [e.target.name]: e.target.value });
   };
 
-  const handleCategory = (name) => (value) => {
-    setProductInfo({ ...productInfo, [name]: value });
+  const handleCategory = (name) => (event) => {
+    setProductInfo({
+      ...productInfo,
+      [name]:
+        name === "category1"
+          ? categoryList[event.target.value]
+          : productInfo.category1.subcategory[event.target.value],
+    });
   };
 
   const handleSubmit = async () => {
@@ -99,21 +106,19 @@ const AddProduct = () => {
   };
 
   return (
-    <Container>
-      <h3>Add Product</h3>
+    <Div>
+      <Heading title="Add Product" />
       <Card margin={`1rem 0`}>
-        <Item>
-          <div className="one">
-            <Input
-              label="Product Name"
-              name="name"
-              value={productInfo.name}
-              error={errors.name}
-              handleChange={handleChange}
-            />
-          </div>
-        </Item>
-        <Item>
+        <Div padding="0.75rem 0">
+          <Input
+            label="Product Name"
+            name="name"
+            value={productInfo.name}
+            error={errors.name}
+            handleChange={handleChange}
+          />
+        </Div>
+        <Div padding="0.75rem 0">
           <div className="four">
             <Input
               label="Brand"
@@ -132,21 +137,44 @@ const AddProduct = () => {
               handleChange={handleChange}
             />
           </div>
-        </Item>
-        <Item>
-          <div className="one">
-            <Input
-              label="Price"
-              name="price"
-              value={productInfo.price}
-              error={errors.price}
-              handleChange={handleChange}
-            />
-          </div>
-        </Item>
+        </Div>
+        <Div padding="0.75rem 0">
+          <Input
+            label="Price"
+            name="price"
+            value={productInfo.price}
+            error={errors.price}
+            handleChange={handleChange}
+          />
+        </Div>
       </Card>
       <Card margin={`1rem 0`}>
-        <SelectWrapper>
+        <Div padding="0.75rem 0">
+          <Text variant="caption" padding="0 0 .25rem 0">
+            Category 1
+          </Text>
+          <Select
+            options={categoryList}
+            selected={productInfo.category1.value}
+            onChange={handleCategory("category1")}
+            fullWidth
+          />
+        </Div>
+        {Object.keys(productInfo.category1).length !== 0 &&
+          productInfo.category1.subcategory && (
+            <Div padding="0.75rem 0">
+              <Text variant="caption" padding="0 0 .25rem 0">
+                Category 2
+              </Text>
+              <Select
+                options={productInfo.category1.subcategory}
+                selected={productInfo.category2.value}
+                onChange={handleCategory("category2")}
+                fullWidth
+              />
+            </Div>
+          )}
+        {/* <SelectWrapper>
           <p className="label">Select Main Category</p>
           <Select
             name="category1"
@@ -166,7 +194,7 @@ const AddProduct = () => {
                 onChange={handleCategory("category2")}
               />
             </SelectWrapper>
-          )}
+          )} */}
       </Card>
       <Card margin={`1rem 0`}>
         <input
@@ -180,52 +208,24 @@ const AddProduct = () => {
         )}
       </Card>
       <Card margin={`1rem 0`}>
-        <Item>
-          <div className="one">
-            <Input
-              label="Size"
-              name="size"
-              value={productInfo.size}
-              handleChange={handleChange}
-            />
-          </div>
-        </Item>
+        <Div padding="0.75rem 0">
+          <Input
+            label="Size"
+            name="size"
+            value={productInfo.size}
+            handleChange={handleChange}
+          />
+        </Div>
       </Card>
       <Button
         label="Add"
         type="submit"
-        color="#06193b"
+        color="#1C9CFD"
         handleClick={handleSubmit}
       />
-    </Container>
+    </Div>
   );
 };
-
-const Container = styled.div`
-  h3 {
-    text-transform: uppercase;
-  }
-`;
-
-const Item = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-
-  .one {
-    flex: 1;
-  }
-
-  .four {
-    flex: 4;
-  }
-
-  .nine {
-    flex: 9;
-  }
-`;
 
 const SelectWrapper = styled.div`
   padding: 0.75rem 0;

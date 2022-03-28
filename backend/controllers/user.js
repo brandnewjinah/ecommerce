@@ -2,6 +2,17 @@ import User from "../models/user.js";
 import CryptoJS from "crypto-js";
 import { generateToken } from "../middleware/checkAuth.js";
 
+//get one user
+export const getOneUser = async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(404).json("User not found");
+  }
+};
+
 //update
 export const updateUser = async (req, res) => {
   try {

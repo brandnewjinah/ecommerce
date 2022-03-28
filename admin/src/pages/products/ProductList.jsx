@@ -9,6 +9,7 @@ import Pagination from "../../components/Pagination";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/productRedux";
+import Heading from "../../components/Heading";
 
 const thead = [
   { id: "sku", name: "SKU", sort: true, width: "7.5%" },
@@ -50,10 +51,8 @@ const ProductList = () => {
 
   return (
     <Container>
-      <Header>
-        <h3>PRODUCTS</h3>
-      </Header>
-      <Card>
+      <Heading title="products" />
+      <Card margin="1rem 0">
         <Table
           thead={thead}
           tbody={products}
@@ -72,9 +71,5 @@ const ProductList = () => {
 };
 
 const Container = styled.div``;
-
-const Header = styled.div`
-  padding: 0 0 1.5rem;
-`;
 
 export default ProductList;

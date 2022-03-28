@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
+import Select from "react-select";
+import styled from "styled-components";
 
 //components
-import Heading from "../../components/Heading";
 import { Card } from "../../components/Card";
 import Input from "../../components/Input";
-import Select from "../../components/Select";
-import Text from "../../components/Text";
-import { Div, FlexDiv } from "../../components/containers/Divs";
-import { Button } from "../../components/Button";
+import { Button, IconButton, TextButton } from "../../components/Button";
 
 //data
 import { categoryList } from "../../data/category";
@@ -20,7 +18,11 @@ import { getProductDetail } from "../../redux/productDetailRedux";
 
 const AddProduct = () => {
   let { id } = useParams();
+  const location = useLocation();
   const dispatch = useDispatch();
+  // const existingProduct = useSelector((state) =>
+  //   state.productList.products.find((product) => product.sku === id)
+  // );
 
   const [productInfo, setProductInfo] = useState({
     name: "",
@@ -34,7 +36,7 @@ const AddProduct = () => {
   });
 
   useEffect(() => {
-    dispatch(getProductDetail(id));
+    if (location.pathname.includes("/edit")) dispatch(getProductDetail(id));
   }, [dispatch, id]);
 
   const productDetail = useSelector((state) => state.productDetail);
@@ -42,7 +44,6 @@ const AddProduct = () => {
 
   useEffect(() => {
     if (product) setProductInfo(product);
-    setPreviewSource(product.img);
   }, [product]);
 
   const [errors, setErrors] = useState({});
@@ -62,14 +63,8 @@ const AddProduct = () => {
     setProductInfo({ ...productInfo, [e.target.name]: e.target.value });
   };
 
-  const handleCategory = (name) => (event) => {
-    setProductInfo({
-      ...productInfo,
-      [name]:
-        name === "category1"
-          ? categoryList[event.target.value]
-          : productInfo.category1.subcategory[event.target.value],
-    });
+  const handleCategory = (name) => (value) => {
+    setProductInfo({ ...productInfo, [name]: value });
   };
 
   const handleSubmit = () => {
@@ -116,22 +111,22 @@ const AddProduct = () => {
     };
   };
 
-  return loading ? (
-    <Div>loading</Div>
-  ) : (
-    <Div>
-      <Heading title="Edit Product" />
-      <Card margin="1rem 0">
-        <Div padding="0.75rem 0">
-          <Input
-            label="Product Name"
-            name="name"
-            value={productInfo.name}
-            error={errors.name}
-            handleChange={handleChange}
-          />
-        </Div>
-        <FlexDiv padding="0.75rem 0">
+  return (
+    <Container>
+      <h3>Edit Product</h3>
+      <Card margin={`1rem 0`}>
+        <Item>
+          <div className="one">
+            <Input
+              label="Product Name"
+              name="name"
+              value={productInfo.name}
+              error={errors.name}
+              handleChange={handleChange}
+            />
+          </div>
+        </Item>
+        <Item>
           <div className="four">
             <Input
               label="Brand"
@@ -150,74 +145,97 @@ const AddProduct = () => {
               handleChange={handleChange}
             />
           </div>
-        </FlexDiv>
-        <Div padding="0.75rem 0">
-          <Input
-            label="Price"
-            name="price"
-            value={productInfo.price}
-            error={errors.price}
-            handleChange={handleChange}
-          />
-        </Div>
+        </Item>
+        <Item>
+          <div className="one">
+            <Input
+              label="Price"
+              name="price"
+              value={productInfo.price}
+              error={errors.price}
+              handleChange={handleChange}
+            />
+          </div>
+        </Item>
       </Card>
-      <Card margin="1rem 0">
-        <Div padding="0.75rem 0">
-          <Text variant="caption" padding="0 0 .25rem 0">
-            Category 1
-          </Text>
-          <Select
-            options={categoryList}
-            selected={
-              productInfo.category1 &&
-              Object.keys(productInfo.category1).length !== 0 &&
-              productInfo.category1.value
-            }
-            onChange={handleCategory("category1")}
-            fullWidth
-          />
-        </Div>
-        {productInfo.category1 &&
-          Object.keys(productInfo.category1).length !== 0 &&
-          productInfo.category1.subcategory &&
-          Object.keys(productInfo.category1.subcategory).length !== 0 && (
-            <Div padding="0.75rem 0">
-              <Text variant="caption" padding="0 0 .25rem 0">
-                Subcategory
-              </Text>
+      <Card>
+        <p className="label">Select Main Category</p>
+        <Select
+          name="category1"
+          value={productInfo.category1}
+          options={categoryList}
+          onChange={handleCategory("category1")}
+        />
+        {Object.keys(productInfo.category1).length !== 0 &&
+          productInfo.category1.subcategory && (
+            <div className="item">
+              <p className="label">Select Subcategory</p>
               <Select
+                name="category2"
+                value={productInfo.category2}
                 options={productInfo.category1.subcategory}
-                selected={productInfo.category2.value}
                 onChange={handleCategory("category2")}
-                fullWidth
               />
-            </Div>
+            </div>
           )}
       </Card>
       <Card>
-        <input type="file" name="img" onChange={handleImageFile} />
+        {/*  <input
+          type="file"
+          name="img"
+          value={productInfo.img}
+          onChange={handleImageFile}
+        />
         {previewSource && (
           <img src={previewSource} alt="chosen" style={{ height: "300px" }} />
-        )}
+        )} */}
       </Card>
-      <Card margin="1rem 0">
-        <Div padding="0.75rem 0">
-          <Input
-            label="Size"
-            name="size"
-            value={productInfo.size}
-            handleChange={handleChange}
-          />
-        </Div>
+      <Card>
+        <Item>
+          <div className="one">
+            <Input
+              label="Size"
+              name="size"
+              value={productInfo.size}
+              handleChange={handleChange}
+            />
+          </div>
+        </Item>
       </Card>
       <Button
-        label="Save Changes"
+        label={id ? "Save Changes" : "Add"}
         type="submit"
-        color="#1C9CFD"
+        color="#06193b"
         handleClick={handleSubmit}
       />
-    </Div>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  h3 {
+    text-transform: uppercase;
+  }
+`;
+
+const Item = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  .one {
+    flex: 1;
+  }
+
+  .four {
+    flex: 4;
+  }
+
+  .nine {
+    flex: 9;
+  }
+`;
 
 export default AddProduct;

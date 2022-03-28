@@ -3,10 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
-  const admin = useSelector((state) => state.auth.currentUser);
-  const isAdmin = admin && admin.isAdmin;
-
+const PrivateRoute = ({ isAdmin: isAdmin, component: Component, ...rest }) => {
   return (
     <Route
       {...rest}

@@ -14,7 +14,7 @@ import Text from "../../components/Text";
 const Delivery = ({ handleStep, step, info }) => {
   const dispatch = useDispatch();
   const [data, setData] = useState({
-    shipping: "standard",
+    shipping: "Standard",
   });
 
   const handleClick = () => {

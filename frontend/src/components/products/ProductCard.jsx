@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 //components
-import { TextButton, Button } from "../Button";
-import { fontScale, neutral, breakpoint, primaryColor } from "../token";
+import { TextButton } from "../Button";
+import { fontSize, neutral, breakpoint, primaryColor } from "../token";
 import { ImageIcon } from "../../assets/Icons";
 
 //redux
@@ -131,17 +131,17 @@ const ErrImg = styled.div`
 
 const Details = styled.div`
   width: 100%;
-  font-size: ${fontScale.scale_1};
+  font-size: ${fontSize.base};
   font-weight: 500;
   color: ${neutral[600]};
 
   h3 {
-    font-size: ${fontScale.scale_1};
+    font-size: ${fontSize.base};
     padding: 0.25rem 0 0.35rem;
   }
 
   .sub {
-    font-size: ${fontScale.scale_s3};
+    font-size: ${fontSize.sm2};
     text-transform: uppercase;
     letter-spacing: 0.05rem;
     color: ${neutral[400]};
@@ -149,11 +149,11 @@ const Details = styled.div`
 
   @media ${breakpoint.m} {
     h3 {
-      font-size: ${fontScale.scale_s2};
+      font-size: ${fontSize.sm2};
     }
 
     .sub {
-      font-size: ${fontScale.scale_s4};
+      font-size: ${fontSize.sm2};
     }
   }
 `;

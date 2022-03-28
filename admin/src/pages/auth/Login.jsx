@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import styled from "styled-components";
 
@@ -12,28 +12,41 @@ import { Button } from "../../components/Button";
 import { primaryColor } from "../../components/token";
 
 //redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signin } from "../../redux/authRedux";
 
 const Auth = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
 
-  const history = useHistory();
-
-  const dispatch = useDispatch();
-
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
+  const { isLoading, isSuccess, isError, message, currentUser } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (isError) {
+      alert(message);
+    }
+
+    if (isSuccess) {
+      history.push("/home");
+    }
+  }, [isSuccess, isError, message, currentUser, dispatch]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(signin(user));
-    history.push("/home");
   };
+
   return (
     <Container>
       <Header>

@@ -37,20 +37,15 @@ const Checkout = () => {
     };
 
     dispatch(placeOrder(thisOrder));
+  };
+
+  useEffect(() => {
     if (success) {
       dispatch(clearCart());
       dispatch(resetOrder());
       history.push(`/confirmation/${orderDetail._id}`);
     }
-  };
-
-  // useEffect(() => {
-  //   if (success) {
-  //     dispatch(clearCart());
-  //     dispatch(resetOrder());
-  //     history.push(`/confirmation/${orderDetail._id}`);
-  //   }
-  // }, [dispatch, order, success, history]);
+  }, [dispatch, order, success, history]);
 
   const handleStep = (num) => {
     setStep(num);

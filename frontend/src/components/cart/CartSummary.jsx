@@ -23,7 +23,7 @@ const CartSummary = ({ handleClick, submitType, step }) => {
   const path = location.pathname.split("/")[1];
   const products = useSelector((state) => state.cart.products);
   const shipping = useSelector((state) => state.order.delivery.shipping);
-  const shippingCost = shipping === "standard" ? 0 : 15;
+  const shippingCost = shipping === "Express" ? 15 : 0;
   const [subtotal, setSubtotal] = useState(0);
 
   useEffect(() => {

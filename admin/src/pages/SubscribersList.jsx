@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import moment from "moment";
 
 //components
 import { Card } from "../components/Card";
@@ -9,6 +10,7 @@ import Pagination from "../components/Pagination";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { getAllSubscribers } from "../redux/subscriberRedux";
+import Heading from "../components/Heading";
 
 const thead = [
   { id: "email", name: "Email", sort: true, width: "45%" },
@@ -29,7 +31,7 @@ const SubscribersList = () => {
     data &&
     data.map((item) => ({
       email: item.email,
-      createdAt: item.createdAt,
+      createdAt: moment(item.createdAt).format("lll"),
       id: item._id,
     }));
 
@@ -39,11 +41,10 @@ const SubscribersList = () => {
 
   return (
     <Container>
-      <Header>
-        <h3>SUBSCRIBERS</h3>
-      </Header>
-      <Card>
-        <Table thead={thead} tbody={users} linkurl="users" />
+      <Heading title="Subscribers" />
+
+      <Card margin="1rem 0">
+        <Table thead={thead} tbody={users} />
         <Pagination
           pageCount={pages}
           currentPage={currentPage}
@@ -55,9 +56,5 @@ const SubscribersList = () => {
 };
 
 const Container = styled.div``;
-
-const Header = styled.div`
-  padding: 0 0 1.5rem;
-`;
 
 export default SubscribersList;

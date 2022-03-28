@@ -10,6 +10,7 @@ import Pagination from "../../components/Pagination";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { getAllOrders } from "../../redux/orderRedux";
+import Heading from "../../components/Heading";
 
 const thead = [
   { id: "name", name: "Name", sort: true, width: "25%" },
@@ -33,12 +34,10 @@ const OrderList = () => {
     data.map((item) => ({
       name: item.shipping.fullName,
       createdAt: moment(item.createdAt).format("lll"),
-      total: item.total,
+      total: `$${item.total}`,
       status: item.status,
       id: item._id,
     }));
-
-  console.log(orders);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -46,10 +45,9 @@ const OrderList = () => {
 
   return (
     <Container>
-      <Header>
-        <h3>ORDERS</h3>
-      </Header>
-      <Card>
+      <Heading title="Orders" />
+
+      <Card margin="1rem 0">
         <Table thead={thead} tbody={orders} linkurl="orders" />
       </Card>
       <Pagination
@@ -62,9 +60,5 @@ const OrderList = () => {
 };
 
 const Container = styled.div``;
-
-const Header = styled.div`
-  padding: 0 0 1.5rem;
-`;
 
 export default OrderList;

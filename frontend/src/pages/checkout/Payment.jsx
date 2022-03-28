@@ -84,7 +84,7 @@ const Payment = ({ handleStep, step, info }) => {
       )}
       {step !== 3 && (
         <>
-          {info && (
+          {info && Object.keys(info).length !== 0 && (
             <>
               <Text bold>
                 {`${info.billingFirstName} ${info.billingLastName}`}

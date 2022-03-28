@@ -29,9 +29,10 @@ import {
 
 const Detail = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
   const location = useLocation();
-  const currentUser = useSelector((state) => state.auth.currentUser);
+  const dispatch = useDispatch();
+
+  //get product info
   const _id = location.state && location.state._id;
 
   useEffect(() => {
@@ -40,12 +41,8 @@ const Detail = () => {
 
   const productDetail = useSelector((state) => state.productDetail);
   const { loading, error, product } = productDetail;
-  const [qty, setQty] = useState(1);
 
-  const products = useSelector((state) => state.wishlist.products);
-  const isWishlist =
-    products && products.find((item) => item.product._id === product._id);
-
+  //get similar products
   const [similar, setSimilar] = useState([]);
 
   useEffect(() => {
@@ -61,19 +58,12 @@ const Detail = () => {
     getSimilarProducts();
   }, [product, _id]);
 
-  const handleDecrease = () => {
-    if (qty > 1) {
-      setQty(qty - 1);
-    }
-  };
+  //wishlist
+  const currentUser = useSelector((state) => state.auth.currentUser);
 
-  const handleIncrease = () => {
-    setQty(qty + 1);
-  };
-
-  const handleAddToCart = () => {
-    dispatch(addToCart({ _id, qty }));
-  };
+  const products = useSelector((state) => state.wishlist.products);
+  const isWishlist =
+    products && products.find((item) => item.product._id === product._id);
 
   const handleWishlist = () => {
     if (isWishlist) {
@@ -90,6 +80,23 @@ const Detail = () => {
   useEffect(() => {
     getWishlist();
   }, [dispatch]);
+
+  //add to cart
+  const [qty, setQty] = useState(1);
+
+  const handleDecrease = () => {
+    if (qty > 1) {
+      setQty(qty - 1);
+    }
+  };
+
+  const handleIncrease = () => {
+    setQty(qty + 1);
+  };
+
+  const handleAddToCart = () => {
+    dispatch(addToCart({ _id, qty }));
+  };
 
   return (
     <>

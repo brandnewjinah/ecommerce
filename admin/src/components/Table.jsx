@@ -109,7 +109,8 @@ const Table = ({ thead, tbody, checkbox, action, linkurl }) => {
                           : ""
                       }
                     >
-                      <Link to={`${linkurl}/${item.id}`}>
+                      {/* <Link to={`${linkurl}/${item.id}`}> */}
+                      <Link to={linkurl && `${linkurl}/${item.id}`}>
                         <span>{it}</span>
                       </Link>
                     </td>
