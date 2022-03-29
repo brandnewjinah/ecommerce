@@ -21,6 +21,8 @@ const Text = ({ variant, bold, padding, color, children }) => {
         <Heading4 padding={padding}>{children}</Heading4>
       ) : variant === "h5" ? (
         <Heading5 padding={padding}>{children}</Heading5>
+      ) : variant === "h6" ? (
+        <Heading6 padding={padding}>{children}</Heading6>
       ) : variant === "body_big" ? (
         <BigParagraph padding={padding}>{children}</BigParagraph>
       ) : variant === "body_small" ? (
@@ -81,6 +83,12 @@ const Heading4 = styled.h4`
 const Heading5 = styled.h5`
   font-size: ${fontSize.lg1};
   font-weight: 500;
+  padding: ${(props) => props.padding};
+`;
+
+const Heading6 = styled.h6`
+  font-size: ${fontSize.sm1};
+  font-weight: 700;
   padding: ${(props) => props.padding};
 `;
 

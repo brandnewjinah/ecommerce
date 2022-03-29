@@ -112,7 +112,7 @@ const UserDetail = (props) => {
             error={errors.email}
             handleChange={handleChange}
           />
-          <Button label="Update" />
+          <Button label="Update" color="#1C9CFD" />
         </form>
       </Card>
       <div style={{ margin: `1em 0` }}>

@@ -19,6 +19,7 @@ export const getOrderDetail = createAsyncThunk(
   async (id) => {
     try {
       const { data } = await publicRequest.get(`/orders/${id}`);
+      console.log(data);
       return data;
     } catch (error) {
       return error;

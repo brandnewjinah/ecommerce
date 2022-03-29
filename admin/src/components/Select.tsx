@@ -20,9 +20,7 @@ const Select: FC<SelectProps> = ({
         defaultValue={selected}
         onChange={onChange}
       >
-        <option disabled selected>
-          -- select an option --
-        </option>
+        <option disabled>-- select an option --</option>
         {options &&
           options.map((option, idx) => (
             <option key={idx} value={idx} selected={selected === option.value}>

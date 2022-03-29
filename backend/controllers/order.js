@@ -2,10 +2,15 @@ import Order from "../models/order.js";
 
 //CREATE AN ORDER
 export const createOrder = async (req, res) => {
+  const paymentBody = req.body.payment;
+
   const newOrder = new Order({
     orderItems: req.body.orderItems,
     shipping: req.body.shipping,
-    payment: req.body.payment,
+    payment: {
+      ...paymentBody,
+      cardNumber: String(paymentBody.cardNumber).slice(-4),
+    },
     delivery: req.body.delivery,
     total: req.body.total,
     user: req.user._id,

@@ -1,111 +1,142 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import moment from "moment";
-import styled from "styled-components";
 
-//components
+//comp
+import { Div, FlexDiv } from "../../components/containers/Divs";
+import Heading from "../../components/Heading";
 import { Section } from "../../components/containers/Sections";
-import OrderItem from "../../components/OrderItem";
-import { Flex } from "../../components/containers/Sections";
 import { Card } from "../../components/Card";
+import Text from "../../components/Text";
+import OrderItem from "../../components/OrderItem";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetail } from "../../redux/orderDetailRedux";
 import { getOneUser } from "../../redux/userRedux";
-import Heading from "../../components/Heading";
 
 const OrderDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getOrderDetail(id));
-    //dispatch product details
-  }, [dispatch]);
-
   const { order } = useSelector((state) => state.orderDetail);
 
   useEffect(() => {
-    dispatch(getOneUser(order.user));
-  }, [dispatch]);
+    dispatch(getOrderDetail(id));
+  }, [dispatch, id]);
 
   const userDetail = useSelector((state) => state.users.userDetail);
 
+  useEffect(() => {
+    dispatch(getOneUser(order.user));
+  }, [dispatch, order.user]);
+
   return (
-    <Container>
+    <Div>
       <Heading title="Order" />
       <Section margin="1rem 0">
         <Card margin="1rem 0" padding="1.5rem">
-          <h5>Order Number</h5>
-          <p>{order._id}</p>
+          <Text variant="h6" padding="0 0 .25rem">
+            Order Number
+          </Text>
+          <Text>{order._id}</Text>
         </Card>
         <Card margin="1rem 0" padding="1.5rem">
-          <Flex justifyContent="sb">
-            <Article>
-              <h5>Ordered Date</h5>
-              <p>{moment(order.createdAt).format("lll")}</p>
-            </Article>
-            <Article>
-              <h5>Order Status</h5>
-              <p>{order.status}</p>
-            </Article>
-          </Flex>
+          <FlexDiv justifyContent="sb">
+            <Div>
+              <Text variant="h6" padding="0 0 .25rem">
+                Order Date
+              </Text>
+              <Text>{moment(order.createdAt).format("lll")}</Text>
+            </Div>
+            <Div>
+              <Text variant="h6" padding="0 0 .25rem">
+                Order Status
+              </Text>
+              <Text>{order.status}</Text>
+            </Div>
+          </FlexDiv>
         </Card>
         <Card margin="1rem 0" padding="1.5rem">
-          <h5>Order Details</h5>
-          <p>
-            {order &&
-              order.orderItems &&
-              order.orderItems.length !== 0 &&
-              order.orderItems.map((item) => (
-                // <p>{item.name}</p>
-                <OrderItem item={item} />
-              ))}
-          </p>
+          <Text variant="h6" padding="0 0 1rem">
+            Order Details
+          </Text>
+          {order &&
+            order.orderItems &&
+            order.orderItems.length !== 0 &&
+            order.orderItems.map((item, idx) => (
+              <OrderItem key={idx} item={item} />
+            ))}
         </Card>
         <Card margin="1rem 0" padding="1.5rem">
-          <Flex justifyContent="sb">
-            <Article>
-              <h5>User</h5>
-              <p>{userDetail.name}</p>
-              <p>{userDetail.email}</p>
-            </Article>
-            <Article>
-              <h5>Shipping</h5>
-              <p>{order.shipping.address1}</p>
-              <p>{order.shipping.city}</p>
-            </Article>
-            <Article>
-              <h5>Payment</h5>
-              <p>{order.shipping.address1}</p>
-              <p>{order.shipping.city}</p>
-            </Article>
-          </Flex>
+          <FlexDiv justifyContent="sb">
+            <Div>
+              <Text variant="h6" padding="0 0 .25rem">
+                User
+              </Text>
+              <Text>{userDetail.name}</Text>
+              <Text>{userDetail.email}</Text>
+            </Div>
+            <Div>
+              <Text variant="h6" padding="0 0 .25rem">
+                Shipping
+              </Text>
+              <Text>
+                {order &&
+                  order.shipping &&
+                  Object.keys(order.shipping).length !== 0 &&
+                  order.shipping.address1}
+              </Text>
+              <Text>
+                {`${
+                  order &&
+                  order.shipping &&
+                  Object.keys(order.shipping).length !== 0 &&
+                  order.shipping.city
+                } ${
+                  order &&
+                  order.shipping &&
+                  Object.keys(order.shipping).length !== 0 &&
+                  order.shipping.state
+                } ${
+                  order &&
+                  order.shipping &&
+                  Object.keys(order.shipping).length !== 0 &&
+                  order.shipping.zip
+                }`}
+              </Text>
+            </Div>
+            <Div>
+              <Text variant="h6" padding="0 0 .25rem">
+                Payment
+              </Text>
+              <Text>
+                {`${
+                  order &&
+                  order.payment &&
+                  Object.keys(order.payment).length !== 0 &&
+                  order.payment.billingFirstName
+                } ${
+                  order &&
+                  order.payment &&
+                  Object.keys(order.payment).length !== 0 &&
+                  order.payment.billingLastName
+                }`}
+              </Text>
+              <Text>
+                {`Card ending in ${
+                  order &&
+                  order.payment &&
+                  Object.keys(order.payment).length !== 0 &&
+                  order.payment.cardNumber
+                }`}
+              </Text>
+            </Div>
+          </FlexDiv>
         </Card>
       </Section>
-    </Container>
+    </Div>
   );
 };
-
-const Container = styled.div``;
-
-// const Section = styled.section`
-//   width: 100%;
-//   padding: 2rem 0;
-
-//   h5 {
-//     text-transform: uppercase;
-//     padding: 1rem 0;
-//   }
-
-//   p {
-//     line-height: 1.25rem;
-//   }
-// `;
-
-const Article = styled.article`
-  padding: 1rem 0;
-`;
 
 export default OrderDetail;
