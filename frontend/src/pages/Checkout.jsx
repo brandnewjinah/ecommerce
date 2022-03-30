@@ -22,7 +22,7 @@ const Checkout = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const order = useSelector((state) => state.order);
-  const { success, orderDetail, shipping, delivery, payment } = order;
+  const { isSuccess, orderDetail, shipping, delivery, payment } = order;
 
   const handleClick = () => {
     const total = cart.products.reduce((total, item) => {
@@ -40,12 +40,12 @@ const Checkout = () => {
   };
 
   useEffect(() => {
-    if (success) {
+    if (isSuccess) {
       dispatch(clearCart());
       dispatch(resetOrder());
       history.push(`/confirmation/${orderDetail._id}`);
     }
-  }, [dispatch, order, success, history]);
+  }, [dispatch, order, isSuccess, history]);
 
   const handleStep = (num) => {
     setStep(num);

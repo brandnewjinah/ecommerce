@@ -1,8 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
+//comp
+import { Section } from "../../Container";
+import Text from "../../Text";
+
 //token
-import { neutral, breakpoint, fontScale, size } from "../../token";
+import { neutral, breakpoint, fontScale, size, fontSize } from "../../token";
 
 const Footer = () => {
   return (
@@ -12,38 +16,37 @@ const Footer = () => {
           <Logo>sweet</Logo>
         </Section>
         <Section>
-          <h6>About Us</h6>
-          <div>
-            <Column>
-              <li>Our Story</li>
-              <li>Media</li>
-              <li>Careers</li>
-              <li>Contact Us</li>
-            </Column>
-          </div>
+          <Text variant="body_small" bold="extrabold">
+            About Us
+          </Text>
+          <Column>
+            <li>Our Story</li>
+            <li>Media</li>
+            <li>Careers</li>
+            <li>Contact Us</li>
+          </Column>
         </Section>
         <Section>
-          <h6>Help</h6>
-          <div>
-            <Column>
-              <li>Ordering</li>
-              <li>Shipping</li>
-              <li>Return Policy</li>
-              <li>FAQ</li>
-            </Column>
-          </div>
+          <Text variant="body_small" bold="extrabold">
+            Help
+          </Text>
+          <Column>
+            <li>Ordering</li>
+            <li>Shipping</li>
+            <li>Return Policy</li>
+            <li>FAQ</li>
+          </Column>
         </Section>
-
         <Section>
-          <h6>My Account</h6>
-          <div>
-            <Column>
-              <li>Sign In</li>
-              <li>Register</li>
-              <li>Order Status</li>
-              <li>Returns</li>
-            </Column>
-          </div>
+          <Text variant="body_small" bold="extrabold">
+            My Account
+          </Text>
+          <Column>
+            <li>Sign In</li>
+            <li>Register</li>
+            <li>Order Status</li>
+            <li>Returns</li>
+          </Column>
         </Section>
       </Wrapper>
     </Container>
@@ -72,6 +75,7 @@ const Wrapper = styled.div`
 
   @media ${breakpoint.lg} {
     grid-template-columns: repeat(1, 1fr);
+    grid-gap: 1.5rem;
   }
 `;
 
@@ -87,17 +91,11 @@ const Logo = styled.div`
   }
 `;
 
-const Section = styled.section`
-  h6 {
-    font-size: ${fontScale.scale_s2};
-  }
-`;
-
 const Column = styled.ul`
   display: grid;
-  grid-gap: 0.5rem;
-  font-size: ${fontScale.scale_s2};
-  padding: 1rem 0;
+  grid-gap: 0.875rem;
+  font-size: ${fontSize.sm3};
+  padding: 0.8rem 0;
 `;
 
 export default Footer;

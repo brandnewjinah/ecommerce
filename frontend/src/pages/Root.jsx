@@ -4,6 +4,7 @@ import Helmet from "react-helmet";
 import styled from "styled-components";
 
 //import components
+import { FlexDiv } from "../components/containers/Divs";
 import { Button } from "../components/Button";
 
 //token
@@ -17,7 +18,7 @@ const Root = () => {
   };
 
   return (
-    <Container className="flexCenter">
+    <Container>
       <Helmet>
         <title>My Shop</title>
       </Helmet>
@@ -45,9 +46,9 @@ const Root = () => {
 };
 
 const Container = styled.div`
+  height: 100vh;
   display: flex;
   align-items: center;
-  height: 100vh;
   background-color: ${primaryColor.background};
   padding: 2rem;
 `;

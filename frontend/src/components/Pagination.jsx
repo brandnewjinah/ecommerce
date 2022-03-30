@@ -3,7 +3,7 @@ import _ from "lodash";
 
 //import styles and assets
 import styled from "styled-components";
-import { neutral, fontScale } from "./token";
+import { neutral, fontSize } from "./token";
 
 const Pagination = ({ pageCount, currentPage, handlePageChange }) => {
   // const pageCount = count / limit;
@@ -37,20 +37,28 @@ const Container = styled.nav`
   }
 
   li {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: ${fontScale.sbody};
+    font-size: ${fontSize.sm2};
     padding: 0.25rem;
     margin: 0 0.5rem;
     cursor: pointer;
+
+    &:hover {
+      background-color: ${neutral[10]};
+    }
   }
 
   .active {
     background-color: ${neutral[200]};
+
+    &:hover {
+      background-color: ${neutral[200]};
+    }
   }
 `;
 

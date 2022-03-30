@@ -26,6 +26,8 @@ const orderSlice = createSlice({
     shipping: {},
     delivery: {},
     payment: {},
+    isLoading: false,
+    isSuccess: false,
   },
   reducers: {
     saveShipping: (state, action) => {
@@ -41,19 +43,21 @@ const orderSlice = createSlice({
       state.shipping = {};
       state.delivery = {};
       state.payment = {};
+      state.isLoading = false;
+      state.isSuccess = false;
     },
   },
   extraReducers: {
     [placeOrder.pending]: (state) => {
-      state.loading = true;
+      state.isLoading = true;
     },
     [placeOrder.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.success = true;
+      state.isLoading = false;
+      state.isSuccess = true;
       state.orderDetail = action.payload.order;
     },
     [placeOrder.rejected]: (state, action) => {
-      state.loading = false;
+      state.isLoading = false;
       state.error = action.payload;
     },
   },

@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { breakpoint, fontScale } from "../../token";
+import { primaryColor } from "../../token";
 
 //redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getAnnouncements } from "../../../redux/announcementRedux";
 
 const Announcement = () => {
@@ -13,8 +13,8 @@ const Announcement = () => {
     dispatch(getAnnouncements());
   }, [dispatch]);
 
-  const announce = useSelector((state) => state.announce);
-  const { error, loading, announcement } = announce;
+  // const announce = useSelector((state) => state.announce);
+  // const { error, loading, announcement } = announce;
 
   return (
     <Wrapper>
@@ -37,11 +37,16 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: ${fontScale.scale_s4};
-  font-weight: 500;
-  letter-spacing: 0.05rem;
-  color: #fff;
-  background-color: #d0af8f;
+  background-color: ${primaryColor.pink};
+  padding: 0.75rem 0;
+
+  p {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+    color: #fff;
+  }
 `;
 
 export default Announcement;

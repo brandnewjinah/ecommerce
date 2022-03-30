@@ -35,7 +35,6 @@ const Layout = ({ children }) => {
 const Wrapper = styled.div`
   position: relative;
   min-height: 100vh;
-  background-color: ${(props) => props.bgColor};
 `;
 
 const Container = styled.main`
@@ -47,8 +46,8 @@ const Container = styled.main`
       ? `2rem auto`
       : `4rem auto`};
 
-  @media ${breakpoint.xlg} {
-    padding: 0 1rem 609px;
+  @media ${breakpoint.lg} {
+    padding: 0 1rem 697px;
     margin: ${(props) =>
       props.path === "home" || props.path === "product"
         ? `1rem auto`

@@ -6,13 +6,7 @@ import styled, { css } from "styled-components";
 import Hamburger from "./Hamburger";
 
 //token
-import {
-  neutral,
-  breakpoint,
-  fontScale,
-  primaryColor,
-  size,
-} from "../../token";
+import { neutral, breakpoint, fontScale, size } from "../../token";
 import { Cart, Heart, ChevronDown } from "../../../assets/Icon";
 
 //redux
@@ -26,8 +20,6 @@ const Navbar = ({ open, handleOpen, handleMenu }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  // const [open, setOpen] = useState(false);
-
   const [clickLogout, setClickLogout] = useState(false);
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("currentUser"))
@@ -37,6 +29,7 @@ const Navbar = ({ open, handleOpen, handleMenu }) => {
 
   const totalQty = useSelector((state) => state.cart.totalQty);
 
+  //this is the problem!!!///
   const handleMenuClick = () => {
     handleOpen((prev) => !prev);
   };
@@ -61,22 +54,22 @@ const Navbar = ({ open, handleOpen, handleMenu }) => {
         <Center open={open}>
           <List>
             <Item>
-              <Link to="/products/all" onClick={handleMenuClick}>
+              <Link to="/products/all" onClick={() => handleOpen(false)}>
                 All
               </Link>
             </Item>
             <Item>
-              <Link to="/products/bakery" onClick={handleMenuClick}>
+              <Link to="/products/bakery" onClick={() => handleOpen(false)}>
                 Bakery
               </Link>
             </Item>
             <Item>
-              <Link to="/products/beverage" onClick={handleMenuClick}>
+              <Link to="/products/beverage" onClick={() => handleOpen(false)}>
                 Beverage
               </Link>
             </Item>
             <Item>
-              <Link to="/products/snacks" onClick={handleMenuClick}>
+              <Link to="/products/snacks" onClick={() => handleOpen(false)}>
                 Snacks
               </Link>
             </Item>
@@ -96,7 +89,7 @@ const Navbar = ({ open, handleOpen, handleMenu }) => {
                 </p>
               </>
             ) : (
-              <Link to="/signin" onClick={handleMenuClick}>
+              <Link to="/signin" onClick={() => handleOpen(false)}>
                 Login
               </Link>
             )}
@@ -156,14 +149,15 @@ const Flex = css`
 `;
 
 const Container = styled.header`
-  height: 54px;
+  ${Flex}
+  height: 60px;
   border-bottom: 1px solid ${neutral[100]};
 `;
 
 const Wrapper = styled.div`
   ${Flex}
   justify-content: space-between;
-  max-width: ${size.xlg};
+  width: ${size.xlg};
   font-family: semplicitapro, sans-serif;
   font-size: ${fontScale.scale_s4};
   font-weight: 600;
@@ -225,9 +219,6 @@ const List = styled.ul`
 const Item = styled.li`
   margin-right: ${(props) => props.end && 0};
   text-align: center;
-  border-bottom: 2px solid
-    ${(props) => (props.current ? primaryColor.blue : "transparent")};
-  transition: border-bottom 0.5s ease-in-out;
   padding: 0 0.75rem;
 
   @media ${breakpoint.lg} {

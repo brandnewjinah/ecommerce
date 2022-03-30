@@ -25,6 +25,7 @@ export const blue = {
 export const primaryColor = {
   faintBackground: "#fafaf2",
   background: "#fcefe6;",
+  pink: "#d98866",
   blue: "#1b3456",
   title: "#ee7868",
   button: "#ea805e",

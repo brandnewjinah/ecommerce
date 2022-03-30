@@ -8,7 +8,7 @@ import {
   lineHeightMobile,
 } from "./token";
 
-const Text = ({ variant, bold, padding, color, children }) => {
+const Text = ({ variant, bold, padding, color, lineHeight, children }) => {
   return (
     <>
       {variant === "h1" ? (
@@ -24,7 +24,9 @@ const Text = ({ variant, bold, padding, color, children }) => {
       ) : variant === "body_big" ? (
         <BigParagraph padding={padding}>{children}</BigParagraph>
       ) : variant === "body_small" ? (
-        <SmallParagraph padding={padding}>{children}</SmallParagraph>
+        <SmallParagraph bold={bold} lineHeight={lineHeight} padding={padding}>
+          {children}
+        </SmallParagraph>
       ) : variant === "caption" ? (
         <Caption bold={bold} color={color} padding={padding}>
           {children}
@@ -98,7 +100,10 @@ const Paragraph = styled.p`
 
 const SmallParagraph = styled.p`
   font-size: ${fontSize.sm1};
-  line-height: ${lineHeight.sm1};
+  line-height: ${(props) =>
+    props.lineHeight ? lineHeight[props.lineHeight] : lineHeight.sm1};
+  font-weight: ${(props) =>
+    props.bold === "bold" ? 600 : props.bold === "extrabold" ? 700 : 400};
   padding: ${(props) => props.padding};
 `;
 

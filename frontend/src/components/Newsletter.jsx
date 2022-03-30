@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+
+//comp
+import { Section } from "./Container";
 import { Button } from "./Button";
 import { breakpoint, fontScale, neutral, primaryColor } from "./token";
 
@@ -8,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addSubscriber } from "../redux/subscriberRedux";
 import { reset } from "../redux/subscriberRedux";
 import Header from "./Header";
+import Text from "./Text";
 
 const Newsletter = () => {
   const dispatch = useDispatch();
@@ -41,14 +45,14 @@ const Newsletter = () => {
   };
 
   return (
-    <Container>
+    <Section padding="2.5rem 0">
       <Wrapper>
         <Header title="Stay Tuned" />
         <Title>
-          <p>
+          <Text variant="body_small">
             Sign up to receive offers and enjoy free U.S. shipping and returns
             on your first order.
-          </p>
+          </Text>
         </Title>
         <InputContainer>
           <Input placeholder="Email address" onChange={handleChange} />
@@ -60,13 +64,9 @@ const Newsletter = () => {
           />
         </InputContainer>
       </Wrapper>
-    </Container>
+    </Section>
   );
 };
-
-const Container = styled.section`
-  padding: 2.5rem 0;
-`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -80,10 +80,6 @@ const Wrapper = styled.div`
 const Title = styled.div`
   text-align: center;
   margin-bottom: 1.5rem;
-
-  p {
-    font-size: ${fontScale.scale_s2};
-  }
 `;
 
 const InputContainer = styled.div`

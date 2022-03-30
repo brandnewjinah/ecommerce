@@ -11,6 +11,7 @@ export interface Props {
   icon?: React.ComponentType;
   label?: string;
   margin?: string;
+  padding?: string;
   shape?: "text" | "outline" | undefined;
   size?: "big" | "small" | undefined;
   type?: "button" | "submit" | "reset" | undefined;
@@ -55,10 +56,9 @@ export const Button: FC<Props> = ({
 
 export const TextButton: FC<Props> = ({
   center,
-  className,
   color,
   disabled,
-  margin,
+  padding,
   label,
   handleClick,
 }) => {
@@ -66,10 +66,12 @@ export const TextButton: FC<Props> = ({
     <TextButtonWrapper
       aria-label={label}
       color={color}
+      center={center}
+      padding={padding}
       disabled={disabled}
       onClick={handleClick}
     >
-      <p>{label}</p>
+      {label}
     </TextButtonWrapper>
   );
 };
@@ -132,17 +134,20 @@ const ButtonContainer = styled.button<Props>`
 `;
 
 const TextButtonWrapper = styled.button<Props>`
+  display: block;
   font-weight: 600;
   background: transparent;
   color: ${(props) => props.color};
   border: 0;
-  border-bottom: ${(props) =>
-    props.color ? `2px solid ${props.color}` : `2px solid black`};
+  border-bottom: 1px solid transparent;
+  padding: ${(props) => props.padding && props.padding};
+  margin: ${(props) => props.center && "auto"};
   transition: 0.2s;
   cursor: pointer;
 
   &:hover {
-    border-bottom-color: transparent;
+    border-bottom: ${(props) =>
+      props.color ? `1px solid ${props.color}` : `1px solid black`};
   }
 
   &:active {

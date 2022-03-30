@@ -4,8 +4,10 @@ import styled, { css } from "styled-components";
 
 //components
 import { TextButton } from "../Button";
-import { fontSize, neutral, breakpoint, primaryColor } from "../token";
+import { neutral, breakpoint, primaryColor } from "../token";
 import { ImageIcon } from "../../assets/Icons";
+import Text from "../Text";
+import { Div } from "../containers/Divs";
 
 //redux
 import { useDispatch } from "react-redux";
@@ -50,16 +52,18 @@ const ProductCard = ({
             />
           )}
         </ImageContainer>
-        <Details>
-          <p className="sub">{brand}</p>
-          <h3 className="main">
+        <Div>
+          <Text variant="body_small" bold="extrabold">
+            {brand}
+          </Text>
+          <Text variant="body_small" lineHeight="sm4">
             {name.length > 26 ? `${name.substring(0, 24)}...` : name}
-          </h3>
-          <p>
+          </Text>
+          <Text variant="body_small" bold="extrabold" padding=".5rem 0 0 0">
             <span>{currency}</span>
             <span>{price}</span>
-          </p>
-        </Details>
+          </Text>
+        </Div>
       </Link>
       {wishlist && (
         <WishlistContainer>
@@ -127,35 +131,6 @@ const ErrImg = styled.div`
   ${Flex}
   justify-content: center;
   min-height: 169px;
-`;
-
-const Details = styled.div`
-  width: 100%;
-  font-size: ${fontSize.base};
-  font-weight: 500;
-  color: ${neutral[600]};
-
-  h3 {
-    font-size: ${fontSize.base};
-    padding: 0.25rem 0 0.35rem;
-  }
-
-  .sub {
-    font-size: ${fontSize.sm2};
-    text-transform: uppercase;
-    letter-spacing: 0.05rem;
-    color: ${neutral[400]};
-  }
-
-  @media ${breakpoint.m} {
-    h3 {
-      font-size: ${fontSize.sm2};
-    }
-
-    .sub {
-      font-size: ${fontSize.sm2};
-    }
-  }
 `;
 
 const WishlistContainer = styled.div`

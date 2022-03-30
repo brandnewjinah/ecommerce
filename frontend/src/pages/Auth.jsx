@@ -14,12 +14,12 @@ import { Input } from "../components/Input";
 import { Button, TextButton } from "../components/Button";
 
 //token
-import { primaryColor, neutral } from "../components/token";
+import { primaryColor, neutral, breakpoint } from "../components/token";
 import { Google } from "../assets/Icon";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { signin, signup } from "../redux/authRedux";
+import { signin, signup, signout } from "../redux/authRedux";
 
 const Auth = () => {
   const [isSignup, setIsSignup] = useState(false);
@@ -94,6 +94,7 @@ const Auth = () => {
   useEffect(() => {
     if (isError) {
       alert(message);
+      dispatch(signout());
     }
 
     if (isSuccess) {
@@ -187,8 +188,7 @@ const Auth = () => {
             ? "Already have an account? Sign In"
             : "Don't have an account? Sign Up"
         }
-        shape="text"
-        margin="2rem 0 0"
+        padding="1.25rem 0 0"
         center
         handleClick={handleSwitch}
       />
@@ -197,9 +197,13 @@ const Auth = () => {
 };
 
 const Container = styled.div`
-  width: 400px;
+  max-width: 400px;
   padding: 2rem 1.5rem;
   margin: 0 auto;
+
+  @media ${breakpoint.lg} {
+    width: 100%;
+  }
 `;
 
 export default Auth;
