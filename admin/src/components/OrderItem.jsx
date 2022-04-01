@@ -25,6 +25,7 @@ const OrderItem = ({ item }) => {
 
 const Container = styled.div`
   display: flex;
+  padding: 0.5rem 0;
 `;
 
 const Left = styled.div`

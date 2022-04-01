@@ -6,7 +6,7 @@ import { Button } from "../Button";
 import Header from "../Header";
 import { fontScale, primaryColor } from "../token";
 
-const ProductSlider = ({ title }) => {
+const ProductReview = ({ title }) => {
   const reviews = [(1, 2, 3, 4, 5)];
 
   const handleSubmit = () => {
@@ -56,4 +56,4 @@ const SubmitContainer = styled.div`
   gap: 1rem;
 `;
 
-export default ProductSlider;
+export default ProductReview;

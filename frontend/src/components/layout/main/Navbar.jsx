@@ -29,7 +29,6 @@ const Navbar = ({ open, handleOpen, handleMenu }) => {
 
   const totalQty = useSelector((state) => state.cart.totalQty);
 
-  //this is the problem!!!///
   const handleMenuClick = () => {
     handleOpen((prev) => !prev);
   };

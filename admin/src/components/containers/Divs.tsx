@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import styled from "styled-components";
+import { breakpoint } from "../token";
 
 export interface Props {
   padding?: string;
@@ -55,5 +56,11 @@ const FlexWrapper = styled.div<Props>`
 
   .nine {
     flex: 9;
+  }
+
+  @media ${breakpoint.lg} {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
   }
 `;
