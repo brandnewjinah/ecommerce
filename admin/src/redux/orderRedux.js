@@ -1,11 +1,34 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../api";
+import axios from "axios";
+
+// export const getAllOrders = createAsyncThunk(
+//   "orders/getAllOrders",
+//   async (page) => {
+//     try {
+//       const { data } = await api.getAllOrders(page);
+//       return data;
+//     } catch (error) {
+//       return error;
+//     }
+//   }
+// );
 
 export const getAllOrders = createAsyncThunk(
   "orders/getAllOrders",
-  async (page) => {
+  async (page, { getState }) => {
     try {
-      const { data } = await api.getAllOrders(page);
+      const {
+        auth: { currentUser },
+      } = getState();
+      const { data } = await axios.get(
+        `http://localhost:5000/orders?page=${page}`,
+        {
+          headers: {
+            authorization: `Bearer ${currentUser.token}`,
+          },
+        }
+      );
       return data;
     } catch (error) {
       return error;

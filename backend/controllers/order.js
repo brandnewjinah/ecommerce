@@ -26,7 +26,7 @@ export const createOrder = async (req, res) => {
 
 //Get order detail for a single order
 export const getOneOrder = async (req, res) => {
-  const order = await Order.findById(req.params.id);
+  const order = await Order.findById(req.params.orderId);
 
   if (order) {
     res.status(200).json(order);
@@ -38,7 +38,7 @@ export const getOneOrder = async (req, res) => {
 //CREATE ALL ORDERS SUBMITTED BY ONE USER
 export const getUserOrders = async (req, res) => {
   try {
-    const orders = await Order.find({ user: req.params.id });
+    const orders = await Order.find({ user: req.params.userId });
     res.status(200).json(orders);
   } catch (err) {
     res.status(500).json(err);

@@ -1,5 +1,5 @@
 import express from "express";
-import { checkAuth, checkToken } from "../middleware/checkAuth.js";
+import { checkAuth, checkToken, checkAdmin } from "../middleware/checkAuth.js";
 import {
   createOrder,
   getOneOrder,
@@ -17,25 +17,19 @@ const router = express.Router();
 // @access Private
 router.post("/", checkToken, createOrder);
 
-// @route GET /orders/${id}
+// @route GET /orders/${userId}/${orderId}
 // @desc Get order detail for a single order
-// @access Private
-// router.get("/:id", checkAuth, getOneOrder);
-router.get("/:id", getOneOrder);
+// @access Private or Admin
+router.get("/:userId/:orderId", checkAuth, getOneOrder);
 
 // @route GET /orders/user/${userId}
 // @desc Get all orders placed by a user
-// @access Private
-router.get("/user/:id", checkAuth, getUserOrders);
+// @access Private or Admin
+router.get("/user/:userId", checkAuth, getUserOrders);
 
 // @route GET /orders
 // @desc Get all orders
-// @access Private
-router.get("/", getAllOrders);
-
-// router.get("/find/:userId", getUserOrder);
-// router.put("/:id", updateOrder);
-// router.delete("/:id", deleteOrder);
-// router.get("/", getAllOrders);
+// @access Admin only
+router.get("/", checkAdmin, getAllOrders);
 
 export default router;

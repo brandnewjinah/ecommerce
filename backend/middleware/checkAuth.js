@@ -31,10 +31,21 @@ export const checkToken = (req, res, next) => {
 
 export const checkAuth = (req, res, next) => {
   checkToken(req, res, () => {
-    if (req.user._id || req.user.isAdmin) {
+    // console.log(req.user._id === req.params.idd);
+    if (req.user._id === req.params.userId || req.user.isAdmin) {
       next();
     } else {
       res.status(403).json("You are not authorized");
+    }
+  });
+};
+
+export const checkAdmin = (req, res, next) => {
+  checkToken(req, res, () => {
+    if (req.user.isAdmin) {
+      next();
+    } else {
+      res.status(403).json("You are not an admin");
     }
   });
 };
