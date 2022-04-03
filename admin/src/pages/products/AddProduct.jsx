@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import * as api from "../../api/index";
+import axios from "axios";
 
 //components
 import Heading from "../../components/Heading";
@@ -10,17 +11,15 @@ import Input from "../../components/Input";
 import { Button } from "../../components/Button";
 import Select from "../../components/Select";
 import Text from "../../components/Text";
-import { typeScale } from "../../components/token";
 
 //data
 import { categoryList } from "../../data/category";
 
 //redux
-import { useDispatch } from "react-redux";
-import { addProduct } from "../../redux/productRedux";
+import { useSelector } from "react-redux";
 
 const AddProduct = () => {
-  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.auth);
 
   const [productInfo, setProductInfo] = useState({
     name: "",
@@ -79,13 +78,20 @@ const AddProduct = () => {
     const errors = validate();
     setErrors(errors || {});
     if (errors) return;
-    // dispatch(addProduct(productInfo));
+
     if (!previewSource) return;
     const newProductInfo = { ...productInfo, img: previewSource };
 
+    // dispatch(addProduct(newProductInfo));
+
     try {
-      const result = await api.addProduct(newProductInfo);
-      result.status === 201 && clear();
+      const result = await axios.post(`${api.URL}/products`, newProductInfo, {
+        headers: {
+          authorization: `Bearer ${currentUser.token}`,
+        },
+      });
+      result.status === 201 && alert("success");
+      clear();
     } catch (error) {
       return error;
     }
@@ -160,41 +166,18 @@ const AddProduct = () => {
             fullWidth
           />
         </Div>
-        {Object.keys(productInfo.category1).length !== 0 &&
-          productInfo.category1.subcategory && (
-            <Div padding="0.75rem 0">
-              <Text variant="caption" padding="0 0 .25rem 0">
-                Category 2
-              </Text>
-              <Select
-                options={productInfo.category1.subcategory}
-                selected={productInfo.category2.value}
-                onChange={handleCategory("category2")}
-                fullWidth
-              />
-            </Div>
-          )}
-        {/* <SelectWrapper>
-          <p className="label">Select Main Category</p>
+
+        <Div padding="0.75rem 0">
+          <Text variant="caption" padding="0 0 .25rem 0">
+            Category 2
+          </Text>
           <Select
-            name="category1"
-            value={productInfo.category1}
-            options={categoryList}
-            onChange={handleCategory("category1")}
+            options={productInfo.category1.subcategory}
+            selected={productInfo.category2.value}
+            onChange={handleCategory("category2")}
+            fullWidth
           />
-        </SelectWrapper>
-        {Object.keys(productInfo.category1).length !== 0 &&
-          productInfo.category1.subcategory && (
-            <SelectWrapper>
-              <p className="label">Select Subcategory</p>
-              <Select
-                name="category2"
-                value={productInfo.category2}
-                options={productInfo.category1.subcategory}
-                onChange={handleCategory("category2")}
-              />
-            </SelectWrapper>
-          )} */}
+        </Div>
       </Card>
       <Card margin={`1rem 0`}>
         <input
@@ -226,14 +209,5 @@ const AddProduct = () => {
     </Div>
   );
 };
-
-const SelectWrapper = styled.div`
-  padding: 0.75rem 0;
-
-  .label {
-    font-size: ${typeScale.sbody};
-    padding: 0 0 0.5rem;
-  }
-`;
 
 export default AddProduct;

@@ -14,7 +14,6 @@ import Layout from "./components/Layout";
 //import pages
 import Home from "./pages/Home";
 import Login from "./pages/auth/Login";
-import Test from "./pages/test";
 
 //products
 import ProductList from "./pages/products/ProductList";

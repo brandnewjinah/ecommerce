@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import * as api from "../../api/index";
+import axios from "axios";
 
 //components
 import Heading from "../../components/Heading";
@@ -15,12 +17,12 @@ import { categoryList } from "../../data/category";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct, updateProduct } from "../../redux/productReducer";
 import { getProductDetail } from "../../redux/productDetailRedux";
 
-const AddProduct = () => {
+const EditProduct = () => {
   let { id } = useParams();
   const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.auth);
 
   const [productInfo, setProductInfo] = useState({
     name: "",
@@ -72,35 +74,6 @@ const AddProduct = () => {
     });
   };
 
-  const handleSubmit = () => {
-    const errors = validate();
-    setErrors(errors || {});
-    if (errors) return;
-
-    const { currency, ...others } = productInfo;
-
-    if (id) {
-      dispatch(updateProduct(productInfo._id, others));
-    } else {
-      dispatch(addProduct(productInfo));
-      clear();
-    }
-  };
-
-  const clear = () => {
-    setProductInfo({
-      name: "",
-      brand: "",
-      sku: "",
-      currency: { id: 501, label: "$", value: "USD" },
-      price: "",
-      category1: {},
-      category2: {},
-      img: "",
-      size: "",
-    });
-  };
-
   const [previewSource, setPreviewSource] = useState("");
 
   const handleImageFile = (e) => {
@@ -114,6 +87,30 @@ const AddProduct = () => {
     reader.onload = () => {
       setPreviewSource(reader.result);
     };
+  };
+
+  const handleSubmit = async () => {
+    const errors = validate();
+    setErrors(errors || {});
+    if (errors) return;
+
+    const updatedProduct = { ...productInfo, img: previewSource };
+
+    try {
+      const result = await axios.patch(
+        `${api.URL}/products/${productInfo._id}`,
+        updatedProduct,
+        {
+          headers: {
+            authorization: `Bearer ${currentUser.token}`,
+          },
+        }
+      );
+
+      result.status === 200 && alert("success");
+    } catch (error) {
+      return error;
+    }
   };
 
   return loading ? (
@@ -194,7 +191,7 @@ const AddProduct = () => {
             </Div>
           )}
       </Card>
-      <Card>
+      <Card margin={`1rem 0`}>
         <input type="file" name="img" onChange={handleImageFile} />
         {previewSource && (
           <img src={previewSource} alt="chosen" style={{ height: "300px" }} />
@@ -220,4 +217,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;

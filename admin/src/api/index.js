@@ -1,25 +1,19 @@
 import axios from "axios";
 
-const URL = "http://localhost:5000";
-// const TOKEN = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).auth)
-//   .currentUser.token;
+export const URL = "http://localhost:5000";
+
+const user = JSON.parse(localStorage.getItem("persist:root"))?.auth;
+const currentUser = user && JSON.parse(user).currentUser;
+const TOKEN = currentUser?.token;
 
 export const publicRequest = axios.create({
   baseURL: URL,
 });
 
-// export const privateRequest = axios.create({
-//   baseURL: URL,
-//   headers: { authorization: `Bearer ${TOKEN}` },
-// });
-
 //auth
 export const signin = (values) => axios.post(`${URL}/auth/signin`, values);
 
 //products
-export const addProduct = (newProduct) =>
-  axios.post(`${URL}/products`, newProduct);
-
 export const getProducts = (category, page) =>
   axios.get(`${URL}/products?category=${category}&page=${page}`);
 
@@ -27,10 +21,29 @@ export const getNewProducts = () => axios.get(`${URL}/products?new=true`);
 
 export const getProductDetail = (id) => axios.get(`${URL}/products/${id}`);
 
-export const updateProduct = (id, updatedProduct) =>
-  axios.patch(`${URL}/products/${id}`, updatedProduct);
+export const addProduct = (product) => {
+  axios.post(`${URL}/products`, product, {
+    headers: {
+      authorization: `Bearer ${TOKEN}`,
+    },
+  });
+};
 
-export const deleteProduct = (id) => axios.delete(`${URL}/products/${id}`);
+export const updateProduct = (id, updatedProduct) => {
+  axios.patch(`${URL}/products/${id}`, updatedProduct, {
+    headers: {
+      authorization: `Bearer ${TOKEN}`,
+    },
+  });
+};
+
+export const deleteProduct = (id) => {
+  axios.delete(`${URL}/products/${id}`, {
+    headers: {
+      authorization: `Bearer ${TOKEN}`,
+    },
+  });
+};
 
 export const deleteManyProducts = (id) => axios.patch(`${URL}/products`, id);
 

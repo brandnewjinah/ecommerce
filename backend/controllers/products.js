@@ -92,7 +92,7 @@ export const addProduct = async (req, res) => {
   }
 };
 
-//EDIT PRODUCT
+//UPDATE PRODUCT
 export const updateProduct = async (req, res) => {
   const { id: _id } = req.params;
   const product = req.body;
@@ -104,7 +104,7 @@ export const updateProduct = async (req, res) => {
     new: true,
   });
 
-  res.json(updatedProduct);
+  res.status(200).json(updatedProduct);
 };
 
 //DELETE PRODUCT
@@ -116,7 +116,7 @@ export const deleteProduct = async (req, res) => {
 
   await Product.findByIdAndRemove(_id);
 
-  res.json({ message: "Product deleted" });
+  res.status(204).json({ message: "Product deleted" });
 };
 
 //DELETE MANY PRODUCTS
@@ -127,7 +127,7 @@ export const deleteManyProducts = async (req, res) => {
     await Product.deleteMany({
       _id: ids,
     });
-    res.json({ message: "Product deleted" });
+    res.status(204).json({ message: "Products deleted" });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

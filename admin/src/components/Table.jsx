@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import _ from "lodash";
+import * as api from "../api";
+import axios from "axios";
 
 import Checkbox from "./Checkbox";
 import Th from "./Th";
@@ -11,11 +13,11 @@ import { neutral, primaryColor } from "./token";
 import { Trash } from "../assets/Icons";
 
 //redux
-import { useDispatch } from "react-redux";
-import { deleteProduct, deleteManyProducts } from "../redux/productReducer";
+import { useSelector } from "react-redux";
 
 const Table = ({ thead, tbody, checkbox, action, linkurl }) => {
-  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.auth);
+
   const [checkAll, setCheckAll] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
   const [sortColumn, setSortColumn] = useState({
@@ -39,8 +41,32 @@ const Table = ({ thead, tbody, checkbox, action, linkurl }) => {
     }
   };
 
-  const handleDeleteMany = () => {
-    dispatch(deleteManyProducts(checkedItems));
+  const handleDeleteOne = async (id) => {
+    try {
+      const result = await axios.delete(`${api.URL}/products/${id}`, {
+        headers: {
+          authorization: `Bearer ${currentUser.token}`,
+        },
+      });
+      result.status === 204 && alert("deleted");
+      window.location.reload();
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const handleDeleteMany = async () => {
+    try {
+      const result = await axios.patch(`${api.URL}/products`, checkedItems, {
+        headers: {
+          authorization: `Bearer ${currentUser.token}`,
+        },
+      });
+      result.status === 204 && alert("deleted");
+      window.location.reload();
+    } catch (error) {
+      return error;
+    }
   };
 
   const handleSort = (path) => {
@@ -117,7 +143,7 @@ const Table = ({ thead, tbody, checkbox, action, linkurl }) => {
                   )
               )}
               {action && action === "delete" && (
-                <Delete onClick={() => dispatch(deleteProduct(item.id))}>
+                <Delete onClick={() => handleDeleteOne(item.id)}>
                   <Trash
                     width={18}
                     height={18}

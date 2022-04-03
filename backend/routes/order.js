@@ -4,9 +4,6 @@ import {
   createOrder,
   getOneOrder,
   getUserOrders,
-  updateOrder,
-  deleteOrder,
-  getUserOrder,
   getAllOrders,
 } from "../controllers/order.js";
 
