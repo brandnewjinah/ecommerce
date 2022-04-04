@@ -29,7 +29,7 @@ const ProductList = () => {
     dispatch(getProducts({ category: "all", page: currentPage }));
   }, [dispatch, currentPage]);
 
-  const productList = useSelector((state) => state.productList.products);
+  const productList = useSelector((state) => state.products.products);
   const { pages, data } = productList;
 
   const products =

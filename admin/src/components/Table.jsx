@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import _ from "lodash";
@@ -13,10 +13,18 @@ import { neutral, primaryColor } from "./token";
 import { Trash } from "../assets/Icons";
 
 //redux
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteProduct,
+  deleteProducts,
+  reset,
+} from "../redux/productActionsRedux";
 
 const Table = ({ thead, tbody, checkbox, action, linkurl }) => {
-  const { currentUser } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const { productDeleted, productsDeleted } = useSelector(
+    (state) => state.productActions
+  );
 
   const [checkAll, setCheckAll] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
@@ -41,32 +49,26 @@ const Table = ({ thead, tbody, checkbox, action, linkurl }) => {
     }
   };
 
-  const handleDeleteOne = async (id) => {
-    try {
-      const result = await axios.delete(`${api.URL}/products/${id}`, {
-        headers: {
-          authorization: `Bearer ${currentUser.token}`,
-        },
-      });
-      result.status === 204 && alert("deleted");
+  useEffect(() => {
+    if (productDeleted) {
+      alert("deleted");
+      dispatch(reset());
       window.location.reload();
-    } catch (error) {
-      return error;
     }
+
+    if (productsDeleted) {
+      alert("products deleted");
+      dispatch(reset());
+      window.location.reload();
+    }
+  }, [productDeleted, productsDeleted, dispatch]);
+
+  const handleDeleteOne = (id) => {
+    dispatch(deleteProduct(id));
   };
 
-  const handleDeleteMany = async () => {
-    try {
-      const result = await axios.patch(`${api.URL}/products`, checkedItems, {
-        headers: {
-          authorization: `Bearer ${currentUser.token}`,
-        },
-      });
-      result.status === 204 && alert("deleted");
-      window.location.reload();
-    } catch (error) {
-      return error;
-    }
+  const handleDeleteMany = () => {
+    dispatch(deleteProducts(checkedItems));
   };
 
   const handleSort = (path) => {

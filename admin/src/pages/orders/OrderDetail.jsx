@@ -22,7 +22,7 @@ const OrderDetail = () => {
   const { order } = useSelector((state) => state.orderDetail);
 
   useEffect(() => {
-    dispatch(getOrderDetail(id));
+    dispatch(getOrderDetail({ id, userId: order.user }));
   }, [dispatch, id]);
 
   const userDetail = useSelector((state) => state.users.userDetail);

@@ -1,25 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// import { privateRequest, publicRequest } from "../api";
-import { publicRequest } from "../api";
-
-// export const getOrderDetail = createAsyncThunk(
-//   "orderDetail/getOrderDetail",
-//   async (id) => {
-//     try {
-//       const { data } = await privateRequest.get(`/orders/${id}`);
-//       return data;
-//     } catch (error) {
-//       return error;
-//     }
-//   }
-// );
+import * as api from "../api";
 
 export const getOrderDetail = createAsyncThunk(
   "orderDetail/getOrderDetail",
-  async (id) => {
+  async (obj) => {
     try {
-      const { data } = await publicRequest.get(`/orders/${id}`);
-      console.log(data);
+      const { data } = await api.adminRequest.get(
+        `/orders/${obj.userId}/${obj.id}`
+      );
       return data;
     } catch (error) {
       return error;

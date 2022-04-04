@@ -10,6 +10,11 @@ export const publicRequest = axios.create({
   baseURL: URL,
 });
 
+export const adminRequest = axios.create({
+  baseURL: URL,
+  headers: { authorization: `Bearer ${TOKEN}` },
+});
+
 //auth
 export const signin = (values) => axios.post(`${URL}/auth/signin`, values);
 
@@ -21,7 +26,7 @@ export const getNewProducts = () => axios.get(`${URL}/products?new=true`);
 
 export const getProductDetail = (id) => axios.get(`${URL}/products/${id}`);
 
-export const addProduct = (product) => {
+export const addProduct = async (product) => {
   axios.post(`${URL}/products`, product, {
     headers: {
       authorization: `Bearer ${TOKEN}`,
@@ -37,27 +42,5 @@ export const updateProduct = (id, updatedProduct) => {
   });
 };
 
-export const deleteProduct = (id) => {
-  axios.delete(`${URL}/products/${id}`, {
-    headers: {
-      authorization: `Bearer ${TOKEN}`,
-    },
-  });
-};
-
-export const deleteManyProducts = (id) => axios.patch(`${URL}/products`, id);
-
-//users
-export const getUsers = (page) => axios.get(`${URL}/users?page=${page}`);
-export const getUserDetail = (id) => axios.get(`${URL}/users/${id}`);
-
-//orders
-export const getAllOrders = (page) => axios.get(`${URL}/orders?page=${page}`);
-export const getOrderDetail = (id) => axios.get(`${URL}/orders/${id}`);
-
 //announcements
 export const getAnnouncements = () => axios.post(`${URL}/announcements`);
-
-//subscribers
-export const getSubscribers = (page) =>
-  axios.get(`${URL}/subscribers?page=${page}`);

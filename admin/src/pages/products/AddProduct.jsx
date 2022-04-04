@@ -1,7 +1,4 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import * as api from "../../api/index";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 
 //components
 import Heading from "../../components/Heading";
@@ -16,10 +13,12 @@ import Text from "../../components/Text";
 import { categoryList } from "../../data/category";
 
 //redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addProduct, reset } from "../../redux/productActionsRedux";
 
 const AddProduct = () => {
-  const { currentUser } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const { productAdded } = useSelector((state) => state.productActions);
 
   const [productInfo, setProductInfo] = useState({
     name: "",
@@ -74,6 +73,14 @@ const AddProduct = () => {
     });
   };
 
+  useEffect(() => {
+    if (productAdded) {
+      alert("success");
+      dispatch(reset());
+      clear();
+    }
+  }, [productAdded, dispatch]);
+
   const handleSubmit = async () => {
     const errors = validate();
     setErrors(errors || {});
@@ -82,19 +89,7 @@ const AddProduct = () => {
     if (!previewSource) return;
     const newProductInfo = { ...productInfo, img: previewSource };
 
-    // dispatch(addProduct(newProductInfo));
-
-    try {
-      const result = await axios.post(`${api.URL}/products`, newProductInfo, {
-        headers: {
-          authorization: `Bearer ${currentUser.token}`,
-        },
-      });
-      result.status === 201 && alert("success");
-      clear();
-    } catch (error) {
-      return error;
-    }
+    dispatch(addProduct(newProductInfo));
   };
 
   const clear = () => {

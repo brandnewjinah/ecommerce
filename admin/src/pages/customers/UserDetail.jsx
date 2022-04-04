@@ -15,13 +15,28 @@ import Heading from "../../components/Heading";
 import { Card } from "../../components/Card";
 
 const UserDetail = (props) => {
-  const { id } = useParams();
   const dispatch = useDispatch();
+  const { id } = useParams();
 
   const [data, setData] = useState({
     name: "",
     email: "",
   });
+
+  useEffect(() => {
+    dispatch(getOneUser(id));
+  }, [dispatch, id]);
+
+  const users = useSelector((state) => state.users);
+  const { userDetailLoading, userDetail } = users;
+
+  useEffect(() => {
+    if (userDetail)
+      setData({
+        name: userDetail.name,
+        email: userDetail.email,
+      });
+  }, [userDetail]);
 
   const [errors, setErrors] = useState({});
 
@@ -30,16 +45,6 @@ const UserDetail = (props) => {
     userInput[input.name] = input.value;
     setData(userInput);
   };
-
-  const userDetail = useSelector((state) => state.users.userDetail);
-
-  useEffect(() => {
-    dispatch(getOneUser(id));
-    setData({
-      name: userDetail.name,
-      email: userDetail.email,
-    });
-  }, [dispatch, userDetail]);
 
   const validate = () => {
     const errors = {};

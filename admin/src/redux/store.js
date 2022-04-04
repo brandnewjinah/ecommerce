@@ -13,6 +13,7 @@ import storage from "redux-persist/lib/storage";
 
 import productReducer from "./productRedux";
 import productDetailReducer from "./productDetailRedux";
+import productActionsReducer from "./productActionsRedux";
 import announcementsReducer from "./announcementRedux";
 import usersReducer from "./userRedux";
 import ordersReducer from "./orderRedux";
@@ -27,8 +28,9 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  productList: productReducer,
+  products: productReducer,
   productDetail: productDetailReducer,
+  productActions: productActionsReducer,
   announcement: announcementsReducer,
   users: usersReducer,
   orders: ordersReducer,

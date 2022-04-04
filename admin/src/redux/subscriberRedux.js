@@ -5,7 +5,7 @@ export const getAllSubscribers = createAsyncThunk(
   "subscribers/getAllSubscribers",
   async (page) => {
     try {
-      const { data } = await api.getSubscribers(page);
+      const { data } = await api.adminRequest.get(`/subscribers?page=${page}`);
       return data;
     } catch (error) {
       return error;

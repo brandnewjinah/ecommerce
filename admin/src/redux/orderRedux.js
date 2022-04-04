@@ -1,34 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../api";
-import axios from "axios";
-
-// export const getAllOrders = createAsyncThunk(
-//   "orders/getAllOrders",
-//   async (page) => {
-//     try {
-//       const { data } = await api.getAllOrders(page);
-//       return data;
-//     } catch (error) {
-//       return error;
-//     }
-//   }
-// );
 
 export const getAllOrders = createAsyncThunk(
   "orders/getAllOrders",
-  async (page, { getState }) => {
+  async (page) => {
     try {
-      const {
-        auth: { currentUser },
-      } = getState();
-      const { data } = await axios.get(
-        `http://localhost:5000/orders?page=${page}`,
-        {
-          headers: {
-            authorization: `Bearer ${currentUser.token}`,
-          },
-        }
-      );
+      const { data } = await api.adminRequest.get(`/orders?page=${page}`);
       return data;
     } catch (error) {
       return error;
@@ -40,20 +17,20 @@ const orderSlice = createSlice({
   name: "orders",
   initialState: {
     orders: [],
-    loading: false,
-    error: false,
+    isLoading: false,
+    isError: false,
   },
   extraReducers: {
     [getAllOrders.pending]: (state) => {
-      state.loading = true;
+      state.isLoading = true;
     },
     [getAllOrders.fulfilled]: (state, action) => {
-      state.loading = false;
+      state.isLoading = false;
       state.orders = action.payload;
     },
     [getAllOrders.rejected]: (state) => {
-      state.loading = false;
-      state.error = true;
+      state.isLoading = false;
+      state.isError = true;
     },
   },
 });

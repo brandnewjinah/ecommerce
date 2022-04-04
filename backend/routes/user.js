@@ -1,18 +1,18 @@
 import express from "express";
-import { checkToken } from "../middleware/checkAuth.js";
+import { checkToken, checkAdmin, checkAuth } from "../middleware/checkAuth.js";
 import { updateUser, getAllUsers, getOneUser } from "../controllers/user.js";
 
 const router = express.Router();
 
 // @route GET /
 // @desc Get all user information
-// @access Private
-router.get("/", getAllUsers);
+// @access Admin only
+router.get("/", checkAdmin, getAllUsers);
 
 // @route GET /
 // @desc Get one user information
 // @access Private
-router.get("/:id", getOneUser);
+router.get("/:id", checkAuth, getOneUser);
 
 // @route PUT /
 // @desc Update user account information
