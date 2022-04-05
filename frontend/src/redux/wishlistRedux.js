@@ -1,21 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import * as api from "../api";
 
-export const addToWishlist = createAsyncThunk(
-  "wishlist/addToWishlist",
-  async (productId, { getState }) => {
-    const {
-      auth: { currentUser },
-    } = getState();
+export const getWishlist = createAsyncThunk(
+  "wishlist/getWishlist",
+  async () => {
     try {
-      const { data } = await axios.get(
-        `http://localhost:5000/wishlist/addToWishlist?productId=${productId}`,
-        {
-          headers: {
-            authorization: `Bearer ${currentUser.token}`,
-          },
-        }
-      );
+      const { data } = await api.privateRequest.get(`/wishlist`);
       return data;
     } catch (error) {
       return error;
@@ -23,19 +13,14 @@ export const addToWishlist = createAsyncThunk(
   }
 );
 
-export const getWishlist = createAsyncThunk(
-  "wishlist/getWishlist",
-  async (arg, { getState }) => {
-    const {
-      auth: { currentUser },
-    } = getState();
+export const addToWishlist = createAsyncThunk(
+  "wishlist/addToWishlist",
+  async (productId) => {
     try {
-      const { data } = await axios.get(`http://localhost:5000/wishlist`, {
-        headers: {
-          authorization: `Bearer ${currentUser.token}`,
-        },
-      });
-      console.log(data);
+      const { data } = await api.privateRequest.get(
+        `/wishlist/addToWishlist?productId=${productId}`
+      );
+
       return data;
     } catch (error) {
       return error;
@@ -45,22 +30,15 @@ export const getWishlist = createAsyncThunk(
 
 export const removeFromWishlist = createAsyncThunk(
   "wishlist/removeFromWishlist",
-  async (productId, { getState }) => {
-    const {
-      auth: { currentUser },
-    } = getState();
+  async (productId) => {
     try {
-      const { data } = await axios.get(
-        `http://localhost:5000/wishlist/removeFromWishlist?productId=${productId}`,
-        {
-          headers: {
-            authorization: `Bearer ${currentUser.token}`,
-          },
-        }
+      const { data } = await api.privateRequest.get(
+        `/wishlist/removeFromWishlist?productId=${productId}`
       );
-
       return data;
-    } catch (error) {}
+    } catch (error) {
+      return error;
+    }
   }
 );
 

@@ -17,18 +17,22 @@ const productDetailSlice = createSlice({
   name: "productDetails",
   initialState: {
     product: {},
-    loading: true,
+    isLoading: false,
+    isSuccess: false,
+    isError: false,
   },
   extraReducers: {
     [getProductDetail.pending]: (state) => {
-      state.loading = true;
+      state.isLoading = true;
     },
     [getProductDetail.fulfilled]: (state, action) => {
-      state.loading = false;
+      state.isLoading = false;
+      state.isSuccess = true;
       state.product = action.payload;
     },
     [getProductDetail.rejected]: (state, action) => {
-      state.loading = false;
+      state.isLoading = false;
+      state.isError = true;
       state.error = action.payload;
     },
   },

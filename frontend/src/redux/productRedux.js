@@ -31,29 +31,34 @@ const productsSlice = createSlice({
   name: "products",
   initialState: {
     products: [],
-    loading: true,
+    isLoading: false,
+    isSuccess: false,
   },
   extraReducers: {
     [getProducts.pending]: (state) => {
-      state.loading = true;
+      state.isLoading = true;
     },
     [getProducts.fulfilled]: (state, action) => {
-      state.loading = false;
+      state.isLoading = false;
+      state.isSuccess = true;
       state.products = action.payload;
     },
     [getProducts.rejected]: (state, action) => {
-      state.loading = false;
+      state.isLoading = false;
+      state.isSuccess = false;
       state.error = action.payload;
     },
     [getNewProducts.pending]: (state) => {
-      state.loading = true;
+      state.isLoading = true;
     },
     [getNewProducts.fulfilled]: (state, action) => {
-      state.loading = false;
+      state.isLoading = false;
+      state.isSuccess = true;
       state.products = action.payload;
     },
     [getNewProducts.rejected]: (state, action) => {
-      state.loading = false;
+      state.isLoading = false;
+      state.isSuccess = false;
       state.error = action.payload;
     },
   },

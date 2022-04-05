@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 //comp
+import Header from "./Header";
+import Text from "./Text";
 import { Section } from "./Container";
 import { Button } from "./Button";
-import { breakpoint, fontScale, neutral, primaryColor } from "./token";
+import { breakpoint, neutral, primaryColor } from "./token";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { addSubscriber } from "../redux/subscriberRedux";
 import { reset } from "../redux/subscriberRedux";
-import Header from "./Header";
-import Text from "./Text";
 
 const Newsletter = () => {
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ const Newsletter = () => {
       dispatch(reset());
       window.location.reload();
     }
-  }, [isSuccess, isError, dispatch]);
+  }, [isSuccess, isError, message, dispatch]);
 
   const handleSubscribe = () => {
     dispatch(addSubscriber(email));

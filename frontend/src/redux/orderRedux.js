@@ -1,18 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import * as api from "../api";
 
 export const placeOrder = createAsyncThunk(
   "order/placeOrder",
-  async (order, { getState }) => {
+  async (order) => {
     try {
-      const {
-        auth: { currentUser },
-      } = getState();
-      const { data } = await axios.post("http://localhost:5000/orders", order, {
-        headers: {
-          authorization: `Bearer ${currentUser.token}`,
-        },
-      });
+      const { data } = await api.privateRequest.post(`/orders`, order);
       return data;
     } catch (error) {
       return error;

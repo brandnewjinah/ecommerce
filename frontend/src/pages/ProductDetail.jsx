@@ -20,29 +20,30 @@ import { Heart } from "../assets/Icon";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetail } from "../redux/productDetailRedux";
 import { addToCart } from "../redux/cartRedux";
-import { publicRequest } from "../api";
 import {
   addToWishlist,
   removeFromWishlist,
   getWishlist,
 } from "../redux/wishlistRedux";
+import { publicRequest } from "../api";
 
 const Detail = () => {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
 
-  //get product info
+  //get product id
   const _id = location.state && location.state._id;
 
+  //get product details
   useEffect(() => {
     dispatch(getProductDetail(_id));
   }, [dispatch, _id]);
 
   const productDetail = useSelector((state) => state.productDetail);
-  const { loading, error, product } = productDetail;
+  const { isLoading, isError, error, product } = productDetail;
 
-  //get similar products
+  //get simlar products
   const [similar, setSimilar] = useState([]);
 
   useEffect(() => {
@@ -53,7 +54,9 @@ const Detail = () => {
         );
 
         setSimilar(data);
-      } catch {}
+      } catch (error) {
+        return error;
+      }
     };
     getSimilarProducts();
   }, [product, _id]);
@@ -62,6 +65,7 @@ const Detail = () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
 
   const products = useSelector((state) => state.wishlist.products);
+
   const isWishlist =
     products && products.find((item) => item.product._id === product._id);
 
@@ -78,7 +82,7 @@ const Detail = () => {
   };
 
   useEffect(() => {
-    getWishlist();
+    dispatch(getWishlist());
   }, [dispatch]);
 
   //add to cart
@@ -100,9 +104,9 @@ const Detail = () => {
 
   return (
     <>
-      {loading ? (
+      {isLoading ? (
         <Loading />
-      ) : error ? (
+      ) : isError ? (
         <ErrorMessage>{`${error} this is error message component`}</ErrorMessage>
       ) : (
         <>

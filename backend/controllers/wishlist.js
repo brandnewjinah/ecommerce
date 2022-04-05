@@ -1,5 +1,4 @@
 import Wishlist from "../models/wishlist.js";
-import Product from "../models/product.js";
 
 // add to wishlist "wishlist/addToWishlist?productId=${productId}""
 
@@ -67,25 +66,36 @@ export const removeFromWishlist = async (req, res) => {
   const user = req.user._id;
 
   try {
-    await Wishlist.findOneAndUpdate(
-      { user },
-      {
-        $pull: {
-          products: { product: req.query.productId },
-        },
-      },
-      { new: true, useFindAndModify: false }
-    );
-
-    Wishlist.findOne({ user })
-      .populate("products.product")
-      .exec((error, wishlist) => {
-        if (error) {
-          res.status(400).json(error);
+    const existingWishlist = await Wishlist.findOne({ user });
+    if (existingWishlist.products.length === 1) {
+      await Wishlist.findOneAndRemove({ user }, (err) => {
+        if (err) {
+          console.log(err);
         } else {
-          res.status(200).json(wishlist.products);
+          res.status(200).json([]);
         }
       });
+    } else {
+      await Wishlist.findOneAndUpdate(
+        { user },
+        {
+          $pull: {
+            products: { product: req.query.productId },
+          },
+        },
+        { new: true, useFindAndModify: false }
+      );
+
+      Wishlist.findOne({ user })
+        .populate("products.product")
+        .exec((error, wishlist) => {
+          if (error) {
+            res.status(400).json(error);
+          } else {
+            res.status(200).json(wishlist.products);
+          }
+        });
+    }
   } catch (error) {
     res.status(500).json(error);
   }

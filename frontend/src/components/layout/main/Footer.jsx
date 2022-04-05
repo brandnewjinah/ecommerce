@@ -4,9 +4,7 @@ import styled from "styled-components";
 //comp
 import { Section } from "../../Container";
 import Text from "../../Text";
-
-//token
-import { neutral, breakpoint, fontScale, size, fontSize } from "../../token";
+import { neutral, breakpoint, size, fontSize } from "../../token";
 
 const Footer = () => {
   return (

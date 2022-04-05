@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { fontScale, typeScaleMobile, breakpoint } from "./token";
+import { fontScale, breakpoint } from "./token";
 
 const GlobalStyle = createGlobalStyle`
  * {

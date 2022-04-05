@@ -6,17 +6,19 @@ export interface Props {
   margin?: string;
   justifyContent?: string;
   gap?: string;
+  textCenter?: boolean;
 }
 
-export const Div: FC<Props> = ({ padding, margin, children }) => {
+export const Div: FC<Props> = ({ padding, margin, textCenter, children }) => {
   return (
-    <Wrapper padding={padding} margin={margin}>
+    <Wrapper padding={padding} margin={margin} textCenter={textCenter}>
       {children}
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div<Props>`
+  text-align: ${(props) => props.textCenter && "center"};
   padding: ${(props) => (props.padding ? props.padding : 0)};
   margin: ${(props) => (props.margin ? props.margin : 0)};
 `;
@@ -46,7 +48,6 @@ const FlexWrapper = styled.div<Props>`
     props.justifyContent === "sb" && "space-between"};
   align-items: center;
   gap: ${(props) => (props.gap ? props.gap : ".5rem")};
-  background-color: ${(props) => props.bgColor && props.bgColor};
   padding: ${(props) => (props.padding ? props.padding : 0)};
   margin: ${(props) => (props.margin ? props.margin : 0)};
 

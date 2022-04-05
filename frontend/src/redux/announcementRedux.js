@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import * as api from "../api";
 
 export const getAnnouncements = createAsyncThunk(
   "announcement/getAnnouncements",
   async () => {
     try {
-      const { data } = await axios.get(
-        `http://localhost:5000/announcements?active=true`
+      const { data } = await api.publicRequest.get(
+        `/announcements?active=true`
       );
       return data;
     } catch (error) {

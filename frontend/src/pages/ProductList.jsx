@@ -23,7 +23,7 @@ const ProductList = () => {
 
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
-  const { loading, products, error } = productList;
+  const { isLoading, products, isError } = productList;
   const { pages, data } = products;
 
   useEffect(() => {
@@ -51,10 +51,10 @@ const ProductList = () => {
 
   return (
     <>
-      {loading ? (
+      {isLoading ? (
         <Loading />
-      ) : error ? (
-        <ErrorMessage>{`${error} this is error message component`}</ErrorMessage>
+      ) : isError ? (
+        <ErrorMessage>{`${isError} this is error message component`}</ErrorMessage>
       ) : (
         <>
           <Header

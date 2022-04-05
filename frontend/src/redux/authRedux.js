@@ -4,7 +4,7 @@ import {
   rejectWithValue,
 } from "@reduxjs/toolkit";
 import { publicRequest } from "../api";
-import axios from "axios";
+import * as api from "../api";
 
 export const signin = createAsyncThunk(
   "auth/signin",
@@ -32,29 +32,14 @@ export const signup = createAsyncThunk(
   }
 );
 
-export const editUser = createAsyncThunk(
-  "users/edit",
-  async (values, { getState }) => {
-    const {
-      auth: { currentUser },
-    } = getState();
-    try {
-      const { data } = await axios.put(
-        `http://localhost:5000/users/edit`,
-        values,
-        {
-          headers: {
-            authorization: `Bearer ${currentUser.token}`,
-          },
-        }
-      );
-
-      return data;
-    } catch (error) {
-      return error;
-    }
+export const editUser = createAsyncThunk("users/edit", async (values) => {
+  try {
+    const { data } = await api.privateRequest.put(`/users/edit`, values);
+    return data;
+  } catch (error) {
+    return error;
   }
-);
+});
 
 const authSlice = createSlice({
   name: "auth",

@@ -1,18 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import * as api from "../api";
 
 export const getOrderDetail = createAsyncThunk(
   "orderDetails/getOrderDetail",
-  async (id, { getState }) => {
+  async (id) => {
     try {
-      const {
-        auth: { currentUser },
-      } = getState();
-      const { data } = await axios.get(`http://localhost:5000/orders/${id}`, {
-        headers: {
-          authorization: `Bearer ${currentUser.token}`,
-        },
-      });
+      const { data } = await api.privateRequest.get(`/orders/${id}`);
       return data;
     } catch (error) {
       return error;
@@ -22,20 +15,9 @@ export const getOrderDetail = createAsyncThunk(
 
 export const getUserOrders = createAsyncThunk(
   "orderDetails/getUserOrders",
-  async (userId, { getState }) => {
+  async (userId) => {
     try {
-      const {
-        auth: { currentUser },
-      } = getState();
-
-      const { data } = await axios.get(
-        `http://localhost:5000/orders/user/${userId}`,
-        {
-          headers: {
-            authorization: `Bearer ${currentUser.token}`,
-          },
-        }
-      );
+      const { data } = await api.privateRequest.get(`/orders/user/${userId}`);
       return data;
     } catch (error) {
       return error;

@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import _ from "lodash";
 import styled from "styled-components";
 
 //components
@@ -14,7 +13,7 @@ import { getNewProducts } from "../redux/productRedux";
 const Home = () => {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
-  const { loading, products, error } = productList;
+  const { products } = productList;
 
   useEffect(() => {
     dispatch(getNewProducts());
