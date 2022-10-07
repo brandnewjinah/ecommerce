@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 //components
 import Card from "./ProductCard";
-import Grid from "../layout/Grid";
+import Grid from "../containers/Grid";
 
 const Products = ({ products, category, filter, sort }) => {
   const [filteredProducts, setFilteredProducts] = useState([]);

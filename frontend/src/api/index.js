@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const URL = "http://localhost:5000";
-const URL = "https://mern-ecomm.herokuapp.com";
+const URL = "http://localhost:4000";
+// const URL = "https://jinah-ecomm.herokuapp.com";
 
 const user = JSON.parse(localStorage.getItem("persist:root"))?.auth;
 const currentUser = user && JSON.parse(user).currentUser;

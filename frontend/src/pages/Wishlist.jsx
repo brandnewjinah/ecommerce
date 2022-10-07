@@ -4,7 +4,7 @@ import styled from "styled-components";
 // components
 import { Container } from "../components/layout/Containers";
 import { Header } from "../components/layout/Header";
-import Grid from "../components/layout/Grid";
+import Grid from "../components/containers/Grid";
 import Card from "../components/products/ProductCard";
 
 //redux
