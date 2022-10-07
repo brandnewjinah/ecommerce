@@ -24,6 +24,12 @@ const Navbar = ({ open, handleOpen }) => {
         </Left>
         <Center open={open}>
           <Ul>
+            <li>
+              <Link to="">All</Link>
+            </li>
+            <li>
+              <Link to="">New</Link>
+            </li>
             <NavLinks handleClick={() => handleOpen(false)} />
           </Ul>
         </Center>

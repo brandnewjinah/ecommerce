@@ -1,22 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { breakpoint } from "../../token";
 
 const NavLinks = ({ handleClick }) => {
   const links = [
-    {
-      id: 100,
-      value: "all",
-      label: "All",
-      link: "/products/all",
-    },
-    {
-      id: 200,
-      value: "new",
-      label: "New",
-      link: "/products/bakery",
-    },
     {
       id: 300,
       value: "snacks",
@@ -25,7 +13,22 @@ const NavLinks = ({ handleClick }) => {
       submenu: true,
       subcategories: [
         {
-          head: "Title 1",
+          label: "Snacks 1",
+          links: [
+            {
+              id: 301,
+              value: "chips",
+              label: "Chips",
+              link: "/products/snacks",
+            },
+            { id: 302, value: "cookies", label: "Cookies", link: "/" },
+            { id: 303, value: "candy", label: "Candy", link: "/" },
+            { id: 304, value: "chocolate", label: "Chocolate", link: "/" },
+            { id: 305, value: "savory", label: "Savory", link: "/" },
+          ],
+        },
+        {
+          label: "Snacks 2",
           links: [
             { id: 301, value: "chips", label: "Chips", link: "/" },
             { id: 302, value: "cookies", label: "Cookies", link: "/" },
@@ -35,7 +38,7 @@ const NavLinks = ({ handleClick }) => {
           ],
         },
         {
-          head: "Title 2",
+          label: "Snacks 3",
           links: [
             { id: 301, value: "chips", label: "Chips", link: "/" },
             { id: 302, value: "cookies", label: "Cookies", link: "/" },
@@ -45,17 +48,7 @@ const NavLinks = ({ handleClick }) => {
           ],
         },
         {
-          head: "Title 3",
-          links: [
-            { id: 301, value: "chips", label: "Chips", link: "/" },
-            { id: 302, value: "cookies", label: "Cookies", link: "/" },
-            { id: 303, value: "candy", label: "Candy", link: "/" },
-            { id: 304, value: "chocolate", label: "Chocolate", link: "/" },
-            { id: 305, value: "savory", label: "Savory", link: "/" },
-          ],
-        },
-        {
-          head: "Title 4",
+          label: "Snacks 4",
           links: [
             { id: 301, value: "chips", label: "Chips", link: "/" },
             { id: 302, value: "cookies", label: "Cookies", link: "/" },
@@ -74,7 +67,7 @@ const NavLinks = ({ handleClick }) => {
       submenu: true,
       subcategories: [
         {
-          head: "Title 1",
+          label: "Bev 1",
           links: [
             { id: 301, value: "chips", label: "Chips", link: "/" },
             { id: 302, value: "cookies", label: "Cookies", link: "/" },
@@ -84,7 +77,7 @@ const NavLinks = ({ handleClick }) => {
           ],
         },
         {
-          head: "Title 2",
+          label: "Bev 2",
           links: [
             { id: 301, value: "chips", label: "Chips", link: "/" },
             { id: 302, value: "cookies", label: "Cookies", link: "/" },
@@ -94,7 +87,7 @@ const NavLinks = ({ handleClick }) => {
           ],
         },
         {
-          head: "Title 3",
+          label: "Bev 3",
           links: [
             { id: 301, value: "chips", label: "Chips", link: "/" },
             { id: 302, value: "cookies", label: "Cookies", link: "/" },
@@ -104,7 +97,7 @@ const NavLinks = ({ handleClick }) => {
           ],
         },
         {
-          head: "Title 4",
+          label: "Bev 4",
           links: [
             { id: 301, value: "chips", label: "Chips", link: "/" },
             { id: 302, value: "cookies", label: "Cookies", link: "/" },
@@ -123,7 +116,7 @@ const NavLinks = ({ handleClick }) => {
       submenu: true,
       subcategories: [
         {
-          head: "Title 1",
+          label: "Pantry 1",
           links: [
             { id: 301, value: "chips", label: "Chips", link: "/" },
             { id: 302, value: "cookies", label: "Cookies", link: "/" },
@@ -133,7 +126,7 @@ const NavLinks = ({ handleClick }) => {
           ],
         },
         {
-          head: "Title 2",
+          label: "Pantry 2",
           links: [
             { id: 301, value: "chips", label: "Chips", link: "/" },
             { id: 302, value: "cookies", label: "Cookies", link: "/" },
@@ -143,7 +136,7 @@ const NavLinks = ({ handleClick }) => {
           ],
         },
         {
-          head: "Title 3",
+          label: "Pantry 3",
           links: [
             { id: 301, value: "chips", label: "Chips", link: "/" },
             { id: 302, value: "cookies", label: "Cookies", link: "/" },
@@ -153,7 +146,7 @@ const NavLinks = ({ handleClick }) => {
           ],
         },
         {
-          head: "Title 4",
+          label: "Pantry 4",
           links: [
             { id: 301, value: "chips", label: "Chips", link: "/" },
             { id: 302, value: "cookies", label: "Cookies", link: "/" },
@@ -166,20 +159,34 @@ const NavLinks = ({ handleClick }) => {
     },
   ];
 
+  const [heading, setHeading] = useState("");
+  const [subHeading, setSubHeading] = useState("");
+
   return (
     <>
       {links.map((link) => (
         <>
           <ListItem>
-            <p className="link" onClick={handleClick}>
+            <p
+              className="link"
+              onClick={() => {
+                heading !== link.label
+                  ? setHeading(link.label)
+                  : setHeading("");
+                setSubHeading("");
+              }}
+            >
               {link.label}
+              {link.submenu && (
+                <span>{heading === link.label ? `↑` : `↓`}</span>
+              )}
             </p>
             {link.submenu && (
               <div className="dropdown-menu">
                 <ul>
                   {link.subcategories.map((subcategory) => (
                     <div>
-                      <h1>{subcategory.head}</h1>
+                      <h1>{subcategory.label}</h1>
                       {subcategory.links.map((link) => (
                         <li>
                           <Link to={link.link}>{link.label}</Link>
@@ -191,20 +198,40 @@ const NavLinks = ({ handleClick }) => {
               </div>
             )}
           </ListItem>
-
-          <div>
+          {/* Mobile SubCategories */}
+          <Mobile display={heading === link.label}>
             {link.submenu &&
               link.subcategories.map((subcategory) => (
                 <ul>
-                  <h1>{subcategory.head}</h1>
-                  {subcategory.links.map((link) => (
-                    <li>
-                      <Link to={link.link}>{link.label}</Link>
-                    </li>
-                  ))}
+                  <h1
+                    onClick={() =>
+                      subHeading !== subcategory.label
+                        ? setSubHeading(subcategory.label)
+                        : setSubHeading("")
+                    }
+                  >
+                    {subcategory.label}
+                    <span>{subHeading === subcategory.label ? `↑` : `↓`}</span>
+                  </h1>
+                  <MobileSub display={subHeading === subcategory.label}>
+                    {subcategory.links.map((link) => (
+                      <li>
+                        <Link
+                          to={link.link}
+                          onClick={() => {
+                            handleClick();
+                            setHeading("");
+                            setSubHeading("");
+                          }}
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </MobileSub>
                 </ul>
               ))}
-          </div>
+          </Mobile>
         </>
       ))}
     </>
@@ -212,10 +239,13 @@ const NavLinks = ({ handleClick }) => {
 };
 
 const ListItem = styled.li`
-  position: relative;
+  /* position: relative; */
 
   .dropdown-menu {
     position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
     display: none;
     background-color: yellow;
     padding: 1rem;
@@ -234,6 +264,22 @@ const ListItem = styled.li`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2.5rem;
+  }
+`;
+
+const Mobile = styled.div`
+  display: none;
+
+  @media ${breakpoint.lg} {
+    display: ${(props) => props.display && "block"};
+  }
+`;
+
+const MobileSub = styled.div`
+  display: none;
+
+  @media ${breakpoint.lg} {
+    display: ${(props) => props.display && "block"};
   }
 `;
 
