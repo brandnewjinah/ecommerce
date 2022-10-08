@@ -8,7 +8,7 @@ import { Input } from "../components/Input2";
 import { Button } from "../components/Button";
 
 //token
-import { neutral, fontScale, primaryColor } from "../components/token";
+import { neutral } from "../components/token";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -16,8 +16,7 @@ import { editUser } from "../redux/authRedux";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
-  const { currentUser } = auth;
+  const { currentUser } = useSelector((state) => state.auth);
 
   const [account, setAccount] = useState({
     name: currentUser.name,
@@ -67,7 +66,7 @@ const UserProfile = () => {
         </div>
         <Button
           label="Save"
-          color={primaryColor.button}
+          color={neutral[600]}
           type="submit"
           margin="1rem 0"
         />
@@ -78,9 +77,7 @@ const UserProfile = () => {
 
 const Section = styled.form`
   width: 100%;
-  font-size: ${fontScale.sbody};
-  border-bottom: 1px solid ${neutral[100]};
-  padding: 1rem 0;
+  padding: 2rem 0;
 
   div {
     padding: 0.125rem 0;

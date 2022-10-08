@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 //token
-import { fontScale } from "../token";
+import { fontScale, fontSize } from "../token";
 
 export const Header = ({ title, body }) => {
   return (
@@ -38,7 +38,8 @@ const HeaderWrapperSmall = styled(HeaderWrapper)`
   gap: 0.75rem;
 
   h1 {
-    font-size: ${fontScale.scale_b5};
+    font-size: ${fontSize.lg3};
+    font-weight: 400;
     text-transform: capitalize;
   }
 `;

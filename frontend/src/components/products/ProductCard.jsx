@@ -5,7 +5,7 @@ import styled, { css } from "styled-components";
 //components
 import { TextButton } from "../Button";
 import { neutral, breakpoint, primaryColor } from "../token";
-import { ImageIcon } from "../../assets/Icons";
+import { ImageIcon } from "../../assets/Icon";
 import Text from "../Text";
 import { Div } from "../containers/Divs";
 

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 //layout component
 import { neutral, primaryColor, fontScale } from "./token";
-import { Eye, EyeOff } from "../assets/Icons";
+import { Eye, EyeOff } from "../assets/Icon";
 
 export interface Props {
   error?: string;

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+
 import { breakpoint } from "../../token";
+import { ChevronDown, ChevronUp } from "../../../assets/Icon";
 
 const NavLinks = ({ handleClick }) => {
   const links = [
@@ -168,7 +170,7 @@ const NavLinks = ({ handleClick }) => {
         <>
           <ListItem>
             <p
-              className="link"
+              className="listLabel"
               onClick={() => {
                 heading !== link.label
                   ? setHeading(link.label)
@@ -178,11 +180,22 @@ const NavLinks = ({ handleClick }) => {
             >
               {link.label}
               {link.submenu && (
-                <span>{heading === link.label ? `↑` : `↓`}</span>
+                <Icon>
+                  {heading === link.label ? (
+                    <ChevronUp width={20} height={20} color="#000" stroke={2} />
+                  ) : (
+                    <ChevronDown
+                      width={20}
+                      height={20}
+                      color="#000"
+                      stroke={2}
+                    />
+                  )}
+                </Icon>
               )}
             </p>
             {link.submenu && (
-              <div className="dropdown-menu">
+              <div className="dropdown">
                 <ul>
                   {link.subcategories.map((subcategory) => (
                     <div>
@@ -211,7 +224,23 @@ const NavLinks = ({ handleClick }) => {
                     }
                   >
                     {subcategory.label}
-                    <span>{subHeading === subcategory.label ? `↑` : `↓`}</span>
+                    <Icon>
+                      {subHeading === subcategory.label ? (
+                        <ChevronUp
+                          width={20}
+                          height={20}
+                          color="#000"
+                          stroke={2}
+                        />
+                      ) : (
+                        <ChevronDown
+                          width={20}
+                          height={20}
+                          color="#000"
+                          stroke={2}
+                        />
+                      )}
+                    </Icon>
                   </h1>
                   <MobileSub display={subHeading === subcategory.label}>
                     {subcategory.links.map((link) => (
@@ -239,20 +268,23 @@ const NavLinks = ({ handleClick }) => {
 };
 
 const ListItem = styled.li`
-  /* position: relative; */
-
-  .dropdown-menu {
-    position: absolute;
-    left: 0;
-    right: 0;
-    width: 100%;
-    display: none;
-    background-color: yellow;
-    padding: 1rem;
-    z-index: 10;
+  .listLabel {
+    padding: 20px min(1vw, 16px);
+    cursor: pointer;
   }
 
-  &:hover > .dropdown-menu {
+  .dropdown {
+    position: absolute;
+    top: 55px;
+    left: 0;
+    right: 0;
+    display: none;
+    background-color: #fff;
+    padding: 1rem 5rem;
+    z-index: 100;
+  }
+
+  &:hover > .dropdown {
     display: block;
 
     @media ${breakpoint.lg} {
@@ -261,9 +293,9 @@ const ListItem = styled.li`
   }
 
   ul {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
   }
 `;
 
@@ -271,7 +303,8 @@ const Mobile = styled.div`
   display: none;
 
   @media ${breakpoint.lg} {
-    display: ${(props) => props.display && "block"};
+    display: ${(props) => props.display && "flex"};
+    flex-direction: column;
   }
 `;
 
@@ -280,6 +313,14 @@ const MobileSub = styled.div`
 
   @media ${breakpoint.lg} {
     display: ${(props) => props.display && "block"};
+  }
+`;
+
+const Icon = styled.span`
+  display: none;
+
+  @media ${breakpoint.lg} {
+    display: inline-block;
   }
 `;
 

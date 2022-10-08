@@ -119,6 +119,24 @@ export const ChevronRight: FC<Props> = ({ width, height, stroke, color }) => {
   );
 };
 
+export const ChevronUp: FC<Props> = ({ width, height, stroke, color }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  );
+};
+
 export const Close: FC<Props> = ({ width, height, stroke, color }) => {
   return (
     <svg
@@ -157,6 +175,41 @@ export const Customers: FC<Props> = ({
     >
       <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
       <circle cx={12} cy={7} r={4} />
+    </svg>
+  );
+};
+
+export const Eye: FC<Props> = ({ width, height, stroke, color }) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+      <circle cx={12} cy={12} r={3} />
+    </svg>
+  );
+};
+
+export const EyeOff: FC<Props> = ({ width, height, stroke, color }) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24M1 1l22 22" />
     </svg>
   );
 };
@@ -229,6 +282,25 @@ export const Home: FC<Props> = ({ width, height, stroke, color, fill }) => {
     >
       <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
       <path d="M9 22V12h6v10" />
+    </svg>
+  );
+};
+
+export const ImageIcon: FC<Props> = ({ width, height, stroke, color }) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x={3} y={3} width={18} height={18} rx={2} ry={2} />
+      <circle cx={8.5} cy={8.5} r={1.5} />
+      <path d="M21 15l-5-5L5 21" />
     </svg>
   );
 };

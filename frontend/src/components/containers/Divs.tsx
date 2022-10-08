@@ -65,9 +65,10 @@ export const Flex: FC<Props> = ({
 };
 
 const FlexWrapper = styled.div<Props>`
-  width: ${(props) => props.width && props.width};
-  max-width: ${(props) => props.maxWidth && props.maxWidth};
   display: flex;
+  width: ${(props) => props.width && props.width};
+  height: 100%;
+  max-width: ${(props) => props.maxWidth && props.maxWidth};
   justify-content: ${(props) =>
     props.justifyContent === "sb" ? "space-between" : props.justifyContent};
   align-items: center;

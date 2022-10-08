@@ -6,6 +6,7 @@ import { Routing } from "./Path";
 import Root from "../pages/Root";
 
 //import customer pages
+import Test from "../pages/Test";
 import Layout from "../components/layout/main/Layout";
 import Home from "../pages/Home";
 import Auth from "../pages/Auth";
@@ -24,6 +25,7 @@ const Routes = () => {
       <Switch>
         <Route exact path={Routing.Home.path} component={Root} />
         <Layout>
+          <Route exact path={Routing.Test.path} component={Test} />
           <Route exact path={Routing.CustomerHome.path} component={Home} />
           <Route exact path={Routing.Signin.path} component={Auth} />
           <Route

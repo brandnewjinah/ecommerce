@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import Counter from "../Counter";
 
 //icons
-import { Close } from "../../assets/Icons";
+import { Close } from "../../assets/Icon";
 
 //import redux
 import { breakpoint, neutral, fontScale } from "../token";

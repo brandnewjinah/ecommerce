@@ -1,41 +1,77 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 //comp
-import { Flex } from "../../containers/Divs";
-import { Ul } from "../../containers/List";
+import { Flex } from "../../containers/Flex";
 import { neutral, size, breakpoint } from "../../token";
-import { Cart, Heart } from "../../../assets/Icon";
+import { Cart, ChevronDown, Heart } from "../../../assets/Icon";
 import NavLinks from "./NavLinks";
 import Hamburger from "./Hamburger";
+import UserDropdown from "./UserDropdown";
+
+//redux
+import { useDispatch, useSelector } from "react-redux";
 
 const Navbar = ({ open, handleOpen }) => {
+  const dispatch = useDispatch();
+  const [userHover, setUserHover] = useState(false);
+  const { currentUser } = useSelector((state) => state.auth);
+
+  const handleLogOut = () => {
+    console.log("logout");
+  };
+
   return (
     <Header>
-      <Flex
-        justifyContent="sb"
-        width={size.xlg}
-        margin="0 auto"
-        xlgPadding="0.75rem 1rem"
-      >
+      <Flex width={size.xlg}>
         <Left>
           <Link to="/home">sweet</Link>
         </Left>
         <Center open={open}>
-          <Ul>
-            <li>
-              <Link to="">All</Link>
+          <ul>
+            <li onClick={() => handleOpen(false)}>
+              <Link to="/home">All</Link>
             </li>
-            <li>
-              <Link to="">New</Link>
+            <li onClick={() => handleOpen(false)}>
+              <Link to="/home">New</Link>
             </li>
             <NavLinks handleClick={() => handleOpen(false)} />
-          </Ul>
+            <li className="mobileUser" onClick={() => handleOpen(false)}>
+              {currentUser ? (
+                <Link to="/profile">Hi, {currentUser.name}</Link>
+              ) : (
+                <Link to="/signin">Login</Link>
+              )}
+            </li>
+          </ul>
         </Center>
         <Right>
+          <div className="userWrapper">
+            {currentUser ? (
+              <div
+                className="user"
+                onMouseOver={() => setUserHover(true)}
+                onMouseLeave={() => setUserHover(false)}
+              >
+                <span>Hi, {currentUser.name}</span>
+                <ChevronDown width={20} height={20} color="#000" stroke={2} />
+                {userHover && <UserDropdown handleLogOut={handleLogOut} />}
+              </div>
+            ) : (
+              <Link to="/signin">Login</Link>
+            )}
+          </div>
           <Link to="/wishlist">
-            <Heart width="16" height="16" color="#000" stroke="1" fill="none" />
+            <div className="wishlist">
+              <Heart
+                width="16"
+                height="16"
+                color="#000"
+                stroke="1"
+                fill="none"
+              />
+            </div>
           </Link>
           <Link to="/cart">
             <div className="cartWrapper">
@@ -57,22 +93,53 @@ const Navbar = ({ open, handleOpen }) => {
 const Header = styled.header`
   display: flex;
   align-items: center;
-  height: 60px;
+  position: relative;
+  height: 56px;
   font-size: 11px;
   font-weight: 500;
+  letter-spacing: 0.05rem;
   text-transform: uppercase;
+  text-align: center;
   border-bottom: 1px solid ${neutral[100]};
 `;
 
 const Left = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: flex-start;
   font-family: "Raleway", sans-serif;
-  font-size: 1.5rem;
   font-weight: 600;
+  font-size: 1.5rem;
   letter-spacing: 0.025rem;
   text-transform: lowercase;
 `;
 
 const Center = styled.nav`
+  display: flex;
+  justify-content: space-around;
+  flex: 3;
+
+  ul {
+    display: inline-flex;
+
+    @media ${breakpoint.lg} {
+      flex-direction: column;
+    }
+  }
+
+  a {
+    padding: 20px min(1vw, 16px);
+    cursor: pointer;
+  }
+
+  .mobileUser {
+    display: none;
+
+    @media ${breakpoint.lg} {
+      display: block;
+    }
+  }
+
   @media ${breakpoint.lg} {
     position: fixed;
     top: 100px;
@@ -87,7 +154,26 @@ const Center = styled.nav`
 
 const Right = styled.nav`
   display: flex;
+  justify-content: flex-end;
   align-items: center;
+  flex: 1;
+
+  .userWrapper {
+    @media ${breakpoint.lg} {
+      display: none;
+    }
+  }
+
+  .user {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .wishlist {
+    margin-left: 0.75rem;
+  }
 
   .cartWrapper {
     display: flex;

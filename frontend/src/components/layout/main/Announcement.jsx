@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { primaryColor } from "../../token";
+import { neutral } from "../../token";
 
 //redux
 import { useDispatch } from "react-redux";
@@ -33,19 +33,18 @@ const Announcement = () => {
 };
 
 const Wrapper = styled.div`
-  min-height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${primaryColor.pink};
-  padding: 0.75rem 0;
+  background-color: ${neutral[200]};
+  padding: 0.5rem 0;
 
   p {
-    font-size: 0.65rem;
-    font-weight: 700;
+    font-size: 0.7rem;
+    font-weight: 400;
     letter-spacing: 0.05rem;
     text-transform: uppercase;
-    color: #fff;
+    color: ${neutral[600]};
   }
 `;
 
