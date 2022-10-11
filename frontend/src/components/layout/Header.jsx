@@ -29,8 +29,9 @@ const HeaderWrapper = styled.header`
   text-align: center;
 
   h1 {
-    font-size: ${fontScale.scale_b7};
-    text-transform: capitalize;
+    font-size: ${fontSize.lg2};
+    font-weight: 500;
+    text-transform: uppercase;
   }
 `;
 

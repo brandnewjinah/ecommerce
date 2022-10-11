@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 //token
-import { neutral, fontScale, fontHeight } from "../token";
+import { neutral, fontSize, fontHeight } from "../token";
 
 const InfoArticle = ({ helper, title, subtitle, body, children }) => {
   return (
@@ -24,21 +24,21 @@ const Article = styled.article`
   border-bottom: 1px solid ${neutral[100]};
 
   h1 {
-    font-size: ${fontScale.scale_b5};
+    font-size: ${fontSize.lg2};
     font-weight: 600;
   }
 
   .sub {
-    font-size: ${fontScale.scale_b3};
+    font-size: ${fontSize.lg1};
   }
 
   .helper {
-    font-size: ${fontScale.scale_s2};
+    font-size: ${fontSize.sm2};
     color: ${neutral[400]};
   }
 
   .body {
-    font-size: ${fontScale.scale_s2};
+    font-size: ${fontSize.sm2};
     line-height: ${fontHeight.body};
   }
 

@@ -118,7 +118,7 @@ const SmallParagraph = styled.p`
 `;
 
 const Caption = styled.p`
-  font-size: ${fontSize.sm2};
+  font-size: ${fontSize.sm3};
   line-height: ${lineHeight.sm2};
   font-weight: ${(props) => (props.bold ? 600 : 400)};
   color: ${(props) => props.color};

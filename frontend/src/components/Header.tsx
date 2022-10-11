@@ -16,7 +16,8 @@ const Header: FC<Props> = ({ title }) => {
 
 const HeaderWrapper = styled.header`
   h2 {
-    font-size: ${fontSize.lg3};
+    font-size: ${fontSize.lg1};
+    font-weight: 500;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 0.03rem;

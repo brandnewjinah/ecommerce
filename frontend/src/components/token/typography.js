@@ -1,4 +1,5 @@
 export const fontSize = {
+  sm4: "0.7rem",
   sm3: "0.795rem",
   sm2: "0.875rem",
   sm1: "0.9375rem",

@@ -53,13 +53,13 @@ const ProductCard = ({
           )}
         </ImageContainer>
         <Div>
-          <Text variant="body_small" bold="extrabold">
+          <Text variant="caption" bold color={neutral[400]}>
             {brand}
           </Text>
           <Text variant="body_small" lineHeight="sm4">
             {name.length > 26 ? `${name.substring(0, 24)}...` : name}
           </Text>
-          <Text variant="body_small" bold="extrabold" padding=".5rem 0 0 0">
+          <Text variant="body_small">
             <span>{currency}</span>
             <span>{price}</span>
           </Text>
