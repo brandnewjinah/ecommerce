@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Header from "../Header";
-import { fontScale } from "../token";
 
 //import components
 import Card from "./ProductCard";

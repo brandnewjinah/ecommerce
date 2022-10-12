@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import _ from "lodash";
 import styled from "styled-components";
 
 //import components
@@ -24,7 +23,7 @@ const Cart = () => {
 
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
-  const { loading, products, error } = productList;
+  const { products } = productList;
 
   useEffect(() => {
     dispatch(getNewProducts());
@@ -79,7 +78,7 @@ const Main = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 5rem;
 
   @media ${breakpoint.lg} {
     flex-direction: column;

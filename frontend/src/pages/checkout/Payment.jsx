@@ -7,7 +7,7 @@ import styled from "styled-components";
 //components
 import { Input } from "../../components/Input";
 import { Button, TextButton } from "../../components/Button";
-import { fontScale, primaryColor } from "../../components/token";
+import { fontSize, primaryColor } from "../../components/token";
 
 //redux
 import { useDispatch } from "react-redux";
@@ -108,7 +108,7 @@ const Section = styled.div`
   margin-bottom: 1em;
 
   h2 {
-    font-size: ${fontScale.scale_b4};
+    font-size: ${fontSize.lg2};
     padding: 0.875rem 0;
   }
 

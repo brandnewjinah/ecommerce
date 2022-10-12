@@ -68,7 +68,7 @@ const Footer = () => {
         <Flex>
           <Text variant="custom" size="11px">
             © 2022 Sweets. All right reserved Privacy Policy | Terms and
-            Conditions | Site Index | Do Not Sell My Information
+            Conditions | Do Not Sell My Information
           </Text>
         </Flex>
       </Flex>
@@ -82,7 +82,7 @@ const Container = styled.footer`
   width: 100%;
   background-color: #e0d5c666;
   color: ${neutral[500]};
-  padding: 4rem 2.5rem;
+  padding: 3rem 2.5rem 1rem;
 
   @media ${breakpoint.lg} {
     padding: 2.5rem;

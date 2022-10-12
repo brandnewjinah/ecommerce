@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { Button } from "../Button";
 
 //token
-import { neutral, primaryColor, fontScale } from "../token";
+import { neutral, primaryColor, fontSize } from "../token";
 
 const Article = ({ left, right }) => {
   return (
@@ -69,8 +69,7 @@ const Container = styled.section`
 `;
 
 const Top = styled.div`
-  font-weight: 600;
-  text-transform: uppercase;
+  font-weight: 500;
   color: ${neutral[600]};
   padding: 2rem 2rem 1rem;
 `;
@@ -93,7 +92,7 @@ const Bottom = styled.div`
 const Item = styled.div`
   display: flex;
   justify-content: space-between;
-  font-size: ${fontScale.scale_s2};
+  font-size: ${fontSize.sm2};
   padding: 0.5em 0;
 
   p {

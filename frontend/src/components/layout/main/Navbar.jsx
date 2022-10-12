@@ -17,6 +17,7 @@ const Navbar = ({ open, handleOpen }) => {
   const dispatch = useDispatch();
   const [userHover, setUserHover] = useState(false);
   const { currentUser } = useSelector((state) => state.auth);
+  const totalQty = useSelector((state) => state.cart.totalQty);
 
   const handleLogOut = () => {
     console.log("logout");
@@ -76,6 +77,7 @@ const Navbar = ({ open, handleOpen }) => {
           <Link to="/cart">
             <div className="cartWrapper">
               <Cart width="16" height="16" color="#000" stroke="1" />
+              <span>{totalQty}</span>
             </div>
           </Link>
           <div className="mobileMenu">
@@ -183,6 +185,10 @@ const Right = styled.nav`
     padding: 0.35rem 0.75rem;
     margin-left: 0.75rem;
     cursor: pointer;
+
+    span {
+      margin-left: 0.5rem;
+    }
   }
 
   .mobileMenu {

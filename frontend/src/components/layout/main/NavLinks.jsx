@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { breakpoint } from "../../token";
+import { breakpoint, neutral } from "../../token";
 import { ChevronDown, ChevronUp } from "../../../assets/Icon";
 
 const NavLinks = ({ handleClick }) => {
@@ -199,7 +199,7 @@ const NavLinks = ({ handleClick }) => {
                 <ul>
                   {link.subcategories.map((subcategory) => (
                     <div>
-                      <h1>{subcategory.label}</h1>
+                      <p>{subcategory.label}</p>
                       {subcategory.links.map((link) => (
                         <li>
                           <Link to={link.link}>{link.label}</Link>
@@ -280,6 +280,8 @@ const ListItem = styled.li`
     right: 0;
     display: none;
     background-color: #fff;
+    border-top: 1px solid ${neutral[100]};
+    box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.02);
     padding: 1rem 5rem;
     z-index: 100;
   }
@@ -289,6 +291,19 @@ const ListItem = styled.li`
 
     @media ${breakpoint.lg} {
       display: none;
+    }
+  }
+
+  p {
+    padding-bottom: 0.5rem;
+  }
+
+  a {
+    color: ${neutral[500]};
+    padding: 0.35rem 0;
+
+    &:hover {
+      text-decoration: underline;
     }
   }
 

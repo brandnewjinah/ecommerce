@@ -32,7 +32,12 @@ const Text = ({
       ) : variant === "body_big" ? (
         <BigParagraph padding={padding}>{children}</BigParagraph>
       ) : variant === "body_small" ? (
-        <SmallParagraph bold={bold} lineHeight={lineHeight} padding={padding}>
+        <SmallParagraph
+          bold={bold}
+          color={color}
+          lineHeight={lineHeight}
+          padding={padding}
+        >
           {children}
         </SmallParagraph>
       ) : variant === "caption" ? (
@@ -105,11 +110,12 @@ const Paragraph = styled.p`
   line-height: ${lineHeight.base};
   font-weight: ${(props) => (props.bold ? 600 : 400)};
   color: ${(props) => (props.color ? props.color : "#000")};
-  padding: ${(props) => props.padding};
+  padding: ${(props) => (props.padding ? props.padding : 0)};
 `;
 
 const SmallParagraph = styled.p`
   font-size: ${fontSize.sm2};
+  color: ${(props) => props.color};
   line-height: ${(props) =>
     props.lineHeight ? lineHeight[props.lineHeight] : lineHeight.sm1};
   font-weight: ${(props) =>

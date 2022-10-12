@@ -4,7 +4,7 @@ import styled from "styled-components";
 //import components
 import { Button } from "../Button";
 import Header from "../Header";
-import { fontScale, primaryColor } from "../token";
+import { primaryColor } from "../token";
 
 const ProductReview = ({ title }) => {
   const reviews = [(1, 2, 3, 4, 5)];

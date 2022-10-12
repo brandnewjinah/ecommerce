@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getWishlist, removeFromWishlist } from "../redux/wishlistRedux";
 import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
-import { fontScale } from "../components/token";
+import { fontSize } from "../components/token";
 
 const ProductList = () => {
   const dispatch = useDispatch();
@@ -73,7 +73,7 @@ const Wrapper = styled.div`
 `;
 
 const Copy = styled.div`
-  font-size: ${fontScale.body};
+  font-size: ${fontSize.base};
   text-align: center;
   padding: 1rem;
 `;

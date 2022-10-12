@@ -40,7 +40,7 @@ const Wrapper = styled.div`
 const Container = styled.main`
   width: 100%;
   max-width: ${size.xlg};
-  padding-bottom: 382px;
+  padding-bottom: 350px;
   margin: ${(props) =>
     props.path === "home" || props.path === "product"
       ? `2rem auto`

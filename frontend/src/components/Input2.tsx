@@ -2,7 +2,7 @@ import React, { FC, useState, ChangeEvent } from "react";
 import styled from "styled-components";
 
 //layout component
-import { neutral, primaryColor, fontScale } from "./token";
+import { neutral, primaryColor, fontSize } from "./token";
 import { Eye, EyeOff } from "../assets/Icon";
 
 export interface Props {
@@ -70,11 +70,11 @@ const Container = styled.div`
 
   label {
     display: inline-block;
-    font-size: ${fontScale.scale_s3};
+    font-size: ${fontSize.sm2};
   }
 
   .errorTxt {
-    font-size: ${fontScale.scale_s3};
+    font-size: ${fontSize.sm2};
     color: ${primaryColor.error};
     margin: 0.25rem 0;
   }
@@ -90,7 +90,7 @@ const InputContainer = styled.div`
 
 const InputTag = styled.input<Props>`
   width: 100%;
-  font-size: ${fontScale.scale_1};
+  font-size: ${fontSize.base};
   border-radius: 0.25rem;
   border: 1px solid ${neutral[200]};
   padding: 0.75rem;

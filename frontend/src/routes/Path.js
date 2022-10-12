@@ -14,5 +14,4 @@ export const Routing = {
   Wishlist: { path: "/wishlist" },
   UserProfile: { path: "/profile" },
   OrderHistory: { path: "/history" },
-  Test: { path: "/test" },
 };

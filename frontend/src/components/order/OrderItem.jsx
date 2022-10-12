@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { fontScale, neutral } from "../token";
+import { fontSize, neutral } from "../token";
 
 const OrderItem = ({ item }) => {
   console.log(item);
@@ -32,7 +32,7 @@ const Left = styled.div`
   display: flex;
   align-items: center;
   flex: 4;
-  font-size: ${fontScale.body};
+  font-size: ${fontSize.base};
   font-weight: 500;
   color: ${neutral[600]};
 

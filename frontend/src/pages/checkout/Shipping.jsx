@@ -8,7 +8,7 @@ import styled from "styled-components";
 import { Input } from "../../components/Input";
 import { Button, TextButton } from "../../components/Button";
 import Text from "../../components/Text";
-import { fontScale, lineHeight, primaryColor } from "../../components/token";
+import { fontSize, lineHeight, primaryColor } from "../../components/token";
 
 //redux
 import { useDispatch } from "react-redux";
@@ -129,12 +129,12 @@ const Section = styled.section`
   margin-bottom: 1em;
 
   h2 {
-    font-size: ${fontScale.scale_b4};
+    font-size: ${fontSize.lg2};
     padding: 0.875rem 0;
   }
 
   p {
-    font-size: ${fontScale.scale_s2};
+    font-size: ${fontSize.sm1};
   }
 
   .item {

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 //token
-import { neutral, fontSize, fontHeight } from "../token";
+import { neutral, fontSize } from "../token";
 
 const InfoArticle = ({ helper, title, subtitle, body, children }) => {
   return (
@@ -39,7 +39,7 @@ const Article = styled.article`
 
   .body {
     font-size: ${fontSize.sm2};
-    line-height: ${fontHeight.body};
+    line-height: 1.5rem;
   }
 
   .counter {

@@ -40,7 +40,7 @@ const ProductCard = ({
   return (
     <Wrapper>
       <Link to={{ pathname: `/product/${sku}`, state: { _id } }}>
-        <ImageContainer>
+        {/* <ImageContainer>
           {imgErr ? (
             <ErrImg>
               <ImageIcon width="20" height="20" color="#8F8F8F" stroke="2" />
@@ -51,7 +51,19 @@ const ProductCard = ({
               src={imageUrl ? imageUrl : setImgErr(true)}
             />
           )}
-        </ImageContainer>
+        </ImageContainer> */}
+        <Preview>
+          {imgErr ? (
+            <ErrImg>
+              <ImageIcon width="20" height="20" color="#8F8F8F" stroke="2" />
+            </ErrImg>
+          ) : (
+            <img
+              onError={handleDefaultImg}
+              src={imageUrl ? imageUrl : setImgErr(true)}
+            />
+          )}
+        </Preview>
         <Div>
           <Text variant="caption" bold color={neutral[400]}>
             {brand}
@@ -61,7 +73,7 @@ const ProductCard = ({
           </Text>
           <Text variant="body_small">
             <span>{currency}</span>
-            <span>{price}</span>
+            <span>{`$${price}`}</span>
           </Text>
         </Div>
       </Link>
@@ -102,6 +114,32 @@ const Wrapper = styled.div`
     a {
       gap: 0.75rem;
     }
+  }
+`;
+
+const Preview = styled.div`
+  flex: 1;
+  position: relative;
+  display: block;
+  max-width: 100%;
+
+  &:before {
+    content: "";
+    display: block;
+    padding-bottom: 125%;
+    width: 100%;
+  }
+
+  img {
+    border: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 `;
 

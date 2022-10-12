@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { fontScale, breakpoint } from "./token";
+import { breakpoint, fontSize } from "./token";
 
 const GlobalStyle = createGlobalStyle`
  * {
@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
     }
     body {
         height: 100%;
-        font-size: ${fontScale.scale_1}
+        font-size: ${fontSize.base}
     }
     div#root {
         height: 100%;

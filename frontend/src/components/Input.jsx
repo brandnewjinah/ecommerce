@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { neutral, primaryColor, fontScale } from "./token";
+import { neutral, primaryColor, fontSize } from "./token";
 
 export const Input = ({
   errors,
@@ -45,7 +45,7 @@ const Container = styled.div`
 const InputContainer = styled.div`
   input {
     width: 100%;
-    font-size: ${fontScale.body};
+    font-size: ${fontSize.base};
     border-radius: 0.25rem;
     border: 1px solid ${neutral[200]};
     padding: 0.75rem;
@@ -66,7 +66,7 @@ const InputContainer = styled.div`
 `;
 
 const Error = styled.div`
-  font-size: ${fontScale.sbody};
+  font-size: ${fontSize.sm1};
   color: ${primaryColor.error};
   padding: 0.35rem 0;
 `;
