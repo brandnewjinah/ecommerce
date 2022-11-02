@@ -5,16 +5,22 @@ import styled from "styled-components";
 import { breakpoint } from "../token";
 
 interface Props {
+  columns?: string;
   breakpointLg?: string;
 }
 
-const Grid: FC<Props> = ({ breakpointLg, children }) => {
-  return <GridContainer breakpointLg={breakpointLg}>{children}</GridContainer>;
+const Grid: FC<Props> = ({ columns, breakpointLg, children }) => {
+  return (
+    <GridContainer columns={columns} breakpointLg={breakpointLg}>
+      {children}
+    </GridContainer>
+  );
 };
 
 const GridContainer = styled.div<Props>`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: ${(props) =>
+    props.columns ? props.columns : "repeat(4, 1fr)"};
   grid-gap: 2rem;
 
   @media ${breakpoint.lg} {

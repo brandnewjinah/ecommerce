@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 //comp
-import { Flex } from "../../containers/Flex";
-import { neutral, size, breakpoint } from "../../token";
-import { Cart, ChevronDown, Heart } from "../../../assets/Icon";
-import NavLinks from "./NavLinks";
-import Hamburger from "./Hamburger";
-import UserDropdown from "./UserDropdown";
+// import { Flex } from "../components/containers/Flex";
+import { Flex } from "../components/containers/Divs";
+import { neutral, size, breakpoint } from "../components/token";
+import { Cart, ChevronDown, Heart } from "../assets/Icon";
+import NavLinks from "./main/NavLinks";
+import Hamburger from "./main/Hamburger";
+import UserDropdown from "./main/UserDropdown";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -25,7 +26,7 @@ const Navbar = ({ open, handleOpen }) => {
 
   return (
     <Header>
-      <Flex width={size.xlg}>
+      <Flex width={size.xl} margin="0 auto">
         <Left>
           <Link to="/home">sweet</Link>
         </Left>
@@ -103,6 +104,7 @@ const Header = styled.header`
   text-transform: uppercase;
   text-align: center;
   border-bottom: 1px solid ${neutral[100]};
+  padding: 0 1rem;
 `;
 
 const Left = styled.div`

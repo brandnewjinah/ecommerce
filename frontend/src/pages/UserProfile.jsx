@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 //components
-import Layout from "../components/layout/sub/Layout";
-import { HeaderSmall } from "../components/layout/Header";
+import Layout from "../layout/sub/Layout";
+import { HeaderSmall } from "../layout/Header";
 import { Input } from "../components/Input2";
 import { Button } from "../components/Button";
 

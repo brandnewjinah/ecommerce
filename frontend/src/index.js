@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { RouterProvider } from "react-router-dom";
+import Routes from "./Routes";
 import "./index.css";
-import Routes from "./routes/Routes";
 import GlobalStyle from "./components/globalStyles";
 
 //redux
@@ -13,7 +14,7 @@ ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <GlobalStyle />
-      <Routes />
+      <RouterProvider router={Routes} />
     </PersistGate>
   </Provider>,
   document.getElementById("root")

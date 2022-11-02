@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 
 //components
-import Hero from "../components/Hero";
-import ProductSlider from "../components/products/ProductSlider";
-import Newsletter from "../components/Newsletter";
+import Hero from "../../components/Hero";
+import ProductSlider from "../../components/products/ProductSlider";
+import Newsletter from "../../components/Newsletter";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { getNewProducts } from "../redux/productRedux";
+import { getNewProducts } from "../../redux/productRedux";
 
 const Home = () => {
   const dispatch = useDispatch();

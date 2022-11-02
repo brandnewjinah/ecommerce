@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 //comp
 import Side from "./Side";
-import { breakpoint } from "../../token";
+import { breakpoint } from "../../components/token";
 
 const Layout = ({ children }) => {
   return (

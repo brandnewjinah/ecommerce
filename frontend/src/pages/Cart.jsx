@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 //import components
-import { Header } from "../components/layout/Header";
+import { Header } from "../layout/Header";
 import CartItem from "../components/cart/CartItem";
 import CartSummary from "../components/cart/CartSummary";
 import { Button } from "../components/Button";

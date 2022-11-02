@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { breakpoint, neutral } from "../../token";
-import { ChevronDown, ChevronUp } from "../../../assets/Icon";
+import { breakpoint, neutral } from "../../components/token";
+import { ChevronDown, ChevronUp } from "../../assets/Icon";
 
 const NavLinks = ({ handleClick }) => {
   const links = [

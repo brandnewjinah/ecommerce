@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 
 // components
-import { Container } from "../components/layout/Containers";
-import { Header } from "../components/layout/Header";
+import { Container } from "../layout/Containers";
+import { Header } from "../layout/Header";
 import Grid from "../components/containers/Grid";
 import Card from "../components/products/ProductCard";
 

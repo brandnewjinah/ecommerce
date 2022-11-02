@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 //token
-import { fontSize } from "../token";
+import { fontSize } from "../components/token";
 
 export const Header = ({ title, body }) => {
   return (

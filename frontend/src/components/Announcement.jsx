@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import styled from "styled-components";
-import { neutral } from "../../token";
+import { neutral } from "./token";
 
 //redux
 import { useDispatch } from "react-redux";
-import { getAnnouncements } from "../../../redux/announcementRedux";
+import { getAnnouncements } from "../redux/announcementRedux";
+import { Flex } from "./containers/Divs";
+import { Body } from "./Text";
 
 const Announcement = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const Announcement = () => {
   // const { error, loading, announcement } = announce;
 
   return (
-    <Wrapper>
+    <Flex justifyContent="center" padding="0.5rem 0" bgColor={neutral[200]}>
       {/* {error ? (
         <p>Welcome</p>
       ) : (
@@ -27,25 +28,11 @@ const Announcement = () => {
             announcement[0].announcement}
         </p>
       )} */}
-      <p>Welcome, new customers!</p>
-    </Wrapper>
+      <Body variant="body_xsmall" color={neutral[600]}>
+        Welcome, new customers!
+      </Body>
+    </Flex>
   );
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: ${neutral[200]};
-  padding: 0.5rem 0;
-
-  p {
-    font-size: 0.7rem;
-    font-weight: 400;
-    letter-spacing: 0.05rem;
-    text-transform: uppercase;
-    color: ${neutral[600]};
-  }
-`;
 
 export default Announcement;

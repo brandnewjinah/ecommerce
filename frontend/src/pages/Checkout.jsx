@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 //components
-import { Container, HeaderContainer } from "../components/layout/Containers";
-import { Header } from "../components/layout/Header";
+import { Container, HeaderContainer } from "../layout/Containers";
+import { Header } from "../layout/Header";
 import CartSummary from "../components/cart/CartSummary";
 
 //import redux

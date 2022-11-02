@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { neutral } from "../../token";
+import { neutral } from "../../components/token";
 
 const UserDropdown = ({ handleLogOut }) => {
   return (

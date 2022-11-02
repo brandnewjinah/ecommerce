@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 //import components;
-import Layout from "../components/layout/sub/Layout";
-import { HeaderSmall } from "../components/layout/Header";
+import Layout from "../layout/sub/Layout";
+import { HeaderSmall } from "../layout/Header";
 import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
 import { ChevronLeft } from "../assets/Icon";

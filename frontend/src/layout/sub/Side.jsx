@@ -1,7 +1,12 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { breakpoint, fontSize, neutral, primaryColor } from "../../token";
+import {
+  breakpoint,
+  fontSize,
+  neutral,
+  primaryColor,
+} from "../../components/token";
 
 const menuItems = [
   {

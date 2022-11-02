@@ -3,10 +3,10 @@ import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 //import components
-import Announcement from "./Announcement";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import { breakpoint, size } from "../../token";
+import Announcement from "../../components/Announcement";
+import Navbar from "../Navbar";
+import Footer from "../Footer";
+import { breakpoint, size } from "../../components/token";
 
 const Layout = ({ children }) => {
   const location = useLocation();

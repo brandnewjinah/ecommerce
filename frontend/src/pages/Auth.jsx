@@ -9,7 +9,7 @@ import { GoogleLogin } from "react-google-login";
 import styled from "styled-components";
 
 //comp
-import { Header } from "../components/layout/Header";
+import { Header } from "../layout/Header";
 import { Input } from "../components/Input";
 import { Button, TextButton } from "../components/Button";
 

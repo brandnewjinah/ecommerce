@@ -21,6 +21,8 @@ export const getNewProducts = createAsyncThunk(
     try {
       const { data } = await publicRequest.get(`/products?new=true`);
       return data;
+      // const res = await publicRequest.get(`/products?new=true`);
+      // console.log(res);
     } catch (error) {
       return error;
     }

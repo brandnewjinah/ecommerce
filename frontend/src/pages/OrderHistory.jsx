@@ -3,8 +3,8 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 
 //components
-import Layout from "../components/layout/sub/Layout";
-import { HeaderSmall } from "../components/layout/Header";
+import Layout from "../layout/sub/Layout";
+import { HeaderSmall } from "../layout/Header";
 import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
 import Card from "../components/order/Card";

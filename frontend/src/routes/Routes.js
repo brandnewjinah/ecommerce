@@ -6,8 +6,8 @@ import { Routing } from "./Path";
 import Root from "../pages/Root";
 
 //import customer pages
-import Layout from "../components/layout/main/Layout";
-import Home from "../pages/Home";
+import Layout from "../layout/main/Layout";
+import Home from "../pages/home/Home";
 import Auth from "../pages/Auth";
 import Wishlist from "../pages/Wishlist";
 import Detail from "../pages/ProductDetail";

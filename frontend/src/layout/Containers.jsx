@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 //token
-import { breakpoint } from "../token";
+import { breakpoint } from "../components/token";
 
 export const Container = ({ children }) => {
   return <Wrapper>{children}</Wrapper>;

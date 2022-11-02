@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import Product from "../models/product.js";
 import cloudinary from "../middleware/cloudinary.js";
 
-//GET ALL PRODUCTS
+//GET PRODUCTS
 export const getProducts = async (req, res) => {
   const category = req.query.category;
   const newProducts = req.query.new;

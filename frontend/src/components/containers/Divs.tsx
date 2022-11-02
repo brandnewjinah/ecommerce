@@ -3,30 +3,18 @@ import styled from "styled-components";
 import { breakpoint } from "../token";
 
 export interface Props {
-  width?: string;
-  maxWidth?: string;
-  padding?: string;
-  margin?: string;
   justifyContent?: string;
   gap?: string;
-  textCenter?: boolean;
-  xlgPadding?: string;
+  width?: string;
+  maxWidth?: string;
+  bgColor?: string;
+  padding?: string;
+  margin?: string;
 }
 
-export const Div: FC<Props> = ({
-  maxWidth,
-  padding,
-  margin,
-  textCenter,
-  children,
-}) => {
+export const Div: FC<Props> = ({ maxWidth, padding, margin, children }) => {
   return (
-    <Wrapper
-      maxWidth={maxWidth}
-      padding={padding}
-      margin={margin}
-      textCenter={textCenter}
-    >
+    <Wrapper maxWidth={maxWidth} padding={padding} margin={margin}>
       {children}
     </Wrapper>
   );
@@ -34,30 +22,27 @@ export const Div: FC<Props> = ({
 
 const Wrapper = styled.div<Props>`
   max-width: ${(props) => props.maxWidth && props.maxWidth};
-  text-align: ${(props) => props.textCenter && "center"};
-  padding: ${(props) => (props.padding ? props.padding : 0)};
-  margin: ${(props) => (props.margin ? props.margin : 0)};
+  padding: ${(props) => props.padding && props.padding};
+  margin: ${(props) => props.margin && props.margin};
 `;
 
 export const Flex: FC<Props> = ({
-  width,
-  maxWidth,
   justifyContent,
   gap,
+  width,
+  bgColor,
   padding,
   margin,
-  xlgPadding,
   children,
 }) => {
   return (
     <FlexWrapper
-      width={width}
-      maxWidth={maxWidth}
       justifyContent={justifyContent}
       gap={gap}
+      width={width}
+      bgColor={bgColor}
       padding={padding}
       margin={margin}
-      xlgPadding={xlgPadding}
     >
       {children}
     </FlexWrapper>
@@ -66,25 +51,12 @@ export const Flex: FC<Props> = ({
 
 const FlexWrapper = styled.div<Props>`
   display: flex;
-  width: ${(props) => props.width && props.width};
-  height: 100%;
-  max-width: ${(props) => props.maxWidth && props.maxWidth};
   justify-content: ${(props) =>
-    props.justifyContent === "sb" ? "space-between" : props.justifyContent};
+    props.justifyContent ? props.justifyContent : "space-between"};
   align-items: center;
-  gap: ${(props) => (props.gap ? props.gap : ".5rem")};
-  padding: ${(props) => (props.padding ? props.padding : 0)};
-  margin: ${(props) => (props.margin ? props.margin : 0)};
-
-  .four {
-    flex: 4;
-  }
-
-  .nine {
-    flex: 9;
-  }
-
-  @media ${breakpoint.xlg} {
-    padding: ${(props) => props.xlgPadding && props.xlgPadding};
-  }
+  gap: ${(props) => props.gap && props.gap};
+  width: ${(props) => props.width && props.width};
+  background-color: ${(props) => props.bgColor && props.bgColor};
+  padding: ${(props) => props.padding && props.padding};
+  margin: ${(props) => props.margin && props.margin};
 `;
