@@ -3,13 +3,12 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 //comp
-// import { Flex } from "../components/containers/Flex";
 import { Flex } from "../components/containers/Divs";
 import { neutral, size, breakpoint } from "../components/token";
 import { Cart, ChevronDown, Heart } from "../assets/Icon";
-import NavLinks from "./main/NavLinks";
-import Hamburger from "./main/Hamburger";
-import UserDropdown from "./main/UserDropdown";
+import NavLinks from "./components/NavLinks";
+import Hamburger from "./components/Hamburger";
+import UserDropdown from "./components/UserDropdown";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -146,7 +145,7 @@ const Center = styled.nav`
 
   @media ${breakpoint.lg} {
     position: fixed;
-    top: 100px;
+    top: 91px;
     bottom: 0;
     left: 0;
     right: 0;

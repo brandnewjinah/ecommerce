@@ -8,15 +8,15 @@ import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
 
 //Components
-import { Section } from "../Container";
 import Card from "./ProductCard";
 import Header from "../Header";
+import { Div } from "../containers/Divs";
 
 SwiperCore.use([Navigation]);
 
 const ProductSlider = ({ data, title, slidesPerView }) => {
   return (
-    <Section padding="2rem 0">
+    <Div width="100%">
       <Header title={title} />
       <Slider>
         <Swiper
@@ -55,7 +55,7 @@ const ProductSlider = ({ data, title, slidesPerView }) => {
             ))}
         </Swiper>
       </Slider>
-    </Section>
+    </Div>
   );
 };
 

@@ -3,8 +3,7 @@ import styled from "styled-components";
 
 //comp
 import Header from "./Header";
-import Text from "./Text";
-import { Section } from "./Container";
+import { Body } from "./Text";
 import { Button } from "./Button";
 import { breakpoint, neutral, primaryColor } from "./token";
 
@@ -45,30 +44,29 @@ const Newsletter = () => {
   };
 
   return (
-    <Section padding="2.5rem 0">
-      <Wrapper>
-        <Header title="Stay Tuned" />
-        <Title>
-          <Text variant="body_small">
-            Sign up to receive offers and enjoy free U.S. shipping and returns
-            on your first order.
-          </Text>
-        </Title>
-        <InputContainer>
-          <Input placeholder="Email address" onChange={handleChange} />
-          <Button
-            label="Subscribe"
-            color={primaryColor.button}
-            size="small"
-            handleClick={handleSubscribe}
-          />
-        </InputContainer>
-      </Wrapper>
-    </Section>
+    <Wrapper>
+      <Header title="Stay Tuned" />
+      <Title>
+        <Body variant="body_small">
+          Sign up to receive offers and enjoy free U.S. shipping and returns on
+          your first order.
+        </Body>
+      </Title>
+      <InputContainer>
+        <Input placeholder="Email address" onChange={handleChange} />
+        <Button
+          label="Subscribe"
+          color={primaryColor.button}
+          size="small"
+          handleClick={handleSubscribe}
+        />
+      </InputContainer>
+    </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;

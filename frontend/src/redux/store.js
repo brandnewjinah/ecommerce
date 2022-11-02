@@ -16,6 +16,7 @@ import cartReducer from "./cartRedux";
 import orderReducer from "./orderRedux";
 import orderDetailReducer from "./orderDetailRedux";
 import productReducer from "./productRedux";
+import productListReducer from "./productListRedux";
 import productDetailReducer from "./productDetailRedux";
 import wishlistReducer from "./wishlistRedux";
 import announcementReducer from "./announcementRedux";
@@ -30,6 +31,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authReducer,
   cart: cartReducer,
+  products: productListReducer,
   productList: productReducer,
   productDetail: productDetailReducer,
   order: orderReducer,

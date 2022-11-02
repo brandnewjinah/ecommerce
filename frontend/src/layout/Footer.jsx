@@ -1,12 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {
-  Facebook,
-  Instagram,
-  Twitter,
-  Youtube,
-  Youtube2,
-} from "../assets/Icon";
+import { Facebook, Instagram, Twitter, Youtube } from "../assets/Icon";
 
 //comp
 import { Div, Flex } from "../components/containers/Divs";
@@ -79,7 +73,7 @@ const Footer = () => {
         </Grid>
       </Div>
       <Flex
-        width={size.xl}
+        maxWidth={size.xl}
         justifyContent="center"
         padding="2rem 0 0"
         margin="0 auto"
@@ -99,7 +93,7 @@ const Container = styled.footer`
   width: 100%;
   background-color: #e0d5c666;
   color: ${neutral[500]};
-  padding: 2rem 1rem;
+  padding: 4rem 1rem 2rem;
 
   @media ${breakpoint.lg} {
     padding: 2.5rem 1rem;
@@ -125,6 +119,9 @@ const Column = styled.ul`
   padding: 0.5rem 0;
 
   li {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
     cursor: pointer;
   }
 `;

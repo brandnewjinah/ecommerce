@@ -6,7 +6,7 @@ import styled, { css } from "styled-components";
 import { TextButton } from "../Button";
 import { neutral, breakpoint, primaryColor } from "../token";
 import { ImageIcon } from "../../assets/Icon";
-import Text from "../Text";
+import { Body } from "../Text";
 import { Div } from "../containers/Divs";
 
 //redux
@@ -61,20 +61,21 @@ const ProductCard = ({
             <img
               onError={handleDefaultImg}
               src={imageUrl ? imageUrl : setImgErr(true)}
+              alt=""
             />
           )}
         </Preview>
         <Div>
-          <Text variant="caption" bold color={neutral[400]}>
+          <Body variant="caption" bold color={neutral[400]}>
             {brand}
-          </Text>
-          <Text variant="body_small" lineHeight="sm4">
+          </Body>
+          <Body variant="body_small" lineHeight="sm4">
             {name.length > 26 ? `${name.substring(0, 24)}...` : name}
-          </Text>
-          <Text variant="body_small">
+          </Body>
+          <Body variant="body_small">
             <span>{currency}</span>
             <span>{`$${price}`}</span>
-          </Text>
+          </Body>
         </Div>
       </Link>
       {wishlist && (
@@ -143,27 +144,27 @@ const Preview = styled.div`
   }
 `;
 
-const Image = styled.img`
-  position: absolute;
-  width: 100%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  object-fit: cover;
-`;
+// const Image = styled.img`
+//   position: absolute;
+//   width: 100%;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   object-fit: cover;
+// `;
 
-const ImageContainer = styled.div`
-  position: relative;
-  width: 100%;
-  padding-bottom: 125%;
-  overflow: hidden;
+// const ImageContainer = styled.div`
+//   position: relative;
+//   width: 100%;
+//   padding-bottom: 125%;
+//   overflow: hidden;
 
-  &:hover {
-    ${Image} {
-      opacity: 0.3;
-    }
-  }
-`;
+//   &:hover {
+//     ${Image} {
+//       opacity: 0.3;
+//     }
+//   }
+// `;
 
 const ErrImg = styled.div`
   ${Flex}

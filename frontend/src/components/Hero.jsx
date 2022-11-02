@@ -34,6 +34,12 @@ const Hero = () => {
 };
 
 const Container = styled.section`
+  img {
+    width: 100%;
+    height: 70vh;
+    object-fit: cover;
+  }
+
   .swiper-button-prev,
   .swiper-button-next {
     width: 40px;

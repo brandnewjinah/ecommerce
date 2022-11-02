@@ -11,7 +11,7 @@ export const getProducts = async (req, res) => {
   const skip = (page - 1) * pageSize;
 
   try {
-    if (category === "new") {
+    if (newProducts) {
       let products = await Product.find().sort({ createdAt: -1 }).limit(8);
       res.status(200).json(products);
     } else if (category === "all") {
