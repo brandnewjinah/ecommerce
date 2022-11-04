@@ -11,11 +11,14 @@ import "swiper/components/navigation/navigation.scss";
 import Card from "./ProductCard";
 import Header from "../Header";
 import { Div } from "../containers/Divs";
+import Loading from "../Loading";
 
 SwiperCore.use([Navigation]);
 
-const ProductSlider = ({ data, title, slidesPerView }) => {
-  return (
+const ProductSlider = ({ isLoading, data, title, slidesPerView }) => {
+  return isLoading ? (
+    <Loading />
+  ) : (
     <Div width="100%">
       <Header title={title} />
       <Slider>

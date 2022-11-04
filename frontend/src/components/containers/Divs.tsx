@@ -4,6 +4,7 @@ import { breakpoint } from "../token";
 
 export interface Props {
   flexCol?: boolean;
+  lgFlexCol?: boolean;
   justifyContent?: string;
   gap?: string;
   width?: string;
@@ -48,6 +49,7 @@ const Wrapper = styled.div<Props>`
 
 export const Flex: FC<Props> = ({
   flexCol,
+  lgFlexCol,
   justifyContent,
   gap,
   width,
@@ -60,6 +62,7 @@ export const Flex: FC<Props> = ({
   return (
     <FlexWrapper
       flexCol={flexCol}
+      lgFlexCol={lgFlexCol}
       justifyContent={justifyContent}
       gap={gap}
       width={width}
@@ -86,6 +89,7 @@ const FlexWrapper = styled.div<Props>`
   margin: ${(props) => props.margin && props.margin};
 
   @media ${breakpoint.lg} {
+    flex-direction: ${(props) => props.lgFlexCol && "column"};
     padding: ${(props) => props.lgPadding && props.lgPadding};
   }
 `;

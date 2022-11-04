@@ -17,7 +17,7 @@ const Home = () => {
     dispatch(getProducts({ category: "new", page: 1 }));
   }, [dispatch]);
 
-  const { products } = useSelector((state) => state.products);
+  const { products, isLoading } = useSelector((state) => state.products);
 
   return (
     <Div width="100%">
@@ -30,6 +30,7 @@ const Home = () => {
         lgPadding="0 1rem"
       >
         <ProductSlider
+          isLoading={isLoading}
           title="New Products"
           data={products}
           slidesPerView={{ small: 2, medium: 3, large: 4 }}
