@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { neutral } from "./token";
+import { neutral, primaryColor } from "./token";
 
 export interface Props {
   center?: boolean;
@@ -159,4 +159,21 @@ const TextButtonWrapper = styled.button<Props>`
     border-bottom-color: transparent;
     cursor: not-allowed;
   }
+`;
+
+export const IconButton: FC<Props> = ({ icon, handleClick }) => {
+  return (
+    <IconButtonWrapper onClick={handleClick}>{icon && icon}</IconButtonWrapper>
+  );
+};
+
+const IconButtonWrapper = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  background: transparent;
+  border: 0;
+  padding: 0.75rem 0.5rem;
+  cursor: pointer;
 `;

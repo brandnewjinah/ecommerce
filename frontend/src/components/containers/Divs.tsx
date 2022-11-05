@@ -53,6 +53,7 @@ export const Flex: FC<Props> = ({
   justifyContent,
   gap,
   width,
+  maxWidth,
   bgColor,
   padding,
   lgPadding,
@@ -66,6 +67,7 @@ export const Flex: FC<Props> = ({
       justifyContent={justifyContent}
       gap={gap}
       width={width}
+      maxWidth={maxWidth}
       bgColor={bgColor}
       padding={padding}
       lgPadding={lgPadding}
@@ -84,6 +86,7 @@ const FlexWrapper = styled.div<Props>`
   align-items: center;
   gap: ${(props) => props.gap && props.gap};
   width: ${(props) => props.width && props.width};
+  max-width: ${(props) => props.maxWidth && props.maxWidth};
   background-color: ${(props) => props.bgColor && props.bgColor};
   padding: ${(props) => props.padding && props.padding};
   margin: ${(props) => props.margin && props.margin};

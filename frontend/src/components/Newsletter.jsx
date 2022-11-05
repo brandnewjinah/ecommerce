@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 
 //comp
 import Header from "./Header";
 import { Body } from "./Text";
-import { Button } from "./Button";
-import { breakpoint, neutral, primaryColor } from "./token";
+import { TextInput } from "./TextInput";
+import { Flex } from "./containers/Divs";
+import { Button, IconButton } from "./Button";
+import { neutral, primaryColor } from "./token";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { addSubscriber } from "../redux/subscriberRedux";
 import { reset } from "../redux/subscriberRedux";
-import { Flex } from "./containers/Divs";
-import { Input } from "./Input";
+import { ChevronRight } from "../assets/Icon";
 
 const Newsletter = () => {
   const dispatch = useDispatch();
@@ -22,6 +22,16 @@ const Newsletter = () => {
     const newEmail = { ...email };
     newEmail.email = input.value;
     setEmail(newEmail);
+  };
+
+  const handleEnter = (e) => {
+    if (e.key === "Enter") {
+      console.log("submit");
+    }
+  };
+
+  const handleSubmit = () => {
+    console.log("submit");
   };
 
   const { isSuccess, isError, message } = useSelector(
@@ -58,32 +68,19 @@ const Newsletter = () => {
         Sign up to receive offers and enjoy free U.S. shipping and returns on
         your first order.
       </Body>
-      <Flex gap="0.25rem" padding="1rem 0" lgFlexCol>
-        {/* <Input /> */}
-        {/* <Input placeholder="Email address" onChange={handleChange} /> */}
-        <Button
-          label="Subscribe"
-          color={primaryColor.button}
-          size="small"
-          handleClick={handleSubscribe}
+      <Flex width="100%" maxWidth="400px" bgColor="#fff" margin="2rem 0 0">
+        <TextInput
+          placeholder="Email address"
+          onChange={handleChange}
+          onKeyPress={handleEnter}
+        />
+        <IconButton
+          icon={<ChevronRight width={20} height={20} color="#000" stroke={2} />}
+          handleClick={handleSubmit}
         />
       </Flex>
     </Flex>
   );
 };
-
-// const Input = styled.input`
-//   border: none;
-//   /* flex: 9; */
-//   border-radius: 0.25rem;
-//   padding: 0.75rem;
-//   appearance: none;
-
-//   &:focus {
-//     box-shadow: 0 0 0 2px rgba(0, 125, 250, 0.6);
-//     border-radius: 0.25rem;
-//     outline: none;
-//   }
-// `;
 
 export default Newsletter;
