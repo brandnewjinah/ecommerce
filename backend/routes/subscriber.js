@@ -4,12 +4,12 @@ import { checkAdmin } from "../middleware/checkAuth.js";
 
 const router = express.Router();
 
-// @route POST
+// @route POST /subscribers
 // @desc Add a new subscriber
 // @access Public
 router.post("/", addSubscriber);
 
-// @route GET /
+// @route GET /subscribers
 // @desc Get all user information
 // @access Private
 router.get("/", checkAdmin, getAllSubscribers);

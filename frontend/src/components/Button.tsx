@@ -8,7 +8,7 @@ export interface Props {
   color?: string;
   disabled?: boolean;
   fontColor?: string;
-  icon?: React.ComponentType;
+  icon?: any;
   label?: string;
   margin?: string;
   padding?: string;

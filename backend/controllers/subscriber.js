@@ -8,14 +8,13 @@ export const addSubscriber = async (req, res) => {
     });
 
     if (existingSubscriber)
-      return res.status(400).json("You're already subscribed!");
+      return res.status(406).json({ message: "You're already subscribed!" });
 
     const newSubscriber = new Subscriber({ email: req.body.email });
     await newSubscriber.save();
-
     res.status(201).json(newSubscriber);
   } catch (error) {
-    res.status(409).json(error.message);
+    res.status(400).json({ message: error.message });
   }
 };
 

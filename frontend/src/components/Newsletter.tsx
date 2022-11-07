@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent, KeyboardEvent } from "react";
 
 //comp
 import Header from "./Header";
@@ -7,53 +7,49 @@ import { TextInput } from "./TextInput";
 import { Flex } from "./containers/Divs";
 import { Button, IconButton } from "./Button";
 import { neutral, primaryColor } from "./token";
+import { ChevronRight } from "../assets/Icon";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { addSubscriber } from "../redux/subscriberRedux";
+import { RootState } from "../redux/store";
 import { reset } from "../redux/subscriberRedux";
-import { ChevronRight } from "../assets/Icon";
 
 const Newsletter = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState({ email: "" });
 
-  const handleChange = ({ currentTarget: input }) => {
-    const newEmail = { ...email };
-    newEmail.email = input.value;
-    setEmail(newEmail);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail({ email: e.target.value });
   };
 
-  const handleEnter = (e) => {
+  const handleEnter = (e: KeyboardEvent) => {
     if (e.key === "Enter") {
-      console.log("submit");
+      dispatch(addSubscriber(email));
     }
   };
 
   const handleSubmit = () => {
-    console.log("submit");
+    dispatch(addSubscriber(email));
   };
 
-  const { isSuccess, isError, message } = useSelector(
-    (state) => state.subscriber
+  const { status, message } = useSelector(
+    (state: RootState) => state.subscriber
   );
 
-  useEffect(() => {
-    if (isError) {
-      alert(message);
-      setEmail({ email: "" });
-    }
+  //actions after submitting data
 
-    if (isSuccess) {
+  useEffect(() => {
+    if (status === 201) {
       alert("You're subscribed!");
       dispatch(reset());
       window.location.reload();
+    } else if (status === 406 || status === 400) {
+      alert(message);
+      dispatch(reset());
+      window.location.reload();
     }
-  }, [isSuccess, isError, message, dispatch]);
-
-  const handleSubscribe = () => {
-    dispatch(addSubscriber(email));
-  };
+  }, [dispatch, status, email]);
 
   return (
     <Flex
