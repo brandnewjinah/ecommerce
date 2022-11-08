@@ -9,9 +9,9 @@ import "swiper/components/navigation/navigation.scss";
 
 //Components
 import Card from "./ProductCard";
-import Header from "../Header";
 import { Div } from "../containers/Div";
 import Loading from "../Loading";
+import { Heading } from "../Text";
 
 SwiperCore.use([Navigation]);
 
@@ -20,7 +20,7 @@ const ProductSlider = ({ isLoading, data, title, slidesPerView }) => {
     <Loading />
   ) : (
     <Div width="100%">
-      <Header title={title} />
+      <Heading title={title} />
       <Slider>
         <Swiper
           navigation

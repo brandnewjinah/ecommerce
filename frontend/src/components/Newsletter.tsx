@@ -1,8 +1,8 @@
 import React, { useState, useEffect, ChangeEvent, KeyboardEvent } from "react";
 
 //comp
-import Header from "./Header";
-import { Body } from "./Text";
+import Header from "./Header2";
+import { Body, Heading } from "./Text";
 import { TextInput } from "./TextInput";
 import { Flex } from "./containers/Div";
 import { IconButton } from "./Button";
@@ -58,13 +58,14 @@ const Newsletter = () => {
       bgColor={neutral[100]}
       padding="3rem"
     >
-      <Header title="Stay Tuned" />
+      <Heading title="Stay Tuned" />
       <Body variant="body_small" align="center">
         Sign up to receive offers and enjoy free U.S. shipping and returns on
         your first order.
       </Body>
       <Flex width="100%" maxWidth="400px" bgColor="#fff" margin="2rem 0 0">
         <TextInput
+          removeBorder
           placeholder="Email address"
           onChange={handleChange}
           onKeyPress={handleEnter}

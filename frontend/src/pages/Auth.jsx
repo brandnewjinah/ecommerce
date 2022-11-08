@@ -1,74 +1,83 @@
 import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
-
-import { useHistory, useLocation } from "react-router-dom";
-
+import { useNavigate, useLocation } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
-import styled from "styled-components";
 
 //comp
-import { Header } from "../layout/Header";
-import { Input } from "../components/Input";
+import { Heading } from "../components/Text";
+import { Section } from "../components/containers/Section";
+import { Div } from "../components/containers/Div";
+import { TextInput } from "../components/TextInput";
 import { Button, TextButton } from "../components/Button";
-
-//token
-import { primaryColor, neutral, breakpoint } from "../components/token";
+import { primaryColor, neutral } from "../components/token";
 import { Google } from "../assets/Icon";
+
+//util
+import { signinValidate, signupValidate } from "../utils/validate";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
+
 import { signin, signup, signout } from "../redux/authRedux";
 
 const Auth = () => {
-  const [isSignup, setIsSignup] = useState(false);
-
-  const validate = Yup.object({
-    ...(isSignup && {
-      name: Yup.string()
-        .max(15, "Must be 15 characters or less")
-        .required("Name is required"),
-    }),
-    email: Yup.string()
-      .email("Must be a valid email form")
-      .required("Email is required"),
-    password: Yup.string()
-      .min(6, "Password must be at least 6 characters")
-      .required("Password is required"),
-    ...(isSignup && {
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password"), null], "Password must match")
-        .required("Confirm password is required"),
-    }),
-  });
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(validate),
-  });
-
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
-  const _id = history.location.state && history.location.state._id;
 
-  const path = location.pathname;
-  const redirect = location.search.split("redirectTo=")[1];
-  const dispatch = useDispatch();
-
-  const user = {
+  const [user, setUser] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
-  };
+  });
+
+  const [isSignup, setIsSignup] = useState(false);
+
+  const [errors, setErrors] = useState({});
 
   const handleSwitch = () => {
     setIsSignup((prev) => !prev);
   };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    const userInput = { ...user };
+    userInput[name] = value;
+    setUser(userInput);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (isSignup) {
+      const errors = signupValidate(user);
+      setErrors(errors || {});
+      if (errors) return;
+
+      dispatch(signup(user));
+    } else {
+      const errors = signinValidate(user);
+      setErrors(errors || {});
+      if (errors) return;
+
+      dispatch(signin(user));
+    }
+
+    // if (isSignup) {
+    //   dispatch(signup(user));
+    //   // path === "/cart" ? history.push("/checkout") : history.push("/home");
+    // } else {
+    //   dispatch(signin(user));
+    //   // error === null && redirect
+    //   //   ? history.push(`/${redirect}`, { _id })
+    //   //   : error === null && history.push("/home");
+    // }
+  };
+
+  // const _id = navigate.location.state && navigate.location.state._id;
+
+  const path = location.pathname;
+  const redirect = location.search.split("redirectTo=")[1];
+  const dispatch = useDispatch();
 
   const googleSuccess = async (res) => {
     const result = res?.profileObj; //? does not throw an error
@@ -76,7 +85,7 @@ const Auth = () => {
 
     try {
       dispatch({ type: "AUTH", data: { result, token } });
-      history.push("/home");
+      navigate("/home");
     } catch (error) {
       console.log(error);
     }
@@ -87,81 +96,62 @@ const Auth = () => {
     console.log("Google Sign In Failed");
   };
 
-  const { isLoading, isSuccess, isError, message, currentUser } = useSelector(
-    (state) => state.auth
-  );
+  const { status, message, currentUser } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (isError) {
+    if (status !== 200 && status !== 0) {
       alert(message);
-      dispatch(signout());
+      // dispatch(signout());
     }
 
-    if (isSuccess) {
-      history.push("/home");
+    if (status === 200) {
+      navigate("/home");
     }
-  }, [isSuccess, isError, message, currentUser, dispatch]);
+  }, [status, message, currentUser, dispatch]);
 
-  const onSubmit = (data) => {
-    if (isSignup) {
-      dispatch(signup(data));
-      // path === "/cart" ? history.push("/checkout") : history.push("/home");
-    } else {
-      dispatch(signin(data));
-      // error === null && redirect
-      //   ? history.push(`/${redirect}`, { _id })
-      //   : error === null && history.push("/home");
-      // console.log(error);
-      //null 이 먼저 찍힘
-    }
-  };
   return (
-    <Container>
-      <Header title={isSignup ? "Create an account" : "Sign In"} />
-
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {isSignup && (
-          <Input
-            name="name"
-            placeholder="Name"
-            register={register}
-            type="text"
-            required
-            errors={errors}
+    <Div maxWidth="400px" margin="0 auto">
+      <Heading title={isSignup ? "Create an account" : "Sign In"} />
+      <form onSubmit={handleSubmit}>
+        <Section gap="1rem">
+          {isSignup && (
+            <TextInput
+              name="name"
+              placeholder="Name"
+              error={errors.name}
+              onChange={handleInputChange}
+            />
+          )}
+          <TextInput
+            name="email"
+            placeholder="Email"
+            type="email"
+            error={errors.email}
+            onChange={handleInputChange}
           />
-        )}
-        <Input
-          name="email"
-          placeholder="Email"
-          register={register}
-          type="email"
-          required
-          errors={errors}
-        />
-        <Input
-          name="password"
-          placeholder="Password"
-          register={register}
-          type="password"
-          required
-          errors={errors}
-        />
-        {isSignup && (
-          <Input
-            name="confirmPassword"
-            placeholder="Confirm Password"
-            register={register}
+          <TextInput
+            name="password"
+            placeholder="Password"
             type="password"
-            required
-            errors={errors}
+            error={errors.password}
+            onChange={handleInputChange}
           />
-        )}
-        <Button
-          label={isSignup ? "Sign Up" : "Sign In"}
-          color={primaryColor.button}
-          type="submit"
-          margin="1rem 0"
-        />
+
+          {isSignup && (
+            <TextInput
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              type="password"
+              error={errors.confirmPassword}
+              onChange={handleInputChange}
+            />
+          )}
+          <Button
+            label={isSignup ? "Sign Up" : "Sign In"}
+            color={primaryColor.button}
+            type="submit"
+          />
+        </Section>
       </form>
 
       <GoogleLogin
@@ -175,12 +165,14 @@ const Auth = () => {
             type="submit"
             icon={<Google width={16} height={16} fill={neutral[400]} />}
             handleClick={props.onClick}
+            margin="1rem 0 0"
           />
         )}
         onSuccess={googleSuccess}
         onFailure={googleFailure}
         coookiePolicy="single_host_origin"
       />
+
       <TextButton
         color={neutral[300]}
         label={
@@ -192,18 +184,8 @@ const Auth = () => {
         center
         handleClick={handleSwitch}
       />
-    </Container>
+    </Div>
   );
 };
-
-const Container = styled.div`
-  max-width: 400px;
-  padding: 2rem 1.5rem;
-  margin: 0 auto;
-
-  @media ${breakpoint.lg} {
-    width: 100%;
-  }
-`;
 
 export default Auth;

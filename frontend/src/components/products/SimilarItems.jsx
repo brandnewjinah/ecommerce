@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "../Header";
+import Header from "../Header2";
 
 //import components
 import Card from "./ProductCard";

@@ -6,7 +6,6 @@ import { fontSize, neutral } from "./token";
 import { Body } from "./Text";
 
 export interface Props {
-  id?: string;
   name?: string;
   label?: string;
   value?: string;
@@ -19,28 +18,22 @@ export interface Props {
     | "email"
     | "date"
     | undefined;
-  maxLength?: number;
-  prefix?: string;
-  suffix?: string;
   error?: string;
   margin?: string;
+  removeBorder?: boolean;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onKeyPress?: (e: KeyboardEvent<HTMLElement>) => void;
-  onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
 }
 
 export const TextInput: FC<Props> = ({
-  id,
   name,
   label,
   value,
   placeholder,
   type,
-  maxLength,
-  prefix,
-  suffix,
   error,
   margin,
+  removeBorder,
   onChange,
   onKeyPress,
   ...rest
@@ -49,12 +42,11 @@ export const TextInput: FC<Props> = ({
     <Container margin={margin}>
       {label && <label htmlFor={name}>{label}</label>}
       <InputTag
-        id={id ? id : name}
         name={name}
         placeholder={placeholder}
         type={type}
-        maxLength={maxLength}
         value={value}
+        removeBorder={removeBorder}
         onChange={onChange}
         onKeyPress={onKeyPress}
         {...rest}
@@ -108,10 +100,11 @@ const Container = styled.div<Props>`
   }
 `;
 
-const InputTag = styled.input`
+const InputTag = styled.input<Props>`
   width: 100%;
   font-size: ${fontSize.base};
-  border: none;
+  border: ${(props) =>
+    props.removeBorder ? "none" : `1px solid ${neutral[200]}`};
   height: 3rem;
   padding: ${(props) =>
     props.type === "search" ? "0 0.875rem 0 2.5rem" : "0.75rem"};

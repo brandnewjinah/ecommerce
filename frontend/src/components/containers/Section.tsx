@@ -12,17 +12,26 @@ export interface Props {
 export const Section: FC<Props> = ({
   padding,
   margin,
+  gap,
   className,
   children,
 }) => {
   return (
-    <SectionWrapper padding={padding} margin={margin} className={className}>
+    <SectionWrapper
+      gap={gap}
+      padding={padding}
+      margin={margin}
+      className={className}
+    >
       {children}
     </SectionWrapper>
   );
 };
 
 const SectionWrapper = styled.section<Props>`
+  display: flex;
+  flex-direction: column;
+  gap: ${(props) => props.gap && props.gap};
   padding: ${(props) => (props.padding ? props.padding : 0)};
   margin: ${(props) => (props.margin ? props.margin : 0)};
 `;

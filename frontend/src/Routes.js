@@ -5,6 +5,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "./layout";
 import ErrorPage from "./pages/error";
 import Home from "./pages/home";
+import Auth from "./pages/Auth";
 import Products from "./pages/category";
 import ProductDetail from "./pages/products";
 
@@ -17,6 +18,10 @@ const Routes = createBrowserRouter([
       {
         path: "/home",
         element: <Home />,
+      },
+      {
+        path: "/login",
+        element: <Auth />,
       },
       {
         path: "/category/:category",

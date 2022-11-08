@@ -2,10 +2,8 @@ import React, { FC } from "react";
 import styled, { css } from "styled-components";
 
 interface Props {
-  type?: "heading" | "body" | undefined;
   variant?:
-    | "h1_large"
-    | "h1_medium"
+    | "h1"
     | "h2"
     | "h3"
     | "body_large"
@@ -24,27 +22,46 @@ interface Props {
   spacing?: string;
   color?: string;
   className?: string;
+  title?: string;
   children?: string | number | undefined;
 }
 
-export const Heading: FC<Props> = ({
+export const Heading: FC<Props> = ({ padding, color, title }) => {
+  return (
+    <HeadingWrapper color={color} padding={padding}>
+      {title}
+    </HeadingWrapper>
+  );
+};
+
+export const Header: FC<Props> = ({
   variant,
   padding,
   uppercase,
   spacing,
+  align,
   color,
   children,
 }) => {
   return (
-    <H1
-      variant={variant}
-      color={color}
-      uppercase={uppercase}
-      spacing={spacing}
-      padding={padding}
-    >
-      {children}
-    </H1>
+    <>
+      {variant === "h1" ? (
+        <H1
+          variant={variant}
+          color={color}
+          uppercase={uppercase}
+          spacing={spacing}
+          align={align}
+          padding={padding}
+        >
+          {children}
+        </H1>
+      ) : variant === "h2" ? (
+        <h2>{children}</h2>
+      ) : variant === "h3" ? (
+        <h3>{children}</h3>
+      ) : null}
+    </>
   );
 };
 
@@ -85,16 +102,41 @@ const Basics = css<Props>`
   color: ${(props) => (props.color ? props.color : "#000")};
   text-transform: ${(props) => props.uppercase && "uppercase"};
   letter-spacing: ${(props) => props.spacing && props.spacing};
+  text-align: ${(props) => props.align && props.align};
   padding: ${(props) => props.padding};
+`;
+
+const HeadingWrapper = styled.h1<Props>`
+  ${Basics}
+  font-size: 1.125rem;
+  font-weight: 500;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.03rem;
+  position: relative;
+  padding-bottom: 0.875rem;
+  margin-bottom: 1.75rem;
+
+  &:after {
+    content: "";
+    margin: auto;
+    width: 30px;
+    height: 1.75px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #000;
+    opacity: 0.2;
+    font-size: 1rem;
+  }
 `;
 
 const H1 = styled.h1<Props>`
   ${Basics}
-  font-family: ${(props) =>
-    props.variant === "h1_large" && `"Saira Condensed", sans-serif`};
-  font-size: ${(props) =>
-    props.variant === "h1_large" ? "1.75rem" : "1.25rem"};
-  font-weight: ${(props) => (props.variant === "h1_large" ? 700 : 600)};
+  /* font-family: "Saira Condensed", sans-serif; */
+  font-size: 1.125rem;
+  font-weight: 500;
 `;
 
 const P = styled.p<Props>`

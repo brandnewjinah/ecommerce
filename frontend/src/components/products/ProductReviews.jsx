@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 //import components
 import { Button } from "../Button";
-import Header from "../Header";
+import Header from "../Header2";
 import { primaryColor } from "../token";
 
 const ProductReview = ({ title }) => {

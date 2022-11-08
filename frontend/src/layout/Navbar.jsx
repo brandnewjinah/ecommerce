@@ -12,15 +12,16 @@ import UserDropdown from "./components/UserDropdown";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
+import { signout } from "../redux/authRedux";
 
 const Navbar = ({ open, handleOpen }) => {
   const dispatch = useDispatch();
   const [userHover, setUserHover] = useState(false);
-  const { currentUser } = useSelector((state) => state.auth);
+  const { currentUser, status } = useSelector((state) => state.auth);
   const totalQty = useSelector((state) => state.cart.totalQty);
 
   const handleLogOut = () => {
-    console.log("logout");
+    dispatch(signout());
   };
 
   return (
@@ -39,17 +40,19 @@ const Navbar = ({ open, handleOpen }) => {
             </li>
             <NavLinks handleClick={() => handleOpen(false)} />
             <li className="mobileUser" onClick={() => handleOpen(false)}>
-              {currentUser ? (
-                <Link to="/profile">Hi, {currentUser.name}</Link>
+              {status === 0 && currentUser.name === "" ? (
+                <Link to="/login">Login</Link>
               ) : (
-                <Link to="/signin">Login</Link>
+                <Link to="/profile">Hi, {currentUser.name}</Link>
               )}
             </li>
           </ul>
         </Center>
         <Right>
           <div className="userWrapper">
-            {currentUser ? (
+            {status === 0 && currentUser.name === "" ? (
+              <Link to="/login">Login</Link>
+            ) : (
               <div
                 className="user"
                 onMouseOver={() => setUserHover(true)}
@@ -59,8 +62,6 @@ const Navbar = ({ open, handleOpen }) => {
                 <ChevronDown width={20} height={20} color="#000" stroke={2} />
                 {userHover && <UserDropdown handleLogOut={handleLogOut} />}
               </div>
-            ) : (
-              <Link to="/signin">Login</Link>
             )}
           </div>
           <Link to="/wishlist">

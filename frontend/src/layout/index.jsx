@@ -39,11 +39,14 @@ const Wrapper = styled.div`
 `;
 
 const Main = styled.main`
-  max-width: ${(props) => (props.path !== "home" ? size.xl : "none")};
+  max-width: ${(props) => props.path !== "home" && size.xl};
   margin: 0 auto;
+  padding-top: ${(props) => props.path !== "home" && "4rem"};
   padding-bottom: 298px;
 
   @media ${breakpoint.lg} {
+    padding-left: 1rem;
+    padding-right: 1rem;
     padding-bottom: 900px;
   }
 `;
