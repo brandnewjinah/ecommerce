@@ -3,29 +3,29 @@ import { useLocation, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 //components
-import Breadcrumbs from "../components/Breadcrumbs";
-import Counter from "../components/Counter";
-import { Button } from "../components/Button";
-import SimilarItems from "../components/products/SimilarItems";
-import InfoItem from "../components/products/ProductInfoItem";
-import Reviews from "../components/products/ProductReviews";
-import Loading from "../components/Loading";
-import ErrorMessage from "../components/ErrorMessage";
+import Breadcrumbs from "../../components/Breadcrumbs";
+import Counter from "../../components/Counter";
+import { Button } from "../../components/Button";
+import SimilarItems from "../../components/products/SimilarItems";
+import { InfoItem } from "./ProductInfoItem";
+import Reviews from "../../components/products/ProductReviews";
+import Loading from "../../components/Loading";
+import ErrorMessage from "../../components/ErrorMessage";
 
 //token and imgs
-import { breakpoint, primaryColor } from "../components/token";
-import { Heart } from "../assets/Icon";
+import { breakpoint, primaryColor } from "../../components/token";
+import { Heart } from "../../assets/Icon";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { getProductDetail } from "../redux/productDetailRedux";
-import { addToCart } from "../redux/cartRedux";
+import { getProductDetail } from "../../redux/productDetailRedux";
+import { addToCart } from "../../redux/cartRedux";
 import {
   addToWishlist,
   removeFromWishlist,
   getWishlist,
-} from "../redux/wishlistRedux";
-import { publicRequest } from "../api";
+} from "../../redux/wishlistRedux";
+import { publicRequest } from "../../api";
 
 const Detail = () => {
   const history = useHistory();

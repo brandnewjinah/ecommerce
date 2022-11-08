@@ -3,16 +3,16 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { neutral, breakpoint, fontSize } from "./token";
 
-const Breadcrumbs = ({ item1, item2 }) => {
+const Breadcrumbs = ({ category1, category2 }) => {
   return (
     <Container>
-      <Link to={`/products/${item1 && item1.value}`}>
-        {item1 && item1.value}
+      <Link to={`/category/${category1 && category1.value}`}>
+        {category1 && category1.value}
       </Link>
       <span className="divider" aria-hidden="true">
         /
       </span>
-      <span>{item2 && item2.value}</span>
+      <span>{category2 && category2.value}</span>
     </Container>
   );
 };

@@ -40,6 +40,7 @@ const Wrapper = styled.div`
 
 const Main = styled.main`
   max-width: ${(props) => (props.path !== "home" ? size.xl : "none")};
+  margin: 0 auto;
   padding-bottom: 298px;
 
   @media ${breakpoint.lg} {

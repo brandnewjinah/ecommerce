@@ -6,11 +6,17 @@ export interface Props {
   margin?: string;
   justifyContent?: string;
   gap?: string;
+  className?: string;
 }
 
-export const Section: FC<Props> = ({ padding, margin, children }) => {
+export const Section: FC<Props> = ({
+  padding,
+  margin,
+  className,
+  children,
+}) => {
   return (
-    <SectionWrapper padding={padding} margin={margin}>
+    <SectionWrapper padding={padding} margin={margin} className={className}>
       {children}
     </SectionWrapper>
   );

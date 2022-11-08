@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Facebook, Instagram, Twitter, Youtube } from "../assets/Icon";
 
 //comp
-import { Div, Flex } from "../components/containers/Divs";
+import { Div, Flex } from "../components/containers/Div";
 import Grid from "../components/containers/Grid";
 import { Body } from "../components/Text";
 import { neutral, breakpoint, size, fontSize } from "../components/token";

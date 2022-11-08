@@ -108,37 +108,6 @@ const Container = styled.div<Props>`
   }
 `;
 
-const InputContainer = styled.div`
-  display: flex;
-  align-items: center;
-  height: 3rem;
-  border: 1px solid #d2d2d7;
-  background-color: rgba(255, 255, 255, 0.8);
-
-  &:focus-within {
-    box-shadow: 0 0 0 4px rgba(0, 125, 250, 0.6);
-    border-radius: 0.35rem;
-  }
-
-  input {
-    width: 100%;
-    border: none;
-    font-size: ${fontSize.base};
-    text-align: ${(props) => (props.prefix ? "left" : "right")};
-    padding: ${(props) => (props.prefix ? "0 0.25rem 0 0" : "0 1rem")};
-
-    &:focus {
-      outline: none;
-    }
-  }
-
-  .prefix,
-  .suffix {
-    font-size: ${fontSize.sm2};
-    padding: 0.75rem;
-  }
-`;
-
 const InputTag = styled.input`
   width: 100%;
   font-size: ${fontSize.base};

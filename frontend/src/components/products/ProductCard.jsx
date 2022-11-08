@@ -7,7 +7,7 @@ import { TextButton } from "../Button";
 import { neutral, breakpoint, primaryColor } from "../token";
 import { ImageIcon } from "../../assets/Icon";
 import { Body } from "../Text";
-import { Div } from "../containers/Divs";
+import { Div } from "../containers/Div";
 
 //redux
 import { useDispatch } from "react-redux";
@@ -39,7 +39,7 @@ const ProductCard = ({
 
   return (
     <Wrapper>
-      <Link to={{ pathname: `/product/${sku}`, state: { _id } }}>
+      <Link to={{ pathname: `/products/${_id}`, state: { _id } }}>
         {/* <ImageContainer>
           {imgErr ? (
             <ErrImg>

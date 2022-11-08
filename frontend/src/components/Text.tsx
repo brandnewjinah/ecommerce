@@ -4,7 +4,8 @@ import styled, { css } from "styled-components";
 interface Props {
   type?: "heading" | "body" | undefined;
   variant?:
-    | "h1"
+    | "h1_large"
+    | "h1_medium"
     | "h2"
     | "h3"
     | "body_large"
@@ -14,6 +15,7 @@ interface Props {
     | "custom"
     | undefined;
   size?: string;
+  lineHeight?: string;
   bold?: "bold" | "extrabold" | undefined;
   uppercase?: boolean;
   capitalize?: boolean;
@@ -26,6 +28,7 @@ interface Props {
 }
 
 export const Heading: FC<Props> = ({
+  variant,
   padding,
   uppercase,
   spacing,
@@ -33,7 +36,13 @@ export const Heading: FC<Props> = ({
   children,
 }) => {
   return (
-    <H1 color={color} uppercase={uppercase} spacing={spacing} padding={padding}>
+    <H1
+      variant={variant}
+      color={color}
+      uppercase={uppercase}
+      spacing={spacing}
+      padding={padding}
+    >
       {children}
     </H1>
   );
@@ -43,6 +52,7 @@ export const Body: FC<Props> = ({
   className,
   variant,
   size,
+  lineHeight,
   bold,
   padding,
   uppercase,
@@ -57,6 +67,7 @@ export const Body: FC<Props> = ({
       className={className}
       variant={variant}
       size={size}
+      lineHeight={lineHeight}
       bold={bold}
       uppercase={uppercase}
       capitalize={capitalize}
@@ -79,9 +90,11 @@ const Basics = css<Props>`
 
 const H1 = styled.h1<Props>`
   ${Basics}
-  font-family: "Saira Condensed", sans-serif;
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-family: ${(props) =>
+    props.variant === "h1_large" && `"Saira Condensed", sans-serif`};
+  font-size: ${(props) =>
+    props.variant === "h1_large" ? "1.75rem" : "1.25rem"};
+  font-weight: ${(props) => (props.variant === "h1_large" ? 700 : 600)};
 `;
 
 const P = styled.p<Props>`
@@ -99,10 +112,12 @@ const P = styled.p<Props>`
       ? props.size
       : "16px"};
   line-height: ${(props) =>
-    props.variant === "body_large"
+    props.lineHeight
+      ? props.lineHeight
+      : props.variant === "body_large"
       ? "1.625rem"
       : props.variant === "body_small"
-      ? "1.35rem"
+      ? "1rem"
       : props.variant === "body_xsmall"
       ? "1.25rem"
       : props.variant === "caption"

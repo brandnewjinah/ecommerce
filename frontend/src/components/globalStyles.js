@@ -32,6 +32,50 @@ const GlobalStyle = createGlobalStyle`
         color: inherit;
         cursor: pointer;
     }
+
+    .flexHalf {
+    flex: 0.5;
+  }
+
+  .flexOne {
+    flex: 1;
+  }
+
+  .flexTwo {
+    flex: 2;
+  }
+
+  .flexThree {
+    flex: 3;
+  }
+
+  .flexFour {
+    flex: 4;
+  }
+
+  .flexFive {
+    flex: 5;
+  }
+
+  .flexSix {
+    flex: 6;
+  }
+
+  .flexSeven {
+    flex: 7;
+  }
+
+  .flexEight {
+    flex: 8;
+  }
+
+  .flexNine {
+    flex: 9;
+  }
+
+  .flexTen {
+    flex: 10;
+  }
     
     @media ${breakpoint.lg} {
     

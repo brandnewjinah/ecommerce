@@ -10,7 +10,7 @@ import "swiper/components/navigation/navigation.scss";
 //Components
 import Card from "./ProductCard";
 import Header from "../Header";
-import { Div } from "../containers/Divs";
+import { Div } from "../containers/Div";
 import Loading from "../Loading";
 
 SwiperCore.use([Navigation]);

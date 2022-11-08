@@ -1,3 +1,7 @@
+export interface GenericIF {
+  [key: string]: string | undefined;
+}
+
 export interface BaseObjectIF {
   _id?: string;
   id: number;

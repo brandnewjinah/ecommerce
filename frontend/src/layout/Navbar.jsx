@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 //comp
-import { Flex } from "../components/containers/Divs";
+import { Flex } from "../components/containers/Div";
 import { neutral, size, breakpoint } from "../components/token";
 import { Cart, ChevronDown, Heart } from "../assets/Icon";
 import NavLinks from "./components/NavLinks";

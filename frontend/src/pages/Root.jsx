@@ -4,7 +4,7 @@ import Helmet from "react-helmet";
 import styled from "styled-components";
 
 //import components
-import { FlexDiv } from "../components/containers/Divs";
+import { FlexDiv } from "../components/containers/Div";
 import { Button } from "../components/Button";
 
 //token

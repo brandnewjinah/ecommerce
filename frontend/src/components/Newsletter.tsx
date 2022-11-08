@@ -4,9 +4,9 @@ import React, { useState, useEffect, ChangeEvent, KeyboardEvent } from "react";
 import Header from "./Header";
 import { Body } from "./Text";
 import { TextInput } from "./TextInput";
-import { Flex } from "./containers/Divs";
-import { Button, IconButton } from "./Button";
-import { neutral, primaryColor } from "./token";
+import { Flex } from "./containers/Div";
+import { IconButton } from "./Button";
+import { neutral } from "./token";
 import { ChevronRight } from "../assets/Icon";
 
 //redux
@@ -38,7 +38,6 @@ const Newsletter = () => {
   );
 
   //actions after submitting data
-
   useEffect(() => {
     if (status === 201) {
       alert("You're subscribed!");
@@ -49,7 +48,7 @@ const Newsletter = () => {
       dispatch(reset());
       window.location.reload();
     }
-  }, [dispatch, status, email]);
+  }, [dispatch, status, message]);
 
   return (
     <Flex

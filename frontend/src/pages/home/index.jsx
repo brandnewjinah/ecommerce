@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import Hero from "../../components/Hero";
 import ProductSlider from "../../components/products/ProductSlider";
 import Newsletter from "../../components/Newsletter";
-import { Div, Flex } from "../../components/containers/Divs";
+import { Div, Flex } from "../../components/containers/Div";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";

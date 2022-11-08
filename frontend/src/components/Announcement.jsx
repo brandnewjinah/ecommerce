@@ -4,7 +4,7 @@ import { neutral } from "./token";
 //redux
 import { useDispatch } from "react-redux";
 import { getAnnouncements } from "../redux/announcementRedux";
-import { Flex } from "./containers/Divs";
+import { Flex } from "./containers/Div";
 import { Body } from "./Text";
 
 const Announcement = () => {

@@ -10,7 +10,7 @@ import Layout from "../layout/components/Layout";
 import Home from "../pages/home";
 import Auth from "../pages/Auth";
 import Wishlist from "../pages/Wishlist";
-import Detail from "../pages/ProductDetail";
+import Detail from "../pages/products/ProductDetail";
 import Cart from "../pages/Cart";
 import Checkout from "../pages/Checkout";
 import Confirmation from "../pages/OrderConfirmation";
