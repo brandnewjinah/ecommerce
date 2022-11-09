@@ -4,9 +4,11 @@ import { useParams } from "react-router-dom";
 //comp
 import Loading from "../../components/Loading";
 import Breadcrumbs from "../../components/Breadcrumbs";
+import SimilarItems from "../../components/products/SimilarItems";
+import Reviews from "../../components/products/ProductReviews";
 import { Flex } from "../../components/containers/Div";
-import ImageContainer from "../../components/ImageContainer";
 import { Section } from "../../components/containers/Section";
+import ImageContainer from "../../components/ImageContainer";
 import { InfoItem, ProductInfo } from "./ProductInfoItem";
 import Counter from "../../components/Counter";
 import { Button } from "../../components/Button";
@@ -15,8 +17,12 @@ import { Heart } from "../../assets/Icon";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { getProductDetails } from "../../redux/productDetailRedux";
+import {
+  getProductDetails,
+  getSimilarProducts,
+} from "../../redux/productDetailRedux";
 import { RootState } from "../../redux/store";
+import { getWishlist } from "../../redux/wishlistRedux";
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
@@ -27,8 +33,21 @@ const ProductDetail = () => {
     dispatch(getProductDetails(productId!));
   }, [dispatch, productId]);
 
-  const productDetail = useSelector((state: RootState) => state.productDetail);
-  const { isLoading, productDetails } = productDetail;
+  const { isLoading, productDetails } = useSelector(
+    (state: RootState) => state.productDetail
+  );
+  const product = productDetails.product;
+
+  //get similar products
+  useEffect(() => {
+    dispatch(
+      getSimilarProducts({ productId, categoryId: product.category2.id })
+    );
+  }, [dispatch, productId, product.category2._id]);
+
+  const { similarProducts } = useSelector(
+    (state: RootState) => state.productDetail
+  );
 
   //add to cart
   const [qty, setQty] = useState(1);
@@ -46,11 +65,13 @@ const ProductDetail = () => {
     dispatch(getWishlist());
   }, [dispatch]);
 
-  const { products } = useSelector((state: RootState) => state.wishlist);
+  // const { products } = useSelector(
+  //   (state: RootState) => state.wishlist.products
+  // );
 
-  const isWishlist =
-    products &&
-    products.find((item) => item.product._id === productDetails._id);
+  // const isWishlist =
+  //   products &&
+  //   products.find((item) => item.product._id === productDetails._id);
 
   const handleWishlist = () => {
     // if (isWishlist) {
@@ -69,18 +90,15 @@ const ProductDetail = () => {
   ) : (
     <>
       <Breadcrumbs
-        category1={productDetails.category1}
-        category2={productDetails.category2}
+        category1={product.category1}
+        category2={product.category2}
       />
       <Flex bgColor="honeydew" gap="3rem" lgFlexCol>
-        <ImageContainer imgUrl={productDetails.img} />
+        <ImageContainer imgUrl={product.img} />
         <Section className="flexOne">
-          <InfoItem
-            overline={productDetails.brand}
-            title={productDetails.name}
-          />
-          <ProductInfo helper="Price" subtitle={`$${productDetails.price}`} />
-          <ProductInfo helper="Size" subtitle={productDetails.size} />
+          <InfoItem overline={product.brand} title={product.name} />
+          <ProductInfo helper="Price" subtitle={`$${product.price}`} />
+          <ProductInfo helper="Size" subtitle={product.size} />
           <ProductInfo
             helper="Description"
             body="dLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
@@ -111,7 +129,7 @@ const ProductDetail = () => {
                   width={20}
                   height={20}
                   color="#002C66"
-                  fill={isWishlist ? "#002C66" : "none"}
+                  // fill={isWishlist ? "#002C66" : "none"}
                   stroke={2}
                 />
               }
@@ -120,6 +138,16 @@ const ProductDetail = () => {
           </Flex>
         </Section>
       </Flex>
+      <Section>
+        {similarProducts.status === 200 && similarProducts.products.length > 0 && (
+          <SimilarItems
+            title="Similar Items"
+            data={similarProducts.products}
+            slidesPerView={undefined} // slidesPerView={{ small: 2, medium: 3, large: 3 }}
+          />
+        )}
+      </Section>
+      <Reviews title="Reviews" />
     </>
   );
 };

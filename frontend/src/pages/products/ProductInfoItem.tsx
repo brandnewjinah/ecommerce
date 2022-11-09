@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { Body, Heading } from "../../components/Text";
+import { Body, Header, Heading } from "../../components/Text";
 
 //token
 import { neutral, fontSize } from "../../components/token";
@@ -21,7 +21,7 @@ export const InfoItem: FC<Props> = ({ overline, title, children }) => {
           {overline}
         </Body>
       )}
-      {title && <Heading>{title}</Heading>}
+      {title && <Header variant="h1">{title}</Header>}
       {children && children}
     </Article>
   );

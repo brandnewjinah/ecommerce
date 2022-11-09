@@ -9,6 +9,7 @@ export interface Props {
   gap?: string;
   width?: string;
   maxWidth?: string;
+  lgMaxWidth?: string;
   bgColor?: string;
   padding?: string;
   lgPadding?: string;
@@ -54,6 +55,7 @@ export const Flex: FC<Props> = ({
   gap,
   width,
   maxWidth,
+  lgMaxWidth,
   bgColor,
   padding,
   lgPadding,
@@ -68,6 +70,7 @@ export const Flex: FC<Props> = ({
       gap={gap}
       width={width}
       maxWidth={maxWidth}
+      lgMaxWidth={lgMaxWidth}
       bgColor={bgColor}
       padding={padding}
       lgPadding={lgPadding}
@@ -93,6 +96,7 @@ const FlexWrapper = styled.div<Props>`
 
   @media ${breakpoint.lg} {
     flex-direction: ${(props) => props.lgFlexCol && "column"};
+    max-width: ${(props) => props.lgMaxWidth && props.lgMaxWidth};
     padding: ${(props) => props.lgPadding && props.lgPadding};
   }
 `;

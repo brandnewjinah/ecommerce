@@ -68,7 +68,7 @@ export const getSimilarProducts = async (req, res) => {
     const products = await Product.find({
       "category2.id": similar,
       _id: { $ne: _id },
-    }).limit(3);
+    }).limit(4);
     res.status(200).json(products);
   } catch (error) {
     res.status(404).json({ message: error.message });

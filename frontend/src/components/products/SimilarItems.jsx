@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "../Header2";
+import { Flex } from "../containers/Div";
+import { Heading } from "../Text";
 
 //import components
 import Card from "./ProductCard";
@@ -8,8 +9,8 @@ import Card from "./ProductCard";
 const SimilarItems = ({ data, title, slidesPerView }) => {
   return (
     <Container>
-      <Header title={title} />
-      <ProductsWrapper>
+      <Heading title={title} />
+      <Flex gap="1rem" maxWidth="70%" lgMaxWidth="100%" margin="0 auto">
         {data.map((product) => (
           <Card
             key={product.sku}
@@ -21,7 +22,7 @@ const SimilarItems = ({ data, title, slidesPerView }) => {
             _id={product._id}
           />
         ))}
-      </ProductsWrapper>
+      </Flex>
     </Container>
   );
 };
@@ -29,13 +30,6 @@ const SimilarItems = ({ data, title, slidesPerView }) => {
 const Container = styled.section`
   padding: 2rem 0;
   margin: 2rem 0;
-`;
-
-const ProductsWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
 `;
 
 export default SimilarItems;

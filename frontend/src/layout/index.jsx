@@ -41,6 +41,8 @@ const Wrapper = styled.div`
 const Main = styled.main`
   max-width: ${(props) => props.path !== "home" && size.xl};
   margin: 0 auto;
+  padding-left: ${(props) => props.path !== "home" && "1rem"};
+  padding-right: ${(props) => props.path !== "home" && "1rem"};
   padding-top: ${(props) => props.path !== "home" && "4rem"};
   padding-bottom: 298px;
 

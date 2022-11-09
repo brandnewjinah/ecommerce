@@ -22,7 +22,7 @@ const Home = () => {
   return (
     <Div width="100%">
       <Hero />
-      <Flex flexCol gap="4rem" width="100%" padding="4rem 0 2rem">
+      <Flex flexCol gap="4rem" width="100%" padding="4rem 1rem 2rem">
         <ProductSlider
           isLoading={isLoading}
           title="New Products"

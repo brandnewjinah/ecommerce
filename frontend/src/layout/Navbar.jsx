@@ -26,7 +26,7 @@ const Navbar = ({ open, handleOpen }) => {
 
   return (
     <Header>
-      <Flex width={size.xl} margin="0 auto">
+      <Flex width={size.xl} padding="0 1rem" margin="0 auto">
         <Left>
           <Link to="/home">sweet</Link>
         </Left>
@@ -104,7 +104,6 @@ const Header = styled.header`
   text-transform: uppercase;
   text-align: center;
   border-bottom: 1px solid ${neutral[100]};
-  padding: 0 1rem;
 `;
 
 const Left = styled.div`
