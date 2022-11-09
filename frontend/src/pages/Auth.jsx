@@ -106,6 +106,7 @@ const Auth = () => {
 
     if (status === 200) {
       navigate("/home");
+      // window.location.reload();
     }
   }, [status, message, currentUser, dispatch]);
 

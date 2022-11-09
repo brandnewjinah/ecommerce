@@ -18,9 +18,9 @@ import orderDetailReducer from "./orderDetailRedux";
 import productReducer from "./productRedux";
 import productListReducer from "./productListRedux";
 import productDetailReducer from "./productDetailRedux";
-import wishlistReducer from "./wishlistRedux";
 import announcementReducer from "./announcementRedux";
 import subscriberReducer from "./subscriberRedux";
+import wishlistReducer from "./wishlistRedux";
 
 const persistConfig = {
   key: "root",
@@ -36,9 +36,9 @@ const rootReducer = combineReducers({
   productDetail: productDetailReducer,
   order: orderReducer,
   orderDetail: orderDetailReducer,
-  wishlist: wishlistReducer,
   announce: announcementReducer,
   subscriber: subscriberReducer,
+  wishlist: wishlistReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

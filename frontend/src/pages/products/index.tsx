@@ -28,7 +28,7 @@ const ProductDetail = () => {
   const dispatch = useDispatch();
   const { productId } = useParams<{ productId: string }>();
 
-  //get product details
+  //product details
   useEffect(() => {
     dispatch(getProductDetails(productId!));
   }, [dispatch, productId]);
@@ -38,7 +38,7 @@ const ProductDetail = () => {
   );
   const product = productDetails.product;
 
-  //get similar products
+  //similar products
   useEffect(() => {
     dispatch(
       getSimilarProducts({ productId, categoryId: product.category2.id })
@@ -60,30 +60,21 @@ const ProductDetail = () => {
 
   const handleAddToCart = () => {};
 
-  //handle wishlist
+  //wishlist
   useEffect(() => {
-    dispatch(getWishlist());
-  }, [dispatch]);
+    dispatch(getWishlist(""));
+  }, []);
 
-  // const { products } = useSelector(
-  //   (state: RootState) => state.wishlist.products
-  // );
+  const { products } = useSelector(
+    (state: RootState) => state.wishlist.wishlist
+  );
 
-  // const isWishlist =
-  //   products &&
-  //   products.find((item) => item.product._id === productDetails._id);
+  const isWishlist =
+    products &&
+    products.length > 0 &&
+    products.find((item) => item.product._id === product._id);
 
-  const handleWishlist = () => {
-    // if (isWishlist) {
-    //   dispatch(removeFromWishlist(product._id));
-    // } else {
-    //   currentUser && currentUser.token
-    //     ? dispatch(addToWishlist(product._id))
-    //     : history.push(`/signin?redirectTo=product/${product.sku}`, {
-    //         _id: product._id,
-    //       });
-    // }
-  };
+  const handleWishlist = () => {};
 
   return isLoading ? (
     <Loading />
@@ -129,7 +120,7 @@ const ProductDetail = () => {
                   width={20}
                   height={20}
                   color="#002C66"
-                  // fill={isWishlist ? "#002C66" : "none"}
+                  fill={isWishlist ? "#002C66" : "none"}
                   stroke={2}
                 />
               }

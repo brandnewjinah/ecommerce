@@ -1,5 +1,26 @@
 import Wishlist from "../models/wishlist.js";
 
+// get all wishlist products that belong to one user "/"
+export const getWishlist = async (req, res) => {
+  const user = req.user._id;
+
+  try {
+    Wishlist.findOne({ user })
+      .populate("products.product")
+      .exec((error, wishlist) => {
+        if (error) {
+          res.status(400).json(error);
+        } else if (!wishlist) {
+          res.status(400).json({ message: "Wishlist empty" });
+        } else {
+          res.status(200).json(wishlist);
+        }
+      });
+  } catch (error) {
+    return error;
+  }
+};
+
 // add to wishlist "wishlist/addToWishlist?productId=${productId}""
 
 export const addToWishlist = async (req, res) => {
@@ -35,29 +56,6 @@ export const addToWishlist = async (req, res) => {
       });
   } catch (error) {
     res.status(500).json(error);
-  }
-};
-
-// get all wishlist products that belong to one user "/"
-export const getWishlist = async (req, res) => {
-  const user = req.user._id;
-
-  try {
-    Wishlist.findOne({ user })
-      .populate("products.product")
-      .exec((error, wishlist) => {
-        if (error) {
-          res.status(400).json(error);
-        } else {
-          if (!wishlist) {
-            res.status(400).json(error);
-          } else {
-            res.status(200).json(wishlist);
-          }
-        }
-      });
-  } catch (error) {
-    return error;
   }
 };
 
