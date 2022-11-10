@@ -8,6 +8,7 @@ import Home from "./pages/home";
 import Auth from "./pages/Auth";
 import Products from "./pages/category";
 import ProductDetail from "./pages/products";
+import Cart from "./pages/cart/Cart";
 
 const Routes = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const Routes = createBrowserRouter([
       {
         path: "/products/:productId",
         element: <ProductDetail />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
       },
     ],
   },

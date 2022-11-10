@@ -43,7 +43,8 @@ const Main = styled.main`
   margin: 0 auto;
   padding-left: ${(props) => props.path !== "home" && "1rem"};
   padding-right: ${(props) => props.path !== "home" && "1rem"};
-  padding-top: ${(props) => props.path !== "home" && "4rem"};
+  padding-top: ${(props) =>
+    props.path === "home" ? "0" : props.path === "products" ? "2rem" : "4rem"};
   padding-bottom: 298px;
 
   @media ${breakpoint.lg} {

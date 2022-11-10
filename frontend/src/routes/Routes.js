@@ -11,7 +11,7 @@ import Home from "../pages/home";
 import Auth from "../pages/Auth";
 import Wishlist from "../pages/Wishlist";
 import Detail from "../pages/products/ProductDetail";
-import Cart from "../pages/Cart";
+import Cart from "../pages/cart/Cart";
 import Checkout from "../pages/Checkout";
 import Confirmation from "../pages/OrderConfirmation";
 import ProductList from "../pages/ProductList";

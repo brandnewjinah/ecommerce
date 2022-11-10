@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 //comp
 import Loading from "../../components/Loading";
@@ -17,14 +17,20 @@ import { Heart } from "../../assets/Icon";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 import {
   getProductDetails,
   getSimilarProducts,
 } from "../../redux/productDetailRedux";
-import { RootState } from "../../redux/store";
-import { getWishlist } from "../../redux/wishlistRedux";
+import {
+  addToWishlist,
+  getWishlist,
+  removeFromWishlist,
+} from "../../redux/wishlistRedux";
+import { addToCart } from "../../redux/cart";
 
 const ProductDetail = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { productId } = useParams<{ productId: string }>();
 
@@ -39,6 +45,7 @@ const ProductDetail = () => {
   const product = productDetails.product;
 
   //similar products
+
   useEffect(() => {
     dispatch(
       getSimilarProducts({ productId, categoryId: product.category2.id })
@@ -58,12 +65,16 @@ const ProductDetail = () => {
     }
   };
 
-  const handleAddToCart = () => {};
+  const handleAddToCart = () => {
+    dispatch(addToCart({ productId, qty }));
+  };
 
   //wishlist
+  const { token } = useSelector((state: RootState) => state.auth.currentUser);
+
   useEffect(() => {
     dispatch(getWishlist(""));
-  }, []);
+  }, [dispatch]);
 
   const { products } = useSelector(
     (state: RootState) => state.wishlist.wishlist
@@ -74,7 +85,17 @@ const ProductDetail = () => {
     products.length > 0 &&
     products.find((item) => item.product._id === product._id);
 
-  const handleWishlist = () => {};
+  const handleWishlist = () => {
+    if (isWishlist) {
+      dispatch(removeFromWishlist(productId!));
+    } else {
+      token && token !== ""
+        ? dispatch(addToWishlist(productId!))
+        : navigate(`/login?redirectTo=products/${productId}`, {
+            state: { _id: productId },
+          });
+    }
+  };
 
   return isLoading ? (
     <Loading />

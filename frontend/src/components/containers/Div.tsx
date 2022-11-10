@@ -5,6 +5,7 @@ import { breakpoint } from "../token";
 export interface Props {
   flexCol?: boolean;
   lgFlexCol?: boolean;
+  alignItems?: string;
   justifyContent?: string;
   gap?: string;
   width?: string;
@@ -19,6 +20,7 @@ export interface Props {
 export const Div: FC<Props> = ({
   maxWidth,
   width,
+  bgColor,
   padding,
   lgPadding,
   margin,
@@ -28,6 +30,7 @@ export const Div: FC<Props> = ({
     <Wrapper
       maxWidth={maxWidth}
       width={width}
+      bgColor={bgColor}
       padding={padding}
       lgPadding={lgPadding}
       margin={margin}
@@ -40,6 +43,7 @@ export const Div: FC<Props> = ({
 const Wrapper = styled.div<Props>`
   width: ${(props) => props.width && props.width};
   max-width: ${(props) => props.maxWidth && props.maxWidth};
+  background-color: ${(props) => props.bgColor && props.bgColor};
   padding: ${(props) => props.padding && props.padding};
   margin: ${(props) => props.margin && props.margin};
 
@@ -51,6 +55,7 @@ const Wrapper = styled.div<Props>`
 export const Flex: FC<Props> = ({
   flexCol,
   lgFlexCol,
+  alignItems,
   justifyContent,
   gap,
   width,
@@ -66,6 +71,7 @@ export const Flex: FC<Props> = ({
     <FlexWrapper
       flexCol={flexCol}
       lgFlexCol={lgFlexCol}
+      alignItems={alignItems}
       justifyContent={justifyContent}
       gap={gap}
       width={width}
@@ -86,7 +92,7 @@ const FlexWrapper = styled.div<Props>`
   flex-direction: ${(props) => props.flexCol && "column"};
   justify-content: ${(props) =>
     props.justifyContent ? props.justifyContent : "space-between"};
-  align-items: center;
+  align-items: ${(props) => (props.alignItems ? props.alignItems : "center")};
   gap: ${(props) => props.gap && props.gap};
   width: ${(props) => props.width && props.width};
   max-width: ${(props) => props.maxWidth && props.maxWidth};

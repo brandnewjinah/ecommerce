@@ -1,21 +1,21 @@
 import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 //import components
-import { Header } from "../layout/Header";
-import CartItem from "../components/cart/CartItem";
-import CartSummary from "../components/cart/CartSummary";
-import { Button } from "../components/Button";
-import ProductSlider from "../components/products/ProductSlider";
-import { breakpoint, primaryColor } from "../components/token";
+import { Header } from "../../layout/Header";
+import CartItem from "./CartItem";
+import CartSummary from "../../components/cart/CartSummary";
+import { Button } from "../../components/Button";
+import ProductSlider from "../../components/products/ProductSlider";
+import { breakpoint, primaryColor } from "../../components/token";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { getNewProducts } from "../redux/productRedux";
+import { getNewProducts } from "../../redux/productRedux";
 
 const Cart = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
   const auth = useSelector((state) => state.auth);
 
@@ -31,12 +31,12 @@ const Cart = () => {
 
   const handleClick = (path) => {
     path === "checkout" && loggedIn
-      ? history.push("/checkout")
-      : history.push("/signin?redirectTo=checkout");
+      ? navigate("/checkout")
+      : navigate("/signin?redirectTo=checkout");
   };
 
   const handleClickShop = () => {
-    history.push("/products/all");
+    navigate("/products/all");
   };
 
   return (

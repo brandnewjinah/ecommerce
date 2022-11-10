@@ -3,19 +3,19 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 
 //import components
-import Counter from "../Counter";
+import Counter from "../../components/Counter";
 
 //icons
 import { Close } from "../../assets/Icon";
 
 //import redux
-import { breakpoint, neutral, fontSize } from "../token";
+import { breakpoint, neutral, fontSize } from "../../components/token";
 import {
   decreaseQty,
   increaseQty,
   removeFromCart,
 } from "../../redux/cartRedux";
-import Text from "../Text";
+import { Body } from "../../components/Text";
 
 const CartItem = ({ data }) => {
   const dispatch = useDispatch();
@@ -38,11 +38,11 @@ const CartItem = ({ data }) => {
       </Preview>
       <Details>
         <ProductDetails>
-          <Text>{data.name}</Text>
-          <Text
+          <Body>{data.name}</Body>
+          <Body
             variant="body_small"
             color={neutral[400]}
-          >{`$${data.price}`}</Text>
+          >{`$${data.price}`}</Body>
         </ProductDetails>
         <Actions>
           <CounterContainer>

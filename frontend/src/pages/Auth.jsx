@@ -22,6 +22,7 @@ import { signin, signup, signout } from "../redux/authRedux";
 const Auth = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  console.log(location);
 
   const [user, setUser] = useState({
     name: "",
@@ -106,7 +107,6 @@ const Auth = () => {
 
     if (status === 200) {
       navigate("/home");
-      // window.location.reload();
     }
   }, [status, message, currentUser, dispatch]);
 
