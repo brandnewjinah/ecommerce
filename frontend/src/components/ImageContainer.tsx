@@ -1,21 +1,20 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
 
 //comp
-import { primaryColor } from "./token";
 import { ImageIcon } from "../assets/Icon";
 
 interface Props {
   imgUrl?: any;
   ratio?: string;
   pathIsTools?: boolean;
+  minWidth?: string;
 }
-const ImageContainer: FC<Props> = ({ imgUrl }) => {
+const ImageContainer: FC<Props> = ({ imgUrl, minWidth }) => {
   return (
     <>
       {imgUrl && imgUrl ? (
-        <Container>
+        <Container minWidth={minWidth}>
           <img src={imgUrl} alt="" />
         </Container>
       ) : (
@@ -30,7 +29,7 @@ const ImageContainer: FC<Props> = ({ imgUrl }) => {
 const Container = styled.div<Props>`
   flex: 1;
   width: 100%;
-  min-width: 430px;
+  min-width: ${(props) => props.minWidth && props.minWidth};
   position: relative;
   max-height: 70vw;
   background-color: yellow;

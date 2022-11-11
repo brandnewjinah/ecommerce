@@ -106,7 +106,7 @@ const ProductDetail = () => {
         category2={product.category2}
       />
       <Flex bgColor="honeydew" gap="3rem" lgFlexCol>
-        <ImageContainer imgUrl={product.img} />
+        <ImageContainer imgUrl={product.img} minWidth="430px" />
         <Section className="flexOne">
           <InfoItem overline={product.brand} title={product.name} />
           <ProductInfo helper="Price" subtitle={`$${product.price}`} />

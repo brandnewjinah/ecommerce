@@ -13,6 +13,7 @@ import CartSummary from "../../components/CartSummary";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { getProducts } from "../../redux/productListRedux";
+import CartItem from "./CartItem";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -28,12 +29,19 @@ const Cart = () => {
   return (
     <>
       {products && products.length > 0 ? (
-        <Flex alignItems="start">
-          <ul className="flexTwo">1</ul>
-          <aside className="flexOne">
-            <CartSummary />
-          </aside>
-        </Flex>
+        <>
+          <Heading title="Your Shopping Bag" />
+          <Flex alignItems="start" gap="4rem">
+            <ul className="flexTwo">
+              {products.map((item, idx) => (
+                <CartItem key={idx} data={item} />
+              ))}
+            </ul>
+            <aside className="flexOne">
+              <CartSummary />
+            </aside>
+          </Flex>
+        </>
       ) : (
         <>
           <Div maxWidth="400px" margin="0 auto">

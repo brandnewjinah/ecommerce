@@ -15,25 +15,28 @@ export interface Props {
   padding?: string;
   lgPadding?: string;
   margin?: string;
+  className?: any;
 }
 
 export const Div: FC<Props> = ({
-  maxWidth,
   width,
+  maxWidth,
   bgColor,
   padding,
   lgPadding,
   margin,
+  className,
   children,
 }) => {
   return (
     <Wrapper
-      maxWidth={maxWidth}
       width={width}
+      maxWidth={maxWidth}
       bgColor={bgColor}
       padding={padding}
       lgPadding={lgPadding}
       margin={margin}
+      className={className}
     >
       {children}
     </Wrapper>
@@ -66,6 +69,7 @@ export const Flex: FC<Props> = ({
   lgPadding,
   margin,
   children,
+  className,
 }) => {
   return (
     <FlexWrapper
@@ -81,6 +85,7 @@ export const Flex: FC<Props> = ({
       padding={padding}
       lgPadding={lgPadding}
       margin={margin}
+      className={className}
     >
       {children}
     </FlexWrapper>
