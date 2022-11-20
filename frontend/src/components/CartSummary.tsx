@@ -39,7 +39,10 @@ const CartSummary: FC<Props> = ({ handleClick }) => {
   }, [products]);
 
   return (
-    <Div bgColor={neutral[50]} padding="1rem 2rem">
+    <Div
+      bgColor={path === "checkout" ? "#fff" : neutral[50]}
+      padding="1rem 2rem"
+    >
       <Div padding="1rem 0">
         <Flex padding=".5rem 0">
           <Body variant="body_small">Subtotal</Body>

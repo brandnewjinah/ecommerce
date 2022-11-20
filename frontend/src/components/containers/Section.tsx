@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 
 export interface Props {
+  bgColor?: string;
   padding?: string;
   margin?: string;
   justifyContent?: string;
@@ -10,6 +11,7 @@ export interface Props {
 }
 
 export const Section: FC<Props> = ({
+  bgColor,
   padding,
   margin,
   gap,
@@ -18,6 +20,7 @@ export const Section: FC<Props> = ({
 }) => {
   return (
     <SectionWrapper
+      bgColor={bgColor}
       gap={gap}
       padding={padding}
       margin={margin}
@@ -29,6 +32,7 @@ export const Section: FC<Props> = ({
 };
 
 const SectionWrapper = styled.section<Props>`
+  background-color: ${(props) => props.bgColor && props.bgColor};
   display: flex;
   flex-direction: column;
   gap: ${(props) => props.gap && props.gap};

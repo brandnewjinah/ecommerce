@@ -11,7 +11,7 @@ import CartSummary from "../components/cart/CartSummary";
 //import redux
 import { placeOrder, resetOrder } from "../redux/orderRedux";
 import { clearCart } from "../redux/cartRedux";
-import Shipping from "./checkout/Shipping";
+import Shipping from "./checkout/Shipping2";
 import Delivery from "./checkout/Delivery";
 import Payment from "./checkout/Payment";
 import { breakpoint } from "../components/token";

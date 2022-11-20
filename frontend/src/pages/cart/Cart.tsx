@@ -8,16 +8,18 @@ import { Button } from "../../components/Button";
 import { Div, Flex } from "../../components/containers/Div";
 import ProductSlider from "../../components/products/ProductSlider";
 import CartSummary from "../../components/CartSummary";
+import CartItem from "./CartItem";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { getProducts } from "../../redux/productListRedux";
-import CartItem from "./CartItem";
 
 const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { currentUser } = useSelector((state: RootState) => state.auth);
+  const loggedIn = currentUser && currentUser.token !== "";
 
   //get cart items
   const { products } = useSelector((state: RootState) => state.cartTest);
@@ -26,19 +28,25 @@ const Cart = () => {
   //     dispatch(getProducts({ category: "new", page: 1 }));
   //   }, [dispatch]);
 
+  const handleClick = (path: string) => {
+    path === "checkout" && loggedIn
+      ? navigate("/checkout")
+      : navigate("/signin?redirectTo=checkout");
+  };
+
   return (
     <>
       {products && products.length > 0 ? (
         <>
           <Heading title="Your Shopping Bag" />
-          <Flex alignItems="start" gap="4rem">
+          <Flex alignItems="start" gap="4rem" padding=" 1rem 0">
             <ul className="flexTwo">
               {products.map((item, idx) => (
                 <CartItem key={idx} data={item} />
               ))}
             </ul>
             <aside className="flexOne">
-              <CartSummary />
+              <CartSummary handleClick={() => handleClick("checkout")} />
             </aside>
           </Flex>
         </>

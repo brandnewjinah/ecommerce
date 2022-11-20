@@ -108,7 +108,9 @@ const InputTag = styled.input<Props>`
   height: 3rem;
   padding: ${(props) =>
     props.type === "search" ? "0 0.875rem 0 2.5rem" : "0.75rem"};
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: ${(props) =>
+    props.removeBorder ? neutral[50] : "rgba(255, 255, 255, 0.8)"};
+  /* background-color: rgba(255, 255, 255, 0.8); */
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;

@@ -15,7 +15,9 @@ export interface Props {
   padding?: string;
   lgPadding?: string;
   margin?: string;
+  pointer?: boolean;
   className?: any;
+  handleClick?: () => void;
 }
 
 export const Div: FC<Props> = ({
@@ -25,8 +27,10 @@ export const Div: FC<Props> = ({
   padding,
   lgPadding,
   margin,
+  pointer,
   className,
   children,
+  handleClick,
 }) => {
   return (
     <Wrapper
@@ -36,7 +40,9 @@ export const Div: FC<Props> = ({
       padding={padding}
       lgPadding={lgPadding}
       margin={margin}
+      pointer={pointer}
       className={className}
+      onClick={handleClick}
     >
       {children}
     </Wrapper>
@@ -49,6 +55,7 @@ const Wrapper = styled.div<Props>`
   background-color: ${(props) => props.bgColor && props.bgColor};
   padding: ${(props) => props.padding && props.padding};
   margin: ${(props) => props.margin && props.margin};
+  cursor: ${(props) => props.pointer && "pointer"};
 
   @media ${breakpoint.lg} {
     padding: ${(props) => props.lgPadding && props.lgPadding};

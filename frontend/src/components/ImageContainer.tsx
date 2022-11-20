@@ -32,8 +32,7 @@ const Container = styled.div<Props>`
   min-width: ${(props) => props.minWidth && props.minWidth};
   position: relative;
   max-height: 70vw;
-  background-color: yellow;
-  margin-bottom: 0.5rem;
+  background-color: #fff;
 
   &:before {
     content: "";

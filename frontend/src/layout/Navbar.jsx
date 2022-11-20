@@ -18,7 +18,7 @@ const Navbar = ({ open, handleOpen }) => {
   const dispatch = useDispatch();
   const [userHover, setUserHover] = useState(false);
   const { currentUser, status } = useSelector((state) => state.auth);
-  const totalQty = useSelector((state) => state.cart.totalQty);
+  const totalQty = useSelector((state) => state.cartTest.totalQty);
 
   const handleLogOut = () => {
     dispatch(signout());

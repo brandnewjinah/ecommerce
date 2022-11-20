@@ -1,5 +1,3 @@
-import { StringLiteral } from "typescript";
-
 export interface AddToCart {
   productId?: string;
   qty?: number;

@@ -23,7 +23,7 @@ interface Props {
   color?: string;
   className?: string;
   title?: string;
-  children?: string | number | undefined;
+  children?: any;
 }
 
 export const Heading: FC<Props> = ({ padding, color, title }) => {
@@ -57,7 +57,7 @@ export const Header: FC<Props> = ({
           {children}
         </H1>
       ) : variant === "h2" ? (
-        <h2>{children}</h2>
+        <H2>{children}</H2>
       ) : variant === "h3" ? (
         <h3>{children}</h3>
       ) : null}
@@ -104,6 +104,18 @@ const Basics = css<Props>`
   letter-spacing: ${(props) => props.spacing && props.spacing};
   text-align: ${(props) => props.align && props.align};
   padding: ${(props) => props.padding};
+
+  .step {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+    color: #fff;
+    border-radius: 50%;
+    width: 1.675rem;
+    height: 1.675rem;
+    margin-right: 0.5rem;
+  }
 `;
 
 const HeadingWrapper = styled.h1<Props>`
@@ -135,6 +147,12 @@ const HeadingWrapper = styled.h1<Props>`
 const H1 = styled.h1<Props>`
   ${Basics}
   /* font-family: "Saira Condensed", sans-serif; */
+  font-size: 1.125rem;
+  font-weight: 500;
+`;
+
+const H2 = styled.h2<Props>`
+  ${Basics}
   font-size: 1.125rem;
   font-weight: 500;
 `;
