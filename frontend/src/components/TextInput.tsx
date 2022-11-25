@@ -60,6 +60,65 @@ export const TextInput: FC<Props> = ({
   );
 };
 
+export interface MaskProps {
+  name: string;
+  mask: string;
+  value: string;
+  error?: string;
+  placeholder?: string;
+  removeBorder?: boolean;
+  onChange: (cleanValue: string, name: string) => void;
+}
+
+export const InputMask: FC<MaskProps> = ({
+  value,
+  mask,
+  name,
+  error,
+  placeholder,
+  onChange,
+  ...rest
+}) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
+    const cleanValue = value.replace(/[^\d]/g, "");
+    onChange(cleanValue, name);
+  };
+
+  const formatValue = (value: string, mask: string) => {
+    let i = 0;
+    let lastReplacedIndex = -1;
+    const filledMask = mask.replace(/#/g, (_, j) => {
+      if (i >= value.length) {
+        return "#";
+      }
+      lastReplacedIndex = j;
+      return value[i++];
+    });
+    return filledMask.substring(0, lastReplacedIndex + 1);
+  };
+
+  return (
+    <Container>
+      <InputTag
+        value={formatValue(value, mask)}
+        name={name}
+        placeholder={placeholder ? placeholder : mask}
+        type="text"
+        inputMode="numeric"
+        pattern="[0-9]*"
+        onChange={handleChange}
+        {...rest}
+      />
+      {error && (
+        <Body variant="caption" color="red">
+          {error}
+        </Body>
+      )}
+    </Container>
+  );
+};
+
 const Container = styled.div<Props>`
   width: 100%;
   position: relative;

@@ -1,13 +1,17 @@
-import React, { FC, useState, ChangeEvent, MouseEvent } from "react";
-import styled from "styled-components";
+import React, { FC, useState, ChangeEvent } from "react";
+
+//comp
 import { Button } from "../../components/Button";
 import { Flex } from "../../components/containers/Div";
 import { Section } from "../../components/containers/Section";
+import Select from "../../components/Select";
 import { Header } from "../../components/Text";
-import { TextInput } from "../../components/TextInput";
+import { InputMask, TextInput } from "../../components/TextInput";
 import { primaryColor } from "../../components/token";
 import { ShippingIF } from "../../interfaces/checkoutInterface";
 import { shippingValidate } from "../../utils/validate";
+
+import { statesList } from "../../data/states";
 
 interface Props {
   step?: number;
@@ -26,13 +30,24 @@ const Shipping: FC<Props> = ({ step, handleStep }) => {
   });
 
   const [errors, setErrors] = useState<ShippingIF>({});
-
+  console.log(shipping);
   //set shipping
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     const userInput = { ...shipping };
     userInput[name as keyof ShippingIF] = value;
     setShipping(userInput);
+  };
+
+  const handleStateSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    let currentShipping = { ...shipping };
+    currentShipping.state = value;
+    setShipping(currentShipping);
+  };
+
+  const numberChanged = (val: string, name: string) => {
+    setShipping({ ...shipping, [name]: val });
   };
 
   const handleNext = () => {
@@ -81,27 +96,30 @@ const Shipping: FC<Props> = ({ step, handleStep }) => {
             onChange={handleInputChange}
           />
           <Flex gap="1rem">
-            <TextInput
-              removeBorder
-              name="state"
-              placeholder="State"
-              error={errors.state}
-              onChange={handleInputChange}
-            />
-            <TextInput
-              removeBorder
-              name="zip"
-              placeholder="Zip Code"
-              error={errors.zip}
-              onChange={handleInputChange}
-            />
+            <div className="flexOne">
+              <Select
+                options={statesList}
+                onChange={handleStateSelect}
+                fullWidth
+              />
+            </div>
+            <div className="flexOne">
+              <TextInput
+                removeBorder
+                name="zip"
+                placeholder="Zip Code"
+                error={errors.zip}
+                onChange={handleInputChange}
+              />
+            </div>
           </Flex>
-          <TextInput
+          <InputMask
             removeBorder
-            name="phone"
+            mask="(###) ###-####"
             placeholder="Phone Number"
-            error={errors.phone}
-            onChange={handleInputChange}
+            name="phone"
+            value={shipping.phone!}
+            onChange={numberChanged}
           />
           <Button
             label="Next"
