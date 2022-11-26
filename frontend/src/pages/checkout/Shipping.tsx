@@ -2,23 +2,34 @@ import React, { FC, useState, ChangeEvent } from "react";
 
 //comp
 import { Button } from "../../components/Button";
-import { Flex } from "../../components/containers/Div";
+import { Div, Flex } from "../../components/containers/Div";
 import { Section } from "../../components/containers/Section";
 import Select from "../../components/Select";
-import { Header } from "../../components/Text";
+import { Body, Header } from "../../components/Text";
 import { InputMask, TextInput } from "../../components/TextInput";
-import { primaryColor } from "../../components/token";
+import { primaryColor, neutral } from "../../components/token";
+
+//IF
 import { ShippingIF } from "../../interfaces/checkoutInterface";
+
+//util
 import { shippingValidate } from "../../utils/validate";
 
+//data
 import { statesList } from "../../data/states";
+
+//redux
+import { useDispatch } from "react-redux";
+import { saveShipping } from "../../redux/checkoutRedux";
 
 interface Props {
   step?: number;
+  info?: ShippingIF;
   handleStep?: (num: number) => void;
 }
 
-const Shipping: FC<Props> = ({ step, handleStep }) => {
+const Shipping: FC<Props> = ({ step, info, handleStep }) => {
+  const dispatch = useDispatch();
   const [shipping, setShipping] = useState<ShippingIF>({
     fullName: "",
     streetAddress: "",
@@ -30,7 +41,7 @@ const Shipping: FC<Props> = ({ step, handleStep }) => {
   });
 
   const [errors, setErrors] = useState<ShippingIF>({});
-  console.log(shipping);
+
   //set shipping
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -57,6 +68,7 @@ const Shipping: FC<Props> = ({ step, handleStep }) => {
     if (errors) return;
 
     //dispatch and save
+    dispatch(saveShipping(shipping));
     handleStep?.(2);
   };
 
@@ -130,7 +142,18 @@ const Shipping: FC<Props> = ({ step, handleStep }) => {
         </>
       ) : (
         <>
-          <div>test</div>
+          <Div margin="0 0 0 2.175rem">
+            <Body variant="body_small" color={neutral[400]}>
+              {info?.fullName}
+            </Body>
+            <Body variant="body_small" color={neutral[400]}>
+              {info?.streetAddress}
+            </Body>
+            <Body
+              variant="body_small"
+              color={neutral[400]}
+            >{`${info?.city} ${info?.state} ${info?.zip}`}</Body>
+          </Div>
         </>
       )}
     </Section>
