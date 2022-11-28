@@ -9,10 +9,15 @@ import Shipping from "./Shipping";
 //redux
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import Delivery from "./Delivery";
+import Payment from "./Payment";
+import { Section } from "../../components/containers/Section";
 
 const Checkout = () => {
-  const { shipping } = useSelector((state: RootState) => state.checkout);
-  const [step, setStep] = useState(1);
+  const { shipping, delivery, payment } = useSelector(
+    (state: RootState) => state.checkout
+  );
+  const [step, setStep] = useState(3);
 
   const handleClick = () => {};
 
@@ -20,15 +25,25 @@ const Checkout = () => {
     <div>
       <Heading title="Checkout" />
       <Flex alignItems="start" gap="4rem" padding=" 1rem 0">
-        <Div className="flexTwo">
+        <Section gap="1rem" className="flexTwo">
           <Shipping
             step={step}
             info={shipping}
             handleStep={(num) => setStep(num)}
           />
-        </Div>
+          <Delivery
+            step={step}
+            info={delivery}
+            handleStep={(num) => setStep(num)}
+          />
+          <Payment
+            step={step}
+            info={payment}
+            handleStep={(num) => setStep(num)}
+          />
+        </Section>
         <aside className="flexOne">
-          <CartSummary handleClick={handleClick} />
+          <CartSummary step={step} handleClick={handleClick} />
         </aside>
       </Flex>
     </div>

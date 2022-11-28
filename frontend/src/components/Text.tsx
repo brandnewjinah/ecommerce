@@ -177,7 +177,7 @@ const P = styled.p<Props>`
       : props.variant === "body_large"
       ? "1.625rem"
       : props.variant === "body_small"
-      ? "1rem"
+      ? "1.25rem"
       : props.variant === "body_xsmall"
       ? "1.25rem"
       : props.variant === "caption"

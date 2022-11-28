@@ -1,13 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../api";
-import { ShippingIF } from "../interfaces/checkoutInterface";
+import {
+  DeliveryIF,
+  PaymentIF,
+  ShippingIF,
+} from "../interfaces/checkoutInterface";
 
 interface State {
   shipping: ShippingIF;
+  delivery: DeliveryIF;
+  payment: PaymentIF;
 }
 
 const initialState: State = {
   shipping: {},
+  delivery: {},
+  payment: {},
 };
 
 export const placeOrder = createAsyncThunk(
@@ -29,9 +37,15 @@ const orderSlice = createSlice({
     saveShipping: (state, action) => {
       state.shipping = action.payload;
     },
+    saveDelivery: (state, action) => {
+      state.delivery = action.payload;
+    },
+    savePayment: (state, action) => {
+      state.payment = action.payload;
+    },
   },
   extraReducers: {},
 });
 
-export const { saveShipping } = orderSlice.actions;
+export const { saveShipping, saveDelivery, savePayment } = orderSlice.actions;
 export default orderSlice.reducer;

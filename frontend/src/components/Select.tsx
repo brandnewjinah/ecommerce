@@ -2,7 +2,8 @@ import React, { ChangeEvent, FC } from "react";
 import styled from "styled-components";
 
 //comp
-import { fontSize, neutral } from "./token";
+import { Body } from "./Text";
+import { neutral } from "./token";
 
 interface SelectOptionProps {
   value: string;
@@ -12,15 +13,17 @@ interface SelectOptionProps {
 interface SelectProps {
   options?: SelectOptionProps[];
   selected?: string;
-  onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
   fullWidth?: boolean;
+  error?: string;
+  onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
 }
 
 const Select: FC<SelectProps> = ({
   options,
-  onChange,
   selected,
   fullWidth,
+  error,
+  onChange,
 }) => {
   return (
     <SelectWrapper>
@@ -44,6 +47,11 @@ const Select: FC<SelectProps> = ({
             </option>
           ))}
       </SelectInput>
+      {error && (
+        <Body variant="caption" color="red">
+          {error}
+        </Body>
+      )}
     </SelectWrapper>
   );
 };

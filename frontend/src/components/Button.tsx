@@ -85,13 +85,8 @@ const Container = styled.div<Props>`
 
 const ButtonContainer = styled.button<Props>`
   width: ${(props) => (props.shape === "text" ? null : "100%")};
-  font-size: ${(props) =>
-    props.size === "big"
-      ? "1.125rem"
-      : props.size === "small"
-      ? ".875rem"
-      : "1rem"};
-  font-weight: 500;
+  font-size: ${(props) => (props.size === "big" ? "1.125rem" : ".875rem")};
+  font-weight: 600;
   color: ${(props) => (props.fontColor ? props.fontColor : "#fff")};
   background-color: ${(props) =>
     props.shape === "text" || props.shape === "outline"

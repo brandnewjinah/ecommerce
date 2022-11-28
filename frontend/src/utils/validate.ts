@@ -1,5 +1,5 @@
 import { AuthErrors } from "../interfaces/authInterface";
-import { ShippingIF } from "../interfaces/checkoutInterface";
+import { ShippingIF, PaymentIF } from "../interfaces/checkoutInterface";
 
 export const signinValidate = (obj: AuthErrors) => {
   const errors: AuthErrors = {};
@@ -28,6 +28,16 @@ export const shippingValidate = (obj: ShippingIF) => {
   if (obj.state === "") errors.state = "State is required";
   if (obj.zip === "") errors.zip = "Zip Code is required";
   if (obj.phone === "") errors.phone = "Phone number is required";
+
+  return Object.keys(errors).length === 0 ? null : errors;
+};
+
+export const paymentValidate = (obj: PaymentIF) => {
+  const errors: PaymentIF = {};
+  if (obj.fullName === "") errors.fullName = "Name is required";
+  if (obj.cardNumber === "") errors.cardNumber = "Card number is required";
+  if (obj.expiration === "") errors.expiration = "Expiration date is required";
+  if (obj.cvc === "") errors.cvc = "CVC is required";
 
   return Object.keys(errors).length === 0 ? null : errors;
 };

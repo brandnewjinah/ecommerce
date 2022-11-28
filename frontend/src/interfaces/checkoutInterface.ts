@@ -14,3 +14,14 @@ export interface ShippingErrors {
   city?: string;
   state?: string;
 }
+
+export interface DeliveryIF {
+  shipping?: string;
+}
+
+export interface PaymentIF {
+  fullName?: string;
+  cardNumber?: string;
+  expiration?: string;
+  cvc?: string;
+}

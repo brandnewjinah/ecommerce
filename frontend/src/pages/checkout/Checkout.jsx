@@ -4,17 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 //components
-import { Container, HeaderContainer } from "../layout/Containers";
-import { Header } from "../layout/Header";
-import CartSummary from "../components/cart/CartSummary";
+import { Container, HeaderContainer } from "../../layout/Containers";
+import { Header } from "../../layout/Header";
+import CartSummary from "../../components/cart/CartSummary";
 
 //import redux
-import { placeOrder, resetOrder } from "../redux/orderRedux";
-import { clearCart } from "../redux/cartRedux";
+import { placeOrder, resetOrder } from "../../redux/orderRedux";
+import { clearCart } from "../../redux/cartRedux";
 import Shipping from "./checkout/Shipping2";
-import Delivery from "./checkout/Delivery";
-import Payment from "./checkout/Payment";
-import { breakpoint } from "../components/token";
+import Delivery from "./checkout/Delivery2";
+import Payment from "./checkout/Payment2";
+import { breakpoint } from "../../components/token";
 
 const Checkout = () => {
   const [step, setStep] = useState(1);

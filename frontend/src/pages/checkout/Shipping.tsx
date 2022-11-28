@@ -1,7 +1,7 @@
 import React, { FC, useState, ChangeEvent } from "react";
 
 //comp
-import { Button } from "../../components/Button";
+import { Button, TextButton } from "../../components/Button";
 import { Div, Flex } from "../../components/containers/Div";
 import { Section } from "../../components/containers/Section";
 import Select from "../../components/Select";
@@ -84,6 +84,7 @@ const Shipping: FC<Props> = ({ step, info, handleStep }) => {
             removeBorder
             name="fullName"
             placeholder="Full Name"
+            value={shipping.fullName!}
             error={errors.fullName}
             onChange={handleInputChange}
           />
@@ -91,6 +92,7 @@ const Shipping: FC<Props> = ({ step, info, handleStep }) => {
             removeBorder
             name="streetAddress"
             placeholder="Street Address"
+            value={shipping.streetAddress!}
             error={errors.streetAddress}
             onChange={handleInputChange}
           />
@@ -98,21 +100,24 @@ const Shipping: FC<Props> = ({ step, info, handleStep }) => {
             removeBorder
             name="streetAddress2"
             placeholder="Apartment, Suite, Building (Optional)"
+            value={shipping.streetAddress2!}
             onChange={handleInputChange}
           />
           <TextInput
             removeBorder
             name="city"
             placeholder="City"
+            value={shipping.city!}
             error={errors.city}
             onChange={handleInputChange}
           />
           <Flex gap="1rem">
             <div className="flexOne">
               <Select
-                options={statesList}
-                onChange={handleStateSelect}
                 fullWidth
+                options={statesList}
+                error={errors.state}
+                onChange={handleStateSelect}
               />
             </div>
             <div className="flexOne">
@@ -120,6 +125,7 @@ const Shipping: FC<Props> = ({ step, info, handleStep }) => {
                 removeBorder
                 name="zip"
                 placeholder="Zip Code"
+                value={shipping.zip!}
                 error={errors.zip}
                 onChange={handleInputChange}
               />
@@ -131,10 +137,11 @@ const Shipping: FC<Props> = ({ step, info, handleStep }) => {
             placeholder="Phone Number"
             name="phone"
             value={shipping.phone!}
+            error={errors.phone}
             onChange={numberChanged}
           />
           <Button
-            label="Next"
+            label="See Delivery Options"
             color={primaryColor.button}
             // handleClick={() => handleStep?.(2)}
             handleClick={handleNext}
@@ -153,6 +160,12 @@ const Shipping: FC<Props> = ({ step, info, handleStep }) => {
               variant="body_small"
               color={neutral[400]}
             >{`${info?.city} ${info?.state} ${info?.zip}`}</Body>
+
+            <TextButton
+              label="edit"
+              padding="0.5rem 0 0 0"
+              handleClick={() => handleStep?.(1)}
+            />
           </Div>
         </>
       )}

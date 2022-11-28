@@ -13,10 +13,11 @@ import { RootStateOrAny, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
 interface Props {
+  step?: number;
   handleClick?: () => void;
 }
 
-const CartSummary: FC<Props> = ({ handleClick }) => {
+const CartSummary: FC<Props> = ({ step, handleClick }) => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
 
@@ -68,6 +69,7 @@ const CartSummary: FC<Props> = ({ handleClick }) => {
         <Button
           label={path === "checkout" ? "PLACE ORDER" : "CHECKOUT"}
           color={primaryColor.button}
+          disabled={step === 4 ? false : true}
           handleClick={handleClick}
         />
       </Div>

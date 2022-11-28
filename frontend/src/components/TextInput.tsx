@@ -21,6 +21,7 @@ export interface Props {
   error?: string;
   margin?: string;
   removeBorder?: boolean;
+  maxLength?: number;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onKeyPress?: (e: KeyboardEvent<HTMLElement>) => void;
 }
@@ -34,6 +35,7 @@ export const TextInput: FC<Props> = ({
   error,
   margin,
   removeBorder,
+  maxLength,
   onChange,
   onKeyPress,
   ...rest
@@ -47,6 +49,7 @@ export const TextInput: FC<Props> = ({
         type={type}
         value={value}
         removeBorder={removeBorder}
+        maxLength={maxLength}
         onChange={onChange}
         onKeyPress={onKeyPress}
         {...rest}
