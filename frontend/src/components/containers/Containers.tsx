@@ -1,14 +1,20 @@
-import React from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
 
 //token
-import { breakpoint } from "../components/token";
+import { breakpoint } from "../token";
 
-export const Container = ({ children }) => {
+interface Props {
+  title?: string;
+  body?: string;
+  children?: any;
+}
+
+export const Container: FC<Props> = ({ children }) => {
   return <Wrapper>{children}</Wrapper>;
 };
 
-export const HeaderContainer = ({ title, body }) => {
+export const HeaderContainer: FC<Props> = ({ title, body }) => {
   return (
     <HeaderWrapper>
       <h1>{title}</h1>
@@ -17,7 +23,7 @@ export const HeaderContainer = ({ title, body }) => {
   );
 };
 
-export const FilterContainer = ({ children }) => {
+export const FilterContainer: FC<Props> = ({ children }) => {
   return <FilterWrapper>{children}</FilterWrapper>;
 };
 

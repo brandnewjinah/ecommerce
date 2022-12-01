@@ -1,19 +1,31 @@
-import React from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
+import { Body } from "./Text";
 
-//token
-import { fontSize } from "../components/token";
+//comp
+import { fontSize, neutral } from "./token";
 
-export const Header = ({ title, body }) => {
+interface Props {
+  title?: string;
+  body?: string;
+  caption?: string;
+}
+
+export const Header: FC<Props> = ({ title, body, caption }) => {
   return (
     <HeaderWrapper>
       <h1>{title}</h1>
       {body && <p>{body}</p>}
+      {caption && (
+        <Body variant="body_xsmall" color={neutral[400]}>
+          {caption}
+        </Body>
+      )}
     </HeaderWrapper>
   );
 };
 
-export const HeaderSmall = ({ title, body }) => {
+export const HeaderSmall: FC<Props> = ({ title, body }) => {
   return (
     <HeaderWrapperSmall>
       <h1>{title}</h1>
@@ -25,7 +37,7 @@ export const HeaderSmall = ({ title, body }) => {
 const HeaderWrapper = styled.header`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
   text-align: center;
 
   h1 {

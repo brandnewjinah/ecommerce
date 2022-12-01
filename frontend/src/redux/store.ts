@@ -23,6 +23,7 @@ import announcementReducer from "./announcementRedux";
 import subscriberReducer from "./subscriberRedux";
 import wishlistReducer from "./wishlistRedux";
 import cartTestReducer from "./cart";
+import categoryReducer from "./categoryRedux";
 
 const persistConfig = {
   key: "root",
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   cart: cartReducer,
   cartTest: cartTestReducer,
+  category: categoryReducer,
   products: productListReducer,
   productList: productReducer,
   productDetail: productDetailReducer,

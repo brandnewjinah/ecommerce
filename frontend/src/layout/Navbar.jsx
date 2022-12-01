@@ -33,10 +33,10 @@ const Navbar = ({ open, handleOpen }) => {
         <Center open={open}>
           <ul>
             <li onClick={() => handleOpen(false)}>
-              <Link to="/home">All</Link>
+              <Link to="/category/all">All</Link>
             </li>
             <li onClick={() => handleOpen(false)}>
-              <Link to="/home">New</Link>
+              <Link to="/category/new">New</Link>
             </li>
             <NavLinks handleClick={() => handleOpen(false)} />
             <li className="mobileUser" onClick={() => handleOpen(false)}>

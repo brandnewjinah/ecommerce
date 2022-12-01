@@ -1,11 +1,17 @@
-import React from "react";
+import React, { FC, ChangeEventHandler } from "react";
 import styled from "styled-components";
 import { neutral } from "./token";
 
-const Sort = ({ options, handleSort, selected }) => {
+interface Props {
+  options?: string[];
+  selected?: string;
+  handleSort?: ChangeEventHandler<HTMLSelectElement>;
+}
+
+const Sort: FC<Props> = ({ options, selected, handleSort }) => {
   return (
     <Select value={selected} onChange={handleSort}>
-      {options.map((option, idx) => (
+      {options!.map((option, idx) => (
         <Option key={idx} value={option}>
           {option}
         </Option>

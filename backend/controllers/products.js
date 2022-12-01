@@ -13,33 +13,39 @@ export const getProducts = async (req, res) => {
   try {
     if (category === "new") {
       let products = await Product.find().sort({ createdAt: -1 }).limit(8);
-      res.status(200).json(products);
+      const totalCount = products.length;
+      res.status(200).json({
+        status: "success",
+        totalCount,
+        page,
+        data: products,
+      });
     } else if (category === "all") {
       let products = Product.find();
-      const total = await Product.countDocuments();
-      const pages = Math.ceil(total / pageSize);
+      const totalCount = await Product.countDocuments();
+      const totalPages = Math.ceil(totalCount / pageSize);
       products = products.skip(skip).limit(pageSize);
       const result = await products;
       res.status(200).json({
         status: "success",
-        count: result.length,
+        totalCount,
         page,
-        pages,
+        totalPages,
         data: result,
       });
     } else if (category && category !== "all") {
       let products = Product.find({ "category1.value": category });
-      const total = await Product.countDocuments({
+      const totalCount = await Product.countDocuments({
         "category1.value": category,
       });
-      const pages = Math.ceil(total / pageSize);
+      const totalPages = Math.ceil(totalCount / pageSize);
       products = products.skip(skip).limit(pageSize);
       const result = await products;
       res.status(200).json({
         status: "success",
-        count: result.length,
+        totalCount,
         page,
-        pages,
+        totalPages,
         data: result,
       });
     }

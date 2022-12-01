@@ -11,7 +11,7 @@ const NavLinks = ({ handleClick }) => {
       id: 300,
       value: "snacks",
       label: "Snacks",
-      link: "/products/snacks",
+      link: "/category/snacks",
       submenu: true,
       subcategories: [
         {
@@ -21,7 +21,7 @@ const NavLinks = ({ handleClick }) => {
               id: 301,
               value: "chips",
               label: "Chips",
-              link: "/products/snacks",
+              link: "/category/snacks",
             },
             { id: 302, value: "cookies", label: "Cookies", link: "/" },
             { id: 303, value: "candy", label: "Candy", link: "/" },
@@ -65,13 +65,18 @@ const NavLinks = ({ handleClick }) => {
       id: 400,
       value: "beverage",
       label: "Beverage",
-      link: "/products/beverage",
+      link: "/category/beverage",
       submenu: true,
       subcategories: [
         {
           label: "Bev 1",
           links: [
-            { id: 301, value: "chips", label: "Chips", link: "/" },
+            {
+              id: 301,
+              value: "chips",
+              label: "Chips",
+              link: "/category/beverage",
+            },
             { id: 302, value: "cookies", label: "Cookies", link: "/" },
             { id: 303, value: "candy", label: "Candy", link: "/" },
             { id: 304, value: "chocolate", label: "Chocolate", link: "/" },
@@ -114,7 +119,7 @@ const NavLinks = ({ handleClick }) => {
       id: 400,
       value: "pantry",
       label: "Pantry",
-      link: "/products/pantry",
+      link: "/category/pantry",
       submenu: true,
       subcategories: [
         {
