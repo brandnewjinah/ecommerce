@@ -111,16 +111,19 @@ const Payment: FC<Props> = ({ step, info, handleStep }) => {
           />
         </>
       ) : (
-        <Div margin="0 0 0 2.175rem">
-          <Body variant="body_small" color={neutral[400]}>
-            {`**** ${info?.cardNumber?.slice(-4)}`}
-          </Body>
-          <TextButton
-            label="edit"
-            padding="0.5rem 0 0 0"
-            handleClick={() => handleStep?.(3)}
-          />
-        </Div>
+        info &&
+        Object.keys(info).length !== 0 && (
+          <Div margin="0 0 0 2.175rem">
+            <Body variant="body_small" color={neutral[400]}>
+              {`**** ${info?.cardNumber?.slice(-4)}`}
+            </Body>
+            <TextButton
+              label="edit"
+              padding="0.5rem 0 0 0"
+              handleClick={() => handleStep?.(3)}
+            />
+          </Div>
+        )
       )}
     </Section>
   );

@@ -9,7 +9,7 @@ import Home from "./pages/home";
 import Auth from "./pages/Auth";
 import Products from "./pages/category";
 import ProductDetail from "./pages/products";
-import Cart from "./pages/cart/Cart";
+import Cart from "./pages/cart";
 import Checkout from "./pages/checkout/index";
 
 const Routes = createBrowserRouter([

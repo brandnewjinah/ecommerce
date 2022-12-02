@@ -31,7 +31,7 @@ const Cart = () => {
   const handleClick = (path: string) => {
     path === "checkout" && loggedIn
       ? navigate("/checkout")
-      : navigate("/signin?redirectTo=checkout");
+      : navigate("/login?redirectTo=checkout");
   };
 
   return (

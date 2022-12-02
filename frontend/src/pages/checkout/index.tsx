@@ -17,7 +17,7 @@ const Checkout = () => {
   const { shipping, delivery, payment } = useSelector(
     (state: RootState) => state.checkout
   );
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
 
   const handleClick = () => {};
 

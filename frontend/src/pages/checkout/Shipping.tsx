@@ -41,6 +41,7 @@ const Shipping: FC<Props> = ({ step, info, handleStep }) => {
   });
 
   const [errors, setErrors] = useState<ShippingIF>({});
+  const [isEdit, setIsEdit] = useState(false);
 
   //set shipping
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -69,7 +70,12 @@ const Shipping: FC<Props> = ({ step, info, handleStep }) => {
 
     //dispatch and save
     dispatch(saveShipping(shipping));
-    handleStep?.(2);
+    isEdit ? handleStep?.(4) : handleStep?.(2);
+  };
+
+  const handleEdit = () => {
+    setIsEdit(true);
+    handleStep?.(1);
   };
 
   return (
@@ -141,33 +147,35 @@ const Shipping: FC<Props> = ({ step, info, handleStep }) => {
             onChange={numberChanged}
           />
           <Button
-            label="See Delivery Options"
+            label={isEdit ? "Save Shipping" : "See Delivery Options"}
             color={primaryColor.button}
-            // handleClick={() => handleStep?.(2)}
             handleClick={handleNext}
           />
         </>
       ) : (
-        <>
-          <Div margin="0 0 0 2.175rem">
-            <Body variant="body_small" color={neutral[400]}>
-              {info?.fullName}
-            </Body>
-            <Body variant="body_small" color={neutral[400]}>
-              {info?.streetAddress}
-            </Body>
-            <Body
-              variant="body_small"
-              color={neutral[400]}
-            >{`${info?.city} ${info?.state} ${info?.zip}`}</Body>
-
-            <TextButton
-              label="edit"
-              padding="0.5rem 0 0 0"
-              handleClick={() => handleStep?.(1)}
-            />
-          </Div>
-        </>
+        info &&
+        Object.keys(info).length !== 0 && (
+          <>
+            <Div margin="0 0 0 2.175rem">
+              <Body variant="body_small" color={neutral[400]}>
+                {info?.fullName}
+              </Body>
+              <Body variant="body_small" color={neutral[400]}>
+                {info?.streetAddress}
+              </Body>
+              <Body
+                variant="body_small"
+                color={neutral[400]}
+              >{`${info?.city} ${info?.state} ${info?.zip}`}</Body>
+              <TextButton
+                label="edit"
+                padding="0.5rem 0 0 0"
+                // handleClick={() => handleStep?.(1)}
+                handleClick={handleEdit}
+              />
+            </Div>
+          </>
+        )
       )}
     </Section>
   );

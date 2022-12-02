@@ -22,7 +22,6 @@ import { signin, signup, signout } from "../redux/authRedux";
 const Auth = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
 
   const [user, setUser] = useState({
     name: "",
@@ -78,6 +77,7 @@ const Auth = () => {
 
   const path = location.pathname;
   const redirect = location.search.split("redirectTo=")[1];
+
   const dispatch = useDispatch();
 
   const googleSuccess = async (res) => {
@@ -106,7 +106,7 @@ const Auth = () => {
     }
 
     if (status === 200) {
-      navigate("/home");
+      redirect && redirect ? navigate(`/${redirect}`) : navigate("/home");
     }
   }, [status, message, currentUser, dispatch]);
 

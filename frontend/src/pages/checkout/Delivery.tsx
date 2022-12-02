@@ -26,10 +26,16 @@ const Delivery: FC<Props> = ({ step, info, handleStep }) => {
   const [data, setData] = useState({
     shipping: "Standard",
   });
+  const [isEdit, setIsEdit] = useState(false);
 
   const handleNext = () => {
     dispatch(saveDelivery(data));
-    handleStep?.(3);
+    isEdit ? handleStep?.(4) : handleStep?.(3);
+  };
+
+  const handleEdit = () => {
+    setIsEdit(true);
+    handleStep?.(2);
   };
 
   return (
@@ -58,22 +64,25 @@ const Delivery: FC<Props> = ({ step, info, handleStep }) => {
             }
           />
           <Button
-            label="Continue to Payment"
+            label={isEdit ? "Save Delivery" : "Continue To Payment"}
             color={primaryColor.button}
             handleClick={handleNext}
           />
         </div>
       ) : (
-        <Div margin="0 0 0 2.175rem">
-          <Body variant="body_small" color={neutral[400]}>
-            {info?.shipping}
-          </Body>
-          <TextButton
-            label="edit"
-            padding="0.5rem 0 0 0"
-            handleClick={() => handleStep?.(2)}
-          />
-        </Div>
+        info &&
+        Object.keys(info).length !== 0 && (
+          <Div margin="0 0 0 2.175rem">
+            <Body variant="body_small" color={neutral[400]}>
+              {info?.shipping}
+            </Body>
+            <TextButton
+              label="edit"
+              padding="0.5rem 0 0 0"
+              handleClick={handleEdit}
+            />
+          </Div>
+        )
       )}
     </Section>
   );

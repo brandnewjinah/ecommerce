@@ -67,9 +67,9 @@ const CartSummary: FC<Props> = ({ step, handleClick }) => {
       </Flex>
       <Div padding="1rem 0">
         <Button
-          label={path === "checkout" ? "PLACE ORDER" : "CHECKOUT"}
+          label={path === "checkout" ? "Place Order" : "Continue To Checkout"}
           color={primaryColor.button}
-          disabled={step === 4 ? false : true}
+          disabled={step && step !== 4 ? true : false}
           handleClick={handleClick}
         />
       </Div>
