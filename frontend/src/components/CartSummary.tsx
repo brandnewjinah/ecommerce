@@ -24,7 +24,7 @@ const CartSummary: FC<Props> = ({ step, handleClick }) => {
   const [subtotal, setSubtotal] = useState(0);
   const { products } = useSelector((state: RootState) => state.cartTest);
   const { shipping } = useSelector(
-    (state: RootStateOrAny) => state.order.delivery
+    (state: RootStateOrAny) => state.checkout.delivery
   );
   const shippingCost = shipping === "Express" ? 15 : 0;
 

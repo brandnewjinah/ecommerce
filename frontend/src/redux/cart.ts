@@ -73,6 +73,11 @@ const cartSlice = createSlice({
       state.products = newProducts;
       state.totalQty = state.totalQty - action.payload.qty;
     },
+    clearCart: (state) => {
+      state.isLoading = false;
+      state.products = [];
+      state.totalQty = 0;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(addToCart.pending, (state) => {
@@ -103,5 +108,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const { increaseQty, decreaseQty, removeFromCart } = cartSlice.actions;
+export const { increaseQty, decreaseQty, removeFromCart, clearCart } =
+  cartSlice.actions;
 export default cartSlice.reducer;

@@ -45,6 +45,7 @@ export const signin = async (req, res) => {
     savedPassword !== req.body.password &&
       res.status(400).json("Wrong password");
 
+    console.log(user);
     const token = generateToken(user);
     const { password, ...others } = user._doc;
 

@@ -13,7 +13,6 @@ import storage from "redux-persist/lib/storage";
 
 import authReducer from "./authRedux";
 import cartReducer from "./cartRedux";
-import orderReducer from "./orderRedux";
 import checkoutReducer from "./checkoutRedux";
 import orderDetailReducer from "./orderDetailRedux";
 import productReducer from "./productRedux";
@@ -39,7 +38,6 @@ const rootReducer = combineReducers({
   products: productListReducer,
   productList: productReducer,
   productDetail: productDetailReducer,
-  order: orderReducer,
   checkout: checkoutReducer,
   orderDetail: orderDetailReducer,
   announce: announcementReducer,

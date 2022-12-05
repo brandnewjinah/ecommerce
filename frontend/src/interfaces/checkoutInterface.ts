@@ -1,3 +1,5 @@
+import { Product } from "./productInterface";
+
 export interface ShippingIF {
   fullName?: string;
   streetAddress?: string;
@@ -24,4 +26,12 @@ export interface PaymentIF {
   cardNumber?: string;
   expiration?: string;
   cvc?: string;
+}
+
+export interface OrderIF {
+  shipping: ShippingIF;
+  delivery: DeliveryIF;
+  payment: PaymentIF;
+  orderItems: Product[];
+  total: number;
 }

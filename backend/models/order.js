@@ -15,7 +15,7 @@ const orderSchema = mongoose.Schema(
           type: Number,
           required: true,
         },
-        price: { type: Number, required: true },
+        price: { type: String, required: true },
         img: {
           type: String,
         },
@@ -31,11 +31,11 @@ const orderSchema = mongoose.Schema(
         type: String,
         required: true,
       },
-      address1: {
+      streetAddress: {
         type: String,
         required: true,
       },
-      address2: {
+      streetAddress2: {
         type: String,
       },
       city: {
@@ -55,11 +55,7 @@ const orderSchema = mongoose.Schema(
       },
     },
     payment: {
-      billingFirstName: {
-        type: String,
-        required: true,
-      },
-      billingLastName: {
+      fullName: {
         type: String,
         required: true,
       },
@@ -71,7 +67,7 @@ const orderSchema = mongoose.Schema(
         type: String,
         required: true,
       },
-      security: {
+      cvc: {
         type: String,
         required: true,
       },

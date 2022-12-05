@@ -13,7 +13,7 @@ import { DeliveryIF } from "../../interfaces/checkoutInterface";
 
 //redux
 import { useDispatch } from "react-redux";
-import { saveDelivery } from "../../redux/orderRedux";
+import { saveDelivery } from "../../redux/checkoutRedux";
 
 interface Props {
   step?: number;
