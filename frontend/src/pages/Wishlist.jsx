@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 
 // components
-import { Container } from "../components/containers/Containers";
+
 import { Header } from "../layout/Header";
 import Grid from "../components/containers/Grid";
 import Card from "../components/products/ProductCard";
@@ -25,7 +25,7 @@ const ProductList = () => {
   const { products, loading, error } = wishlist;
 
   return (
-    <Container>
+    <div>
       {loading ? (
         <Loading />
       ) : error ? (
@@ -64,7 +64,7 @@ const ProductList = () => {
           </Wrapper>
         </>
       )}
-    </Container>
+    </div>
   );
 };
 

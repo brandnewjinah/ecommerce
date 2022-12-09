@@ -1,7 +1,6 @@
 import React, { useState, useEffect, ChangeEvent, KeyboardEvent } from "react";
 
 //comp
-import Header from "./Header2";
 import { Body, Heading } from "./Text";
 import { TextInput } from "./TextInput";
 import { Flex } from "./containers/Div";

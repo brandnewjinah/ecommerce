@@ -39,7 +39,6 @@ const Checkout: FC = () => {
     };
 
     dispatch(placeOrder(thisOrder));
-    navigate("/confirmation");
   };
 
   //actions after submitting order

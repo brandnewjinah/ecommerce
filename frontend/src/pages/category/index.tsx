@@ -39,19 +39,14 @@ const Products = () => {
         <>
           <Header
             title={
-              category === "new" ||
-              category === "bakery" ||
-              category === "beverage" ||
-              category === "snacks"
-                ? category
-                : "All"
+              category === "new" ? "New" : category === "all" ? "All" : category
             }
             caption={`${products.totalCount} products`}
           />
           <Flex padding="1.25rem 0">
             <Filter
-              category={category}
-              handleFilter={(id: any) => setFilter(id)}
+              category={category!}
+              handleFilter={(id: string) => setFilter(id)}
             />
             <Sort
               options={["Newest", "Price: low to high", "Price: high to low"]}

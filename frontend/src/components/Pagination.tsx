@@ -1,11 +1,21 @@
-import React from "react";
+import React, { FC } from "react";
 import _ from "lodash";
-
-//import styles and assets
 import styled from "styled-components";
+
+//comp
 import { neutral, fontSize } from "./token";
 
-const Pagination = ({ pageCount, currentPage, handlePageChange }) => {
+interface Props {
+  pageCount: number;
+  currentPage: number;
+  handlePageChange: (page: number) => void;
+}
+
+const Pagination: FC<Props> = ({
+  pageCount,
+  currentPage,
+  handlePageChange,
+}) => {
   // const pageCount = count / limit;
   const pages = _.range(1, pageCount + 1);
 
@@ -14,7 +24,7 @@ const Pagination = ({ pageCount, currentPage, handlePageChange }) => {
       <ul>
         {pages.map((page) => (
           <li
-            className={page === currentPage ? "active" : null}
+            className={page === currentPage ? "active" : null!}
             key={page}
             onClick={() => handlePageChange(page)}
           >

@@ -1,40 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { FC, useState, useEffect } from "react";
 import styled from "styled-components";
 
 //import data
 import { categoryList } from "../data/category";
 
+//interface
+import { CategoryIF, SubcategoryIF } from "../interfaces/categoryInterface";
+
 //token
 import { neutral, breakpoint, fontSize } from "./token";
 
-const Filter = ({ category, handleFilter }) => {
-  const [subCategories, setSubCategories] = useState([]);
-  const [active, setActive] = useState();
+interface Props {
+  category: string;
+  handleFilter: (value: string) => void;
+}
+
+const Filter: FC<Props> = ({ category, handleFilter }) => {
+  const [subCategories, setSubCategories] = useState<SubcategoryIF[]>([]);
+  const [active, setActive] = useState<string>();
 
   useEffect(() => {
     const findCategory = () => {
-      const result =
-        category === "bakery" ||
-        category === "beverage" ||
-        category === "snacks"
-          ? categoryList.find((item) => item.value === category)
-          : [];
-      setSubCategories(result.subcategory);
+      const result: CategoryIF = categoryList.find(
+        (item) => item.value === category
+      )!;
+      result && result !== undefined
+        ? setSubCategories(result.subcategory!)
+        : setSubCategories([]);
     };
 
     findCategory();
   }, [category]);
 
-  const handleSelect = (id) => {
-    handleFilter(id);
-    setActive(id);
+  const handleSelect = (value: string) => {
+    handleFilter(value);
+    setActive(value);
   };
 
   return (
     <Container>
-      {category === "bakery" ||
-      category === "beverage" ||
-      category === "snacks" ? (
+      {category === "all" || category === "new" ? null : (
         <>
           <List onClick={() => handleSelect("all")}>
             <span className={active === "all" ? "active" : ""}>All</span>
@@ -42,15 +47,15 @@ const Filter = ({ category, handleFilter }) => {
           {subCategories &&
             subCategories.map((item, idx) => (
               <List key={idx}>
-                <Item className="link" onClick={() => handleSelect(item.value)}>
-                  <span className={item.id === active ? "active" : ""}>
+                <div onClick={() => handleSelect(item.value)}>
+                  <span className={item.value === active ? "active" : ""}>
                     {item.label}
                   </span>
-                </Item>
+                </div>
               </List>
             ))}
         </>
-      ) : null}
+      )}
     </Container>
   );
 };
@@ -94,7 +99,5 @@ const List = styled.li`
     text-decoration: underline;
   }
 `;
-
-const Item = styled.div``;
 
 export default Filter;

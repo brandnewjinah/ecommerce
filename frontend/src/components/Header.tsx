@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { Body } from "./Text";
 
 //comp
+import { Body } from "./Text";
 import { fontSize, neutral } from "./token";
 
 interface Props {
@@ -49,10 +49,4 @@ const HeaderWrapper = styled.header`
 
 const HeaderWrapperSmall = styled(HeaderWrapper)`
   gap: 0.75rem;
-
-  h1 {
-    font-size: ${fontSize.lg3};
-    font-weight: 400;
-    text-transform: capitalize;
-  }
 `;

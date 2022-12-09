@@ -83,7 +83,7 @@ const orderSchema = mongoose.Schema(
       required: true,
     },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-    status: {
+    orderStatus: {
       type: String,
       default: "Order Placed",
     },

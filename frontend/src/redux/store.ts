@@ -23,6 +23,7 @@ import subscriberReducer from "./subscriberRedux";
 import wishlistReducer from "./wishlistRedux";
 import cartTestReducer from "./cart";
 import categoryReducer from "./categoryRedux";
+import orderReducer from "./orderRedux";
 
 const persistConfig = {
   key: "root",
@@ -43,6 +44,7 @@ const rootReducer = combineReducers({
   announce: announcementReducer,
   subscriber: subscriberReducer,
   wishlist: wishlistReducer,
+  order: orderReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

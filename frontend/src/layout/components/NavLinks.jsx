@@ -184,6 +184,7 @@ const NavLinks = ({ handleClick }) => {
               }}
             >
               {link.label}
+              {/* Mobile Chevron Icon */}
               {link.submenu && (
                 <Icon>
                   {heading === link.label ? (

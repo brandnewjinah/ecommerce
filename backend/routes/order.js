@@ -18,6 +18,7 @@ router.post("/", checkToken, createOrder);
 // @desc Get order detail for a single order
 // @access Private or Admin
 router.get("/:userId/:orderId", checkAuth, getOneOrder);
+// router.get("/:orderId", checkAuth, getOneOrder);
 
 // @route GET /orders/user/${userId}
 // @desc Get all orders placed by a user

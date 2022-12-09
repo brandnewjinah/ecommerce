@@ -10,11 +10,11 @@ interface Props {
   pathIsTools?: boolean;
   minWidth?: string;
 }
-const ImageContainer: FC<Props> = ({ imgUrl, minWidth }) => {
+const ImageContainer: FC<Props> = ({ imgUrl, minWidth, ratio }) => {
   return (
     <>
       {imgUrl && imgUrl ? (
-        <Container minWidth={minWidth}>
+        <Container minWidth={minWidth} ratio={ratio}>
           <img src={imgUrl} alt="" />
         </Container>
       ) : (
@@ -37,7 +37,8 @@ const Container = styled.div<Props>`
   &:before {
     content: "";
     display: block;
-    padding-bottom: 100%;
+    /* padding-bottom: 100%; */
+    padding-bottom: ${(props) => (props.ratio ? props.ratio : "100%")};
     width: 100%;
   }
   img {
