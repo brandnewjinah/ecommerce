@@ -1,11 +1,15 @@
-import React from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
 
 //comp
 import Side from "./Side";
 import { breakpoint } from "../../components/token";
 
-const Layout = ({ children }) => {
+interface Props {
+  children?: any;
+}
+
+const Layout: FC<Props> = ({ children }) => {
   return (
     <Container>
       <Side />

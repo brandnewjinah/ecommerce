@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, FC } from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
@@ -11,9 +11,21 @@ import { Div } from "../containers/Div";
 
 //redux
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/cartRedux";
+import { addToCart } from "../../redux/cart";
 
-const ProductCard = ({
+interface Props {
+  sku?: string;
+  brand?: string;
+  name?: string;
+  price?: string;
+  imageUrl?: string;
+  _id?: string;
+  currency?: string;
+  wishlist?: boolean;
+  handleDelete?: () => void;
+}
+
+const ProductCard: FC<Props> = ({
   imageUrl,
   brand,
   name,
@@ -34,12 +46,13 @@ const ProductCard = ({
   };
 
   const handleAddToCart = () => {
-    dispatch(addToCart({ _id, qty: 1 }));
+    dispatch(addToCart({ productId: _id, qty: 1 }));
   };
 
   return (
     <Wrapper>
-      <Link to={{ pathname: `/products/${_id}`, state: { _id } }}>
+      {/* <Link to={{ pathname: `/products/${_id}`, state: { _id } }}> */}
+      <Link to={`/products/${_id}`} state={{ _id }}>
         {/* <ImageContainer>
           {imgErr ? (
             <ErrImg>
@@ -55,22 +68,22 @@ const ProductCard = ({
         <Preview>
           {imgErr ? (
             <ErrImg>
-              <ImageIcon width="20" height="20" color="#8F8F8F" stroke="2" />
+              <ImageIcon width={20} height={20} color="#8F8F8F" stroke={2} />
             </ErrImg>
           ) : (
             <img
               onError={handleDefaultImg}
-              src={imageUrl ? imageUrl : setImgErr(true)}
+              src={imageUrl ? imageUrl : setImgErr(true)!}
               alt=""
             />
           )}
         </Preview>
         <Div>
-          <Body variant="caption" bold color={neutral[400]}>
+          <Body variant="caption" bold="bold" color={neutral[400]}>
             {brand}
           </Body>
           <Body variant="body_small" lineHeight="sm4">
-            {name.length > 26 ? `${name.substring(0, 24)}...` : name}
+            {name && name.length > 26 ? `${name.substring(0, 24)}...` : name}
           </Body>
           <Body variant="body_small">
             <span>{currency}</span>

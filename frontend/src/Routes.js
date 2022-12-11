@@ -6,12 +6,14 @@ import Layout from "./layout";
 import Blank from "./layout/Blank";
 import ErrorPage from "./pages/error";
 import Home from "./pages/home";
-import Auth from "./pages/Auth";
+import Auth from "./pages/auth";
 import Products from "./pages/category";
 import ProductDetail from "./pages/products";
 import Cart from "./pages/cart";
 import Checkout from "./pages/checkout/index";
 import OrderConfirmation from "./pages/confirmation";
+import Wishlist from "./pages/wishlist";
+import UserProfile from "./pages/user";
 
 const Routes = createBrowserRouter([
   {
@@ -42,6 +44,14 @@ const Routes = createBrowserRouter([
       {
         path: "/confirmation/:orderId",
         element: <OrderConfirmation />,
+      },
+      {
+        path: "/wishlist",
+        element: <Wishlist />,
+      },
+      {
+        path: "/user",
+        element: <UserProfile />,
       },
     ],
   },

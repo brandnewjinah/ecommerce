@@ -3,7 +3,7 @@ import _ from "lodash";
 import styled from "styled-components";
 
 //components
-import Card from "./ProductCard";
+import Card from "./ProductCard.tsx";
 import Grid from "../containers/Grid";
 
 const Products = ({ products, category, filter, sort }) => {

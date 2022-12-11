@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { Body, Header, Heading } from "../../components/Text";
+import { Body } from "../../components/Text";
 
 //token
-import { neutral, fontSize } from "../../components/token";
+import { neutral } from "../../components/token";
 
 interface Props {
   overline?: string;
@@ -12,20 +12,6 @@ interface Props {
   subtitle?: string;
   body?: string;
 }
-
-export const InfoItem: FC<Props> = ({ overline, title, children }) => {
-  return (
-    <Article>
-      {overline && (
-        <Body variant="body_small" color={neutral[400]}>
-          {overline}
-        </Body>
-      )}
-      {title && <Header variant="h1">{title}</Header>}
-      {children && children}
-    </Article>
-  );
-};
 
 export const ProductInfo: FC<Props> = ({
   helper,
@@ -56,25 +42,4 @@ const Item = styled.div`
   align-items: top;
   padding: 0.75rem 0;
   border-bottom: 1px solid ${neutral[100]};
-`;
-
-const Article = styled.article`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding: 0.875rem 0;
-  border-bottom: 1px solid ${neutral[100]};
-
-  .sub {
-    font-size: ${fontSize.lg1};
-  }
-
-  .body {
-    font-size: ${fontSize.sm2};
-    line-height: 1.5rem;
-  }
-
-  .counter {
-    margin: 0.875rem 0;
-  }
 `;

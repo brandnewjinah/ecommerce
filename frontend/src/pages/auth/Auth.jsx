@@ -3,21 +3,21 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 
 //comp
-import { Heading } from "../components/Text";
-import { Section } from "../components/containers/Section";
-import { Div } from "../components/containers/Div";
-import { TextInput } from "../components/TextInput";
-import { Button, TextButton } from "../components/Button";
-import { primaryColor, neutral } from "../components/token";
-import { Google } from "../assets/Icon";
+import { Heading } from "../../components/Text";
+import { Section } from "../../components/containers/Section";
+import { Div } from "../../components/containers/Div";
+import { TextInput } from "../../components/TextInput";
+import { Button, TextButton } from "../../components/Button";
+import { primaryColor, neutral } from "../../components/token";
+import { Google } from "../../assets/Icon";
 
 //util
-import { signinValidate, signupValidate } from "../utils/validate";
+import { signinValidate, signupValidate } from "../../utils/validate";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
 
-import { signin, signup, signout } from "../redux/authRedux";
+import { signin, signup, signout } from "../../redux/authRedux";
 
 const Auth = () => {
   const navigate = useNavigate();

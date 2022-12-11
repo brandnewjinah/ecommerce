@@ -8,7 +8,7 @@ import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
 
 //Components
-import Card from "./ProductCard";
+import Card from "./ProductCard.tsx";
 import { Div } from "../containers/Div";
 import Loading from "../Loading";
 import { Heading } from "../Text";

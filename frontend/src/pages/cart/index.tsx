@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 
 //comp
 import { Heading } from "../../components/Text";
-import { primaryColor } from "../../components/token";
 import { Button } from "../../components/Button";
 import { Div, Flex } from "../../components/containers/Div";
 import ProductSlider from "../../components/products/ProductSlider";
 import CartSummary from "../../components/CartSummary";
 import CartItem from "./CartItem";
+import { primaryColor } from "../../components/token";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";

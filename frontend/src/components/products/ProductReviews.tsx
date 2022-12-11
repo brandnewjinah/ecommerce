@@ -6,8 +6,8 @@ import { Button } from "../Button";
 import { Header } from "../Header";
 import { primaryColor } from "../token";
 
-const ProductReview = ({ title }) => {
-  const reviews = [(1, 2, 3, 4, 5)];
+const ProductReview = () => {
+  const reviews: number[] = [1, 2, 3, 4, 5];
 
   const handleSubmit = () => {
     // dispatchEvent(reviewProduct(thisReview, product.sku));
@@ -15,7 +15,7 @@ const ProductReview = ({ title }) => {
 
   return (
     <Container>
-      <Header title={title} />
+      <Header title="Reviews" />
       <FilterContainer>
         <p>12 reviews</p>
         <p>sort by</p>

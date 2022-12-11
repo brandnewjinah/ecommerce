@@ -16,9 +16,7 @@ export const getWishlist = async (req, res) => {
           res.status(200).json(wishlist);
         }
       });
-  } catch (error) {
-    return error;
-  }
+  } catch (error) {}
 };
 
 // ADD TO WISHLIST "wishlist/addToWishlist?productId=${productId}""

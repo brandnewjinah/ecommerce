@@ -4,16 +4,16 @@ import { useNavigate, useParams } from "react-router-dom";
 //comp
 import Loading from "../../components/Loading";
 import Breadcrumbs from "../../components/Breadcrumbs";
-import SimilarItems from "../../components/products/SimilarItems";
-import Reviews from "../../components/products/ProductReviews";
 import { Flex } from "../../components/containers/Div";
 import { Section } from "../../components/containers/Section";
 import ImageContainer from "../../components/ImageContainer";
-import { InfoItem, ProductInfo } from "./ProductInfoItem";
+import { ProductInfo } from "./ProductInfoItem";
 import Counter from "../../components/Counter";
 import { Button } from "../../components/Button";
 import { primaryColor } from "../../components/token";
 import { Heart } from "../../assets/Icon";
+import SimilarItems from "../../components/products/SimilarItems";
+import Reviews from "../../components/products/ProductReviews";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -28,6 +28,7 @@ import {
   removeFromWishlist,
 } from "../../redux/wishlistRedux";
 import { addToCart } from "../../redux/cart";
+import { ProductHeader } from "../../components/Header";
 
 const ProductDetail = () => {
   const navigate = useNavigate();
@@ -108,7 +109,7 @@ const ProductDetail = () => {
       <Flex bgColor="honeydew" gap="3rem" lgFlexCol>
         <ImageContainer imgUrl={product.img} minWidth="430px" />
         <Section className="flexOne">
-          <InfoItem overline={product.brand} title={product.name} />
+          <ProductHeader overline={product.brand} title={product.name} />
           <ProductInfo helper="Price" subtitle={`$${product.price}`} />
           <ProductInfo helper="Size" subtitle={product.size} />
           <ProductInfo
@@ -151,15 +152,16 @@ const ProductDetail = () => {
         </Section>
       </Flex>
       <Section>
-        {similarProducts.status === 200 && similarProducts.products.length > 0 && (
-          <SimilarItems
-            title="Similar Items"
-            data={similarProducts.products}
-            slidesPerView={undefined} // slidesPerView={{ small: 2, medium: 3, large: 3 }}
-          />
-        )}
+        {similarProducts.status === 200 &&
+          similarProducts.products.length > 0 && (
+            <SimilarItems
+              title="Similar Items"
+              data={similarProducts.products}
+              // slidesPerView={{ small: 2, medium: 3, large: 3 }}
+            />
+          )}
       </Section>
-      <Reviews title="Reviews" />
+      <Reviews />
     </>
   );
 };

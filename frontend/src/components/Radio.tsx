@@ -17,7 +17,7 @@ interface Props {
   handleSelected?: (el: string) => void;
 }
 
-const Selector: FC<Props> = ({ name, data, defaultValue, handleSelected }) => {
+const Radio: FC<Props> = ({ name, data, defaultValue, handleSelected }) => {
   const [selection, setSelection] = useState(defaultValue);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -61,4 +61,4 @@ const SelectorContainer = styled.div`
   }
 `;
 
-export default Selector;
+export default Radio;

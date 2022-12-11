@@ -6,6 +6,7 @@ import { Body } from "./Text";
 import { fontSize, neutral } from "./token";
 
 interface Props {
+  overline?: string;
   title?: string;
   body?: string;
   caption?: string;
@@ -34,6 +35,20 @@ export const HeaderSmall: FC<Props> = ({ title, body }) => {
   );
 };
 
+export const ProductHeader: FC<Props> = ({ overline, title, body }) => {
+  return (
+    <ProductHeaderWrapper>
+      {overline && (
+        <Body variant="body_small" color={neutral[400]}>
+          {overline}
+        </Body>
+      )}
+      <h1>{title}</h1>
+      {body && <p>{body}</p>}
+    </ProductHeaderWrapper>
+  );
+};
+
 const HeaderWrapper = styled.header`
   display: flex;
   flex-direction: column;
@@ -49,4 +64,11 @@ const HeaderWrapper = styled.header`
 
 const HeaderWrapperSmall = styled(HeaderWrapper)`
   gap: 0.75rem;
+`;
+
+const ProductHeaderWrapper = styled.div`
+  h1 {
+    font-size: 1.125rem;
+    font-weight: 500;
+  }
 `;

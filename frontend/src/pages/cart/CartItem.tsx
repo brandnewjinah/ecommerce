@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 
 //comp
-import { Close } from "../../assets/Icon";
 import { Div, Flex } from "../../components/containers/Div";
 import Counter from "../../components/Counter";
 import ImageContainer from "../../components/ImageContainer";
 import { ListItem } from "../../components/ListItem";
 import { Body } from "../../components/Text";
+import { Close } from "../../assets/Icon";
 
 //redux
 import { useDispatch } from "react-redux";

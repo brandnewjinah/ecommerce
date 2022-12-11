@@ -2,10 +2,11 @@ import React, { FC, useState } from "react";
 
 //compt
 import { Section } from "../../components/containers/Section";
-import Selector from "../../components/Selector";
-import { Body, Header } from "../../components/Text";
-import { Button, TextButton } from "../../components/Button";
 import { Div } from "../../components/containers/Div";
+import { Body, Header } from "../../components/Text";
+import Radio from "../../components/Radio";
+import { Button, TextButton } from "../../components/Button";
+
 import { neutral, primaryColor } from "../../components/token";
 
 //IF
@@ -46,7 +47,7 @@ const Delivery: FC<Props> = ({ step, info, handleStep }) => {
       </Header>
       {step === 2 ? (
         <div>
-          <Selector
+          <Radio
             name="shipping"
             data={[
               {

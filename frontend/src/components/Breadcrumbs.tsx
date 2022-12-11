@@ -1,9 +1,19 @@
-import React from "react";
+import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+
+//comp
 import { neutral, breakpoint, fontSize } from "./token";
 
-const Breadcrumbs = ({ category1, category2 }) => {
+//interfaces
+import { CategoryIF, SubcategoryIF } from "./../interfaces/categoryInterface";
+
+interface Props {
+  category1: CategoryIF;
+  category2?: SubcategoryIF;
+}
+
+const Breadcrumbs: FC<Props> = ({ category1, category2 }) => {
   return (
     <Container>
       <Link to={`/category/${category1 && category1.value}`}>

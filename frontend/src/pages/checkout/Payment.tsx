@@ -5,8 +5,8 @@ import { Div, Flex } from "../../components/containers/Div";
 import { Section } from "../../components/containers/Section";
 import { Body, Header } from "../../components/Text";
 import { InputMask, TextInput } from "../../components/TextInput";
-import { neutral, primaryColor } from "../../components/token";
 import { Button, TextButton } from "../../components/Button";
+import { neutral, primaryColor } from "../../components/token";
 
 //IF
 import { PaymentIF } from "../../interfaces/checkoutInterface";
