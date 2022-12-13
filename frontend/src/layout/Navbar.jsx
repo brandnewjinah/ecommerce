@@ -18,7 +18,7 @@ const Navbar = ({ open, handleOpen }) => {
   const dispatch = useDispatch();
   const [userHover, setUserHover] = useState(false);
   const { currentUser, status } = useSelector((state) => state.auth);
-  const totalQty = useSelector((state) => state.cartTest.totalQty);
+  const totalQty = useSelector((state) => state.cart.totalQty);
 
   const handleLogOut = () => {
     dispatch(signout());
@@ -43,7 +43,7 @@ const Navbar = ({ open, handleOpen }) => {
               {status === 0 && currentUser.name === "" ? (
                 <Link to="/login">Login</Link>
               ) : (
-                <Link to="/profile">Hi, {currentUser.name}</Link>
+                <Link to="/user">Hi, {currentUser.name}</Link>
               )}
             </li>
           </ul>

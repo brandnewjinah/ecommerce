@@ -14,7 +14,7 @@ import Payment from "./Payment";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { placeOrder, reset } from "../../redux/checkoutRedux";
-import { clearCart } from "../../redux/cart";
+import { clearCart } from "../../redux/cartRedux";
 
 const Checkout: FC = () => {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const Checkout: FC = () => {
   const { shipping, delivery, payment } = useSelector(
     (state: RootState) => state.checkout
   );
-  const { products } = useSelector((state: RootState) => state.cartTest);
+  const { products } = useSelector((state: RootState) => state.cart);
   const [step, setStep] = useState(1);
 
   const handlePlaceOrder = () => {

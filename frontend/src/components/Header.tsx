@@ -10,11 +10,12 @@ interface Props {
   title?: string;
   body?: string;
   caption?: string;
+  margin?: string;
 }
 
-export const Header: FC<Props> = ({ title, body, caption }) => {
+export const Header: FC<Props> = ({ title, body, caption, margin }) => {
   return (
-    <HeaderWrapper>
+    <HeaderWrapper margin={margin}>
       <h1>{title}</h1>
       {body && <p>{body}</p>}
       {caption && (
@@ -26,9 +27,9 @@ export const Header: FC<Props> = ({ title, body, caption }) => {
   );
 };
 
-export const HeaderSmall: FC<Props> = ({ title, body }) => {
+export const HeaderSmall: FC<Props> = ({ title, body, margin }) => {
   return (
-    <HeaderWrapperSmall>
+    <HeaderWrapperSmall margin={margin}>
       <h1>{title}</h1>
       {body && <p>{body}</p>}
     </HeaderWrapperSmall>
@@ -49,11 +50,12 @@ export const ProductHeader: FC<Props> = ({ overline, title, body }) => {
   );
 };
 
-const HeaderWrapper = styled.header`
+const HeaderWrapper = styled.header<Props>`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   text-align: center;
+  margin: ${(props) => props.margin && props.margin};
 
   h1 {
     font-size: ${fontSize.lg2};

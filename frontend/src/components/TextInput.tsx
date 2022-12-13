@@ -129,7 +129,7 @@ const Container = styled.div<Props>`
 
   label {
     display: inline-block;
-    font-size: ${fontSize.base};
+    font-size: ${fontSize.sm2};
     padding: 0 0 0.5rem;
   }
 

@@ -10,7 +10,11 @@ import { Close } from "../../assets/Icon";
 
 //redux
 import { useDispatch } from "react-redux";
-import { decreaseQty, increaseQty, removeFromCart } from "../../redux/cart";
+import {
+  decreaseQty,
+  increaseQty,
+  removeFromCart,
+} from "../../redux/cartRedux";
 
 interface Props {
   data?: any;

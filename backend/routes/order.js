@@ -17,7 +17,7 @@ router.post("/", checkToken, createOrder);
 // @route GET /orders/${userId}/${orderId}
 // @desc Get order detail for a single order
 // @access Private or Admin
-router.get("/:userId/:orderId", checkAuth, getOneOrder);
+router.get("/order/:userId/:orderId", checkAuth, getOneOrder);
 // router.get("/:orderId", checkAuth, getOneOrder);
 
 // @route GET /orders/user/${userId}

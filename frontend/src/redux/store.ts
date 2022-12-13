@@ -12,16 +12,13 @@ import {
 import storage from "redux-persist/lib/storage";
 
 import authReducer from "./authRedux";
-import cartReducer from "./cartRedux";
 import checkoutReducer from "./checkoutRedux";
 import orderDetailReducer from "./orderDetailRedux";
-import productReducer from "./productRedux";
-import productListReducer from "./productListRedux";
 import productDetailReducer from "./productDetailRedux";
 import announcementReducer from "./announcementRedux";
 import subscriberReducer from "./subscriberRedux";
 import wishlistReducer from "./wishlistRedux";
-import cartTestReducer from "./cart";
+import cartReducer from "./cartRedux";
 import categoryReducer from "./categoryRedux";
 import orderReducer from "./orderRedux";
 
@@ -34,10 +31,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authReducer,
   cart: cartReducer,
-  cartTest: cartTestReducer,
   category: categoryReducer,
-  products: productListReducer,
-  productList: productReducer,
   productDetail: productDetailReducer,
   checkout: checkoutReducer,
   orderDetail: orderDetailReducer,

@@ -33,7 +33,9 @@ const Container = styled.div`
   }
 `;
 
-const Main = styled.main`
+const Main = styled.main<Props>`
+  display: flex;
+  flex-direction: column;
   flex: 4;
 `;
 

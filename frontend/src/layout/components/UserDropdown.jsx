@@ -8,7 +8,7 @@ const UserDropdown = ({ handleLogOut }) => {
     <Container>
       <ul>
         <li>
-          <Link to="/profile">User Profile</Link>
+          <Link to="/user">User Profile</Link>
         </li>
         <li>
           <Link to="/history">Order History</Link>

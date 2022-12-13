@@ -13,7 +13,6 @@ import { primaryColor } from "../../components/token";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { getProducts } from "../../redux/productListRedux";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -22,7 +21,7 @@ const Cart = () => {
   const loggedIn = currentUser && currentUser.token !== "";
 
   //get cart items
-  const { products } = useSelector((state: RootState) => state.cartTest);
+  const { products } = useSelector((state: RootState) => state.cart);
 
   //   useEffect(() => {
   //     dispatch(getProducts({ category: "new", page: 1 }));

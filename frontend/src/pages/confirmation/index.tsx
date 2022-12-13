@@ -6,13 +6,13 @@ import Loading from "../../components/Loading";
 import { HeaderSmall } from "../../components/Header";
 import { Section } from "../../components/containers/Section";
 import OrderItem from "../order/OrderItems";
+import { Body } from "../../components/Text";
+import { Flex, Div } from "../../components/containers/Div";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { getOneOrderDetail } from "../../redux/orderRedux";
 import { RootState } from "../../redux/store";
-import { Body } from "../../components/Text";
-import { Flex, Div } from "../../components/containers/Div";
+import { getOneOrderDetail } from "../../redux/orderRedux";
 
 const OrderConfirmation = () => {
   const dispatch = useDispatch();

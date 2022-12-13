@@ -32,6 +32,7 @@ export const checkToken = (req, res, next) => {
 export const checkAuth = (req, res, next) => {
   checkToken(req, res, () => {
     // console.log(req.user._id === req.params.idd);
+
     if (req.user._id === req.params.userId || req.user.isAdmin) {
       next();
     } else {

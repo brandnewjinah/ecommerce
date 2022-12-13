@@ -9,7 +9,7 @@ import Hr from "./Hr";
 import { neutral, primaryColor } from "./token";
 
 //redux
-import { RootStateOrAny, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
 interface Props {
@@ -22,9 +22,9 @@ const CartSummary: FC<Props> = ({ step, handleClick }) => {
   const path = location.pathname.split("/")[1];
 
   const [subtotal, setSubtotal] = useState(0);
-  const { products } = useSelector((state: RootState) => state.cartTest);
+  const { products } = useSelector((state: RootState) => state.cart);
   const { shipping } = useSelector(
-    (state: RootStateOrAny) => state.checkout.delivery
+    (state: RootState) => state.checkout.delivery
   );
   const shippingCost = shipping === "Express" ? 15 : 0;
 

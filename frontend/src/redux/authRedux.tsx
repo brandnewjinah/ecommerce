@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { publicRequest } from "../api";
+import { publicRequest, privateRequest } from "../api";
 import { Status } from "../interfaces/baseInterface";
 import { AuthIF, CurrentUserIF } from "../interfaces/authInterface";
 
@@ -68,6 +68,28 @@ export const signup = createAsyncThunk<
   }
 });
 
+export const editUser = createAsyncThunk<
+  CurrentUserResponse,
+  AuthIF,
+  {
+    rejectValue: Status;
+  }
+>("auth/editUser", async (value: AuthIF, { rejectWithValue }) => {
+  try {
+    const res = await privateRequest.put(`/users/edit`, value);
+    return {
+      status: res.status,
+      message: res.statusText,
+      currentUser: res.data,
+    } as CurrentUserResponse;
+  } catch (error: any) {
+    return rejectWithValue({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+  }
+});
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -118,6 +140,27 @@ const authSlice = createSlice({
       state.currentUser = action.payload.currentUser;
     });
     builder.addCase(signup.rejected, (state, action) => {
+      state.isLoading = false;
+      state.status = action.payload!.status;
+      state.message = action.payload!.message;
+      state.currentUser = {
+        _id: "",
+        name: "",
+        email: "",
+        token: "",
+        isAdmin: false,
+      };
+    });
+    builder.addCase(editUser.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(editUser.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.status = action.payload.status;
+      state.message = action.payload.message;
+      state.currentUser = action.payload.currentUser;
+    });
+    builder.addCase(editUser.rejected, (state, action) => {
       state.isLoading = false;
       state.status = action.payload!.status;
       state.message = action.payload!.message;

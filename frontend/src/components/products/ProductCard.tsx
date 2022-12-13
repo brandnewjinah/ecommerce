@@ -11,7 +11,7 @@ import { Div } from "../containers/Div";
 
 //redux
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/cart";
+import { addToCart } from "../../redux/cartRedux";
 
 interface Props {
   sku?: string;

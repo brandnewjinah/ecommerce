@@ -11,7 +11,7 @@ import {
 const menuItems = [
   {
     name: "Account",
-    url: "/profile",
+    url: "/user",
   },
   {
     name: "Order History",

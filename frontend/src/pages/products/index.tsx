@@ -27,7 +27,7 @@ import {
   getWishlist,
   removeFromWishlist,
 } from "../../redux/wishlistRedux";
-import { addToCart } from "../../redux/cart";
+import { addToCart } from "../../redux/cartRedux";
 import { ProductHeader } from "../../components/Header";
 
 const ProductDetail = () => {

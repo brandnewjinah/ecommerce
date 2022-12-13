@@ -13,7 +13,8 @@ import Cart from "./pages/cart";
 import Checkout from "./pages/checkout/index";
 import OrderConfirmation from "./pages/confirmation";
 import Wishlist from "./pages/wishlist";
-import UserProfile from "./pages/user";
+import UserProfile from "./pages/user/Account";
+import OrderHistory from "./pages/user/OrderHistory";
 
 const Routes = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const Routes = createBrowserRouter([
       {
         path: "/user",
         element: <UserProfile />,
+      },
+      {
+        path: "/history",
+        element: <OrderHistory />,
       },
     ],
   },
