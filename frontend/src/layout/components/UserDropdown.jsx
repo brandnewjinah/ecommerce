@@ -11,7 +11,7 @@ const UserDropdown = ({ handleLogOut }) => {
           <Link to="/user">User Profile</Link>
         </li>
         <li>
-          <Link to="/history">Order History</Link>
+          <Link to="/orders">My Orders</Link>
         </li>
         <li onClick={handleLogOut}>Logout</li>
       </ul>

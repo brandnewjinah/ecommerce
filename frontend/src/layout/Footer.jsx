@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { Facebook, Instagram, Twitter, Youtube } from "../assets/Icon";
 
 //comp
 import { Div, Flex } from "../components/containers/Div";
 import Grid from "../components/containers/Grid";
 import { Body } from "../components/Text";
 import { neutral, breakpoint, size, fontSize } from "../components/token";
+import { Facebook, Instagram, Twitter, Youtube } from "../assets/Icon";
 
 const Footer = () => {
   return (
@@ -53,19 +53,19 @@ const Footer = () => {
             </Body>
             <Column>
               <li>
-                <Instagram width={20} height={20} fill="#000" />
+                <Instagram width={20} height={20} fill={neutral[600]} />
                 Instagram
               </li>
               <li>
-                <Youtube width={20} height={20} fill="#000" />
+                <Youtube width={20} height={20} fill={neutral[600]} />
                 Youtube
               </li>
               <li>
-                <Twitter width={20} height={20} fill="#000" />
+                <Twitter width={20} height={20} fill={neutral[600]} />
                 Twitter
               </li>
               <li>
-                <Facebook width={20} height={20} fill="#000" />
+                <Facebook width={20} height={20} fill={neutral[600]} />
                 Facebook
               </li>
             </Column>

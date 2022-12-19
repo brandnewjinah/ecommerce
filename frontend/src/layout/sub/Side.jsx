@@ -14,14 +14,14 @@ const menuItems = [
     url: "/user",
   },
   {
-    name: "Order History",
-    url: "/history",
+    name: "My Orders",
+    url: "/orders",
   },
 ];
 
 const Side = () => {
   const location = useLocation();
-  const pathname = location.pathname;
+  const pathname = location.pathname.split("/").slice(0, 2).join("/");
 
   return (
     <Container>

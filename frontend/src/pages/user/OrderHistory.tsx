@@ -27,7 +27,7 @@ const OrderHistory = () => {
   return (
     <Layout>
       <Div width="85%">
-        <HeaderSmall title="Order History" margin="0 0 2rem 0" />
+        <HeaderSmall title="My Orders" margin="0 0 2rem 0" />
         {userOrders &&
           userOrders.orders &&
           userOrders.orders.map((order, idx) => (

@@ -22,24 +22,22 @@ const OrderConfirmation = () => {
     dispatch(getOneOrderDetail(orderId!));
   }, [dispatch, orderId]);
 
-  const { isLoading, status, orderDetails } = useSelector(
-    (state: RootState) => state.order
-  );
+  const { isLoading, order } = useSelector((state: RootState) => state.order);
 
   return isLoading ? (
     <Loading />
   ) : (
     <>
-      {status === 200 ? (
+      {order.status === 200 ? (
         <>
           <HeaderSmall
             title="THANK YOU FOR YOUR ORDER"
-            body={`Your Order Number is ${orderId} and status is ${orderDetails.orderStatus}`}
+            body={`Your Order Number is ${orderId} and status is ${order.orderDetails.orderStatus}`}
           />
           <Section>
             <Body>Order Summary</Body>
-            {orderDetails &&
-              orderDetails.orderItems.map((item, idx) => (
+            {order.orderDetails &&
+              order.orderDetails.orderItems.map((item, idx) => (
                 <OrderItem key={idx} data={item} />
               ))}
           </Section>
@@ -47,12 +45,12 @@ const OrderConfirmation = () => {
             <Body>Shipping</Body>
             <Flex>
               <Div className="flexOne">
-                <Body>{orderDetails.shipping.fullName}</Body>
-                <Body>{orderDetails.shipping.streetAddress}</Body>
-                <Body>{`${orderDetails.shipping.city} ${orderDetails.shipping.state} ${orderDetails.shipping.zip}`}</Body>
+                <Body>{order.orderDetails.shipping.fullName}</Body>
+                <Body>{order.orderDetails.shipping.streetAddress}</Body>
+                <Body>{`${order.orderDetails.shipping.city} ${order.orderDetails.shipping.state} ${order.orderDetails.shipping.zip}`}</Body>
               </Div>
               <Div className="flexOne">
-                <Body>{orderDetails.delivery.shipping}</Body>
+                <Body>{order.orderDetails.delivery.shipping}</Body>
               </Div>
             </Flex>
           </Section>
@@ -61,12 +59,12 @@ const OrderConfirmation = () => {
             <Flex>
               <Div>
                 <Body>Payment Method</Body>
-                <Body>{orderDetails.payment.cardNumber}</Body>
+                <Body>{order.orderDetails.payment.cardNumber}</Body>
               </Div>
               <Div>
                 <Body>Billing Summary</Body>
                 <div>
-                  {orderDetails.orderItems.map((item, idx) => (
+                  {order.orderDetails.orderItems.map((item, idx) => (
                     <Flex key={idx}>
                       <Body>{item.name}</Body>
                       <Body>{`${Number(item.price) * item.qty!}`}</Body>

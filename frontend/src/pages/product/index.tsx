@@ -21,7 +21,7 @@ import { RootState } from "../../redux/store";
 import {
   getProductDetails,
   getSimilarProducts,
-} from "../../redux/productDetailRedux";
+} from "../../redux/productReducer";
 import {
   addToWishlist,
   getWishlist,
@@ -41,7 +41,7 @@ const ProductDetail = () => {
   }, [dispatch, productId]);
 
   const { isLoading, productDetails } = useSelector(
-    (state: RootState) => state.productDetail
+    (state: RootState) => state.product
   );
   const product = productDetails.product;
 
@@ -53,9 +53,7 @@ const ProductDetail = () => {
     );
   }, [dispatch, productId, product.category2._id]);
 
-  const { similarProducts } = useSelector(
-    (state: RootState) => state.productDetail
-  );
+  const { similarProducts } = useSelector((state: RootState) => state.product);
 
   //add to cart
   const [qty, setQty] = useState(1);
@@ -106,7 +104,7 @@ const ProductDetail = () => {
         category1={product.category1}
         category2={product.category2}
       />
-      <Flex bgColor="honeydew" gap="3rem" lgFlexCol>
+      <Flex gap="3rem" lgFlexCol>
         <ImageContainer imgUrl={product.img} minWidth="430px" />
         <Section className="flexOne">
           <ProductHeader overline={product.brand} title={product.name} />

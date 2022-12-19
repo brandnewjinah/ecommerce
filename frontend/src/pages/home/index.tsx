@@ -10,7 +10,8 @@ import { Section } from "../../components/containers/Section";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { getCategory } from "../../redux/categoryRedux";
+import { getCategory } from "../../redux/categoryReducer";
+import { RootState } from "../../redux/store";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,9 @@ const Home = () => {
     dispatch(getCategory({ category: "new", page: 1 }));
   }, [dispatch]);
 
-  const { products, isLoading } = useSelector((state) => state.category);
+  const { products, isLoading } = useSelector(
+    (state: RootState) => state.category
+  );
 
   return (
     <Div width="100%">

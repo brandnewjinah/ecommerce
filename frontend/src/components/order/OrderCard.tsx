@@ -83,7 +83,7 @@ const OrderCard: FC<Props> = ({ id, date, status, total, thumb }) => {
             icon={
               <ChevronRight width={20} height={20} color="#000" stroke={2} />
             }
-            handleClick={() => navigate(`../order/${id}`)}
+            handleClick={() => navigate(`../orders/${id}`)}
           />
         </Div>
       </Flex>

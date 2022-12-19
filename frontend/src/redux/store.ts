@@ -14,12 +14,12 @@ import storage from "redux-persist/lib/storage";
 import authReducer from "./authRedux";
 import checkoutReducer from "./checkoutRedux";
 import orderDetailReducer from "./orderDetailRedux";
-import productDetailReducer from "./productDetailRedux";
+import productReducer from "./productReducer";
 import announcementReducer from "./announcementRedux";
-import subscriberReducer from "./subscriberRedux";
+import subscriberReducer from "./subscriberReducer";
 import wishlistReducer from "./wishlistRedux";
 import cartReducer from "./cartRedux";
-import categoryReducer from "./categoryRedux";
+import categoryReducer from "./categoryReducer";
 import orderReducer from "./orderRedux";
 
 const persistConfig = {
@@ -32,7 +32,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   cart: cartReducer,
   category: categoryReducer,
-  productDetail: productDetailReducer,
+  product: productReducer,
   checkout: checkoutReducer,
   orderDetail: orderDetailReducer,
   announce: announcementReducer,

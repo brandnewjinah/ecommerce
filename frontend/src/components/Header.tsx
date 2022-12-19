@@ -17,7 +17,7 @@ export const Header: FC<Props> = ({ title, body, caption, margin }) => {
   return (
     <HeaderWrapper margin={margin}>
       <h1>{title}</h1>
-      {body && <p>{body}</p>}
+      {body && <Body variant="body_small">{body}</Body>}
       {caption && (
         <Body variant="body_xsmall" color={neutral[400]}>
           {caption}

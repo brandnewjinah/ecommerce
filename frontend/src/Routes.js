@@ -8,13 +8,14 @@ import ErrorPage from "./pages/error";
 import Home from "./pages/home";
 import Auth from "./pages/auth";
 import Products from "./pages/category";
-import ProductDetail from "./pages/products";
+import ProductDetail from "./pages/product";
 import Cart from "./pages/cart";
-import Checkout from "./pages/checkout/index";
+import Checkout from "./pages/checkout";
 import OrderConfirmation from "./pages/confirmation";
 import Wishlist from "./pages/wishlist";
 import UserProfile from "./pages/user/Account";
 import OrderHistory from "./pages/user/OrderHistory";
+import OrderDetail from "./pages/user/OrderDetail";
 
 const Routes = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const Routes = createBrowserRouter([
       },
       {
         path: "/category/:category",
+        element: <Products />,
+      },
+      {
+        path: "/category/:category/:sub",
         element: <Products />,
       },
       {
@@ -55,13 +60,16 @@ const Routes = createBrowserRouter([
         element: <UserProfile />,
       },
       {
-        path: "/history",
+        path: "/orders",
         element: <OrderHistory />,
+      },
+      {
+        path: "/orders/:orderId",
+        element: <OrderDetail />,
       },
     ],
   },
   {
-    path: "/checkout",
     element: <Blank />,
     errorElement: <ErrorPage />,
     children: [

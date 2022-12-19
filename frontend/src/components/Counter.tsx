@@ -9,13 +9,11 @@ interface Props {
 
 const Counter: FC<Props> = ({ qty, handleDecrease, handleIncrease }) => {
   return (
-    <div>
-      <Control>
-        <div onClick={handleDecrease}>-</div>
-        <div>{qty}</div>
-        <div onClick={handleIncrease}>+</div>
-      </Control>
-    </div>
+    <Control>
+      <div onClick={handleDecrease}>-</div>
+      <div>{qty}</div>
+      <div onClick={handleIncrease}>+</div>
+    </Control>
   );
 };
 

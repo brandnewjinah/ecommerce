@@ -10,9 +10,9 @@ import { ChevronRight } from "../assets/Icon";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { addSubscriber } from "../redux/subscriberRedux";
+import { addSubscriber } from "../redux/subscriberReducer";
 import { RootState } from "../redux/store";
-import { reset } from "../redux/subscriberRedux";
+import { reset } from "../redux/subscriberReducer";
 
 const Newsletter = () => {
   const dispatch = useDispatch();

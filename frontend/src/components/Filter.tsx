@@ -1,4 +1,5 @@
 import React, { FC, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 //import data
@@ -12,12 +13,12 @@ import { neutral, breakpoint, fontSize } from "./token";
 
 interface Props {
   category: string;
-  handleFilter: (value: string) => void;
+  sub?: string;
 }
 
-const Filter: FC<Props> = ({ category, handleFilter }) => {
+const Filter: FC<Props> = ({ category, sub }) => {
   const [subCategories, setSubCategories] = useState<SubcategoryIF[]>([]);
-  const [active, setActive] = useState<string>();
+  let active: string = sub!;
 
   useEffect(() => {
     const findCategory = () => {
@@ -32,27 +33,29 @@ const Filter: FC<Props> = ({ category, handleFilter }) => {
     findCategory();
   }, [category]);
 
-  const handleSelect = (value: string) => {
-    handleFilter(value);
-    setActive(value);
-  };
-
   return (
     <Container>
       {category === "all" || category === "new" ? null : (
         <>
-          <List onClick={() => handleSelect("all")}>
-            <span className={active === "all" ? "active" : ""}>All</span>
-          </List>
+          <Link to={`/category/${category}`}>
+            <List>
+              <span className={active === undefined ? "active" : ""}>All</span>
+            </List>
+          </Link>
           {subCategories &&
             subCategories.map((item, idx) => (
-              <List key={idx}>
-                <div onClick={() => handleSelect(item.value)}>
-                  <span className={item.value === active ? "active" : ""}>
-                    {item.label}
-                  </span>
-                </div>
-              </List>
+              //link to subcategory
+              <Link to={`/category/${category}/${item.id}`} key={idx}>
+                <List>
+                  <div>
+                    <span
+                      className={item.id === parseInt(active) ? "active" : ""}
+                    >
+                      {item.label}
+                    </span>
+                  </div>
+                </List>
+              </Link>
             ))}
         </>
       )}

@@ -21,7 +21,6 @@ interface Props {
 }
 
 const CartItem: FC<Props> = ({ data }) => {
-  console.log(data);
   const dispatch = useDispatch();
 
   return (

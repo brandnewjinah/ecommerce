@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
 
 // Swiper
@@ -8,14 +8,33 @@ import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
 
 //Components
-import Card from "./ProductCard.tsx";
+import Card from "./ProductCard";
 import { Div } from "../containers/Div";
 import Loading from "../Loading";
 import { Heading } from "../Text";
 
+//interface
+import { Product } from "../../interfaces/productInterface";
+
 SwiperCore.use([Navigation]);
 
-const ProductSlider = ({ isLoading, data, title, slidesPerView }) => {
+interface Props {
+  isLoading: boolean;
+  data: Product[];
+  title: string;
+  slidesPerView: {
+    small: number;
+    medium: number;
+    large: number;
+  };
+}
+
+const ProductSlider: FC<Props> = ({
+  isLoading,
+  data,
+  title,
+  slidesPerView,
+}) => {
   return isLoading ? (
     <Loading />
   ) : (
@@ -49,7 +68,6 @@ const ProductSlider = ({ isLoading, data, title, slidesPerView }) => {
                   sku={p.sku}
                   brand={p.brand}
                   name={p.name}
-                  currency={p.currency && p.currency.label}
                   price={p.price}
                   imageUrl={p.img}
                   _id={p._id}
