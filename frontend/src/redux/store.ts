@@ -18,7 +18,7 @@ import productReducer from "./productReducer";
 import announcementReducer from "./announcementRedux";
 import subscriberReducer from "./subscriberReducer";
 import wishlistReducer from "./wishlistRedux";
-import cartReducer from "./cartRedux";
+import cartReducer from "./cartReducer";
 import categoryReducer from "./categoryReducer";
 import orderReducer from "./orderRedux";
 

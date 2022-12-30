@@ -14,7 +14,7 @@ import {
   decreaseQty,
   increaseQty,
   removeFromCart,
-} from "../../redux/cartRedux";
+} from "../../redux/cartReducer";
 
 interface Props {
   data?: any;

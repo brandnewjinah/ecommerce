@@ -3,9 +3,6 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 //comp
 import Layout from "../../layout/sub/Layout";
 import { HeaderSmall } from "../../components/Header";
-import { Section } from "../../components/containers/Section";
-import { TextInput } from "../../components/TextInput";
-import { primaryColor } from "../../components/token";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";

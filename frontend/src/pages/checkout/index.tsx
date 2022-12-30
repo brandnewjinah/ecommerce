@@ -14,7 +14,7 @@ import Payment from "./Payment";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { placeOrder, reset } from "../../redux/checkoutRedux";
-import { clearCart } from "../../redux/cartRedux";
+import { clearCart } from "../../redux/cartReducer";
 
 const Checkout: FC = () => {
   const dispatch = useDispatch();

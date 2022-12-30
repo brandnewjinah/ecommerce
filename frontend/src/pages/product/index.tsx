@@ -27,7 +27,7 @@ import {
   getWishlist,
   removeFromWishlist,
 } from "../../redux/wishlistRedux";
-import { addToCart } from "../../redux/cartRedux";
+import { addToCart } from "../../redux/cartReducer";
 import { ProductHeader } from "../../components/Header";
 
 const ProductDetail = () => {
@@ -62,10 +62,6 @@ const ProductDetail = () => {
     if (qty > 1) {
       setQty(qty - 1);
     }
-  };
-
-  const handleAddToCart = () => {
-    dispatch(addToCart({ productId, qty }));
   };
 
   //wishlist
@@ -128,7 +124,7 @@ const ProductDetail = () => {
             <Button
               label="Add to Cart"
               color={primaryColor.button}
-              handleClick={handleAddToCart}
+              handleClick={() => dispatch(addToCart({ productId, qty }))}
             />
             <Button
               label="Wishlist"
