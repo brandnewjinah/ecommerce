@@ -8,11 +8,12 @@ export interface Props {
   color?: string;
   disabled?: boolean;
   fontColor?: string;
-  icon?: React.ComponentType;
+  icon?: any;
   label?: string;
   margin?: string;
+  padding?: string;
   shape?: "text" | "outline" | undefined;
-  size?: "big" | undefined;
+  size?: "big" | "small" | undefined;
   type?: "button" | "submit" | "reset" | undefined;
   handleClick?: () => void;
 }
@@ -41,6 +42,7 @@ export const Button: FC<Props> = ({
         shape={shape}
         size={size}
         type={type}
+        disabled={disabled}
         onClick={handleClick}
       >
         <div className="flexCenter">
@@ -54,36 +56,23 @@ export const Button: FC<Props> = ({
 
 export const TextButton: FC<Props> = ({
   center,
-  className,
   color,
   disabled,
-  margin,
+  padding,
   label,
   handleClick,
 }) => {
   return (
-    <Container
+    <TextButtonWrapper
+      aria-label={label}
+      color={color}
       center={center}
-      margin={margin && margin}
-      className={className ? className : "flexCenter"}
+      padding={padding}
+      disabled={disabled}
+      onClick={handleClick}
     >
-      <TextButtonContainer
-        aria-label={label}
-        color={color}
-        disabled={disabled}
-        onClick={handleClick}
-      >
-        <p>{label}</p>
-      </TextButtonContainer>
-    </Container>
-  );
-};
-
-export const IconButton: FC<Props> = ({ label, icon, handleClick }) => {
-  return (
-    <IconButtonContainer onClick={handleClick}>
-      {icon && icon}
-    </IconButtonContainer>
+      {label}
+    </TextButtonWrapper>
   );
 };
 
@@ -96,7 +85,7 @@ const Container = styled.div<Props>`
 
 const ButtonContainer = styled.button<Props>`
   width: ${(props) => (props.shape === "text" ? null : "100%")};
-  font-size: ${(props) => (props.size === "big" ? "1.125rem" : "1rem")};
+  font-size: ${(props) => (props.size === "big" ? "1.125rem" : ".875rem")};
   font-weight: 600;
   color: ${(props) => (props.fontColor ? props.fontColor : "#fff")};
   background-color: ${(props) =>
@@ -107,7 +96,12 @@ const ButtonContainer = styled.button<Props>`
   border-color: ${(props) => props.shape === "outline" && props.color};
   border-width: ${(props) => (props.shape === "outline" ? "1px" : 0)};
   border-radius: 0.25rem;
-  padding: ${(props) => (props.size === "big" ? "1.25rem" : "1rem")};
+  padding: ${(props) =>
+    props.size === "big"
+      ? "1.25rem"
+      : props.size === "small"
+      ? ".7rem"
+      : "1rem"};
   transition: opacity 0.3s ease-out;
   cursor: pointer;
 
@@ -117,6 +111,10 @@ const ButtonContainer = styled.button<Props>`
 
   &:active {
     opacity: 1;
+  }
+
+  &:disabled {
+    background-color: ${neutral[200]};
   }
 
   svg {
@@ -130,18 +128,21 @@ const ButtonContainer = styled.button<Props>`
   }
 `;
 
-const TextButtonContainer = styled.button<Props>`
+const TextButtonWrapper = styled.button<Props>`
+  display: block;
   font-weight: 600;
   background: transparent;
   color: ${(props) => props.color};
   border: 0;
-  border-bottom: ${(props) =>
-    props.color ? `2px solid ${props.color}` : `2px solid black`};
+  border-bottom: 1px solid transparent;
+  padding: ${(props) => props.padding && props.padding};
+  margin: ${(props) => props.center && "auto"};
   transition: 0.2s;
   cursor: pointer;
 
   &:hover {
-    border-bottom-color: transparent;
+    border-bottom: ${(props) =>
+      props.color ? `1px solid ${props.color}` : `1px solid black`};
   }
 
   &:active {
@@ -155,20 +156,19 @@ const TextButtonContainer = styled.button<Props>`
   }
 `;
 
-const IconButtonContainer = styled.div`
-  display: flex;
+export const IconButton: FC<Props> = ({ icon, handleClick }) => {
+  return (
+    <IconButtonWrapper onClick={handleClick}>{icon && icon}</IconButtonWrapper>
+  );
+};
+
+const IconButtonWrapper = styled.button`
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: ${neutral[200]};
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: none;
-  outline: transparent;
-  padding: 0.25rem;
+  height: 3rem;
+  background: transparent;
+  border: 0;
+  padding: 0.75rem 0.5rem;
   cursor: pointer;
-
-  &:hover {
-    background-color: ${neutral[300]};
-  }
 `;

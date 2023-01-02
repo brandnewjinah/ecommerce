@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { typeScale, typeScaleMobile, breakpoint } from "./token";
+import { breakpoint, fontSize } from "./token";
 
 const GlobalStyle = createGlobalStyle`
  * {
@@ -13,43 +13,14 @@ const GlobalStyle = createGlobalStyle`
     }
     body {
         height: 100%;
-        font-size: ${typeScaleMobile.body}
+        font-size: ${fontSize.base}
     }
     div#root {
         height: 100%;
     }
-    h1 {
-        font-weight: 700;
-        font-size: ${typeScaleMobile.header1};
-        line-height: 2.5rem;
-    }
-    h2 {
-        font-weight: 700;
-        font-size: ${typeScaleMobile.header2};
-        line-height: ${typeScaleMobile.header2};
-    }
-    h3 {
-        font-weight: 700;
-        font-size: ${typeScaleMobile.header3};
-        line-height: ${typeScaleMobile.header3};
-    }
-    h4 {
-        font-weight: 700;
-        font-size: ${typeScaleMobile.header4};
-        line-height: ${typeScaleMobile.header4};
-    }
-    h5 {
-        font-weight: 700;
-        font-size: ${typeScaleMobile.header5};
-        line-height: ${typeScaleMobile.header5};
-    }
-    h6 {
-        font-weight: 700;
-        font-size: ${typeScaleMobile.header6};
-        line-height: ${typeScaleMobile.header6};
-    }
+    
     ul {
-        list-style-type: none;
+        list-style: none;
     }
     li {
         list-style-type: none;
@@ -61,38 +32,53 @@ const GlobalStyle = createGlobalStyle`
         color: inherit;
         cursor: pointer;
     }
+
+  .flexHalf {
+    flex: 0.5;
+  }
+
+  .flexOne {
+    flex: 1;
+  }
+
+  .flexTwo {
+    flex: 2;
+  }
+
+  .flexThree {
+    flex: 3;
+  }
+
+  .flexFour {
+    flex: 4;
+  }
+
+  .flexFive {
+    flex: 5;
+  }
+
+  .flexSix {
+    flex: 6;
+  }
+
+  .flexSeven {
+    flex: 7;
+  }
+
+  .flexEight {
+    flex: 8;
+  }
+
+  .flexNine {
+    flex: 9;
+  }
+
+  .flexTen {
+    flex: 10;
+  }
     
-    @media ${breakpoint.minlg} {
-    h1 {
-        font-weight: 700;
-        font-size: ${typeScale.header1};
-        line-height: ${typeScale.header1};
-        }
-    h2 {
-        font-weight: 700;
-        font-size: ${typeScale.header2};
-        line-height: ${typeScale.header2};
-    }
-    h3 {
-        font-weight: 700;
-        font-size: ${typeScale.header3};
-        line-height: ${typeScale.header3};
-    }
-    h4 {
-        font-weight: 700;
-        font-size: ${typeScale.header4};
-        line-height: ${typeScale.header4};
-    }
-    h5 {
-        font-weight: 700;
-        font-size: ${typeScale.header5};
-        line-height: ${typeScale.header5};
-    }
-    h6 {
-        font-weight: 700;
-        font-size: ${typeScale.header6};
-        line-height: ${typeScale.header6};
-    }
+    @media ${breakpoint.lg} {
+    
     }
 `;
 

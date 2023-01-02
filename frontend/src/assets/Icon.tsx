@@ -244,6 +244,23 @@ export const Google: FC<Props> = ({
   );
 };
 
+export const Grid: FC<Props> = ({ width, height, stroke, color }) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z" />
+    </svg>
+  );
+};
+
 export const Heart: FC<Props> = ({ width, height, stroke, color, fill }) => {
   return (
     <svg
@@ -421,6 +438,30 @@ export const SearchIcon: FC<Props> = ({
     >
       <circle cx={11} cy={11} r={8} />
       <path d="M21 21l-4.35-4.35" />
+    </svg>
+  );
+};
+
+export const Subscribers: FC<Props> = ({
+  width,
+  height,
+  stroke,
+  color,
+  fill,
+}) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="4"></circle>
+      <path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"></path>
     </svg>
   );
 };

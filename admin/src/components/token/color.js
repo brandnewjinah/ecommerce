@@ -2,7 +2,7 @@ export const neutral = {
   10: "#fcfcfa",
   50: "#fafaf9",
   100: "#f3f3f1",
-  200: "#d9d9d7",
+  200: "#ebebea",
   300: "#b3b3ad",
   400: "#8a8a88",
   500: "#666562",
@@ -25,6 +25,7 @@ export const blue = {
 export const primaryColor = {
   faintBackground: "#fafaf2",
   background: "#fcefe6;",
+  pink: "#d98866",
   blue: "#1b3456",
   title: "#ee7868",
   button: "#ea805e",

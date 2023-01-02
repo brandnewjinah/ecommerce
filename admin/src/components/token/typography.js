@@ -1,13 +1,12 @@
-export const headingFontFamily = '"Bitter", serif';
-
 export const fontSize = {
-  sm3: "0.75rem",
+  sm4: "0.7rem",
+  sm3: "0.795rem",
   sm2: "0.875rem",
   sm1: "0.9375rem",
   base: "16px",
   lg1: "1.125rem",
   lg2: "1.25rem",
-  lg3: "1.5rem",
+  lg3: "1.625rem",
   lg4: "2.5rem",
   lg5: "3.75rem",
 };
@@ -25,6 +24,7 @@ export const fontSizeMobile = {
 };
 
 export const lineHeight = {
+  sm4: "1rem",
   sm3: "1.25rem",
   sm2: "1.4rem",
   sm1: "1.625rem",
