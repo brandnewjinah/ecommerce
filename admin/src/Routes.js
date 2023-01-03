@@ -32,7 +32,7 @@ const Routes = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/products/list",
+        path: "/products/list/:category",
         element: <ProductList />,
       },
       {

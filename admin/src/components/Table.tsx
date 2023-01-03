@@ -50,21 +50,21 @@ const Table: FC<Props> = ({ data, keys, showId, listSize }) => {
     }
   };
 
-  const handleSort = (path: string) => {
-    const sortColumnCopy = { ...sortColumn };
-    if (sortColumnCopy.path === path) {
-      sortColumnCopy.order = sortColumnCopy.order === "asc" ? "desc" : "asc";
-    } else {
-      sortColumnCopy.path = path;
-      sortColumnCopy.order = "asc";
-    }
-    setSortColumn(sortColumnCopy);
-  };
+  // const handleSort = (path: string) => {
+  //   const sortColumnCopy = { ...sortColumn };
+  //   if (sortColumnCopy.path === path) {
+  //     sortColumnCopy.order = sortColumnCopy.order === "asc" ? "desc" : "asc";
+  //   } else {
+  //     sortColumnCopy.path = path;
+  //     sortColumnCopy.order = "asc";
+  //   }
+  //   setSortColumn(sortColumnCopy);
+  // };
 
-  const sorted: any = _.orderBy(data, [sortColumn.path], [sortColumn.order]);
+  // const sorted: any = _.orderBy(data, [sortColumn.path], [sortColumn.order]);
 
-  //get a new array for pagination
-  const paginatedData = paginate(sorted, currentPage, pageSize);
+  // //get a new array for pagination
+  // const paginatedData = paginate(sorted, currentPage, pageSize);
 
   return (
     <Wrapper>
@@ -72,14 +72,13 @@ const Table: FC<Props> = ({ data, keys, showId, listSize }) => {
         <thead>
           <tr>
             {keys.map((item, idx) => (
-              <th key={idx} onClick={() => handleSort(item)}>
-                {item}
-              </th>
+              // <th key={idx} onClick={() => handleSort(item)}>
+              <th key={idx}>{item}</th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {paginatedData.map((item: {}, idx: number) => (
+          {data.map((item: {}, idx: number) => (
             <tr key={idx}>
               {!showId
                 ? Object.values(item)

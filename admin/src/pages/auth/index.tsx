@@ -58,7 +58,7 @@ const Auth = () => {
     } else if (status !== 0) {
       alert(message);
     }
-  }, [status, message, currentUser, dispatch]);
+  }, [status, navigate, message, currentUser, dispatch]);
 
   return (
     <Flex height="100vh">

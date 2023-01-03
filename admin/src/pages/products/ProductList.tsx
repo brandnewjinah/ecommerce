@@ -1,29 +1,48 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
 
 //redux
-import { useDispatch, useSelector } from "react-redux";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import { Div, Flex } from "../../components/containers/Div";
 import { Section } from "../../components/containers/Section";
+import Filter from "../../components/Filter";
 import { Header } from "../../components/Header";
 import Table from "../../components/Table";
 import { TextInput } from "../../components/TextInput";
-import { deviceData } from "../../data/deviceData";
+
+//redux
+import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/productReducer";
 import { RootState } from "../../redux/store";
 
 const List = () => {
   const dispatch = useDispatch();
-  const [category, setCategory] = useState("all");
-  const [sub, setSub] = useState("");
+  const { category } = useParams();
   const [sort, setSort] = useState("new");
   const [currentPage, setCurrentPage] = useState(1);
 
+  console.log(category);
+
   useEffect(() => {
-    dispatch(getProducts({ category, sub, sort, page: currentPage }));
-  }, [dispatch, category, sub, sort, currentPage]);
+    dispatch(getProducts({ category, sort, page: currentPage }));
+  }, [dispatch, category, sort, currentPage]);
 
   const { products } = useSelector((state: RootState) => state.products);
+
+  const newObj =
+    products &&
+    products.data.map((item) => {
+      return {
+        id: item._id,
+        name: item.name,
+        brand: item.brand,
+        price: item.price,
+        category: item.category1.label,
+        stock: 1,
+      };
+    });
+
+  const filterData = ["all", "snacks", "beverage", "pantry"];
 
   return (
     <div>
@@ -32,19 +51,24 @@ const List = () => {
           <Header title="Products" textAlign="left" />
           <Breadcrumbs
             category1={{ title: "Home", link: "/home" }}
-            category2="Product List"
+            category2="Product List CSS color change"
           />
         </Div>
-        <div>add</div>
+        <div>add product button</div>
       </Flex>
 
       <Section bgColor="#fff" padding="1.25rem">
-        <TextInput placeholder="Search by product name, brand or id" />
-        <div>Filter: All, Category1, Category2, Category3</div>
+        <Flex justifyContent="space-between" margin="0 0 2rem">
+          <Filter data={filterData} category={category} className="flexOne" />
+          <TextInput
+            placeholder="Search by product name, brand or id dispatch search"
+            className="flexOne"
+          />
+        </Flex>
 
         <Table
-          data={deviceData}
-          keys={["product", "name", "brand", "price", "category", "stock"]}
+          data={newObj}
+          keys={["name", "brand", "price", "category", "stock"]}
           showId={false}
         />
       </Section>

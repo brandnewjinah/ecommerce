@@ -11,7 +11,7 @@ export const navData = [
       {
         id: 201,
         name: "Product List",
-        link: "/products/list",
+        link: "/products/list/all",
       },
       {
         id: 202,
