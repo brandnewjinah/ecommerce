@@ -73,6 +73,29 @@ export const getProducts = createAsyncThunk<
   }
 });
 
+export const searchProducts = createAsyncThunk<
+  State,
+  string,
+  {
+    rejectValue: Status;
+  }
+>("products/searchProducts", async (query: string, { rejectWithValue }) => {
+  try {
+    const res = await api.publicRequest.get(`/search?query=${query}`);
+    return {
+      isLoading: false,
+      status: res.status,
+      message: res.statusText,
+      products: res.data,
+    } as State;
+  } catch (error: any) {
+    return rejectWithValue({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+  }
+});
+
 const productsSlice = createSlice({
   name: "products",
   initialState,
@@ -88,6 +111,20 @@ const productsSlice = createSlice({
       state.products = action.payload.products;
     });
     builder.addCase(getProducts.rejected, (state, action) => {
+      state.isLoading = false;
+      state.status = action.payload!.status;
+      state.message = action.payload!.message;
+    });
+    builder.addCase(searchProducts.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(searchProducts.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.status = action.payload.status;
+      state.message = action.payload.message;
+      state.products = action.payload.products;
+    });
+    builder.addCase(searchProducts.rejected, (state, action) => {
       state.isLoading = false;
       state.status = action.payload!.status;
       state.message = action.payload!.message;

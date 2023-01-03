@@ -12,7 +12,7 @@ import { TextInput } from "../../components/TextInput";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../../redux/productReducer";
+import { getProducts, searchProducts } from "../../redux/productReducer";
 import { RootState } from "../../redux/store";
 import FlexTable from "../../components/FlexTable";
 import Pagination from "../../components/Pagination";
@@ -75,7 +75,7 @@ const List = () => {
 
   const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(search);
+    dispatch(searchProducts(search));
   };
 
   return (
