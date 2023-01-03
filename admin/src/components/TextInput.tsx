@@ -1,10 +1,16 @@
-import React, { ChangeEvent, FC, KeyboardEvent, useState } from "react";
+import React, {
+  ChangeEvent,
+  FC,
+  FormEvent,
+  KeyboardEvent,
+  useState,
+} from "react";
 import styled from "styled-components";
 
 //component
 import { fontSize, neutral } from "./token";
 import { Body } from "./Text";
-import { Eye, EyeOff } from "../assets/Icon";
+import { Eye, EyeOff, SearchIcon } from "../assets/Icon";
 
 export interface Props {
   name?: string;
@@ -48,40 +54,59 @@ export const TextInput: FC<Props> = ({
   return (
     <Container margin={margin} className={className}>
       {label && <label htmlFor={name}>{label}</label>}
-      <InputTag
-        name={name}
-        placeholder={placeholder}
-        type={
-          type === "password" && isPassword
-            ? "password"
-            : type === "password" && !isPassword
-            ? "text"
-            : type
-        }
-        value={value}
-        removeBorder={removeBorder}
-        maxLength={maxLength}
-        onChange={onChange}
-        onKeyPress={onKeyPress}
-        {...rest}
-      />
-      {error && (
-        <Body variant="caption" color="red">
-          {error}
-        </Body>
-      )}
-      {type === "password" && (
-        <button
-          type="button"
-          className="pw"
-          onClick={() => setIsPassword(!isPassword)}
-        >
-          {isPassword ? (
-            <Eye width={20} height={20} color="#000" stroke={1} />
-          ) : (
-            <EyeOff width={20} height={20} color="#000" stroke={1} />
+      {type === "search" ? (
+        <>
+          <InputTag
+            name={name}
+            placeholder={placeholder}
+            type={type}
+            maxLength={maxLength}
+            value={value}
+            onChange={onChange}
+            {...rest}
+          />
+          <div className="search" aria-hidden="true">
+            <SearchIcon width={16} height={16} color="#000" stroke={1} />
+          </div>
+        </>
+      ) : (
+        <>
+          <InputTag
+            name={name}
+            placeholder={placeholder}
+            type={
+              type === "password" && isPassword
+                ? "password"
+                : type === "password" && !isPassword
+                ? "text"
+                : type
+            }
+            value={value}
+            removeBorder={removeBorder}
+            maxLength={maxLength}
+            onChange={onChange}
+            onKeyPress={onKeyPress}
+            {...rest}
+          />
+          {error && (
+            <Body variant="caption" color="red">
+              {error}
+            </Body>
           )}
-        </button>
+          {type === "password" && (
+            <button
+              type="button"
+              className="pw"
+              onClick={() => setIsPassword(!isPassword)}
+            >
+              {isPassword ? (
+                <Eye width={20} height={20} color="#000" stroke={1} />
+              ) : (
+                <EyeOff width={20} height={20} color="#000" stroke={1} />
+              )}
+            </button>
+          )}
+        </>
       )}
     </Container>
   );
@@ -120,7 +145,7 @@ const Container = styled.div<Props>`
   .search {
     position: absolute;
     top: 50%;
-    left: 0.75rem;
+    left: 1rem;
     display: flex;
     align-items: center;
     transform: translateY(-50%);
@@ -132,6 +157,7 @@ const InputTag = styled.input<Props>`
   font-size: ${fontSize.base};
   border: ${(props) =>
     props.removeBorder ? "none" : `1px solid ${neutral[200]}`};
+  border-radius: ${(props) => props.type === "search" && "3rem"};
   height: 2.875rem;
   padding: ${(props) =>
     props.type === "search" ? "0 0.875rem 0 2.5rem" : "0.75rem"};

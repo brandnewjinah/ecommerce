@@ -1,116 +1,74 @@
 import React, { FC } from "react";
-
-//import libraries
-import styled from "styled-components";
 import _ from "lodash";
+import styled from "styled-components";
 
-//import assets
-import { neutral } from "./token";
-import { ChevronLeft, ChevronRight } from "../assets/Icon";
+//comp
+import { neutral, fontSize } from "./token";
 
 interface Props {
-  dataLength: number;
-  pageSize: number;
+  pageCount: number;
   currentPage: number;
-  onPageChange: (page: number) => void;
-  handleNext: () => void;
-  handlePrev: () => void;
+  handlePageChange: (page: number) => void;
 }
 
 const Pagination: FC<Props> = ({
-  dataLength,
-  pageSize,
+  pageCount,
   currentPage,
-  handleNext,
-  handlePrev,
-  onPageChange,
+  handlePageChange,
 }) => {
-  const numberOfPages = Math.ceil(dataLength / pageSize);
-  if (numberOfPages === 1) return null; //if there's only 1 page, do not show pagination
-  const pages = _.range(1, numberOfPages + 1); //creates an array with numbers [1, 2, 3... number of pages]
+  // const pageCount = count / limit;
+  const pages = _.range(1, pageCount + 1);
 
   return (
-    <Nav aria-label="pagination">
+    <Container>
       <ul>
-        <Arrow>
-          <a aria-label="Go to previous page" onClick={() => handlePrev()}>
-            <ChevronLeft width={20} height={20} color="#000" stroke={2} />
-          </a>
-        </Arrow>
         {pages.map((page) => (
-          <li key={page}>
-            {page === currentPage ? (
-              <a
-                className="pageLink active"
-                aria-label={`page ${page}`}
-                aria-current={true}
-                onClick={() => onPageChange(page)}
-              >
-                {page}
-              </a>
-            ) : (
-              <a
-                className="pageLink"
-                aria-label={`page ${page}`}
-                onClick={() => onPageChange(page)}
-              >
-                {page}
-              </a>
-            )}
+          <li
+            className={page === currentPage ? "active" : null!}
+            key={page}
+            onClick={() => handlePageChange(page)}
+          >
+            <span>{page}</span>
           </li>
         ))}
-        <Arrow>
-          <a aria-label="Go to next page" onClick={() => handleNext()}>
-            <ChevronRight width={20} height={20} color="#000" stroke={2} />
-          </a>
-        </Arrow>
       </ul>
-    </Nav>
+    </Container>
   );
 };
 
-const Nav = styled.nav`
-  font-weight: 600;
+const Container = styled.nav`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 0;
 
   ul {
-    list-style-type: none;
-    text-indent: 0;
-    padding-left: 0;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 1em 0;
   }
 
-  .pageLink {
-    width: 2rem;
-    height: 2rem;
+  li {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: ${fontSize.sm2};
     padding: 0.25rem;
     margin: 0 0.5rem;
     cursor: pointer;
 
     &:hover {
-      background-color: ${neutral[100]};
-      border-radius: 50%;
+      background-color: ${neutral[10]};
     }
   }
 
   .active {
-    background-color: ${neutral[100]};
-    border-radius: 50%;
-  }
-`;
+    background-color: ${neutral[200]};
 
-const Arrow = styled.li`
-  margin: 0 0.5rem;
-
-  a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    &:hover {
+      background-color: ${neutral[200]};
+    }
   }
 `;
 

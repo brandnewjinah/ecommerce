@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useParams } from "react-router";
 
 //redux
@@ -7,21 +7,22 @@ import { Div, Flex } from "../../components/containers/Div";
 import { Section } from "../../components/containers/Section";
 import Filter from "../../components/Filter";
 import { Header } from "../../components/Header";
-import Table from "../../components/Table";
+
 import { TextInput } from "../../components/TextInput";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/productReducer";
 import { RootState } from "../../redux/store";
+import FlexTable from "../../components/FlexTable";
+import Pagination from "../../components/Pagination";
 
 const List = () => {
   const dispatch = useDispatch();
   const { category } = useParams();
   const [sort, setSort] = useState("new");
   const [currentPage, setCurrentPage] = useState(1);
-
-  console.log(category);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     dispatch(getProducts({ category, sort, page: currentPage }));
@@ -29,20 +30,53 @@ const List = () => {
 
   const { products } = useSelector((state: RootState) => state.products);
 
-  const newObj =
+  const tableKey = [
+    {
+      name: "name",
+      width: "flexThree",
+    },
+    {
+      name: "brand",
+      width: "flexTwo",
+    },
+    {
+      name: "price",
+      width: "flexOne",
+    },
+    {
+      name: "category",
+      width: "flexTwo",
+    },
+    {
+      name: "stock",
+      width: "flexOne",
+    },
+  ];
+
+  const tableData =
     products &&
     products.data.map((item) => {
-      return {
-        id: item._id,
-        name: item.name,
-        brand: item.brand,
-        price: item.price,
-        category: item.category1.label,
-        stock: 1,
-      };
+      return [
+        { value: item._id, width: "flexOne" },
+        { value: item.name, width: "flexThree" },
+        { value: item.brand, width: "flexTwo" },
+        { value: item.price, width: "flexOne" },
+        { value: item.category1.label, width: "flexTwo" },
+        { value: 1, width: "flexOne" },
+      ];
     });
 
   const filterData = ["all", "snacks", "beverage", "pantry"];
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setSearch(value);
+  };
+
+  const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(search);
+  };
 
   return (
     <div>
@@ -59,24 +93,25 @@ const List = () => {
 
       <Section bgColor="#fff" padding="1.25rem">
         <Flex justifyContent="space-between" margin="0 0 2rem">
-          <Filter data={filterData} category={category} className="flexOne" />
-          <TextInput
-            placeholder="Search by product name, brand or id dispatch search"
-            className="flexOne"
-          />
+          <Filter data={filterData} category={category} className="flexTwo" />
+          <form onSubmit={handleSearchSubmit}>
+            <TextInput
+              placeholder="Search by name, brand or id"
+              type="search"
+              value={search}
+              className="flexOne"
+              onChange={handleInputChange}
+            />
+          </form>
         </Flex>
 
-        <Table
-          data={newObj}
-          keys={["name", "brand", "price", "category", "stock"]}
-          showId={false}
+        <FlexTable keys={tableKey} data={tableData} showId={false} />
+        <Pagination
+          pageCount={products.totalPages}
+          currentPage={currentPage}
+          handlePageChange={(page: number) => setCurrentPage(page)}
         />
       </Section>
-
-      {/* {products &&
-        products.data.map((product) => (
-          <div key={product._id}>{product.name}</div>
-        ))} */}
     </div>
   );
 };
