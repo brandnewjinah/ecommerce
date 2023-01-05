@@ -61,7 +61,7 @@ const List = () => {
         { value: item.name, width: "flexThree" },
         { value: item.brand, width: "flexTwo" },
         { value: item.price, width: "flexOne" },
-        { value: item.category1.label, width: "flexTwo" },
+        { value: item.category1!.label, width: "flexTwo" },
         { value: 1, width: "flexOne" },
       ];
     });

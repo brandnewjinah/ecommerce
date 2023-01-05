@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Status } from "../interfaces/baseInterface";
-import { Product } from "../interfaces/productInterface";
+import { ProductWithCategoryIF } from "../interfaces/productInterface";
 import * as api from "../api";
 
 interface Param {
@@ -15,7 +15,7 @@ interface Products {
   totalCount: number;
   page: number;
   totalPages: number;
-  data: Product[];
+  data: ProductWithCategoryIF[];
 }
 
 interface State extends Status {

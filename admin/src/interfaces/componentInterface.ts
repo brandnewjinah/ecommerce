@@ -11,7 +11,7 @@ export interface SelectOptionProps {
   id: number;
   value: string;
   label: string;
-  subcategory: SelectOptionSubProps[];
+  subcategory?: SelectOptionSubProps[];
 }
 
 export interface SelectOptionSubProps {
