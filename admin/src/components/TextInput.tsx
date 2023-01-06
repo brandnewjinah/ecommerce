@@ -120,7 +120,8 @@ const Container = styled.div<Props>`
   label {
     display: inline-block;
     font-size: ${fontSize.sm2};
-    padding: 0 0 0.5rem;
+    font-weight: 600;
+    padding: 0 0 0.65rem;
   }
 
   button {
@@ -157,7 +158,7 @@ const InputTag = styled.input<Props>`
   font-size: ${fontSize.base};
   border: ${(props) =>
     props.removeBorder ? "none" : `1px solid ${neutral[200]}`};
-  border-radius: ${(props) => props.type === "search" && "3rem"};
+  border-radius: ${(props) => (props.type === "search" ? "3rem" : ".25rem")};
   height: 2.875rem;
   padding: ${(props) =>
     props.type === "search" ? "0 0.875rem 0 2.5rem" : "0.75rem"};

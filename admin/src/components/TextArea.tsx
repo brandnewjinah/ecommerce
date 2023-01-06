@@ -57,8 +57,9 @@ const Container = styled.div<Props>`
 
   label {
     display: inline-block;
-    font-size: ${fontSize.base};
-    padding: 0 0 0.5rem;
+    font-size: ${fontSize.sm2};
+    font-weight: 600;
+    padding: 0 0 0.65rem;
   }
 `;
 
