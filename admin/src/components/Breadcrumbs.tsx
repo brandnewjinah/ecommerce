@@ -44,6 +44,10 @@ const Container = styled.nav`
     padding: 0 0.35rem;
   }
 
+  span:last-child {
+    color: ${neutral[600]};
+  }
+
   @media ${breakpoint.lg} {
     padding: 1rem;
   }

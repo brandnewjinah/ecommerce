@@ -28,3 +28,11 @@ export interface ProductWithCategoryIF extends ProductIF {
   category1?: CategoryIF;
   category2?: SubcategoryIF;
 }
+
+export interface ProductErrorIF {
+  _id?: string;
+  name?: string;
+  brand?: string;
+  price?: string;
+  category1?: string;
+}

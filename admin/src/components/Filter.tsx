@@ -32,19 +32,21 @@ const Filter: FC<Props> = ({ data, category, className }) => {
 
 const Container = styled.ul`
   display: flex;
+  position: relative;
 
   .active {
     position: relative;
     cursor: pointer;
     white-space: nowrap;
+    font-weight: 600;
 
     &:after {
       content: "";
       position: absolute;
       left: 0;
       right: 0;
-      bottom: 0;
-      border-bottom: 1px solid ${neutral[400]};
+      top: 1.25rem;
+      border-bottom: 2px solid ${neutral[400]};
     }
   }
 
@@ -57,14 +59,11 @@ const List = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: ${fontSize.sm2};
+  font-size: ${fontSize.sm3};
+  text-transform: capitalize;
   color: ${neutral[600]};
-  padding: 0.5rem;
+  padding-right: 0.5rem;
   cursor: pointer;
-
-  &:hover {
-    text-decoration: underline;
-  }
 `;
 
 export default Filter;

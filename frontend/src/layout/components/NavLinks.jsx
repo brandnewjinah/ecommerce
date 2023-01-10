@@ -125,7 +125,7 @@ const NavLinks = ({ handleClick }) => {
         {
           label: "Pantry 1",
           links: [
-            { id: 301, value: "chips", label: "Chips", link: "/" },
+            { id: 301, value: "sauces", label: "Sauces", link: "/" },
             { id: 302, value: "cookies", label: "Cookies", link: "/" },
             { id: 303, value: "candy", label: "Candy", link: "/" },
             { id: 304, value: "chocolate", label: "Chocolate", link: "/" },

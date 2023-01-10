@@ -17,6 +17,9 @@ import { RootState } from "../../redux/store";
 import FlexTable from "../../components/FlexTable";
 import Pagination from "../../components/Pagination";
 
+//test data
+import { orderData } from "../../data/testData";
+
 const List = () => {
   const dispatch = useDispatch();
   const { category } = useParams();
@@ -24,49 +27,53 @@ const List = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    dispatch(getProducts({ category, sort, page: currentPage }));
-  }, [dispatch, category, sort, currentPage]);
+  // useEffect(() => {
+  //   dispatch(getProducts({ category, sort, page: currentPage }));
+  // }, [dispatch, category, sort, currentPage]);
 
-  const { products } = useSelector((state: RootState) => state.products);
+  // const { products } = useSelector((state: RootState) => state.products);
 
   const tableKey = [
     {
-      name: "name",
-      width: "flexThree",
-    },
-    {
-      name: "brand",
-      width: "flexTwo",
-    },
-    {
-      name: "price",
+      name: "Order ID",
       width: "flexOne",
     },
     {
-      name: "category",
-      width: "flexTwo",
+      name: "Date",
+      width: "flexOne",
     },
     {
-      name: "stock",
+      name: "User",
+      width: "flexOne",
+    },
+    {
+      name: "Items",
+      width: "flexOne",
+    },
+    {
+      name: "Total",
+      width: "flexOne",
+    },
+    {
+      name: "Status",
       width: "flexOne",
     },
   ];
 
   const tableData =
-    products &&
-    products.data.map((item) => {
+    orderData &&
+    orderData.map((item) => {
       return [
-        { value: item._id, width: "flexOne" },
-        { value: item.name, width: "flexThree" },
-        { value: item.brand, width: "flexTwo" },
-        { value: item.price, width: "flexOne" },
-        { value: item.category1!.label, width: "flexTwo" },
-        { value: 1, width: "flexOne" },
+        { value: `...${item._id.slice(-7)}`, width: "flexOne" },
+        { value: item.createdAt, width: "flexOne" },
+        { value: `...${item.user.slice(-7)}`, width: "flexOne" },
+        { value: item.orderItems.length, width: "flexOne" },
+        { value: item.total, width: "flexOne" },
+        { value: item.orderStatus, width: "flexOne" },
       ];
     });
 
-  const filterData = ["all", "snacks", "beverage", "pantry"];
+  const filterData = ["all", "completed", "cancelled"];
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -80,24 +87,21 @@ const List = () => {
 
   return (
     <div>
-      <Flex justifyContent="space-between">
-        <Div>
-          <Header title="Products" textAlign="left" />
-          <Breadcrumbs
-            category1={{ title: "Home", link: "/home" }}
-            category2="Product List CSS color change"
-          />
-        </Div>
-        <div>add product button</div>
-      </Flex>
+      <Div margin="0 0 1rem 0">
+        <Header title="Order List" textAlign="left" />
+        <Breadcrumbs
+          category1={{ title: "Home", link: "/home" }}
+          category2="Order List"
+        />
+      </Div>
 
       <Section bgColor="#fff" padding="1.25rem">
         <Flex justifyContent="space-between" margin="0 0 2rem">
-          <Filter data={filterData} category={category} className="flexTwo" />
+          <Filter data={filterData} category={category} className="flexOne" />
           <Div className="flexOne">
             <form onSubmit={handleSearchSubmit}>
               <TextInput
-                placeholder="Search by name, brand or id"
+                placeholder="Search by order ID or user ID"
                 type="search"
                 value={search}
                 onChange={handleInputChange}
@@ -106,9 +110,9 @@ const List = () => {
           </Div>
         </Flex>
 
-        <FlexTable keys={tableKey} data={tableData} showId={false} />
+        <FlexTable keys={tableKey} data={tableData} showId={true} />
         <Pagination
-          pageCount={products.totalPages}
+          pageCount={orderData.length}
           currentPage={currentPage}
           handlePageChange={(page: number) => setCurrentPage(page)}
         />

@@ -34,3 +34,8 @@ export const primaryColor = {
   orangeCoral: "#ea805e",
   error: "#d83232",
 };
+
+export const colors = {
+  lightGreen: "#eef9f4",
+  green: "#5aae85",
+};

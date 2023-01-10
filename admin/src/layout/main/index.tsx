@@ -16,7 +16,20 @@ const Layout = () => {
   const { currentUser } = useSelector((state: RootState) => state.auth);
   const isAdmin = currentUser.isAdmin;
 
-  return isAdmin ? (
+  // return isAdmin ? (
+  //   <Container>
+  //     <Header />
+  //     <Main>
+  //       <Sidebar sideOpen={sideOpen} handleOpen={setSideOpen} />
+  //       <Content>
+  //         <Outlet />
+  //       </Content>
+  //     </Main>
+  //   </Container>
+  // ) : (
+  //   <Navigate to="/" />
+  // );
+  return (
     <Container>
       <Header />
       <Main>
@@ -26,8 +39,6 @@ const Layout = () => {
         </Content>
       </Main>
     </Container>
-  ) : (
-    <Navigate to="/" />
   );
 };
 

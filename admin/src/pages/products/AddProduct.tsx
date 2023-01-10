@@ -1,5 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
-import { Image } from "../../assets/Icon";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 
 //comp
@@ -13,15 +12,24 @@ import { Body } from "../../components/Text";
 import { TextArea } from "../../components/TextArea";
 import { TextInput } from "../../components/TextInput";
 import { neutral, primaryColor } from "../../components/token";
+import { Image } from "../../assets/Icon";
 
-//data
+//other
 import { categoryList } from "../../data/category";
 import {
+  ProductErrorIF,
   ProductIF,
   ProductWithCategoryIF,
 } from "../../interfaces/productInterface";
+import { productValidate } from "../../utils/validate";
+
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import { addProduct, reset } from "../../redux/productActionsReducer";
+import { RootState } from "../../redux/store";
 
 const AddProduct = () => {
+  const dispatch = useDispatch();
   const [productInfo, setProductInfo] = useState<ProductWithCategoryIF>({
     name: "",
     brand: "",
@@ -42,9 +50,11 @@ const AddProduct = () => {
     description: "",
   });
 
-  const [errors, setErrors] = useState<ProductIF>({});
+  const [errors, setErrors] = useState<ProductErrorIF>({});
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     const userInput = { ...productInfo };
     userInput[name as keyof ProductIF] = value;
@@ -81,6 +91,54 @@ const AddProduct = () => {
     };
   };
 
+  const handleSubmit = () => {
+    const product = { ...productInfo, img: previewSource };
+    const errors = productValidate(product);
+
+    setErrors(errors || {});
+    if (errors) return;
+
+    dispatch(addProduct(product));
+  };
+
+  //actions after submitting data
+  const { productAdded } = useSelector(
+    (state: RootState) => state.productActions
+  );
+
+  const clear = () => {
+    setProductInfo({
+      name: "",
+      brand: "",
+      price: "",
+      size: "",
+      category1: {
+        id: 0,
+        value: "",
+        label: "",
+        subcategory: [],
+      },
+      category2: {
+        id: 0,
+        value: "",
+        label: "",
+      },
+      img: "",
+      description: "",
+    });
+    setPreviewSource("");
+  };
+
+  useEffect(() => {
+    if (productAdded.status === 201) {
+      alert("Product successfully created!");
+      dispatch(reset());
+      clear();
+    } else if (productAdded.status !== 201 && productAdded.status !== 0) {
+      alert("error");
+    }
+  }, [dispatch, productAdded.status, productAdded.productDetails._id]);
+
   return (
     <Div>
       <Header title="Add Product" />
@@ -90,15 +148,25 @@ const AddProduct = () => {
       />
       <Section bgColor="#fff" gap=".875rem" padding="1.25rem" margin="1rem 0">
         <TextInput
-          name="name"
           label="Product Name"
+          name="name"
           error={errors.name}
           onChange={handleInputChange}
         />
-        <TextInput label="Brand" />
+        <TextInput
+          label="Brand"
+          name="brand"
+          error={errors.brand}
+          onChange={handleInputChange}
+        />
         <Flex gap="1rem">
-          <TextInput label="Price" />
-          <TextInput label="Size" />
+          <TextInput
+            label="Price"
+            name="price"
+            error={errors.price}
+            onChange={handleInputChange}
+          />
+          <TextInput label="Size" name="size" onChange={handleInputChange} />
         </Flex>
       </Section>
       <Section bgColor="#fff" gap=".875rem" padding="1.25rem" margin="1rem 0">
@@ -111,6 +179,9 @@ const AddProduct = () => {
             onChange={handleCategorySelect("category1")}
             fullWidth
           />
+          {errors.category1 && (
+            <Body variant="body_small">Category1 is required</Body>
+          )}
         </div>
         <div>
           <Body variant="body_small" bold="bold" padding="0 0 0.65rem">
@@ -144,9 +215,17 @@ const AddProduct = () => {
           </ImageUpload>
         </div>
 
-        <TextArea label="Description" />
+        <TextArea
+          label="Description"
+          name="description"
+          onChange={handleInputChange}
+        />
       </Section>
-      <Button label="Add" color={primaryColor.button} />
+      <Button
+        label="Add"
+        color={primaryColor.button}
+        handleClick={handleSubmit}
+      />
     </Div>
   );
 };

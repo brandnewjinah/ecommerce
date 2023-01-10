@@ -22,14 +22,11 @@ const productSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  sku: {
-    type: String,
-    required: true,
-  },
   price: {
     type: String,
     required: true,
   },
+  size: String,
   category1: {
     type: categorySchema,
     required: true,
@@ -40,7 +37,12 @@ const productSchema = mongoose.Schema({
   img: {
     type: String,
   },
-  size: String,
+  description: {
+    type: String,
+  },
+  sku: {
+    type: String,
+  },
   createdAt: {
     type: Date,
     default: new Date(),

@@ -33,12 +33,12 @@ export const categoryList = [
   },
   {
     id: 400,
-    value: "deli",
-    label: "Deli",
+    value: "pantry",
+    label: "Pantry",
     subcategory: [
-      { id: 401, value: "butters, spreads", label: "Butters, Spreads" },
-      { id: 402, value: "cheese", label: "Cheese" },
-      { id: 403, value: "meat", label: "Meat" },
+      { id: 401, value: "condiments", label: "Condiments" },
+      { id: 402, value: "instandFoods", label: "Instand Foods" },
+      { id: 403, value: "seasoning", label: "Seasoning" },
     ],
   },
 ];

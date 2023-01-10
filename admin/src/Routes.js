@@ -11,6 +11,7 @@ import Auth from "./pages/auth";
 import Home from "./pages/home";
 import ProductList from "./pages/products/ProductList";
 import AddProduct from "./pages/products/AddProduct";
+import OrderList from "./pages/orders/OrderList";
 
 const Routes = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const Routes = createBrowserRouter([
       {
         path: "/products/add",
         element: <AddProduct />,
+      },
+      {
+        path: "/orders/list/:category",
+        element: <OrderList />,
       },
     ],
   },

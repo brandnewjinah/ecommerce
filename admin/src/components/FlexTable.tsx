@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 
 import { Flex } from "./containers/Div";
-import { neutral } from "./token";
+import { colors, neutral, primaryColor } from "./token";
 
 interface Key {
   name: string;
@@ -14,6 +14,10 @@ interface Props {
   keys: Key[];
   showId?: boolean;
   className?: string;
+}
+
+interface SpanProps {
+  status?: string;
 }
 
 const FlexTable: FC<Props> = ({ data, keys, showId, className }) => {
@@ -32,14 +36,14 @@ const FlexTable: FC<Props> = ({ data, keys, showId, className }) => {
           <TR key={idx}>
             {!showId
               ? item.slice(1).map((it: any, idx: number) => (
-                  <span key={idx} className={it.width}>
-                    {it.value}
-                  </span>
+                  <div key={idx} className={it.width}>
+                    <Span status={it.value}>{it.value}</Span>
+                  </div>
                 ))
               : item.map((it: any, idx: number) => (
-                  <span key={idx} className={it.width}>
-                    {it.value}
-                  </span>
+                  <div key={idx} className={it.width}>
+                    <Span status={it.value}>{it.value}</Span>
+                  </div>
                 ))}
           </TR>
         ))}
@@ -67,6 +71,15 @@ const TR = styled.div`
   font-size: 0.875rem;
   border-bottom: 1px solid ${neutral[100]};
   padding: 1rem 0;
+`;
+
+const Span = styled.span<SpanProps>`
+  background-color: ${(props) =>
+    props.status === "Order Placed" && colors.lightGreen};
+  color: ${(props) => props.status === "Order Placed" && colors.green};
+  font-weight: ${(props) => props.status === "Order Placed" && 500};
+  padding: ${(props) => props.status === "Order Placed" && "0.25rem .5rem"};
+  border-radius: ${(props) => props.status === "Order Placed" && ".25rem"};
 `;
 
 export default FlexTable;
