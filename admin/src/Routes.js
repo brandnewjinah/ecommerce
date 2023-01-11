@@ -12,6 +12,8 @@ import Home from "./pages/home";
 import ProductList from "./pages/products/ProductList";
 import AddProduct from "./pages/products/AddProduct";
 import OrderList from "./pages/orders/OrderList";
+import CustomerList from "./pages/customers/CustomerList";
+import SubscriberList from "./pages/subscribers/SubscriberList";
 
 const Routes = createBrowserRouter([
   {
@@ -43,6 +45,14 @@ const Routes = createBrowserRouter([
       {
         path: "/orders/list/:category",
         element: <OrderList />,
+      },
+      {
+        path: "/customers/list",
+        element: <CustomerList />,
+      },
+      {
+        path: "/subscribers/list",
+        element: <SubscriberList />,
       },
     ],
   },

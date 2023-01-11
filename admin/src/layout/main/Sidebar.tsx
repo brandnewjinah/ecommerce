@@ -10,6 +10,7 @@ import {
   Orders,
   Customers,
   Subscribers,
+  Settings,
 } from "../../assets/Icon";
 import { Flex } from "../../components/containers/Div";
 import { neutral, breakpoint } from "../../components/token";
@@ -50,6 +51,13 @@ const MenuIcons: FC<Props> = ({ name, width, height, stroke, color }) => {
         />
       ) : name === "Subscribers" ? (
         <Subscribers
+          width={width!}
+          height={height!}
+          color={color}
+          stroke={stroke}
+        />
+      ) : name === "Settings" ? (
+        <Settings
           width={width!}
           height={height!}
           color={color}

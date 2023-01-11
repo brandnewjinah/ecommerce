@@ -89,15 +89,15 @@ export const getAllOrders = async (req, res) => {
 
   try {
     let orders = Order.find();
-    const total = await Order.countDocuments();
-    const pages = Math.ceil(total / pageSize);
+    const totalCount = await Order.countDocuments();
+    const totalPages = Math.ceil(totalCount / pageSize);
     orders = orders.skip(skip).limit(pageSize);
     const result = await orders;
     res.status(200).json({
       status: "success",
-      count: result.length,
+      totalCount,
       page,
-      pages,
+      totalPages,
       data: result,
     });
   } catch (error) {

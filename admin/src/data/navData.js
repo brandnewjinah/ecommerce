@@ -27,7 +27,7 @@ export const navData = [
       {
         id: 301,
         name: "Order List",
-        link: "/orders/list",
+        link: "/orders/list/all",
       },
     ],
   },
@@ -49,6 +49,17 @@ export const navData = [
       {
         id: 501,
         name: "Subscriber List",
+        link: "/subscribers/list",
+      },
+    ],
+  },
+  {
+    id: 600,
+    name: "Settings",
+    subcategory: [
+      {
+        id: 501,
+        name: "Admin Access",
         link: "/subscribers/list",
       },
     ],

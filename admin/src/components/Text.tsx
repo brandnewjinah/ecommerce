@@ -34,7 +34,7 @@ export const Heading: FC<Props> = ({ padding, color, title }) => {
   );
 };
 
-export const Header: FC<Props> = ({
+export const HeaderText: FC<Props> = ({
   variant,
   padding,
   uppercase,
