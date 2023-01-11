@@ -9,14 +9,9 @@ interface Param {
   month?: number;
 }
 
-interface Dashboard {
-  status: string;
-  data: DashboardIF;
-}
-
 interface State extends Status {
   isLoading: boolean;
-  dashboard: Dashboard;
+  dashboard: DashboardIF;
 }
 
 const initialState: State = {
@@ -24,10 +19,9 @@ const initialState: State = {
   status: 0,
   message: "",
   dashboard: {
-    status: "",
-    data: {
-      total: 0,
-    },
+    totalSales: 0,
+    totalOrders: 0,
+    recentOrders: [],
   },
 };
 

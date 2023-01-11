@@ -7,8 +7,9 @@ import { Header } from "../../components/Header";
 import { Body, HeaderText } from "../../components/Text";
 
 //redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getTotalSales } from "../../redux/dashboardReducer";
+import { RootState } from "../../redux/store";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,8 @@ const Home = () => {
     dispatch(getTotalSales({ year: 2022, month: 12 }));
   }, [dispatch]);
 
+  const { dashboard } = useSelector((state: RootState) => state.dashboard);
+
   return (
     <div>
       <Flex justifyContent="space-between">
@@ -29,8 +32,10 @@ const Home = () => {
           margin="0 1rem 1rem 0"
           className="flexOne"
         >
-          <Header title="Total Sales" small />
-          <HeaderText variant="h3">$123</HeaderText>
+          <Header title="Total Sales" small margin="0 0 1rem 0" />
+          <HeaderText variant="h3">
+            {`$${dashboard && dashboard.totalSales}`}
+          </HeaderText>
         </Section>
         <Section
           bgColor="#fff"
@@ -38,7 +43,10 @@ const Home = () => {
           margin="0 1rem 1rem 0"
           className="flexOne"
         >
-          <Header title="Total Orders" small />
+          <Header title="Total Orders" small margin="0 0 1rem 0" />
+          <HeaderText variant="h3">
+            {dashboard && dashboard.totalOrders}
+          </HeaderText>
         </Section>
         <Section
           bgColor="#fff"
@@ -46,7 +54,10 @@ const Home = () => {
           margin="0 1rem 1rem 0"
           className="flexOne"
         >
-          <Header title="Total Customers" small />
+          <Header title="Total Customers" small margin="0 0 1rem 0" />
+          <HeaderText variant="h3">
+            {`$${dashboard && dashboard.totalSales}`}
+          </HeaderText>
         </Section>
       </Flex>
       <Flex justifyContent="space-between">
@@ -56,7 +67,14 @@ const Home = () => {
           margin="0 1rem 1rem 0"
           className="flexOne"
         >
-          <Header title="Recent Orders" small />
+          <Header title="Recent Orders" small margin="0 0 1rem 0" />
+          <HeaderText variant="h3">
+            {dashboard &&
+              dashboard.recentOrders &&
+              dashboard.recentOrders.map((item, idx) => (
+                <div key={idx}>{item.total}</div>
+              ))}
+          </HeaderText>
         </Section>
         <Section
           bgColor="#fff"

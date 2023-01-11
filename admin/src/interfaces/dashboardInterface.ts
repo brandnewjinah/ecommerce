@@ -1,3 +1,7 @@
+import { OrderIF } from "./orderInterface";
+
 export interface DashboardIF {
-  total: number;
+  totalSales: number;
+  totalOrders: number;
+  recentOrders: OrderIF[];
 }
