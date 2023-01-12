@@ -4,4 +4,7 @@ export interface DashboardIF {
   totalSales: number;
   totalOrders: number;
   recentOrders: OrderIF[];
+  totalCustomers: number;
+  recentlyJoined: [];
+  topProducts: [];
 }

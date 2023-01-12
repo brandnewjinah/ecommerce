@@ -1,12 +1,17 @@
 import express from "express";
 import { checkAdmin } from "../middleware/checkAuth.js";
-import { getTotalSales } from "../controllers/dashboard.js";
+import { getTotalSales, getTopSelling } from "../controllers/dashboard.js";
 
 const router = express.Router();
 
-// @route GET /orders
-// @desc Get all orders
+// @route GET /total
+// @desc Get total orders
 // @access Admin only
-router.get("/", checkAdmin, getTotalSales);
+router.get("/total", checkAdmin, getTotalSales);
+
+// @route GET /top
+// @desc Get top selling
+// @access Admin only
+router.get("/top", checkAdmin, getTopSelling);
 
 export default router;

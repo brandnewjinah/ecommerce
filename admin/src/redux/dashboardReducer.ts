@@ -22,6 +22,9 @@ const initialState: State = {
     totalSales: 0,
     totalOrders: 0,
     recentOrders: [],
+    totalCustomers: 0,
+    recentlyJoined: [],
+    topProducts: [],
   },
 };
 
@@ -34,7 +37,7 @@ export const getTotalSales = createAsyncThunk<
 >("dashboard/getTotalSales", async (obj: Param, { rejectWithValue }) => {
   try {
     const res = await api.privateRequest.get(
-      `/dashboard?year=${obj.year}&month=${obj.month}`
+      `/dashboard/total?year=${obj.year}&month=${obj.month}`
     );
     return {
       isLoading: false,
@@ -62,7 +65,12 @@ const dashboardSlice = createSlice({
       state.isLoading = false;
       state.status = action.payload.status;
       state.message = action.payload.message;
-      state.dashboard = action.payload.dashboard;
+      state.dashboard = {
+        ...state.dashboard,
+        totalSales: action.payload.dashboard.totalSales,
+        totalOrders: action.payload.dashboard.totalOrders,
+        recentOrders: action.payload.dashboard.recentOrders,
+      };
     });
     builder.addCase(getTotalSales.rejected, (state, action) => {
       state.isLoading = false;

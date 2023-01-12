@@ -76,6 +76,23 @@ export const Customers: FC<Props> = ({
   );
 };
 
+export const Dollar: FC<Props> = ({ width, height, stroke, color }) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+    </svg>
+  );
+};
+
 export const Eye: FC<Props> = ({ width, height, stroke, color }) => {
   return (
     <svg

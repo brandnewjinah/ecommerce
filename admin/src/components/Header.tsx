@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import styled from "styled-components";
+import { Flex } from "./containers/Div";
 
 //comp
 import { Body } from "./Text";
@@ -12,6 +13,7 @@ interface Props {
   caption?: string;
   textAlign?: string;
   small?: boolean;
+  icon?: React.ReactNode;
   margin?: string;
 }
 
@@ -21,11 +23,21 @@ export const Header: FC<Props> = ({
   textAlign,
   caption,
   small,
+  icon,
   margin,
 }) => {
   return (
     <HeaderWrapper margin={margin} textAlign={textAlign} small={small}>
-      <h1>{title}</h1>
+      {icon ? (
+        <Flex>
+          <IconContainer>{icon}</IconContainer>
+
+          <h1>{title}</h1>
+        </Flex>
+      ) : (
+        <h1>{title}</h1>
+      )}
+
       {body && <Body variant="body_small">{body}</Body>}
     </HeaderWrapper>
   );
@@ -44,4 +56,13 @@ const HeaderWrapper = styled.header<Props>`
     font-weight: 500;
     text-transform: uppercase;
   }
+`;
+
+const IconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  background-color: #000;
+  border-radius: 50%;
+  padding: 0.35rem;
+  margin-right: 0.75rem;
 `;
