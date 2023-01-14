@@ -25,6 +25,7 @@ export interface Props {
     | "email"
     | "date"
     | undefined;
+  helper?: string;
   error?: string;
   margin?: string;
   removeBorder?: boolean;
@@ -40,6 +41,7 @@ export const TextInput: FC<Props> = ({
   value,
   placeholder,
   type,
+  helper,
   error,
   margin,
   removeBorder,
@@ -91,6 +93,11 @@ export const TextInput: FC<Props> = ({
           {error && (
             <Body variant="caption" color="red">
               {error}
+            </Body>
+          )}
+          {helper && (
+            <Body variant="caption" color={neutral[400]}>
+              {helper}
             </Body>
           )}
           {type === "password" && (

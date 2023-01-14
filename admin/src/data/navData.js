@@ -62,6 +62,11 @@ export const navData = [
         name: "Admin Access",
         link: "/subscribers/list",
       },
+      {
+        id: 502,
+        name: "Categories",
+        link: "/settings/categories",
+      },
     ],
   },
 ];

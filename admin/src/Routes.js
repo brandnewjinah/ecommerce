@@ -14,6 +14,7 @@ import AddProduct from "./pages/products/AddProduct";
 import OrderList from "./pages/orders/OrderList";
 import CustomerList from "./pages/customers/CustomerList";
 import SubscriberList from "./pages/subscribers/SubscriberList";
+import AddCategories from "./pages/settings/AddCategories";
 
 const Routes = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const Routes = createBrowserRouter([
       {
         path: "/subscribers/list",
         element: <SubscriberList />,
+      },
+      {
+        path: "/settings/categories",
+        element: <AddCategories />,
       },
     ],
   },

@@ -14,6 +14,7 @@ import { Customers, Dollar } from "../../assets/Icon";
 import RecentOrders from "./RecentOrders";
 import TopProducts from "./TopProducts";
 import Pie from "../../components/Pie";
+import BarChart from "../../components/BarChart";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -21,9 +22,9 @@ const Home = () => {
   const year = date.getFullYear();
   const month = date.getMonth();
 
-  useEffect(() => {
-    dispatch(getTotalSales({ year: 2022, month: 12 }));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getTotalSales({ year: 2022, month: 12 }));
+  // }, [dispatch]);
 
   // const { dashboard } = useSelector((state: RootState) => state.dashboard);
 
@@ -40,7 +41,7 @@ const Home = () => {
         body="Here's what's happening with your store this month"
         margin="0 0 2rem 0"
       />
-      <Flex justifyContent="space-between">
+      <Flex justifyContent="space-between" alignItems="top">
         <Section
           bgColor="#fff"
           padding="1.25rem"
@@ -101,14 +102,14 @@ const Home = () => {
         <RecentOrders />
       </Section>
 
-      <Flex justifyContent="space-between">
+      <Flex justifyContent="space-between" alignItems="top">
         <Section
           bgColor="#fff"
           padding="1.25rem"
           margin="0 1rem 1rem 0"
           className="flexTwo"
         >
-          <Header title="Top Products" small />
+          <Header title="Top Products" small margin="0 0 1rem 0" />
           <TopProducts />
         </Section>
         <Section
@@ -118,7 +119,8 @@ const Home = () => {
           className="flexOne"
         >
           <Header title="Sales by Category" small />
-          <Pie />
+          {/* <Pie /> */}
+          <BarChart />
         </Section>
       </Flex>
     </div>

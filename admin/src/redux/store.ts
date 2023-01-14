@@ -16,6 +16,8 @@ import productsReducer from "./productReducer";
 import productActionsReducer from "./productActionsReducer";
 import ordersReducer from "./orderReducer";
 import dashboardReducer from "./dashboardReducer";
+import settingsActionsReducer from "./settingsActionsReducer";
+import settingsReducer from "./settingsReducer";
 
 const persistConfig = {
   key: "root",
@@ -29,6 +31,8 @@ const rootReducer = combineReducers({
   productActions: productActionsReducer,
   orders: ordersReducer,
   dashboard: dashboardReducer,
+  settingsActions: settingsActionsReducer,
+  settings: settingsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

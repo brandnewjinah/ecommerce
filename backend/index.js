@@ -16,6 +16,7 @@ import wishRoutes from "./routes/wishlist.js";
 import announceRoutes from "./routes/announcement.js";
 import subscriberRoutes from "./routes/subscriber.js";
 import dashboardRoutes from "./routes/dashboard.js";
+import settingsRoutes from "./routes/settings.js";
 
 //middlewares
 app.use(express.json({ limit: "50mb" }));
@@ -32,6 +33,7 @@ app.use("/wishlist", wishRoutes);
 app.use("/announcements", announceRoutes);
 app.use("/subscribers", subscriberRoutes);
 app.use("/dashboard", dashboardRoutes);
+app.use("/settings", settingsRoutes);
 // app.use("/cart", cartRoute);
 
 //db

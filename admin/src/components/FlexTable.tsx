@@ -54,12 +54,13 @@ const FlexTable: FC<Props> = ({ data, keys, showId, className }) => {
 
 const Table = styled.div`
   display: table;
-  color: ${neutral[500]};
+  color: ${neutral[700]};
 `;
 
 const TH = styled.span`
   display: table-header-group;
   font-size: 0.75rem;
+  color: ${neutral[300]};
   line-height: 2rem;
   text-transform: uppercase;
   font-weight: 700;
