@@ -9,6 +9,24 @@ interface Props {
   ariaHidden?: boolean;
 }
 
+export const Check: FC<Props> = ({ width, height, stroke, color, fill }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill={fill ? fill : "none"}
+      stroke={color}
+      strokeWidth={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  );
+};
+
 export const ChevronLeft: FC<Props> = ({
   width,
   height,
@@ -76,6 +94,24 @@ export const Customers: FC<Props> = ({
   );
 };
 
+export const Delete: FC<Props> = ({ width, height, stroke, color }) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx={12} cy={12} r={10} />
+      <path d="m15 9-6 6M9 9l6 6" />
+    </svg>
+  );
+};
+
 export const Dollar: FC<Props> = ({ width, height, stroke, color }) => {
   return (
     <svg
@@ -89,6 +125,23 @@ export const Dollar: FC<Props> = ({ width, height, stroke, color }) => {
       strokeLinejoin="round"
     >
       <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+    </svg>
+  );
+};
+
+export const Edit: FC<Props> = ({ width, height, stroke, color }) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
     </svg>
   );
 };

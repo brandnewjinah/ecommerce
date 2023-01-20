@@ -47,7 +47,7 @@ const RecentOrders = () => {
       ];
     });
 
-  return <FlexTable keys={tableKey} data={tableData} showId={true} />;
+  return <FlexTable keys={tableKey} data={tableData} />;
 };
 
 export default RecentOrders;

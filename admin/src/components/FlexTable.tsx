@@ -1,8 +1,9 @@
 import React, { FC } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { Flex } from "./containers/Div";
-import { colors, neutral, primaryColor } from "./token";
+import { colors, neutral } from "./token";
 
 interface Key {
   name: string;
@@ -12,7 +13,7 @@ interface Key {
 interface Props {
   data: any;
   keys: Key[];
-  showId?: boolean;
+  param?: string;
   className?: string;
 }
 
@@ -20,7 +21,7 @@ interface SpanProps {
   status?: string;
 }
 
-const FlexTable: FC<Props> = ({ data, keys, showId, className }) => {
+const FlexTable: FC<Props> = ({ data, keys, param, className }) => {
   return (
     <Table>
       <Flex>
@@ -34,17 +35,17 @@ const FlexTable: FC<Props> = ({ data, keys, showId, className }) => {
       <div>
         {data.map((item: { name: string; width: string }[], idx: number) => (
           <TR key={idx}>
-            {!showId
-              ? item.slice(1).map((it: any, idx: number) => (
-                  <div key={idx} className={it.width}>
-                    <Span status={it.value}>{it.value}</Span>
-                  </div>
-                ))
-              : item.map((it: any, idx: number) => (
-                  <div key={idx} className={it.width}>
-                    <Span status={it.value}>{it.value}</Span>
-                  </div>
-                ))}
+            {item.map((it: any, idx: number) => (
+              <div key={idx} className={it.width}>
+                {idx === 0 ? (
+                  <Link to={`${param}/${it.value}`}>
+                    <Span status={it.value}>{`...${it.value.slice(-5)}`}</Span>
+                  </Link>
+                ) : (
+                  <Span status={it.value}>{it.value}</Span>
+                )}
+              </div>
+            ))}
           </TR>
         ))}
       </div>

@@ -36,7 +36,7 @@ const CategoryList = () => {
     categories &&
     categories.data.map((item) => {
       return [
-        { value: `...${item._id!.slice(-7)}`, width: "flexOne" },
+        { value: item._id, width: "flexOne" },
         { value: item.name, width: "flexOne" },
         { value: item.value, width: "flexOne" },
         {
@@ -46,7 +46,9 @@ const CategoryList = () => {
       ];
     });
 
-  return <FlexTable keys={tableKey} data={tableData} showId={true} />;
+  return (
+    <FlexTable keys={tableKey} data={tableData} param="/settings/category" />
+  );
 };
 
 export default CategoryList;

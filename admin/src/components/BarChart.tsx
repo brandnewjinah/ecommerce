@@ -2,8 +2,6 @@ import React, { FC } from "react";
 import styled from "styled-components";
 
 //comp
-import { Flex } from "./containers/Div";
-import { Body } from "./Text";
 import { fontSize, neutral } from "./token";
 
 interface Props {

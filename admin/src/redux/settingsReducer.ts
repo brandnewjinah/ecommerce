@@ -8,9 +8,15 @@ interface Categories {
   data: CategoryWithSubCategoryIF[];
 }
 
+interface CategoryDetails {
+  status: string;
+  data: CategoryWithSubCategoryIF;
+}
+
 interface State extends Status {
   isLoading: boolean;
   categories: Categories;
+  categoryDetails: CategoryDetails;
 }
 
 const initialState: State = {
@@ -20,6 +26,10 @@ const initialState: State = {
   categories: {
     status: "",
     data: [],
+  },
+  categoryDetails: {
+    status: "",
+    data: {},
   },
 };
 
@@ -46,6 +56,29 @@ export const getCategories = createAsyncThunk<
   }
 });
 
+export const getACategory = createAsyncThunk<
+  State,
+  String,
+  {
+    rejectValue: Status;
+  }
+>("settings/getACategory", async (id: String, { rejectWithValue }) => {
+  try {
+    const res = await api.privateRequest.get(`/settings/category/${id}`);
+    return {
+      isLoading: false,
+      status: res.status,
+      message: res.statusText,
+      categoryDetails: res.data,
+    } as State;
+  } catch (error: any) {
+    return rejectWithValue({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+  }
+});
+
 const settingsSlice = createSlice({
   name: "settings",
   initialState,
@@ -61,6 +94,20 @@ const settingsSlice = createSlice({
       state.categories = action.payload.categories;
     });
     builder.addCase(getCategories.rejected, (state, action) => {
+      state.isLoading = false;
+      state.status = action.payload!.status;
+      state.message = action.payload!.message;
+    });
+    builder.addCase(getACategory.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getACategory.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.status = action.payload.status;
+      state.message = action.payload.message;
+      state.categoryDetails = action.payload.categoryDetails;
+    });
+    builder.addCase(getACategory.rejected, (state, action) => {
       state.isLoading = false;
       state.status = action.payload!.status;
       state.message = action.payload!.message;

@@ -1,7 +1,7 @@
 export interface SubcategoryIF {
   _id?: string;
   value?: string;
-  label?: string;
+  name?: string;
 }
 
 export interface CategoryIF {

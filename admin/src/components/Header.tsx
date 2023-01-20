@@ -31,7 +31,6 @@ export const Header: FC<Props> = ({
       {icon ? (
         <Flex>
           <IconContainer>{icon}</IconContainer>
-
           <h1>{title}</h1>
         </Flex>
       ) : (
@@ -52,9 +51,9 @@ const HeaderWrapper = styled.header<Props>`
 
   h1 {
     /* font-size: ${fontSize.lg2}; */
-    font-size: ${(props) => (props.small ? fontSize.sm2 : fontSize.lg2)};
+    font-size: ${(props) => (props.small ? "1.125rem" : "1.5rem")};
     font-weight: 500;
-    text-transform: uppercase;
+    text-transform: capitalize;
   }
 `;
 

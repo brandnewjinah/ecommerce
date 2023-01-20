@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { neutral } from "./token";
 
 export interface Props {
+  bgColor?: string;
   center?: boolean;
   className?: string;
   color?: string;
@@ -156,19 +157,22 @@ const TextButtonWrapper = styled.button<Props>`
   }
 `;
 
-export const IconButton: FC<Props> = ({ icon, handleClick }) => {
+export const IconButton: FC<Props> = ({ bgColor, children, handleClick }) => {
   return (
-    <IconButtonWrapper onClick={handleClick}>{icon && icon}</IconButtonWrapper>
+    <IconButtonWrapper bgColor={bgColor} onClick={handleClick}>
+      {children && children}
+    </IconButtonWrapper>
   );
 };
 
-const IconButtonWrapper = styled.button`
+const IconButtonWrapper = styled.button<Props>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 3rem;
-  background: transparent;
+  background-color: ${(props) =>
+    props.bgColor ? props.bgColor : neutral[100]};
   border: 0;
-  padding: 0.75rem 0.5rem;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
   cursor: pointer;
 `;

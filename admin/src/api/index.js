@@ -5,7 +5,7 @@ const URL = "http://localhost:4000";
 
 const user = JSON.parse(localStorage.getItem("persist:root"))?.auth;
 const currentUser = user && JSON.parse(user).currentUser;
-const TOKEN = currentUser?.token;
+const TOKEN = currentUser && currentUser.token;
 
 export const publicRequest = axios.create({
   baseURL: URL,

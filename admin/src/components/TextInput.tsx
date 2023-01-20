@@ -1,10 +1,4 @@
-import React, {
-  ChangeEvent,
-  FC,
-  FormEvent,
-  KeyboardEvent,
-  useState,
-} from "react";
+import React, { ChangeEvent, FC, KeyboardEvent, useState } from "react";
 import styled from "styled-components";
 
 //component

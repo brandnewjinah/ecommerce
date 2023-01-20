@@ -134,7 +134,7 @@ const Sidebar: FC<Props> = ({ sideOpen, handleOpen }) => {
 const Container = styled.nav<Props>`
   position: static;
   width: 250px;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   color: ${neutral[500]};
   padding-top: 2rem;
 

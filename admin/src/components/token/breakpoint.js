@@ -1,6 +1,7 @@
 export const size = {
   m: "640px",
-  lg: "1024px",
+  // lg: "1024px",
+  lg: "768px",
   xl: "1280px",
 };
 

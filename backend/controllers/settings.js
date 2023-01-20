@@ -27,3 +27,53 @@ export const getAllCategories = async (req, res) => {
     res.status(500).json(error);
   }
 };
+
+//GET ONE CATEGORY
+export const getACategory = async (req, res) => {
+  const { id: _id } = req.params;
+  try {
+    const category = await Category.findById(_id);
+    res.status(200).json({
+      status: "success",
+      data: category,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Category doesn't exist" });
+  }
+};
+
+//Add Sub Category
+export const addSubCategory = async (req, res) => {
+  const { id: _id } = req.params;
+  const sub = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res
+      .status(404)
+      .send({ message: "Category doesn't exist with that Id" });
+
+  const updatedCategory = await Category.findByIdAndUpdate(
+    _id,
+    { $push: { subCategory: sub } },
+    {
+      new: true,
+    }
+  );
+
+  res.status(200).json(updatedCategory);
+};
+
+//Update Category
+export const updateCategory = async (req, res) => {
+  const { id: _id } = req.params;
+  const category = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send("No category with that id");
+
+  const updatedCategory = await Category.findByIdAndUpdate(_id, category, {
+    new: true,
+  });
+  console.log(updateCategory);
+  res.status(200).json(updatedCategory);
+};

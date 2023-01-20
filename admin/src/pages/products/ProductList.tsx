@@ -106,7 +106,7 @@ const List = () => {
           </Div>
         </Flex>
 
-        <FlexTable keys={tableKey} data={tableData} showId={false} />
+        <FlexTable keys={tableKey} data={tableData} />
         <Pagination
           pageCount={products.totalPages}
           currentPage={currentPage}

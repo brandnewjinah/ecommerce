@@ -171,7 +171,7 @@ const P = styled.p<Props>`
       : props.variant === "custom"
       ? props.size
       : "16px"};
-  line-height: ${(props) =>
+  /* line-height: ${(props) =>
     props.lineHeight
       ? props.lineHeight
       : props.variant === "body_large"
@@ -182,7 +182,7 @@ const P = styled.p<Props>`
       ? "1.25rem"
       : props.variant === "caption"
       ? "1.25rem"
-      : "1.625rem"};
+      : "1.625rem"}; */
   font-weight: ${(props) =>
     props.bold === "bold" ? 600 : props.bold === "extrabold" ? 700 : 400};
   text-transform: ${(props) =>
