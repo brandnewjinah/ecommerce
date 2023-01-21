@@ -6,7 +6,14 @@ import styled from "styled-components";
 import { Div, Flex } from "../../components/containers/Div";
 import { neutral } from "../../components/token";
 
+//redux
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+
 const Nav = () => {
+  const { currentUser } = useSelector((state: RootState) => state.auth);
+  console.log(currentUser.token);
+
   return (
     <Header>
       <Flex padding="1rem 1.25rem">

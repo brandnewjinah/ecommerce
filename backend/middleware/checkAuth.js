@@ -15,6 +15,7 @@ export const generateToken = (user) => {
 
 export const checkToken = (req, res, next) => {
   const authorization = req.headers.authorization;
+  console.log(authorization);
 
   if (authorization) {
     const token = authorization.split(" ")[1];

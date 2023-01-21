@@ -69,10 +69,10 @@ const AddCategories = () => {
   return (
     <Div>
       <Header title="Categories" textAlign="left" />
-      <Breadcrumbs
-        category1={{ title: "Home", link: "/home" }}
-        category2="Add Product"
-      />
+      <Breadcrumbs category1={{ title: "Settings" }} category2="Categories" />
+      <Section bgColor="#fff" padding="1.25rem" margin="1rem 0">
+        <CategoryList />
+      </Section>
       <Section bgColor="#fff" gap=".875rem" padding="1.25rem" margin="1rem 0">
         <TextInput
           label="Name"
@@ -94,9 +94,6 @@ const AddCategories = () => {
         color={primaryColor.button}
         handleClick={handleSubmit}
       />
-      <Section>
-        <CategoryList />
-      </Section>
     </Div>
   );
 };

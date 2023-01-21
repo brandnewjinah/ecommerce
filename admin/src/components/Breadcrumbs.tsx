@@ -6,7 +6,7 @@ import { neutral, breakpoint, fontSize } from "./token";
 
 interface CategoryIF {
   title: string;
-  link: string;
+  link?: string;
 }
 
 interface Props {
@@ -17,9 +17,11 @@ interface Props {
 const Breadcrumbs: FC<Props> = ({ category1, category2 }) => {
   return (
     <Container>
-      <a href={`${category1 && category1.link}`}>
-        {category1 && category1.title}
-      </a>
+      {category1 && category1.link ? (
+        <a href={`${category1 && category1.link}`}>{category1.title}</a>
+      ) : (
+        <span>{category1!.title}</span>
+      )}
       <span className="divider" aria-hidden="true">
         /
       </span>
