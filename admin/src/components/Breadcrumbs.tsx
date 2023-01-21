@@ -11,10 +11,11 @@ interface CategoryIF {
 
 interface Props {
   category1?: CategoryIF;
-  category2?: string;
+  category2?: CategoryIF;
+  category3?: CategoryIF;
 }
 
-const Breadcrumbs: FC<Props> = ({ category1, category2 }) => {
+const Breadcrumbs: FC<Props> = ({ category1, category2, category3 }) => {
   return (
     <Container>
       {category1 && category1.link ? (
@@ -25,7 +26,19 @@ const Breadcrumbs: FC<Props> = ({ category1, category2 }) => {
       <span className="divider" aria-hidden="true">
         /
       </span>
-      <span>{category2 && category2}</span>
+      {category2 && category2.link ? (
+        <a href={`${category2 && category2.link}`}>{category2.title}</a>
+      ) : (
+        <span>{category2!.title}</span>
+      )}
+      {category3 && (
+        <>
+          <span className="divider" aria-hidden="true">
+            /
+          </span>
+          <span>{category3.title}</span>
+        </>
+      )}
     </Container>
   );
 };

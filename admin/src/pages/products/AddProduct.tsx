@@ -144,7 +144,7 @@ const AddProduct = () => {
       <Header title="Add Product" />
       <Breadcrumbs
         category1={{ title: "Home", link: "/home" }}
-        category2="Add Product"
+        category2={{ title: "Add Product" }}
       />
       <Section bgColor="#fff" gap=".875rem" padding="1.25rem" margin="1rem 0">
         <TextInput

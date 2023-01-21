@@ -6,14 +6,19 @@ import {
   CategoryWithSubCategoryIF,
 } from "../interfaces/settingsInterface";
 
-export interface ParamsIF {
+interface ParamsIF {
   id?: string;
   category: CategoryWithSubCategoryIF;
 }
 
-export interface SubParamsIF {
+interface SubParamsIF {
   id?: string;
   sub: CategoryIF;
+}
+
+interface DeleteSubParamsIF {
+  catId?: string;
+  subId?: string;
 }
 
 export interface CategoryResponse extends Status {
@@ -27,6 +32,7 @@ export interface Category {
   categoryAdded: CategoryResponse;
   categoryUpdated: CategoryResponse;
   subAdded: CategoryResponse;
+  subDeleted: CategoryResponse;
 }
 
 const initialState: Category = {
@@ -39,6 +45,13 @@ const initialState: Category = {
     },
   },
   subAdded: {
+    status: 0,
+    message: "",
+    categoryDetails: {
+      _id: "",
+    },
+  },
+  subDeleted: {
     status: 0,
     message: "",
     categoryDetails: {
@@ -135,6 +148,33 @@ export const addSubCategory = createAsyncThunk<
   }
 );
 
+export const deleteSubCategory = createAsyncThunk<
+  CategoryResponse,
+  DeleteSubParamsIF,
+  {
+    rejectValue: Status;
+  }
+>(
+  "settingsActions/deleteSubCategory",
+  async (obj: DeleteSubParamsIF, { rejectWithValue }) => {
+    try {
+      const res = await api.privateRequest.patch(
+        `/settings/category/delete/${obj.catId}?subId=${obj.subId}`
+      );
+      return {
+        status: res.status,
+        message: res.statusText,
+        categoryDetails: { _id: res.data._id },
+      } as CategoryResponse;
+    } catch (error: any) {
+      return rejectWithValue({
+        status: error.response.status,
+        message: error.response.data.message,
+      });
+    }
+  }
+);
+
 const settingsActionsSlice = createSlice({
   name: "settingsActions",
   initialState,
@@ -156,6 +196,13 @@ const settingsActionsSlice = createSlice({
         },
       };
       state.subAdded = {
+        status: 0,
+        message: "",
+        categoryDetails: {
+          _id: "",
+        },
+      };
+      state.subDeleted = {
         status: 0,
         message: "",
         categoryDetails: {
@@ -213,6 +260,23 @@ const settingsActionsSlice = createSlice({
       state.subAdded.status = action.payload!.status;
       state.subAdded.message = action.payload!.message;
       state.subAdded.categoryDetails = {
+        _id: "",
+      };
+    });
+    builder.addCase(deleteSubCategory.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(deleteSubCategory.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.subDeleted.status = action.payload.status;
+      state.subDeleted.message = action.payload.message;
+      state.subDeleted.categoryDetails = action.payload.categoryDetails;
+    });
+    builder.addCase(deleteSubCategory.rejected, (state, action) => {
+      state.isLoading = false;
+      state.subDeleted.status = action.payload!.status;
+      state.subDeleted.message = action.payload!.message;
+      state.subDeleted.categoryDetails = {
         _id: "",
       };
     });

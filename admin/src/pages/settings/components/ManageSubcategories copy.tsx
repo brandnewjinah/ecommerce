@@ -1,28 +1,31 @@
 import React, { FC, ChangeEvent, useState, useEffect } from "react";
 
 //comp
-import { Flex } from "../../components/containers/Div";
-import { Header } from "../../components/Header";
-import { TextInput } from "../../components/TextInput";
-import { Button, IconButton } from "../../components/Button";
-import { CategoryIF, SubcategoryIF } from "../../interfaces/settingsInterface";
-import { neutral, primaryColor } from "../../components/token";
+import { Flex } from "../../../components/containers/Div";
+import { Header } from "../../../components/Header";
+import { TextInput } from "../../../components/TextInput";
+import { Button, IconButton } from "../../../components/Button";
+import {
+  CategoryIF,
+  SubcategoryIF,
+} from "../../../interfaces/settingsInterface";
+import { neutral, primaryColor } from "../../../components/token";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateCategory,
   reset,
   addSubCategory,
-} from "../../redux/settingsActionsReducer";
-import { RootState } from "../../redux/store";
-import { Body } from "../../components/Text";
-import { Check, Delete, Edit } from "../../assets/Icon";
-import List from "../../components/List";
+} from "../../../redux/settingsActionsReducer";
+import { RootState } from "../../../redux/store";
+import { Body } from "../../../components/Text";
+import { Check, Delete, Edit } from "../../../assets/Icon";
+import List from "../../../components/List";
 
 interface Props {
   catId?: string;
 }
 
-const SubCategories: FC<Props> = ({ catId }) => {
+const ManageSubcategories: FC<Props> = ({ catId }) => {
   const dispatch = useDispatch();
 
   //this category
@@ -116,7 +119,7 @@ const SubCategories: FC<Props> = ({ catId }) => {
 
   return (
     <>
-      <Header title="Subcategories" small margin="0 0 1rem 0" />
+      <Header title="Manage Subcategories" small margin="0 0 1.75rem 0" />
       {subCategories &&
         subCategories.map((item, idx) =>
           currentEditMode === idx ? (
@@ -142,7 +145,7 @@ const SubCategories: FC<Props> = ({ catId }) => {
               <Flex className="flexOne">
                 <IconButton
                   handleClick={() => handleSubSubmit(item._id!)}
-                  bgColor={primaryColor.gold}
+                  bgColor={primaryColor.blue}
                 >
                   <Check
                     width={18}
@@ -212,4 +215,4 @@ const SubCategories: FC<Props> = ({ catId }) => {
   );
 };
 
-export default SubCategories;
+export default ManageSubcategories;

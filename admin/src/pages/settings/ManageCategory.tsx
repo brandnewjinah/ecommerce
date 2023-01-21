@@ -18,10 +18,9 @@ import {
 //redux
 import { getACategory } from "../../redux/settingsReducer";
 import { RootState } from "../../redux/store";
-import { Button, IconButton } from "../../components/Button";
-import { neutral, primaryColor } from "../../components/token";
-import SubCategories from "./SubCategories";
-import { Body } from "../../components/Text";
+import { IconButton } from "../../components/Button";
+import { neutral } from "../../components/token";
+import ManageSubcategories from "./components/ManageSubcategories";
 import TextBlock from "../../components/TextBlock";
 import { Edit } from "../../assets/Icon";
 
@@ -53,13 +52,14 @@ const CategoryDetails = () => {
 
   return (
     <Div>
-      <Header title="Category Details" textAlign="left" />
+      <Header title="Manage Category" textAlign="left" />
       <Breadcrumbs
-        category1={{ title: "Home", link: "/home" }}
-        category2="Settings"
+        category1={{ title: "Settings" }}
+        category2={{ title: "Categories", link: "/settings/categories" }}
+        category3={{ title: data.name! }}
       />
       <Section bgColor="#fff" gap=".875rem" padding="1.25rem" margin="1rem 0">
-        <Header title="Main Category" small margin="0 0 1rem 0" />
+        {/* <Header title="Main Category" small margin="0 0 1rem 0" /> */}
         <Flex>
           <TextBlock title="Name" value={data.name} className="flexTwo" />
           <TextBlock title="Value" value={data.value} className="flexTwo" />
@@ -70,9 +70,9 @@ const CategoryDetails = () => {
           </div>
         </Flex>
       </Section>
-      <Section bgColor="#fff" padding="1.25rem" margin="1rem 0">
-        <SubCategories catId={id} />
-      </Section>
+
+      {/* <ManageSubcategories catId={id} /> */}
+      <ManageSubcategories />
     </Div>
   );
 };

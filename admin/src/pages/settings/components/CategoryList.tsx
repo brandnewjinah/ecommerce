@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import FlexTable from "../../components/FlexTable";
-import { getCategories } from "../../redux/settingsReducer";
-import { RootState } from "../../redux/store";
+import FlexTable from "../../../components/FlexTable";
+import { Header } from "../../../components/Header";
+import { getCategories } from "../../../redux/settingsReducer";
+import { RootState } from "../../../redux/store";
 
 const CategoryList = () => {
   const dispatch = useDispatch();
@@ -47,7 +48,10 @@ const CategoryList = () => {
     });
 
   return (
-    <FlexTable keys={tableKey} data={tableData} param="/settings/category" />
+    <>
+      <Header small title="Category List" margin="0 0 1.75rem 0" />
+      <FlexTable keys={tableKey} data={tableData} param="/settings/category" />
+    </>
   );
 };
 

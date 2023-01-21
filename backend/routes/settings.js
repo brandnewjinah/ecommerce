@@ -5,6 +5,7 @@ import {
   getAllCategories,
   getACategory,
   addSubCategory,
+  deleteSubCategory,
   updateCategory,
 } from "../controllers/settings.js";
 
@@ -25,14 +26,19 @@ router.get("/category", checkAdmin, getAllCategories);
 // @access Admin only
 router.get("/category/:id", checkAdmin, getACategory);
 
-// // @route PATCH /category/${id}
-// // @desc Edit category
-// // @access Admin only
-router.patch("/category/add/:id", checkAdmin, addSubCategory);
-
 // @route PATCH /category/${id}
 // @desc Update category
 // @access Admin only
 router.patch("/category/:id", checkAdmin, updateCategory);
+
+// @route PATCH /category/add/${id}
+// @desc Add subcategory
+// @access Admin only
+router.patch("/category/add/:id", checkAdmin, addSubCategory);
+
+// @route PATCH /category/delete/${id}
+// @desc Delete subcategory
+// @access Admin only
+router.patch("/category/delete/:id", checkAdmin, deleteSubCategory);
 
 export default router;

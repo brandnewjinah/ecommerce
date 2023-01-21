@@ -218,6 +218,23 @@ export const Image: FC<Props> = ({ width, height, stroke, color, fill }) => {
   );
 };
 
+export const Minus: FC<Props> = ({ width, height, stroke, color, fill }) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M5 12h14" />
+    </svg>
+  );
+};
+
 export const Products: FC<Props> = ({ width, height, stroke, color, fill }) => {
   return (
     <svg

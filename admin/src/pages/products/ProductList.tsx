@@ -85,7 +85,7 @@ const List = () => {
           <Header title="Products" textAlign="left" />
           <Breadcrumbs
             category1={{ title: "Home", link: "/home" }}
-            category2="Product List CSS color change"
+            category2={{ title: "Product List" }}
           />
         </Div>
         <div>add product button</div>

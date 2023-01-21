@@ -85,12 +85,16 @@ export const TextInput: FC<Props> = ({
             {...rest}
           />
           {error && (
-            <Body variant="caption" color="red">
+            <Body variant="body_xsmall" color="red" padding="0.625rem 0 0">
               {error}
             </Body>
           )}
           {helper && (
-            <Body variant="caption" color={neutral[400]}>
+            <Body
+              variant="body_xsmall"
+              color={neutral[400]}
+              padding="0.625rem 0 0"
+            >
               {helper}
             </Body>
           )}
@@ -121,8 +125,9 @@ const Container = styled.div<Props>`
   label {
     display: inline-block;
     font-size: ${fontSize.sm2};
-    font-weight: 600;
-    padding: 0 0 0.65rem;
+    font-weight: 500;
+    color: ${neutral[500]};
+    padding: 0 0 0.75rem;
   }
 
   button {

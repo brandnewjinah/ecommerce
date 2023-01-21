@@ -102,7 +102,7 @@ const ButtonContainer = styled.button<Props>`
       ? "1.25rem"
       : props.size === "small"
       ? ".7rem"
-      : "1rem"};
+      : "0.9rem"};
   transition: opacity 0.3s ease-out;
   cursor: pointer;
 

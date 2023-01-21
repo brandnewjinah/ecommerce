@@ -81,7 +81,7 @@ const List = () => {
         <Header title="Customer List" textAlign="left" />
         <Breadcrumbs
           category1={{ title: "Home", link: "/home" }}
-          category2="Customer List"
+          category2={{ title: "Customer List" }}
         />
       </Div>
 

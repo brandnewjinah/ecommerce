@@ -50,9 +50,9 @@ const HeaderWrapper = styled.header<Props>`
   margin: ${(props) => props.margin && props.margin};
 
   h1 {
-    /* font-size: ${fontSize.lg2}; */
     font-size: ${(props) => (props.small ? "1.125rem" : "1.5rem")};
-    font-weight: 500;
+    font-weight: 600;
+    letter-spacing: -0.025rem;
     text-transform: capitalize;
   }
 `;

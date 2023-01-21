@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { neutral } from "./token";
+import { fontSize, neutral } from "./token";
 
 interface Props {
   title: string;
@@ -19,13 +19,14 @@ const TextBlock: FC<Props> = ({ title, value, className }) => {
 
 const Block = styled.div`
   .title {
-    font-size: 0.875rem;
+    font-size: ${fontSize.sm2};
     color: ${neutral[500]};
+    font-weight: 500;
   }
 
   .value {
     font-weight: 600;
-    padding-top: 0.5rem;
+    padding: 0.5rem 0;
   }
 `;
 
