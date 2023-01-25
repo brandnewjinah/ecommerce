@@ -26,7 +26,7 @@ const Select: FC<SelectProps> = ({
         {options &&
           options.map((option, idx) => (
             <option key={idx} value={idx} selected={selected === option.value}>
-              {option.label}
+              {option.name}
             </option>
           ))}
       </SelectInput>

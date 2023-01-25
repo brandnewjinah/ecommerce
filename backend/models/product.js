@@ -23,8 +23,17 @@ const productSchema = mongoose.Schema({
     required: true,
   },
   price: {
-    type: String,
-    required: true,
+    currency: {
+      type: String,
+      default: "$",
+    },
+    current: {
+      type: Number,
+      required: true,
+    },
+    previous: {
+      type: Number,
+    },
   },
   size: String,
   category1: {

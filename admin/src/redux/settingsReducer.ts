@@ -2,10 +2,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../api";
 import { Status } from "../interfaces/baseInterface";
 import { CategoryWithSubCategoryIF } from "../interfaces/settingsInterface";
+import { CategoryIF } from "../interfaces/productInterface";
 
 interface Categories {
   status: string;
-  data: CategoryWithSubCategoryIF[];
+  data: CategoryIF[];
 }
 
 interface CategoryDetails {

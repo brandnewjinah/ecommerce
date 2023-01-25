@@ -4,6 +4,7 @@ import { Status } from "../interfaces/baseInterface";
 import {
   CategoryIF,
   CategoryWithSubCategoryIF,
+  BrandIF,
 } from "../interfaces/settingsInterface";
 
 interface ParamsIF {
@@ -27,12 +28,19 @@ export interface CategoryResponse extends Status {
   };
 }
 
+export interface BrandResponse extends Status {
+  brandDetails: {
+    _id: string;
+  };
+}
+
 export interface Category {
   isLoading: boolean;
   categoryAdded: CategoryResponse;
   categoryUpdated: CategoryResponse;
   subAdded: CategoryResponse;
   subDeleted: CategoryResponse;
+  brandAdded: BrandResponse;
 }
 
 const initialState: Category = {
@@ -62,6 +70,13 @@ const initialState: Category = {
     status: 0,
     message: "",
     categoryDetails: {
+      _id: "",
+    },
+  },
+  brandAdded: {
+    status: 0,
+    message: "",
+    brandDetails: {
       _id: "",
     },
   },
@@ -175,6 +190,28 @@ export const deleteSubCategory = createAsyncThunk<
   }
 );
 
+export const addBrand = createAsyncThunk<
+  BrandResponse,
+  BrandIF,
+  {
+    rejectValue: Status;
+  }
+>("settingsActions/addBrand", async (brand: BrandIF, { rejectWithValue }) => {
+  try {
+    const res = await api.privateRequest.post(`/settings/brand`, brand);
+    return {
+      status: res.status,
+      message: res.statusText,
+      brandDetails: { _id: res.data._id },
+    } as BrandResponse;
+  } catch (error: any) {
+    return rejectWithValue({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+  }
+});
+
 const settingsActionsSlice = createSlice({
   name: "settingsActions",
   initialState,
@@ -206,6 +243,13 @@ const settingsActionsSlice = createSlice({
         status: 0,
         message: "",
         categoryDetails: {
+          _id: "",
+        },
+      };
+      state.brandAdded = {
+        status: 0,
+        message: "",
+        brandDetails: {
           _id: "",
         },
       };
@@ -277,6 +321,23 @@ const settingsActionsSlice = createSlice({
       state.subDeleted.status = action.payload!.status;
       state.subDeleted.message = action.payload!.message;
       state.subDeleted.categoryDetails = {
+        _id: "",
+      };
+    });
+    builder.addCase(addBrand.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(addBrand.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.brandAdded.status = action.payload.status;
+      state.brandAdded.message = action.payload.message;
+      state.brandAdded.brandDetails = action.payload.brandDetails;
+    });
+    builder.addCase(addBrand.rejected, (state, action) => {
+      state.isLoading = false;
+      state.brandAdded.status = action.payload!.status;
+      state.brandAdded.message = action.payload!.message;
+      state.brandAdded.brandDetails = {
         _id: "",
       };
     });

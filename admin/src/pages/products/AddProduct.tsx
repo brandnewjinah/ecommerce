@@ -15,7 +15,6 @@ import { neutral, primaryColor } from "../../components/token";
 import { Image } from "../../assets/Icon";
 
 //other
-import { categoryList } from "../../data/category";
 import {
   ProductErrorIF,
   ProductIF,
@@ -26,6 +25,7 @@ import { productValidate } from "../../utils/validate";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct, reset } from "../../redux/productActionsReducer";
+import { getCategories } from "../../redux/settingsReducer";
 import { RootState } from "../../redux/store";
 
 const AddProduct = () => {
@@ -34,17 +34,16 @@ const AddProduct = () => {
     name: "",
     brand: "",
     price: "",
+    prevPrice: "",
     size: "",
     category1: {
-      id: 0,
       value: "",
-      label: "",
-      subcategory: [],
+      name: "",
+      subCategory: [],
     },
     category2: {
-      id: 0,
       value: "",
-      label: "",
+      name: "",
     },
     img: "",
     description: "",
@@ -61,6 +60,13 @@ const AddProduct = () => {
     setProductInfo(userInput);
   };
 
+  //categories
+  useEffect(() => {
+    dispatch(getCategories(""));
+  }, [dispatch]);
+
+  const { data } = useSelector((state: RootState) => state.settings.categories);
+
   const handleCategorySelect =
     (name: string) => (e: ChangeEvent<HTMLSelectElement>) => {
       const { value } = e.target;
@@ -69,8 +75,8 @@ const AddProduct = () => {
         ...productInfo,
         [name]:
           name === "category1"
-            ? categoryList[parseInt(value)]
-            : productInfo.category1!.subcategory![parseInt(value)],
+            ? data[parseInt(value)]
+            : productInfo.category1!.subCategory![parseInt(value)],
       });
     };
 
@@ -111,17 +117,16 @@ const AddProduct = () => {
       name: "",
       brand: "",
       price: "",
+      prevPrice: "",
       size: "",
       category1: {
-        id: 0,
         value: "",
-        label: "",
-        subcategory: [],
+        name: "",
+        subCategory: [],
       },
       category2: {
-        id: 0,
         value: "",
-        label: "",
+        name: "",
       },
       img: "",
       description: "",
@@ -146,7 +151,7 @@ const AddProduct = () => {
         category1={{ title: "Home", link: "/home" }}
         category2={{ title: "Add Product" }}
       />
-      <Section bgColor="#fff" gap=".875rem" padding="1.25rem" margin="1rem 0">
+      <Section bgColor="#fff" gap="1rem" padding="1.25rem" margin="1rem 0">
         <TextInput
           label="Product Name"
           name="name"
@@ -161,21 +166,32 @@ const AddProduct = () => {
         />
         <Flex gap="1rem">
           <TextInput
-            label="Price"
+            label="Current Price"
             name="price"
+            prefix="$"
             error={errors.price}
             onChange={handleInputChange}
           />
-          <TextInput label="Size" name="size" onChange={handleInputChange} />
+          <TextInput
+            label="Previous Price"
+            name="prevPrice"
+            prefix="$"
+            onChange={handleInputChange}
+          />
         </Flex>
       </Section>
-      <Section bgColor="#fff" gap=".875rem" padding="1.25rem" margin="1rem 0">
+      <Section bgColor="#fff" gap="1rem" padding="1.25rem" margin="1rem 0">
         <div>
-          <Body variant="body_small" bold="bold" padding="0 0 0.65rem">
+          <Body
+            variant="body_small"
+            color={neutral[500]}
+            bold="medium"
+            padding="0 0 0.65rem"
+          >
             Category 1
           </Body>
           <Select
-            options={categoryList}
+            options={data}
             onChange={handleCategorySelect("category1")}
             fullWidth
           />
@@ -184,19 +200,29 @@ const AddProduct = () => {
           )}
         </div>
         <div>
-          <Body variant="body_small" bold="bold" padding="0 0 0.65rem">
+          <Body
+            variant="body_small"
+            color={neutral[500]}
+            bold="medium"
+            padding="0 0 0.65rem"
+          >
             Category 2
           </Body>
           <Select
-            options={productInfo.category1!.subcategory}
+            options={productInfo.category1!.subCategory}
             onChange={handleCategorySelect("category2")}
             fullWidth
           />
         </div>
       </Section>
-      <Section bgColor="#fff" gap=".875rem" padding="1.25rem" margin="1rem 0">
+      <Section bgColor="#fff" gap="1rem" padding="1.25rem" margin="1rem 0">
         <div>
-          <Body variant="body_small" bold="bold" padding="0 0 0.65rem">
+          <Body
+            variant="body_small"
+            color={neutral[500]}
+            bold="medium"
+            padding="0 0 0.65rem"
+          >
             Product Image
           </Body>
           <ImageUpload>

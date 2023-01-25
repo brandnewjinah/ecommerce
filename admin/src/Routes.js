@@ -16,6 +16,7 @@ import CustomerList from "./pages/customers/CustomerList";
 import SubscriberList from "./pages/subscribers/SubscriberList";
 import Categories from "./pages/settings/Categories";
 import ManageCategory from "./pages/settings/ManageCategory";
+import Brands from "./pages/settings/Brands";
 
 const Routes = createBrowserRouter([
   {
@@ -63,6 +64,10 @@ const Routes = createBrowserRouter([
       {
         path: "/settings/category/:id",
         element: <ManageCategory />,
+      },
+      {
+        path: "/settings/brands",
+        element: <Brands />,
       },
     ],
   },

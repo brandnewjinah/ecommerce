@@ -64,6 +64,11 @@ export const navData = [
       },
       {
         id: 502,
+        name: "Brands",
+        link: "/settings/brands",
+      },
+      {
+        id: 503,
         name: "Categories",
         link: "/settings/categories",
       },

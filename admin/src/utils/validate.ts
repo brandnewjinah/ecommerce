@@ -3,7 +3,7 @@ import {
   ProductWithCategoryIF,
   ProductErrorIF,
 } from "../interfaces/productInterface";
-import { CategoryIF } from "../interfaces/settingsInterface";
+import { CategoryIF, BrandIF } from "../interfaces/settingsInterface";
 
 export const signinValidate = (obj: AuthIF) => {
   const errors: AuthIF = {};
@@ -25,6 +25,14 @@ export const productValidate = (obj: ProductWithCategoryIF) => {
 
 export const categoryValidate = (obj: CategoryIF) => {
   const errors: CategoryIF = {};
+  if (obj.name === "") errors.name = "Name is required";
+  if (obj.value === "") errors.value = "Value is required";
+
+  return Object.keys(errors).length === 0 ? null : errors;
+};
+
+export const brandValidate = (obj: BrandIF) => {
+  const errors: BrandIF = {};
   if (obj.name === "") errors.name = "Name is required";
   if (obj.value === "") errors.value = "Value is required";
 

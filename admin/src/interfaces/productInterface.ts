@@ -1,16 +1,14 @@
 export interface SubcategoryIF {
   _id?: string;
-  id: number;
   value: string;
-  label: string;
+  name: string;
 }
 
 export interface CategoryIF {
   _id?: string;
-  id: number;
   value: string;
-  label: string;
-  subcategory?: SubcategoryIF[];
+  name: string;
+  subCategory?: SubcategoryIF[];
 }
 
 export interface ProductIF {
@@ -19,6 +17,7 @@ export interface ProductIF {
   brand?: string;
   sku?: string;
   price?: string;
+  prevPrice?: string;
   img?: string;
   size?: string;
   description?: string;

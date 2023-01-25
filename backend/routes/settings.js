@@ -7,6 +7,7 @@ import {
   addSubCategory,
   deleteSubCategory,
   updateCategory,
+  addBrand,
 } from "../controllers/settings.js";
 
 const router = express.Router();
@@ -40,5 +41,10 @@ router.patch("/category/add/:id", checkAdmin, addSubCategory);
 // @desc Delete subcategory
 // @access Admin only
 router.patch("/category/delete/:id", checkAdmin, deleteSubCategory);
+
+// @route POST /brand
+// @desc Add brand
+// @access Admin only
+router.post("/brabd", checkAdmin, addBrand);
 
 export default router;

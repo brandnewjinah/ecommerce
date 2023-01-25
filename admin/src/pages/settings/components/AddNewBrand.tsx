@@ -7,36 +7,38 @@ import { primaryColor } from "../../../components/token";
 import { Button } from "../../../components/Button";
 
 //others
-import { CategoryIF } from "../../../interfaces/settingsInterface";
-import { categoryValidate } from "../../../utils/validate";
+import { BrandIF } from "../../../interfaces/settingsInterface";
+import { brandValidate } from "../../../utils/validate";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { addCategory, reset } from "../../../redux/settingsActionsReducer";
+import { addBrand, reset } from "../../../redux/settingsActionsReducer";
 import { RootState } from "../../../redux/store";
+import { TextArea } from "../../../components/TextArea";
 
-const AddNewCategory = () => {
+const AddNewBrand = () => {
   const dispatch = useDispatch();
-  const [errors, setErrors] = useState<CategoryIF>({});
+  const [errors, setErrors] = useState<BrandIF>({});
 
-  const [category, setCategory] = useState<CategoryIF>({
+  const [brand, setBrand] = useState<BrandIF>({
     name: "",
     value: "",
+    description: "",
   });
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    const userInput = { ...category };
-    userInput[name as keyof CategoryIF] = value;
-    setCategory(userInput);
+    const userInput = { ...brand };
+    userInput[name as keyof BrandIF] = value;
+    setBrand(userInput);
   };
 
   const handleSubmit = () => {
-    const errors = categoryValidate(category);
+    const errors = brandValidate(brand);
     setErrors(errors || {});
     if (errors) return;
 
-    dispatch(addCategory(category));
+    dispatch(addBrand(brand));
   };
 
   //actions after submitting data
@@ -45,9 +47,10 @@ const AddNewCategory = () => {
   );
 
   const clear = () => {
-    setCategory({
+    setBrand({
       name: "",
       value: "",
+      description: "",
     });
   };
 
@@ -69,25 +72,25 @@ const AddNewCategory = () => {
           label="Name"
           name="name"
           error={errors.name}
-          helper="e.g. Coffee and Tea"
           onChange={handleInputChange}
         />
         <TextInput
           label="Value"
           name="value"
           error={errors.value}
-          helper="Write in camel case. (e.g. coffeeAndTea)"
+          placeholder="Write in camel case. (e.g. coffeeAndTea)"
           onChange={handleInputChange}
         />
-        <Button
-          label="Add"
-          color={primaryColor.button}
-          handleClick={handleSubmit}
-          margin=".45rem 0 0 0"
-        />
       </Flex>
+      <TextArea label="Description" />
+      <Button
+        label="Add"
+        color={primaryColor.button}
+        handleClick={handleSubmit}
+        margin=".45rem 0 0 0"
+      />
     </>
   );
 };
 
-export default AddNewCategory;
+export default AddNewBrand;

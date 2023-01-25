@@ -1,21 +1,22 @@
 import React, { ChangeEvent } from "react";
+import { CategoryWithSubCategoryIF } from "./settingsInterface";
 
 export interface SelectProps {
-  options?: SelectOptionProps[];
+  options?: CategoryWithSubCategoryIF[];
   selected?: string;
   onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
   fullWidth?: boolean;
 }
 
 export interface SelectOptionProps {
-  id: number;
+  _id?: number;
   value: string;
-  label: string;
+  name: string;
   subcategory?: SelectOptionSubProps[];
 }
 
 export interface SelectOptionSubProps {
-  id: number;
+  _id?: number;
   value: string;
-  label: string;
+  name: string;
 }

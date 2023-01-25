@@ -8,8 +8,8 @@ import { Eye, EyeOff, SearchIcon } from "../assets/Icon";
 
 export interface Props {
   name?: string;
-  label?: string;
   value?: string;
+  label?: string;
   placeholder?: string;
   type?:
     | "text"
@@ -19,11 +19,12 @@ export interface Props {
     | "email"
     | "date"
     | undefined;
+  maxLength?: number;
   helper?: string;
   error?: string;
+  prefix?: string;
   margin?: string;
   removeBorder?: boolean;
-  maxLength?: number;
   className?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onKeyPress?: (e: KeyboardEvent<HTMLElement>) => void;
@@ -31,15 +32,16 @@ export interface Props {
 
 export const TextInput: FC<Props> = ({
   name,
-  label,
   value,
+  label,
   placeholder,
   type,
+  maxLength,
   helper,
   error,
+  prefix,
   margin,
   removeBorder,
-  maxLength,
   className,
   onChange,
   onKeyPress,
@@ -63,6 +65,22 @@ export const TextInput: FC<Props> = ({
           />
           <div className="search" aria-hidden="true">
             <SearchIcon width={16} height={16} color="#000" stroke={1} />
+          </div>
+        </>
+      ) : prefix ? (
+        <>
+          <InputTag
+            name={name}
+            placeholder={placeholder}
+            type={type}
+            prefix={prefix}
+            maxLength={maxLength}
+            value={value}
+            onChange={onChange}
+            {...rest}
+          />
+          <div className="prefix" aria-hidden="true">
+            {prefix}
           </div>
         </>
       ) : (
@@ -157,6 +175,14 @@ const Container = styled.div<Props>`
     align-items: center;
     transform: translateY(-50%);
   }
+
+  .prefix {
+    color: ${neutral[400]};
+    position: absolute;
+    bottom: 0;
+    left: 0.75rem;
+    transform: translateY(calc(-50% - 0.25rem));
+  }
 `;
 
 const InputTag = styled.input<Props>`
@@ -167,7 +193,11 @@ const InputTag = styled.input<Props>`
   border-radius: ${(props) => (props.type === "search" ? "3rem" : ".25rem")};
   height: 2.875rem;
   padding: ${(props) =>
-    props.type === "search" ? "0 0.875rem 0 2.5rem" : "0.75rem"};
+    props.type === "search"
+      ? "0 0.875rem 0 2.5rem"
+      : props.prefix
+      ? "0 0.875rem 0 2rem"
+      : "0.75rem"};
   background-color: ${(props) =>
     props.removeBorder ? neutral[50] : "rgba(255, 255, 255, 0.8)"};
   -webkit-appearance: none;

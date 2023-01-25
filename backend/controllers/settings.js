@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Category from "../models/category.js";
+import Brand from "../models/brand.js";
 
 //ADD CATEGORY
 export const addCategory = async (req, res) => {
@@ -99,4 +100,17 @@ export const deleteSubCategory = async (req, res) => {
   console.log(updatedCategory);
 
   res.status(200).json(updatedCategory);
+};
+
+//ADD BRAND
+export const addBrand = async (req, res) => {
+  const brand = req.body;
+
+  try {
+    const newBrand = new Brand(brand);
+    await newBrand.save();
+    res.status(201).json(newBrand);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };

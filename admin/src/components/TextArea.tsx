@@ -58,7 +58,8 @@ const Container = styled.div<Props>`
   label {
     display: inline-block;
     font-size: ${fontSize.sm2};
-    font-weight: 600;
+    color: ${neutral[500]};
+    font-weight: 500;
     padding: 0 0 0.65rem;
   }
 `;

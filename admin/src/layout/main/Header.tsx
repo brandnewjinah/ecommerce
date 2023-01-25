@@ -12,7 +12,6 @@ import { RootState } from "../../redux/store";
 
 const Nav = () => {
   const { currentUser } = useSelector((state: RootState) => state.auth);
-  console.log(currentUser.token);
 
   return (
     <Header>

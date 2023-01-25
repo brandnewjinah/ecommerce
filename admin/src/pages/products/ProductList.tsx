@@ -53,18 +53,18 @@ const List = () => {
     },
   ];
 
-  const tableData =
-    products &&
-    products.data.map((item) => {
-      return [
-        { value: item._id, width: "flexOne" },
-        { value: item.name, width: "flexThree" },
-        { value: item.brand, width: "flexTwo" },
-        { value: item.price, width: "flexOne" },
-        { value: item.category1!.label, width: "flexTwo" },
-        { value: 1, width: "flexOne" },
-      ];
-    });
+  // const tableData =
+  //   products &&
+  //   products.data.map((item) => {
+  //     return [
+  //       { value: item._id, width: "flexOne" },
+  //       { value: item.name, width: "flexThree" },
+  //       { value: item.brand, width: "flexTwo" },
+  //       { value: item.price, width: "flexOne" },
+  //       { value: item.category1!.label, width: "flexTwo" },
+  //       { value: 1, width: "flexOne" },
+  //     ];
+  //   });
 
   const filterData = ["all", "snacks", "beverage", "pantry"];
 
@@ -80,7 +80,7 @@ const List = () => {
 
   return (
     <div>
-      <Flex justifyContent="space-between">
+      {/* <Flex justifyContent="space-between">
         <Div>
           <Header title="Products" textAlign="left" />
           <Breadcrumbs
@@ -112,7 +112,7 @@ const List = () => {
           currentPage={currentPage}
           handlePageChange={(page: number) => setCurrentPage(page)}
         />
-      </Section>
+      </Section> */}
     </div>
   );
 };

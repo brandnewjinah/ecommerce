@@ -14,7 +14,7 @@ interface Props {
     | undefined;
   size?: string;
   lineHeight?: string;
-  bold?: "bold" | "extrabold" | undefined;
+  bold?: "medium" | "bold" | "extrabold" | undefined;
   uppercase?: boolean;
   capitalize?: boolean;
   align?: string;
@@ -184,7 +184,13 @@ const P = styled.p<Props>`
       ? "1.25rem"
       : "1.625rem"}; */
   font-weight: ${(props) =>
-    props.bold === "bold" ? 600 : props.bold === "extrabold" ? 700 : 400};
+    props.bold === "medium"
+      ? 500
+      : props.bold === "bold"
+      ? 600
+      : props.bold === "extrabold"
+      ? 700
+      : 400};
   text-transform: ${(props) =>
     props.capitalize ? "capitalize" : props.uppercase ? "uppsercase" : null};
   text-align: ${(props) => props.align && props.align};
