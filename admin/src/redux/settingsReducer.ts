@@ -18,6 +18,7 @@ interface State extends Status {
   isLoading: boolean;
   categories: Categories;
   categoryDetails: CategoryDetails;
+  brands: Categories;
 }
 
 const initialState: State = {
@@ -31,6 +32,10 @@ const initialState: State = {
   categoryDetails: {
     status: "",
     data: {},
+  },
+  brands: {
+    status: "",
+    data: [],
   },
 };
 
@@ -71,6 +76,29 @@ export const getACategory = createAsyncThunk<
       status: res.status,
       message: res.statusText,
       categoryDetails: res.data,
+    } as State;
+  } catch (error: any) {
+    return rejectWithValue({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+  }
+});
+
+export const getBrands = createAsyncThunk<
+  State,
+  String,
+  {
+    rejectValue: Status;
+  }
+>("settings/getBrands", async (_, { rejectWithValue }) => {
+  try {
+    const res = await api.privateRequest.get(`/settings/brands`);
+    return {
+      isLoading: false,
+      status: res.status,
+      message: res.statusText,
+      categories: res.data,
     } as State;
   } catch (error: any) {
     return rejectWithValue({

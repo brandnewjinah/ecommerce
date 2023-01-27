@@ -114,3 +114,17 @@ export const addBrand = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+//GET ALL BRANDS
+export const getAllBrands = async (req, res) => {
+  try {
+    let brands = Brand.find();
+    const result = await brands;
+    res.status(200).json({
+      status: "success",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};

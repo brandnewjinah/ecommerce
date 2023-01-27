@@ -26,7 +26,9 @@ const AddNewBrand = () => {
     description: "",
   });
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     const userInput = { ...brand };
     userInput[name as keyof BrandIF] = value;
@@ -42,7 +44,7 @@ const AddNewBrand = () => {
   };
 
   //actions after submitting data
-  const { categoryAdded } = useSelector(
+  const { brandAdded } = useSelector(
     (state: RootState) => state.settingsActions
   );
 
@@ -55,15 +57,15 @@ const AddNewBrand = () => {
   };
 
   useEffect(() => {
-    if (categoryAdded.status === 201) {
-      alert("Category successfully created!");
+    if (brandAdded.status === 201) {
+      alert("Brand successfully created!");
       dispatch(reset());
       clear();
       window.location.reload();
-    } else if (categoryAdded.status !== 201 && categoryAdded.status !== 0) {
+    } else if (brandAdded.status !== 201 && brandAdded.status !== 0) {
       alert("error");
     }
-  }, [dispatch, categoryAdded.status, categoryAdded.categoryDetails._id]);
+  }, [dispatch, brandAdded.status, brandAdded.brandDetails._id]);
 
   return (
     <>
@@ -82,7 +84,11 @@ const AddNewBrand = () => {
           onChange={handleInputChange}
         />
       </Flex>
-      <TextArea label="Description" />
+      <TextArea
+        label="Description"
+        name="description"
+        onChange={handleInputChange}
+      />
       <Button
         label="Add"
         color={primaryColor.button}
