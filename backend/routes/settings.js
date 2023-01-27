@@ -9,6 +9,7 @@ import {
   updateCategory,
   addBrand,
   getAllBrands,
+  getABrand,
 } from "../controllers/settings.js";
 
 const router = express.Router();
@@ -52,5 +53,10 @@ router.post("/brand", checkAdmin, addBrand);
 // @desc Get all brands
 // @access Admin only
 router.get("/brand", checkAdmin, getAllBrands);
+
+// @route GET /brand/${id}
+// @desc Get brand details
+// @access Admin only
+router.get("/brand/:id", checkAdmin, getABrand);
 
 export default router;

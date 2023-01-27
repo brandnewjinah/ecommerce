@@ -14,7 +14,7 @@ export interface CategoryIF {
 export interface ProductIF {
   _id?: string;
   name?: string;
-  brand?: string;
+  brand: string;
   sku?: string;
   price?: string;
   prevPrice?: string;

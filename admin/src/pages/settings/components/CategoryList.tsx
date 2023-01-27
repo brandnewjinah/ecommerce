@@ -10,7 +10,7 @@ const CategoryList = () => {
 
   useEffect(() => {
     dispatch(getCategories(""));
-  }, []);
+  }, [dispatch]);
 
   const { categories } = useSelector((state: RootState) => state.settings);
 

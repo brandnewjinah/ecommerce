@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
+import * as api from "../../api";
 
 //comp
 import Breadcrumbs from "../../components/Breadcrumbs";
@@ -27,6 +28,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addProduct, reset } from "../../redux/productActionsReducer";
 import { getCategories } from "../../redux/settingsReducer";
 import { RootState } from "../../redux/store";
+import { BrandsIF } from "../../interfaces/settingsInterface";
 
 const AddProduct = () => {
   const dispatch = useDispatch();
@@ -48,6 +50,7 @@ const AddProduct = () => {
     img: "",
     description: "",
   });
+  const [suggestions, setSuggestions] = useState<BrandsIF>([]);
 
   const [errors, setErrors] = useState<ProductErrorIF>({});
 
@@ -60,12 +63,33 @@ const AddProduct = () => {
     setProductInfo(userInput);
   };
 
+  //user clicks on a suggestion
+  const handleSuggestClick = (value: string) => {
+    setSuggestions([]);
+    setProductInfo({ ...productInfo, brand: value });
+  };
+
   //categories
   useEffect(() => {
     dispatch(getCategories(""));
-  }, [dispatch]);
+  }, [dispatch, productInfo.brand]);
 
-  const { data } = useSelector((state: RootState) => state.settings.categories);
+  const { categories } = useSelector((state: RootState) => state.settings);
+
+  useEffect(() => {
+    const fetchBrand = async () => {
+      const res = await api.privateRequest.get(
+        `/search/brand?query=${productInfo.brand}`
+      );
+      setSuggestions(res.data);
+    };
+
+    if (productInfo.brand.length > 0) {
+      fetchBrand();
+    } else {
+      setSuggestions([]);
+    }
+  }, [productInfo.brand]);
 
   const handleCategorySelect =
     (name: string) => (e: ChangeEvent<HTMLSelectElement>) => {
@@ -75,7 +99,7 @@ const AddProduct = () => {
         ...productInfo,
         [name]:
           name === "category1"
-            ? data[parseInt(value)]
+            ? categories.data[parseInt(value)]
             : productInfo.category1!.subCategory![parseInt(value)],
       });
     };
@@ -144,6 +168,7 @@ const AddProduct = () => {
     }
   }, [dispatch, productAdded.status, productAdded.productDetails._id]);
 
+  console.log(suggestions);
   return (
     <Div>
       <Header title="Add Product" />
@@ -151,6 +176,7 @@ const AddProduct = () => {
         category1={{ title: "Home", link: "/home" }}
         category2={{ title: "Add Product" }}
       />
+
       <Section bgColor="#fff" gap="1rem" padding="1.25rem" margin="1rem 0">
         <TextInput
           label="Product Name"
@@ -158,12 +184,32 @@ const AddProduct = () => {
           error={errors.name}
           onChange={handleInputChange}
         />
-        <TextInput
-          label="Brand"
-          name="brand"
-          error={errors.brand}
-          onChange={handleInputChange}
-        />
+        <div>
+          <TextInput
+            name="brand"
+            label="Brand"
+            value={productInfo.brand}
+            error={errors.brand}
+            onChange={handleInputChange}
+            onBlur={() => {
+              setTimeout(() => {
+                setSuggestions([]);
+              }, 100);
+            }}
+          />
+          {suggestions && suggestions.length > 0 && (
+            <Suggestions>
+              {suggestions.map((suggestion, i) => (
+                <Suggestion
+                  key={i}
+                  onClick={() => handleSuggestClick(suggestion.name!)}
+                >
+                  {suggestion.name}
+                </Suggestion>
+              ))}
+            </Suggestions>
+          )}
+        </div>
         <Flex gap="1rem">
           <TextInput
             label="Current Price"
@@ -191,7 +237,7 @@ const AddProduct = () => {
             Category 1
           </Body>
           <Select
-            options={data}
+            options={categories.data}
             onChange={handleCategorySelect("category1")}
             fullWidth
           />
@@ -283,6 +329,24 @@ const ImageUpload = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+`;
+
+const Suggestions = styled.ul`
+  background-color: ${neutral[10]};
+  border-left: 1px solid ${neutral[200]};
+  border-right: 1px solid ${neutral[200]};
+`;
+
+const Suggestion = styled.li`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid ${neutral[200]};
+
+  &:hover {
+    background-color: ${neutral[100]};
   }
 `;
 

@@ -81,7 +81,7 @@ export const searchProducts = createAsyncThunk<
   }
 >("products/searchProducts", async (query: string, { rejectWithValue }) => {
   try {
-    const res = await api.publicRequest.get(`/search?query=${query}`);
+    const res = await api.publicRequest.get(`/search/product?query=${query}`);
     return {
       isLoading: false,
       status: res.status,

@@ -1,7 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../api";
 import { Status } from "../interfaces/baseInterface";
-import { CategoryWithSubCategoryIF } from "../interfaces/settingsInterface";
+import {
+  BrandIF,
+  CategoryWithSubCategoryIF,
+} from "../interfaces/settingsInterface";
 import { CategoryIF } from "../interfaces/productInterface";
 
 interface Categories {
@@ -14,11 +17,17 @@ interface CategoryDetails {
   data: CategoryWithSubCategoryIF;
 }
 
+interface BrandDetails {
+  status: string;
+  data: BrandIF;
+}
+
 interface State extends Status {
   isLoading: boolean;
   categories: Categories;
   categoryDetails: CategoryDetails;
   brands: Categories;
+  brandDetails: BrandDetails;
 }
 
 const initialState: State = {
@@ -36,6 +45,10 @@ const initialState: State = {
   brands: {
     status: "",
     data: [],
+  },
+  brandDetails: {
+    status: "",
+    data: {},
   },
 };
 
@@ -93,12 +106,35 @@ export const getBrands = createAsyncThunk<
   }
 >("settings/getBrands", async (_, { rejectWithValue }) => {
   try {
-    const res = await api.privateRequest.get(`/settings/brands`);
+    const res = await api.privateRequest.get(`/settings/brand`);
     return {
       isLoading: false,
       status: res.status,
       message: res.statusText,
-      categories: res.data,
+      brands: res.data,
+    } as State;
+  } catch (error: any) {
+    return rejectWithValue({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+  }
+});
+
+export const getABrand = createAsyncThunk<
+  State,
+  String,
+  {
+    rejectValue: Status;
+  }
+>("settings/getABrand", async (id: String, { rejectWithValue }) => {
+  try {
+    const res = await api.privateRequest.get(`/settings/brand/${id}`);
+    return {
+      isLoading: false,
+      status: res.status,
+      message: res.statusText,
+      brandDetails: res.data,
     } as State;
   } catch (error: any) {
     return rejectWithValue({
@@ -137,6 +173,34 @@ const settingsSlice = createSlice({
       state.categoryDetails = action.payload.categoryDetails;
     });
     builder.addCase(getACategory.rejected, (state, action) => {
+      state.isLoading = false;
+      state.status = action.payload!.status;
+      state.message = action.payload!.message;
+    });
+    builder.addCase(getBrands.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getBrands.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.status = action.payload.status;
+      state.message = action.payload.message;
+      state.brands = action.payload.brands;
+    });
+    builder.addCase(getBrands.rejected, (state, action) => {
+      state.isLoading = false;
+      state.status = action.payload!.status;
+      state.message = action.payload!.message;
+    });
+    builder.addCase(getABrand.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getABrand.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.status = action.payload.status;
+      state.message = action.payload.message;
+      state.brandDetails = action.payload.brandDetails;
+    });
+    builder.addCase(getABrand.rejected, (state, action) => {
       state.isLoading = false;
       state.status = action.payload!.status;
       state.message = action.payload!.message;

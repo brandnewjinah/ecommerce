@@ -128,3 +128,17 @@ export const getAllBrands = async (req, res) => {
     res.status(500).json(error);
   }
 };
+
+//GET ONE BRAND
+export const getABrand = async (req, res) => {
+  const { id: _id } = req.params;
+  try {
+    const brand = await Brand.findById(_id);
+    res.status(200).json({
+      status: "success",
+      data: brand,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Brand doesn't exist" });
+  }
+};

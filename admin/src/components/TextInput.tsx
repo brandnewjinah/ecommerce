@@ -1,4 +1,10 @@
-import React, { ChangeEvent, FC, KeyboardEvent, useState } from "react";
+import React, {
+  ChangeEvent,
+  FC,
+  KeyboardEvent,
+  useState,
+  FocusEvent,
+} from "react";
 import styled from "styled-components";
 
 //component
@@ -28,6 +34,7 @@ export interface Props {
   className?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onKeyPress?: (e: KeyboardEvent<HTMLElement>) => void;
+  onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
 }
 
 export const TextInput: FC<Props> = ({

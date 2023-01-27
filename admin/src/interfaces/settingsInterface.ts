@@ -20,3 +20,5 @@ export interface BrandIF {
   value?: string;
   description?: string;
 }
+
+export interface BrandsIF extends Array<BrandIF> {}

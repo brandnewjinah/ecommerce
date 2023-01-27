@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Product from "../models/product.js";
+import Brand from "../models/brand.js";
 
 //GET PRODUCTS
 export const getProducts = async (req, res) => {
@@ -108,5 +109,19 @@ export const searchProduct = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ message: "Product doesn't exist" });
+  }
+};
+
+//SEARCH BRAND
+export const searchBrand = async (req, res) => {
+  const { query } = req.query;
+
+  try {
+    const result = await Brand.find({
+      name: { $regex: query, $options: "i" },
+    });
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
   }
 };

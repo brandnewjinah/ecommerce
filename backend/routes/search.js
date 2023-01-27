@@ -1,5 +1,10 @@
 import express from "express";
-import { getProducts, searchProduct } from "../controllers/search.js";
+import { checkAdmin } from "../middleware/checkAuth.js";
+import {
+  getProducts,
+  searchProduct,
+  searchBrand,
+} from "../controllers/search.js";
 
 const router = express.Router();
 
@@ -11,6 +16,11 @@ const router = express.Router();
 // @route GET /search
 // @desc search products
 // @access Public
-router.get("/", searchProduct);
+router.get("/product", searchProduct);
+
+// @route GET /search
+// @desc search brand
+// @access Private
+router.get("/brand", checkAdmin, searchBrand);
 
 export default router;

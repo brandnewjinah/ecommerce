@@ -17,6 +17,7 @@ import SubscriberList from "./pages/subscribers/SubscriberList";
 import Categories from "./pages/settings/Categories";
 import ManageCategory from "./pages/settings/ManageCategory";
 import Brands from "./pages/settings/Brands";
+import ManageBrand from "./pages/settings/ManageBrand";
 
 const Routes = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ const Routes = createBrowserRouter([
       {
         path: "/settings/brands",
         element: <Brands />,
+      },
+      {
+        path: "/settings/brand/:id",
+        element: <ManageBrand />,
       },
     ],
   },
