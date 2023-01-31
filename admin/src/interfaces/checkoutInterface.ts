@@ -1,4 +1,4 @@
-import { ProductIF } from "./productInterface";
+import { ProductBasicIF } from "./productInterface";
 
 export interface ShippingIF {
   fullName?: string;
@@ -32,6 +32,6 @@ export interface OrderIF {
   shipping: ShippingIF;
   delivery: DeliveryIF;
   payment: PaymentIF;
-  orderItems: ProductIF[];
+  orderItems: ProductBasicIF[];
   total: number;
 }

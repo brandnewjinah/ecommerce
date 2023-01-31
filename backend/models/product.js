@@ -2,13 +2,13 @@ import mongoose from "mongoose";
 
 const selectSchema = mongoose.Schema({
   id: Number,
-  label: String,
+  name: String,
   value: String,
 });
 
 const categorySchema = mongoose.Schema({
   id: Number,
-  label: String,
+  name: String,
   value: String,
   subcategory: [selectSchema],
 });
@@ -19,8 +19,8 @@ const productSchema = mongoose.Schema({
     required: true,
   },
   brand: {
-    type: String,
-    required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Brand",
   },
   price: {
     currency: {
@@ -35,7 +35,9 @@ const productSchema = mongoose.Schema({
       type: Number,
     },
   },
-  size: String,
+  size: {
+    type: String,
+  },
   category1: {
     type: categorySchema,
     required: true,
@@ -43,13 +45,10 @@ const productSchema = mongoose.Schema({
   category2: {
     type: selectSchema,
   },
-  img: {
+  image: {
     type: String,
   },
   description: {
-    type: String,
-  },
-  sku: {
     type: String,
   },
   createdAt: {

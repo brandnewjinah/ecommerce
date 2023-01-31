@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Status } from "../interfaces/baseInterface";
-import { ProductWithCategoryIF } from "../interfaces/productInterface";
+import { ProductFullIF } from "../interfaces/productInterface";
 import { DashboardIF } from "../interfaces/dashboardInterface";
 import * as api from "../api";
 

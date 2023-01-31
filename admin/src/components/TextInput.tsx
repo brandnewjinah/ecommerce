@@ -76,19 +76,26 @@ export const TextInput: FC<Props> = ({
         </>
       ) : prefix ? (
         <>
-          <InputTag
-            name={name}
-            placeholder={placeholder}
-            type={type}
-            prefix={prefix}
-            maxLength={maxLength}
-            value={value}
-            onChange={onChange}
-            {...rest}
-          />
-          <div className="prefix" aria-hidden="true">
-            {prefix}
-          </div>
+          <PrefixContainer>
+            <InputTag
+              name={name}
+              placeholder={placeholder}
+              type={type}
+              prefix={prefix}
+              maxLength={maxLength}
+              value={value}
+              onChange={onChange}
+              {...rest}
+            />
+            <div className="prefix" aria-hidden="true">
+              {prefix}
+            </div>
+          </PrefixContainer>
+          {error && (
+            <Body variant="body_xsmall" color="red" padding="0.625rem 0 0">
+              {error}
+            </Body>
+          )}
         </>
       ) : (
         <>
@@ -182,6 +189,12 @@ const Container = styled.div<Props>`
     align-items: center;
     transform: translateY(-50%);
   }
+`;
+
+const PrefixContainer = styled.div<Props>`
+  width: 100%;
+  position: relative;
+  margin: ${(props) => props.margin && props.margin};
 
   .prefix {
     color: ${neutral[400]};

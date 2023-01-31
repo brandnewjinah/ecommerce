@@ -18,8 +18,9 @@ import { Image } from "../../assets/Icon";
 //other
 import {
   ProductErrorIF,
-  ProductIF,
-  ProductWithCategoryIF,
+  ProductBasicIF,
+  ProductFullIF,
+  PriceIF,
 } from "../../interfaces/productInterface";
 import { productValidate } from "../../utils/validate";
 
@@ -28,22 +29,30 @@ import { useDispatch, useSelector } from "react-redux";
 import { addProduct, reset } from "../../redux/productActionsReducer";
 import { getCategories } from "../../redux/settingsReducer";
 import { RootState } from "../../redux/store";
-import { BrandsIF } from "../../interfaces/settingsInterface";
+import { BrandsIF, BrandIF } from "../../interfaces/settingsInterface";
 
 const AddProduct = () => {
   const dispatch = useDispatch();
-  const [productInfo, setProductInfo] = useState<ProductWithCategoryIF>({
+
+  const [productInfo, setProductInfo] = useState<ProductFullIF>({
     name: "",
-    brand: "",
-    price: "",
-    prevPrice: "",
+    brand: {
+      name: "",
+      value: "",
+    },
+    price: {
+      current: 0,
+      previous: 0,
+    },
     size: "",
     category1: {
+      _id: "",
       value: "",
       name: "",
       subCategory: [],
     },
     category2: {
+      _id: "",
       value: "",
       name: "",
     },
@@ -51,7 +60,6 @@ const AddProduct = () => {
     description: "",
   });
   const [suggestions, setSuggestions] = useState<BrandsIF>([]);
-
   const [errors, setErrors] = useState<ProductErrorIF>({});
 
   const handleInputChange = (
@@ -59,14 +67,44 @@ const AddProduct = () => {
   ) => {
     const { name, value } = e.target;
     const userInput = { ...productInfo };
-    userInput[name as keyof ProductIF] = value;
+    userInput[name as keyof ProductBasicIF] = value;
     setProductInfo(userInput);
   };
 
+  const handleBrandChange = (
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    const handleCamel = (str: string) => {
+      return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, (match, index) => {
+        if (+match === 0) return "";
+        return index === 0 ? match.toLowerCase() : match.toUpperCase();
+      });
+    };
+    const camel = handleCamel(value);
+    const userInput = {
+      ...productInfo,
+      brand: {
+        _id: "",
+        name: value,
+        value: camel,
+      },
+    };
+
+    setProductInfo(userInput);
+  };
+
+  const handlePriceChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    const newPrice = { ...productInfo.price };
+    newPrice[name as keyof PriceIF] = parseInt(value);
+    setProductInfo({ ...productInfo, price: newPrice });
+  };
+
   //user clicks on a suggestion
-  const handleSuggestClick = (value: string) => {
-    setSuggestions([]);
+  const handleSuggestClick = (value: BrandIF) => {
     setProductInfo({ ...productInfo, brand: value });
+    setSuggestions([]);
   };
 
   //categories
@@ -79,17 +117,21 @@ const AddProduct = () => {
   useEffect(() => {
     const fetchBrand = async () => {
       const res = await api.privateRequest.get(
-        `/search/brand?query=${productInfo.brand}`
+        `/search/brand?query=${productInfo.brand.name}`
       );
       setSuggestions(res.data);
     };
 
-    if (productInfo.brand.length > 0) {
+    if (
+      productInfo.brand.name &&
+      productInfo.brand.name !== "" &&
+      productInfo.brand.name.length > 0
+    ) {
       fetchBrand();
     } else {
       setSuggestions([]);
     }
-  }, [productInfo.brand]);
+  }, [productInfo.brand.name]);
 
   const handleCategorySelect =
     (name: string) => (e: ChangeEvent<HTMLSelectElement>) => {
@@ -126,6 +168,7 @@ const AddProduct = () => {
     const errors = productValidate(product);
 
     setErrors(errors || {});
+
     if (errors) return;
 
     dispatch(addProduct(product));
@@ -139,16 +182,24 @@ const AddProduct = () => {
   const clear = () => {
     setProductInfo({
       name: "",
-      brand: "",
-      price: "",
+      brand: {
+        name: "",
+        value: "",
+      },
+      price: {
+        current: 0,
+        previous: 0,
+      },
       prevPrice: "",
       size: "",
       category1: {
+        _id: "",
         value: "",
         name: "",
         subCategory: [],
       },
       category2: {
+        _id: "",
         value: "",
         name: "",
       },
@@ -168,7 +219,6 @@ const AddProduct = () => {
     }
   }, [dispatch, productAdded.status, productAdded.productDetails._id]);
 
-  console.log(suggestions);
   return (
     <Div>
       <Header title="Add Product" />
@@ -188,9 +238,9 @@ const AddProduct = () => {
           <TextInput
             name="brand"
             label="Brand"
-            value={productInfo.brand}
+            value={productInfo.brand.name}
             error={errors.brand}
-            onChange={handleInputChange}
+            onChange={handleBrandChange}
             onBlur={() => {
               setTimeout(() => {
                 setSuggestions([]);
@@ -202,7 +252,7 @@ const AddProduct = () => {
               {suggestions.map((suggestion, i) => (
                 <Suggestion
                   key={i}
-                  onClick={() => handleSuggestClick(suggestion.name!)}
+                  onClick={() => handleSuggestClick(suggestion)}
                 >
                   {suggestion.name}
                 </Suggestion>
@@ -213,16 +263,16 @@ const AddProduct = () => {
         <Flex gap="1rem">
           <TextInput
             label="Current Price"
-            name="price"
+            name="current"
             prefix="$"
             error={errors.price}
-            onChange={handleInputChange}
+            onChange={handlePriceChange}
           />
           <TextInput
             label="Previous Price"
-            name="prevPrice"
+            name="previous"
             prefix="$"
-            onChange={handleInputChange}
+            onChange={handlePriceChange}
           />
         </Flex>
       </Section>
@@ -242,7 +292,9 @@ const AddProduct = () => {
             fullWidth
           />
           {errors.category1 && (
-            <Body variant="body_small">Category1 is required</Body>
+            <Body variant="body_xsmall" color="red" padding="0.625rem 0 0">
+              {errors.category1}
+            </Body>
           )}
         </div>
         <div>

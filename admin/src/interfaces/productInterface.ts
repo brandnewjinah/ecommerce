@@ -1,3 +1,16 @@
+import { BrandIF } from "./settingsInterface";
+
+export interface ProductBasicIF {
+  _id?: string;
+  name?: string;
+  brand: BrandIF;
+  sku?: string;
+  prevPrice?: string;
+  img?: string;
+  size?: string;
+  description?: string;
+}
+
 export interface SubcategoryIF {
   _id?: string;
   value: string;
@@ -11,19 +24,13 @@ export interface CategoryIF {
   subCategory?: SubcategoryIF[];
 }
 
-export interface ProductIF {
-  _id?: string;
-  name?: string;
-  brand: string;
-  sku?: string;
-  price?: string;
-  prevPrice?: string;
-  img?: string;
-  size?: string;
-  description?: string;
+export interface PriceIF {
+  current?: number;
+  previous?: number;
 }
 
-export interface ProductWithCategoryIF extends ProductIF {
+export interface ProductFullIF extends ProductBasicIF {
+  price?: PriceIF;
   category1?: CategoryIF;
   category2?: SubcategoryIF;
 }

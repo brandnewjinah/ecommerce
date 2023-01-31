@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Product from "../models/product.js";
+import Brand from "../models/brand.js";
 import cloudinary from "../middleware/cloudinary.js";
 
 //GET PRODUCTS
@@ -119,14 +120,32 @@ export const getSimilarProducts = async (req, res) => {
 export const addProduct = async (req, res) => {
   const product = req.body;
   const image = req.body.img;
+  const brand = req.body.brand;
 
   try {
-    const uploadedResponse = await cloudinary.uploader.upload(image, {
-      upload_preset: "ecommerce",
-    });
-    const newProduct = new Product({ ...product, img: uploadedResponse.url });
-    await newProduct.save();
-    res.status(201).json(newProduct);
+    if (brand._id === "") {
+      const newBrand = new Brand({ name: brand.name, value: brand.value });
+      await newBrand.save();
+
+      const uploadedResponse = await cloudinary.uploader.upload(image, {
+        upload_preset: "ecommerce",
+      });
+
+      const newProduct = new Product({
+        ...product,
+        brand: newBrand,
+        img: uploadedResponse.url,
+      });
+      await newProduct.save();
+      res.status(201).json(newProduct);
+    } else {
+      const uploadedResponse = await cloudinary.uploader.upload(image, {
+        upload_preset: "ecommerce",
+      });
+      const newProduct = new Product({ ...product, img: uploadedResponse.url });
+      await newProduct.save();
+      res.status(201).json(newProduct);
+    }
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

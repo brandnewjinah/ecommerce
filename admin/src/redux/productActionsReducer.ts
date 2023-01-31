@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../api";
-import { ProductIF } from "../interfaces/productInterface";
+import { ProductFullIF } from "../interfaces/productInterface";
 import { Status } from "../interfaces/baseInterface";
 
 export interface ProductResponse extends Status {
@@ -27,11 +27,11 @@ const initialState: Product = {
 
 export const addProduct = createAsyncThunk<
   ProductResponse,
-  ProductIF,
+  ProductFullIF,
   {
     rejectValue: Status;
   }
->("product/addProduct", async (product: ProductIF, { rejectWithValue }) => {
+>("product/addProduct", async (product: ProductFullIF, { rejectWithValue }) => {
   try {
     const res = await api.privateRequest.post(`/products`, product);
     return {
