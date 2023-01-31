@@ -93,7 +93,7 @@ export const getProducts = async (req, res) => {
 export const getAProduct = async (req, res) => {
   const { id: _id } = req.params;
   try {
-    const product = await Product.findById(_id);
+    const product = await Product.findById(_id).populate("brand");
     res.status(200).json(product);
   } catch (error) {
     res.status(500).json({ message: "Product doesn't exist" });
