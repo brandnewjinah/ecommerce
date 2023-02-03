@@ -14,6 +14,7 @@ import storage from "redux-persist/lib/storage";
 import authReducer from "./authReducer";
 import productsReducer from "./productReducer";
 import productActionsReducer from "./productActionsReducer";
+import productDetailsReducer from "./productDetailsReducer";
 import ordersReducer from "./orderReducer";
 import dashboardReducer from "./dashboardReducer";
 import settingsActionsReducer from "./settingsActionsReducer";
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   products: productsReducer,
   productActions: productActionsReducer,
+  productDetails: productDetailsReducer,
   orders: ordersReducer,
   dashboard: dashboardReducer,
   settingsActions: settingsActionsReducer,

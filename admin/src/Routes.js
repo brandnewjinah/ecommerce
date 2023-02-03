@@ -47,6 +47,10 @@ const Routes = createBrowserRouter([
         element: <AddProduct />,
       },
       {
+        path: "/product/:id",
+        element: <AddProduct />,
+      },
+      {
         path: "/orders/list/:category",
         element: <OrderList />,
       },

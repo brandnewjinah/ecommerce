@@ -88,7 +88,10 @@ export const getAllOrders = async (req, res) => {
   const skip = (page - 1) * pageSize;
 
   try {
-    let orders = Order.find();
+    let orders = Order.find().populate({
+      path: "user",
+      select: "-password -isAdmin -createdAt -updatedAt",
+    });
     const totalCount = await Order.countDocuments();
     const totalPages = Math.ceil(totalCount / pageSize);
     orders = orders.skip(skip).limit(pageSize);

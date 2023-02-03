@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router";
 import styled from "styled-components";
 import * as api from "../../api";
 
@@ -30,9 +31,13 @@ import { addProduct, reset } from "../../redux/productActionsReducer";
 import { getCategories } from "../../redux/settingsReducer";
 import { RootState } from "../../redux/store";
 import { BrandsIF, BrandIF } from "../../interfaces/settingsInterface";
+import { getProductDetails } from "../../redux/productDetailsReducer";
 
 const AddProduct = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const pathAddProduct = location.pathname === "/products/add";
+  const { id } = useParams<{ id: string }>();
 
   const [productInfo, setProductInfo] = useState<ProductFullIF>({
     name: "",
@@ -41,8 +46,8 @@ const AddProduct = () => {
       value: "",
     },
     price: {
-      current: 0,
-      previous: 0,
+      current: "",
+      previous: "",
     },
     size: "",
     category1: {
@@ -56,11 +61,23 @@ const AddProduct = () => {
       value: "",
       name: "",
     },
-    img: "",
+    image: "",
     description: "",
   });
   const [suggestions, setSuggestions] = useState<BrandsIF>([]);
   const [errors, setErrors] = useState<ProductErrorIF>({});
+
+  useEffect(() => {
+    !pathAddProduct && id !== undefined && dispatch(getProductDetails(id));
+  }, [pathAddProduct, id, dispatch]);
+
+  const { product } = useSelector((state: RootState) => state.productDetails);
+
+  useEffect(() => {
+    if (product) setProductInfo(product);
+  }, [product]);
+
+  console.log(productInfo);
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
@@ -97,7 +114,7 @@ const AddProduct = () => {
   const handlePriceChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     const newPrice = { ...productInfo.price };
-    newPrice[name as keyof PriceIF] = parseInt(value);
+    newPrice[name as keyof PriceIF] = value;
     setProductInfo({ ...productInfo, price: newPrice });
   };
 
@@ -164,7 +181,7 @@ const AddProduct = () => {
   };
 
   const handleSubmit = () => {
-    const product = { ...productInfo, img: previewSource };
+    const product = { ...productInfo, image: previewSource };
     const errors = productValidate(product);
 
     setErrors(errors || {});
@@ -187,10 +204,9 @@ const AddProduct = () => {
         value: "",
       },
       price: {
-        current: 0,
-        previous: 0,
+        current: "",
+        previous: "",
       },
-      prevPrice: "",
       size: "",
       category1: {
         _id: "",
@@ -203,7 +219,7 @@ const AddProduct = () => {
         value: "",
         name: "",
       },
-      img: "",
+      image: "",
       description: "",
     });
     setPreviewSource("");
@@ -221,10 +237,14 @@ const AddProduct = () => {
 
   return (
     <Div>
-      <Header title="Add Product" />
+      <Header title={pathAddProduct ? "Add Product" : "Edit Product"} />
       <Breadcrumbs
         category1={{ title: "Home", link: "/home" }}
-        category2={{ title: "Add Product" }}
+        category2={{
+          title: pathAddProduct ? "Add Product" : "Product List",
+          link: pathAddProduct ? null : "/products/list/all",
+        }}
+        category3={{ title: pathAddProduct ? null : "Edit Product" }}
       />
 
       <Section bgColor="#fff" gap="1rem" padding="1.25rem" margin="1rem 0">
@@ -232,6 +252,7 @@ const AddProduct = () => {
           label="Product Name"
           name="name"
           error={errors.name}
+          value={productInfo.name}
           onChange={handleInputChange}
         />
         <div>
@@ -266,6 +287,7 @@ const AddProduct = () => {
             name="current"
             prefix="$"
             error={errors.price}
+            value={productInfo.price!.current}
             onChange={handlePriceChange}
           />
           <TextInput
@@ -275,6 +297,13 @@ const AddProduct = () => {
             onChange={handlePriceChange}
           />
         </Flex>
+        <TextInput
+          label="Size"
+          name="size"
+          placeholder="e.g. 120g"
+          value={productInfo.size}
+          onChange={handleInputChange}
+        />
       </Section>
       <Section bgColor="#fff" gap="1rem" padding="1.25rem" margin="1rem 0">
         <div>
@@ -331,7 +360,7 @@ const AddProduct = () => {
                   Click to upload
                 </Body>
               </Flex>
-              <input type="file" name="img" onChange={handleImageFile} />
+              <input type="file" name="image" onChange={handleImageFile} />
             </label>
             <div className="preview">
               {previewSource && <img src={previewSource} alt="chosen" />}
@@ -342,6 +371,7 @@ const AddProduct = () => {
         <TextArea
           label="Description"
           name="description"
+          value={productInfo.description}
           onChange={handleInputChange}
         />
       </Section>

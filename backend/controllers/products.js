@@ -23,7 +23,10 @@ export const getProducts = async (req, res) => {
 
   try {
     if (category === "new") {
-      let products = await Product.find().sort(sortBy).limit(12);
+      let products = await Product.find()
+        .populate("brand")
+        .sort(sortBy)
+        .limit(12);
       const totalCount = products.length;
       res.status(200).json({
         status: "success",
@@ -32,7 +35,7 @@ export const getProducts = async (req, res) => {
         data: products,
       });
     } else if (category === "all") {
-      let products = Product.find().sort(sortBy);
+      let products = Product.find().populate("brand").sort(sortBy);
 
       const totalCount = await Product.countDocuments();
       const totalPages = Math.ceil(totalCount / pageSize);
@@ -50,7 +53,9 @@ export const getProducts = async (req, res) => {
         let products = Product.find({
           "category1.value": category,
           "category2.id": Number(sub),
-        }).sort(sortBy);
+        })
+          .populate("brand")
+          .sort(sortBy);
         const totalCount = await Product.countDocuments({
           "category1.value": category,
           "category2.id": Number(sub),
@@ -66,9 +71,9 @@ export const getProducts = async (req, res) => {
           data: result,
         });
       } else {
-        let products = Product.find({ "category1.value": category }).sort(
-          sortBy
-        );
+        let products = Product.find({ "category1.value": category })
+          .populate("brand")
+          .sort(sortBy);
         const totalCount = await Product.countDocuments({
           "category1.value": category,
         });
@@ -119,7 +124,7 @@ export const getSimilarProducts = async (req, res) => {
 //ADD PRODUCT
 export const addProduct = async (req, res) => {
   const product = req.body;
-  const image = req.body.img;
+  const image = req.body.image;
   const brand = req.body.brand;
 
   try {
@@ -134,7 +139,11 @@ export const addProduct = async (req, res) => {
       const newProduct = new Product({
         ...product,
         brand: newBrand,
-        img: uploadedResponse.url,
+        image: uploadedResponse.url,
+        price: {
+          current: parseFloat(product.price.current),
+          previous: parseFloat(product.price.previous),
+        },
       });
       await newProduct.save();
       res.status(201).json(newProduct);
@@ -142,7 +151,14 @@ export const addProduct = async (req, res) => {
       const uploadedResponse = await cloudinary.uploader.upload(image, {
         upload_preset: "ecommerce",
       });
-      const newProduct = new Product({ ...product, img: uploadedResponse.url });
+      const newProduct = new Product({
+        ...product,
+        image: uploadedResponse.url,
+        price: {
+          current: parseFloat(product.price.current),
+          previous: parseFloat(product.price.previous),
+        },
+      });
       await newProduct.save();
       res.status(201).json(newProduct);
     }

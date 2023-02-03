@@ -1,33 +1,26 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Status } from "../interfaces/baseInterface";
-import { ProductFullIF } from "../interfaces/productInterface";
+import { OrderIF } from "../interfaces/orderInterface";
 import * as api from "../api";
 
-interface Param {
-  category?: string;
-  page?: number;
-  sub?: string;
-  sort?: string;
-}
-
-interface Products {
+interface Orders {
   status: string;
   totalCount: number;
   page: number;
   totalPages: number;
-  data: ProductFullIF[];
+  data: OrderIF[];
 }
 
 interface State extends Status {
   isLoading: boolean;
-  products: Products;
+  orders: Orders;
 }
 
 const initialState: State = {
   isLoading: false,
   status: 0,
   message: "",
-  products: {
+  orders: {
     status: "",
     totalCount: 0,
     page: 1,
@@ -38,33 +31,19 @@ const initialState: State = {
 
 export const getOrders = createAsyncThunk<
   State,
-  Param,
+  String,
   {
     rejectValue: Status;
   }
->("orders/getOrders", async (obj: Param, { rejectWithValue }) => {
+>("orders/getOrders", async (_, { rejectWithValue }) => {
   try {
-    if (obj.sub === undefined) {
-      const res = await api.publicRequest.get(
-        `/products?category=${obj.category}&sort=${obj.sort}&page=${obj.page}`
-      );
-      return {
-        isLoading: false,
-        status: res.status,
-        message: res.statusText,
-        products: res.data,
-      } as State;
-    } else {
-      const res = await api.publicRequest.get(
-        `/products?category=${obj.category}&sub=${obj.sub}&sort=${obj.sort}&page=${obj.page}`
-      );
-      return {
-        isLoading: false,
-        status: res.status,
-        message: res.statusText,
-        products: res.data,
-      } as State;
-    }
+    const res = await api.privateRequest.get(`/orders`);
+    return {
+      isLoading: false,
+      status: res.status,
+      message: res.statusText,
+      orders: res.data,
+    } as State;
   } catch (error: any) {
     return rejectWithValue({
       status: error.response.status,
@@ -85,7 +64,7 @@ const ordersSlice = createSlice({
       state.isLoading = false;
       state.status = action.payload.status;
       state.message = action.payload.message;
-      state.products = action.payload.products;
+      state.orders = action.payload.orders;
     });
     builder.addCase(getOrders.rejected, (state, action) => {
       state.isLoading = false;

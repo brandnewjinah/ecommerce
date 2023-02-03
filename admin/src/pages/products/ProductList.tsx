@@ -32,6 +32,10 @@ const List = () => {
 
   const tableKey = [
     {
+      name: "Id",
+      width: "flexOne",
+    },
+    {
       name: "name",
       width: "flexThree",
     },
@@ -47,24 +51,22 @@ const List = () => {
       name: "category",
       width: "flexTwo",
     },
-    {
-      name: "stock",
-      width: "flexOne",
-    },
   ];
 
-  // const tableData =
-  //   products &&
-  //   products.data.map((item) => {
-  //     return [
-  //       { value: item._id, width: "flexOne" },
-  //       { value: item.name, width: "flexThree" },
-  //       { value: item.brand, width: "flexTwo" },
-  //       { value: item.price, width: "flexOne" },
-  //       { value: item.category1!.label, width: "flexTwo" },
-  //       { value: 1, width: "flexOne" },
-  //     ];
-  //   });
+  const tableData =
+    products &&
+    products.data.map((item) => {
+      return [
+        { value: item._id, width: "flexOne" },
+        { value: item.name, width: "flexThree" },
+        { value: item.brand.name, width: "flexTwo" },
+        {
+          value: `${item.price!.currency}${item.price!.current}`,
+          width: "flexOne",
+        },
+        { value: item.category1!.name, width: "flexTwo" },
+      ];
+    });
 
   const filterData = ["all", "snacks", "beverage", "pantry"];
 
@@ -80,7 +82,7 @@ const List = () => {
 
   return (
     <div>
-      {/* <Flex justifyContent="space-between">
+      <Flex justifyContent="space-between">
         <Div>
           <Header title="Products" textAlign="left" />
           <Breadcrumbs
@@ -106,13 +108,13 @@ const List = () => {
           </Div>
         </Flex>
 
-        <FlexTable keys={tableKey} data={tableData} />
+        <FlexTable keys={tableKey} data={tableData} param="../../product" />
         <Pagination
           pageCount={products.totalPages}
           currentPage={currentPage}
           handlePageChange={(page: number) => setCurrentPage(page)}
         />
-      </Section> */}
+      </Section>
     </div>
   );
 };

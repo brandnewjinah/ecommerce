@@ -19,6 +19,7 @@ import Pagination from "../../components/Pagination";
 
 //test data
 import { orderData } from "../../data/testData";
+import { getOrders } from "../../redux/orderReducer";
 
 const List = () => {
   const dispatch = useDispatch();
@@ -27,11 +28,11 @@ const List = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
 
-  // useEffect(() => {
-  //   dispatch(getProducts({ category, sort, page: currentPage }));
-  // }, [dispatch, category, sort, currentPage]);
+  useEffect(() => {
+    dispatch(getOrders(""));
+  }, [dispatch]);
 
-  // const { products } = useSelector((state: RootState) => state.products);
+  const { orders } = useSelector((state: RootState) => state.orders);
 
   const tableKey = [
     {
@@ -61,12 +62,12 @@ const List = () => {
   ];
 
   const tableData =
-    orderData &&
-    orderData.map((item) => {
+    orders.data &&
+    orders.data.map((item) => {
       return [
         { value: `...${item._id.slice(-7)}`, width: "flexOne" },
         { value: item.createdAt, width: "flexOne" },
-        { value: `...${item.user.slice(-7)}`, width: "flexOne" },
+        { value: item.user!.name, width: "flexOne" },
         { value: item.orderItems.length, width: "flexOne" },
         { value: item.total, width: "flexOne" },
         { value: item.orderStatus, width: "flexOne" },

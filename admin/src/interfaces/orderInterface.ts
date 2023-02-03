@@ -2,6 +2,12 @@
 import { ShippingIF, PaymentIF, DeliveryIF } from "./checkoutInterface";
 import { CartProductInfo } from "./cartInterface";
 
+interface UserIF {
+  _id?: string;
+  name?: string;
+  email?: string;
+}
+
 export interface OrderIF {
   _id: string;
   orderStatus: string;
@@ -11,4 +17,5 @@ export interface OrderIF {
   orderItems: CartProductInfo[];
   total: number;
   createdAt: string;
+  user?: UserIF;
 }

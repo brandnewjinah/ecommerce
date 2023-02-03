@@ -4,9 +4,7 @@ export interface ProductBasicIF {
   _id?: string;
   name?: string;
   brand: BrandIF;
-  sku?: string;
-  prevPrice?: string;
-  img?: string;
+  image?: string;
   size?: string;
   description?: string;
 }
@@ -25,8 +23,9 @@ export interface CategoryIF {
 }
 
 export interface PriceIF {
-  current?: number;
-  previous?: number;
+  current?: string;
+  previous?: string;
+  currency?: string;
 }
 
 export interface ProductFullIF extends ProductBasicIF {

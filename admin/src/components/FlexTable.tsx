@@ -38,7 +38,7 @@ const FlexTable: FC<Props> = ({ data, keys, param, className }) => {
             {item.map((it: any, idx: number) => (
               <div key={idx} className={it.width}>
                 {idx === 0 ? (
-                  <Link to={`${param}/${it.value}`}>
+                  <Link to={`/${param}/${it.value}`}>
                     <Span status={it.value}>{`...${it.value.slice(-5)}`}</Span>
                   </Link>
                 ) : (

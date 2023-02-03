@@ -5,8 +5,8 @@ import styled from "styled-components";
 import { neutral, breakpoint, fontSize } from "./token";
 
 interface CategoryIF {
-  title: string;
-  link?: string;
+  title: string | null;
+  link?: string | null;
 }
 
 interface Props {
@@ -31,7 +31,7 @@ const Breadcrumbs: FC<Props> = ({ category1, category2, category3 }) => {
       ) : (
         <span>{category2!.title}</span>
       )}
-      {category3 && (
+      {category3 && category3!.title !== null && (
         <>
           <span className="divider" aria-hidden="true">
             /

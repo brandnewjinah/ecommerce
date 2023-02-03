@@ -14,7 +14,7 @@ export const productValidate = (obj: ProductFullIF) => {
   const errors: ProductErrorIF = {};
   if (obj.name === "") errors.name = "Name is required";
   if (obj.brand.name === "") errors.brand = "Brand is required";
-  if (obj.price!.current === 0) errors.price = "Price is required";
+  if (obj.price!.current === "") errors.price = "Price is required";
   if (obj.category1!.value === "") errors.category1 = "Category1 is required";
 
   return Object.keys(errors).length === 0 ? null : errors;
