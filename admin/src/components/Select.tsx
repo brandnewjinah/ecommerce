@@ -14,15 +14,12 @@ const Select: FC<SelectProps> = ({
   fullWidth,
 }) => {
   return (
-    <SelectWrapper>
-      <SelectInput
-        fullWidth={fullWidth}
-        defaultValue={selected}
-        onChange={onChange}
-      >
-        <option disabled selected>
+    <Wrapper>
+      <SelectInput fullWidth={fullWidth} value={selected} onChange={onChange}>
+        {/* <option disabled selected>
           -- select an option --
-        </option>
+        </option> */}
+        <option disabled>Please choose one option</option>
         {options &&
           options.map((option, idx) => (
             <option key={idx} value={idx} selected={selected === option.value}>
@@ -30,11 +27,11 @@ const Select: FC<SelectProps> = ({
             </option>
           ))}
       </SelectInput>
-    </SelectWrapper>
+    </Wrapper>
   );
 };
 
-const SelectWrapper = styled.div`
+const Wrapper = styled.div`
   position: relative;
 
   &:after {

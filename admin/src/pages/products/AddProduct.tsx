@@ -67,18 +67,6 @@ const AddProduct = () => {
   const [suggestions, setSuggestions] = useState<BrandsIF>([]);
   const [errors, setErrors] = useState<ProductErrorIF>({});
 
-  useEffect(() => {
-    !pathAddProduct && id !== undefined && dispatch(getProductDetails(id));
-  }, [pathAddProduct, id, dispatch]);
-
-  const { product } = useSelector((state: RootState) => state.productDetails);
-
-  useEffect(() => {
-    if (product) setProductInfo(product);
-  }, [product]);
-
-  console.log(productInfo);
-
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -185,10 +173,11 @@ const AddProduct = () => {
     const errors = productValidate(product);
 
     setErrors(errors || {});
-
     if (errors) return;
 
     dispatch(addProduct(product));
+
+    // console.log(productInfo);
   };
 
   //actions after submitting data
@@ -270,14 +259,17 @@ const AddProduct = () => {
           />
           {suggestions && suggestions.length > 0 && (
             <Suggestions>
-              {suggestions.map((suggestion, i) => (
-                <Suggestion
-                  key={i}
-                  onClick={() => handleSuggestClick(suggestion)}
-                >
-                  {suggestion.name}
-                </Suggestion>
-              ))}
+              {suggestions.map(
+                (suggestion, i) =>
+                  productInfo.brand.name !== suggestion.name && (
+                    <Suggestion
+                      key={i}
+                      onClick={() => handleSuggestClick(suggestion)}
+                    >
+                      {suggestion.name}
+                    </Suggestion>
+                  )
+              )}
             </Suggestions>
           )}
         </div>
@@ -336,7 +328,7 @@ const AddProduct = () => {
             Category 2
           </Body>
           <Select
-            options={productInfo.category1!.subCategory}
+            options={productInfo.category1 && productInfo.category1.subCategory}
             onChange={handleCategorySelect("category2")}
             fullWidth
           />

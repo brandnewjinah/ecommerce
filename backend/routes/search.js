@@ -21,6 +21,7 @@ router.get("/product", searchProduct);
 // @route GET /search
 // @desc search brand
 // @access Private
-router.get("/brand", checkAdmin, searchBrand);
+// router.get("/brand", checkAdmin, searchBrand);
+router.get("/brand", searchBrand);
 
 export default router;

@@ -142,7 +142,10 @@ export const addProduct = async (req, res) => {
         image: uploadedResponse.url,
         price: {
           current: parseFloat(product.price.current),
-          previous: parseFloat(product.price.previous),
+          previous:
+            product.price.previous !== ""
+              ? parseFloat(product.price.previous)
+              : 0,
         },
       });
       await newProduct.save();
@@ -156,7 +159,10 @@ export const addProduct = async (req, res) => {
         image: uploadedResponse.url,
         price: {
           current: parseFloat(product.price.current),
-          previous: parseFloat(product.price.previous),
+          previous:
+            product.price.previous !== ""
+              ? parseFloat(product.price.previous)
+              : 0,
         },
       });
       await newProduct.save();

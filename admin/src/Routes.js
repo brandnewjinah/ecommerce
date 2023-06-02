@@ -11,6 +11,7 @@ import Auth from "./pages/auth";
 import Home from "./pages/home";
 import ProductList from "./pages/products/ProductList";
 import AddProduct from "./pages/products/AddProduct";
+import EditProduct from "./pages/products/EditProduct";
 import OrderList from "./pages/orders/OrderList";
 import CustomerList from "./pages/customers/CustomerList";
 import SubscriberList from "./pages/subscribers/SubscriberList";
@@ -48,7 +49,7 @@ const Routes = createBrowserRouter([
       },
       {
         path: "/product/:id",
-        element: <AddProduct />,
+        element: <EditProduct />,
       },
       {
         path: "/orders/list/:category",

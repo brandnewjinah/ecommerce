@@ -10,7 +10,7 @@ const categorySchema = mongoose.Schema({
   id: Number,
   name: String,
   value: String,
-  subcategory: [selectSchema],
+  subCategory: [selectSchema],
 });
 
 const productSchema = mongoose.Schema({
@@ -29,10 +29,12 @@ const productSchema = mongoose.Schema({
     },
     current: {
       type: Number,
+      default: 0,
       required: true,
     },
     previous: {
       type: Number,
+      default: 0,
     },
   },
   size: {
